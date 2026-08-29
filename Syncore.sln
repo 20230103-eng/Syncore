@@ -1,0 +1,30 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vista", "Vista\Vista.csproj", "{55A99C7B-D26B-4E4F-A0D4-301795992F6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelo", "Modelo\Modelo.csproj", "{911126E2-FF66-4F41-BBB8-D07B42359408}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55A99C7B-D26B-4E4F-A0D4-301795992F6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55A99C7B-D26B-4E4F-A0D4-301795992F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55A99C7B-D26B-4E4F-A0D4-301795992F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55A99C7B-D26B-4E4F-A0D4-301795992F6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{911126E2-FF66-4F41-BBB8-D07B42359408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{911126E2-FF66-4F41-BBB8-D07B42359408}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{911126E2-FF66-4F41-BBB8-D07B42359408}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{911126E2-FF66-4F41-BBB8-D07B42359408}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7ECB9454-6C90-4C1A-8BD1-071B9CBDAD4D}
+	EndGlobalSection
+EndGlobal

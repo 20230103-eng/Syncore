@@ -1,0 +1,611 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{55A99C7B-D26B-4E4F-A0D4-301795992F6C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Vista</RootNamespace>
+    <AssemblyName>Vista</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Formularios\InicioSesion\frmSeleccionRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\InicioSesion\frmSeleccionRol.Designer.cs">
+      <DependentUpon>frmSeleccionRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\InicioSesion\frmLoginGestor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\InicioSesion\frmLoginGestor.Designer.cs">
+      <DependentUpon>frmLoginGestor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\InicioSesion\frmLoginColaborador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\InicioSesion\frmLoginColaborador.Designer.cs">
+      <DependentUpon>frmLoginColaborador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmPanelPersonal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmPanelPersonal.Designer.cs">
+      <DependentUpon>frmPanelPersonal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmPrincipalColaborador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmPrincipalColaborador.Designer.cs">
+      <DependentUpon>frmPrincipalColaborador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmCalendario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmCalendario.Designer.cs">
+      <DependentUpon>frmCalendario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmMiProductividad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmMiProductividad.Designer.cs">
+      <DependentUpon>frmMiProductividad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmMisProyectosAsignados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmMisProyectosAsignados.Designer.cs">
+      <DependentUpon>frmMisProyectosAsignados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmRegistrarAvance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmRegistrarAvance.Designer.cs">
+      <DependentUpon>frmRegistrarAvance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmTableroTareasColaborador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmTableroTareasColaborador.Designer.cs">
+      <DependentUpon>frmTableroTareasColaborador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmNotificaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmNotificaciones.Designer.cs">
+      <DependentUpon>frmNotificaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmPrincipal.Designer.cs">
+      <DependentUpon>frmPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmAgregarIntegrante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmAgregarIntegrante.Designer.cs">
+      <DependentUpon>frmAgregarIntegrante.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmEditarProyecto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmEditarProyecto.Designer.cs">
+      <DependentUpon>frmEditarProyecto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmPanelGestion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmPanelGestion.Designer.cs">
+      <DependentUpon>frmPanelGestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmProductividad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmProductividad.Designer.cs">
+      <DependentUpon>frmProductividad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmTableroTareasGestor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmTableroTareasGestor.Designer.cs">
+      <DependentUpon>frmTableroTareasGestor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Colaborador\UCFilaAgendaSemanal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Colaborador\UCFilaAgendaSemanal.Designer.cs">
+      <DependentUpon>UCFilaAgendaSemanal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Colaborador\UCFilaTareaProxima.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Colaborador\UCFilaTareaProxima.Designer.cs">
+      <DependentUpon>UCFilaTareaProxima.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Colaborador\UCFilaAvanceRegistrado.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Colaborador\UCFilaAvanceRegistrado.Designer.cs">
+      <DependentUpon>UCFilaAvanceRegistrado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Colaborador\UCFilaProyectoAsignado.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Colaborador\UCFilaProyectoAsignado.Designer.cs">
+      <DependentUpon>UCFilaProyectoAsignado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Colaborador\UCFilaTareaCompletada.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Colaborador\UCFilaTareaCompletada.Designer.cs">
+      <DependentUpon>UCFilaTareaCompletada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Colaborador\UCHistorialAvance.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Colaborador\UCHistorialAvance.Designer.cs">
+      <DependentUpon>UCHistorialAvance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCAlertaGestion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCAlertaGestion.Designer.cs">
+      <DependentUpon>UCAlertaGestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCAvanceReciente.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCAvanceReciente.Designer.cs">
+      <DependentUpon>UCAvanceReciente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCBarraProyecto.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCBarraProyecto.Designer.cs">
+      <DependentUpon>UCBarraProyecto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCBarraSemana.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCBarraSemana.Designer.cs">
+      <DependentUpon>UCBarraSemana.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCCeldaCalendario.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCCeldaCalendario.Designer.cs">
+      <DependentUpon>UCCeldaCalendario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCNotificacion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCNotificacion.Designer.cs">
+      <DependentUpon>UCNotificacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCProductividadProyecto.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCProductividadProyecto.Designer.cs">
+      <DependentUpon>UCProductividadProyecto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCProyectoCritico.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCProyectoCritico.Designer.cs">
+      <DependentUpon>UCProyectoCritico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCTarjetaIndicador.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCTarjetaIndicador.Designer.cs">
+      <DependentUpon>UCTarjetaIndicador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCTarjetaTarea.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCTarjetaTarea.Designer.cs">
+      <DependentUpon>UCTarjetaTarea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Gestor\UCProductividadColaborador.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Gestor\UCProductividadColaborador.Designer.cs">
+      <DependentUpon>UCProductividadColaborador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Gestor\UCTarjetaSeleccionUsuario.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Gestor\UCTarjetaSeleccionUsuario.Designer.cs">
+      <DependentUpon>UCTarjetaSeleccionUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmNuevoProyecto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmNuevoProyecto.Designer.cs">
+      <DependentUpon>frmNuevoProyecto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmDetalleProyecto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmDetalleProyecto.Designer.cs">
+      <DependentUpon>frmDetalleProyecto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmMatrizResponsabilidades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmMatrizResponsabilidades.Designer.cs">
+      <DependentUpon>frmMatrizResponsabilidades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmHitosEntregables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmHitosEntregables.Designer.cs">
+      <DependentUpon>frmHitosEntregables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmLineaTiempo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmLineaTiempo.Designer.cs">
+      <DependentUpon>frmLineaTiempo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmCronograma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmCronograma.Designer.cs">
+      <DependentUpon>frmCronograma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmRevisionTareas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmRevisionTareas.Designer.cs">
+      <DependentUpon>frmRevisionTareas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmReunionesAcuerdos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmReunionesAcuerdos.Designer.cs">
+      <DependentUpon>frmReunionesAcuerdos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmAdministracionSistema.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmAdministracionSistema.Designer.cs">
+      <DependentUpon>frmAdministracionSistema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Recursos.Designer.cs">
+      <DependentUpon>Recursos.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <DependentUpon>Settings.settings</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmListadoProyectos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmListadoProyectos.Designer.cs">
+      <DependentUpon>frmListadoProyectos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmNuevaTarea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmNuevaTarea.Designer.cs">
+      <DependentUpon>frmNuevaTarea.cs</DependentUpon>
+    </Compile>
+<Compile Include="Formularios\Gestor\frmDetalleTareaGestor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmDetalleTareaGestor.Designer.cs">
+      <DependentUpon>frmDetalleTareaGestor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmDetalleTareaColaborador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Colaborador\frmDetalleTareaColaborador.Designer.cs">
+      <DependentUpon>frmDetalleTareaColaborador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Gestor\UCFilaProyectoListado.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Gestor\UCFilaProyectoListado.Designer.cs">
+      <DependentUpon>UCFilaProyectoListado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Gestor\UCEquipoProyectoDetalle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Gestor\UCEquipoProyectoDetalle.Designer.cs">
+      <DependentUpon>UCEquipoProyectoDetalle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Gestor\UCFilaEquipoTrabajo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Gestor\UCFilaEquipoTrabajo.Designer.cs">
+      <DependentUpon>UCFilaEquipoTrabajo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCFilaHistorialTarea.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCFilaHistorialTarea.Designer.cs">
+      <DependentUpon>UCFilaHistorialTarea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCEvidenciaTarea.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCEvidenciaTarea.Designer.cs">
+      <DependentUpon>UCEvidenciaTarea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCComentarioTarea.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCComentarioTarea.Designer.cs">
+      <DependentUpon>UCComentarioTarea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCInformacionTarea.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCInformacionTarea.Designer.cs">
+      <DependentUpon>UCInformacionTarea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCEstadoTarea.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCEstadoTarea.Designer.cs">
+      <DependentUpon>UCEstadoTarea.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Formularios\InicioSesion\frmSeleccionRol.resx">
+      <DependentUpon>frmSeleccionRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\InicioSesion\frmLoginGestor.resx">
+      <DependentUpon>frmLoginGestor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\InicioSesion\frmLoginColaborador.resx">
+      <DependentUpon>frmLoginColaborador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Colaborador\frmPanelPersonal.resx">
+      <DependentUpon>frmPanelPersonal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Colaborador\frmPrincipalColaborador.resx">
+      <DependentUpon>frmPrincipalColaborador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Colaborador\frmCalendario.resx">
+      <DependentUpon>frmCalendario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Colaborador\frmMiProductividad.resx">
+      <DependentUpon>frmMiProductividad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Colaborador\frmMisProyectosAsignados.resx">
+      <DependentUpon>frmMisProyectosAsignados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Colaborador\frmRegistrarAvance.resx">
+      <DependentUpon>frmRegistrarAvance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Colaborador\frmTableroTareasColaborador.resx">
+      <DependentUpon>frmTableroTareasColaborador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Colaborador\frmNotificaciones.resx">
+      <DependentUpon>frmNotificaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmPrincipal.resx">
+      <DependentUpon>frmPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmAgregarIntegrante.resx">
+      <DependentUpon>frmAgregarIntegrante.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmEditarProyecto.resx">
+      <DependentUpon>frmEditarProyecto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmPanelGestion.resx">
+      <DependentUpon>frmPanelGestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmProductividad.resx">
+      <DependentUpon>frmProductividad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmTableroTareasGestor.resx">
+      <DependentUpon>frmTableroTareasGestor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Colaborador\UCFilaAgendaSemanal.resx">
+      <DependentUpon>UCFilaAgendaSemanal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Colaborador\UCFilaTareaProxima.resx">
+      <DependentUpon>UCFilaTareaProxima.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Colaborador\UCFilaAvanceRegistrado.resx">
+      <DependentUpon>UCFilaAvanceRegistrado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Colaborador\UCFilaProyectoAsignado.resx">
+      <DependentUpon>UCFilaProyectoAsignado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Colaborador\UCFilaTareaCompletada.resx">
+      <DependentUpon>UCFilaTareaCompletada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Colaborador\UCHistorialAvance.resx">
+      <DependentUpon>UCHistorialAvance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCAlertaGestion.resx">
+      <DependentUpon>UCAlertaGestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCAvanceReciente.resx">
+      <DependentUpon>UCAvanceReciente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCBarraProyecto.resx">
+      <DependentUpon>UCBarraProyecto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCBarraSemana.resx">
+      <DependentUpon>UCBarraSemana.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCCeldaCalendario.resx">
+      <DependentUpon>UCCeldaCalendario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCNotificacion.resx">
+      <DependentUpon>UCNotificacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCProductividadProyecto.resx">
+      <DependentUpon>UCProductividadProyecto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCProyectoCritico.resx">
+      <DependentUpon>UCProyectoCritico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCTarjetaIndicador.resx">
+      <DependentUpon>UCTarjetaIndicador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCTarjetaTarea.resx">
+      <DependentUpon>UCTarjetaTarea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Gestor\UCProductividadColaborador.resx">
+      <DependentUpon>UCProductividadColaborador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Gestor\UCTarjetaSeleccionUsuario.resx">
+      <DependentUpon>UCTarjetaSeleccionUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmNuevoProyecto.resx">
+      <DependentUpon>frmNuevoProyecto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmDetalleProyecto.resx">
+      <DependentUpon>frmDetalleProyecto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmMatrizResponsabilidades.resx">
+      <DependentUpon>frmMatrizResponsabilidades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmHitosEntregables.resx">
+      <DependentUpon>frmHitosEntregables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmLineaTiempo.resx">
+      <DependentUpon>frmLineaTiempo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmCronograma.resx">
+      <DependentUpon>frmCronograma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmRevisionTareas.resx">
+      <DependentUpon>frmRevisionTareas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmReunionesAcuerdos.resx">
+      <DependentUpon>frmReunionesAcuerdos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmAdministracionSistema.resx">
+      <DependentUpon>frmAdministracionSistema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Recursos.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Recursos.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmListadoProyectos.resx">
+      <DependentUpon>frmListadoProyectos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Gestor\frmNuevaTarea.resx">
+      <DependentUpon>frmNuevaTarea.cs</DependentUpon>
+    </EmbeddedResource>
+<EmbeddedResource Include="Formularios\Gestor\frmDetalleTareaGestor.resx">
+      <DependentUpon>frmDetalleTareaGestor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Colaborador\frmDetalleTareaColaborador.resx">
+      <DependentUpon>frmDetalleTareaColaborador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Gestor\UCFilaProyectoListado.resx">
+      <DependentUpon>UCFilaProyectoListado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Gestor\UCFilaEquipoTrabajo.resx">
+      <DependentUpon>UCFilaEquipoTrabajo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCFilaHistorialTarea.resx">
+      <DependentUpon>UCFilaHistorialTarea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCEvidenciaTarea.resx">
+      <DependentUpon>UCEvidenciaTarea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCComentarioTarea.resx">
+      <DependentUpon>UCComentarioTarea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCInformacionTarea.resx">
+      <DependentUpon>UCInformacionTarea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Compartidos\UCEstadoTarea.resx">
+      <DependentUpon>UCEstadoTarea.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Recursos\Insignia4.png" />
+    <None Include="Recursos\IconoAgregar.png" />
+    <None Include="Recursos\IconoAgregarSeleccionado.png" />
+    <None Include="Recursos\IconoTablero.png" />
+    <None Include="Recursos\IconoTableroSeleccionado.png" />
+    <None Include="Recursos\IconoCalendario.png" />
+    <None Include="Recursos\IconoCalendarioSeleccionado.png" />
+    <None Include="Recursos\IconoPanel.png" />
+    <None Include="Recursos\IconoPanelSeleccionado.png" />
+    <None Include="Recursos\IconoHitos.png" />
+    <None Include="Recursos\IconoHitosSeleccionado.png" />
+    <None Include="Recursos\IconoSalir.png" />
+    <None Include="Recursos\IconoProductividad.png" />
+    <None Include="Recursos\IconoProductividadSeleccionado.png" />
+    <None Include="Recursos\IconoProyectos.png" />
+    <None Include="Recursos\IconoProyectosSeleccionado.png" />
+    <None Include="Recursos\IconoRevision.png" />
+    <None Include="Recursos\IconoRevisionSeleccionado.png" />
+    <None Include="Recursos\IconoEquipo.png" />
+    <None Include="Recursos\IconoEquipoSeleccionado.png" />
+    <None Include="Recursos\IconoUsuario.png" />
+    <None Include="Recursos\LogoSyncore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Recursos\AvatarUsuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Modelo\Modelo.csproj">
+      <Project>{911126E2-FF66-4F41-BBB8-D07B42359408}</Project>
+      <Name>Modelo</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,13 @@
+C:\Users\marco\OneDrive\Escritorio\Syncore\Modelo\bin\Debug\Modelo.dll.config
+C:\Users\marco\OneDrive\Escritorio\Syncore\Modelo\bin\Debug\Modelo.dll
+C:\Users\marco\OneDrive\Escritorio\Syncore\Modelo\bin\Debug\Modelo.pdb
+C:\Users\marco\OneDrive\Escritorio\Syncore\Modelo\bin\Debug\BCrypt.Net-Next.dll
+C:\Users\marco\OneDrive\Escritorio\Syncore\Modelo\bin\Debug\System.Buffers.dll
+C:\Users\marco\OneDrive\Escritorio\Syncore\Modelo\bin\Debug\System.Memory.dll
+C:\Users\marco\OneDrive\Escritorio\Syncore\Modelo\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\marco\OneDrive\Escritorio\Syncore\Modelo\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\marco\OneDrive\Escritorio\Syncore\Modelo\obj\Debug\Modelo.csproj.AssemblyReference.cache
+C:\Users\marco\OneDrive\Escritorio\Syncore\Modelo\obj\Debug\Modelo.csproj.CoreCompileInputs.cache
+C:\Users\marco\OneDrive\Escritorio\Syncore\Modelo\obj\Debug\Modelo.csproj.Up2Date
+C:\Users\marco\OneDrive\Escritorio\Syncore\Modelo\obj\Debug\Modelo.dll
+C:\Users\marco\OneDrive\Escritorio\Syncore\Modelo\obj\Debug\Modelo.pdb

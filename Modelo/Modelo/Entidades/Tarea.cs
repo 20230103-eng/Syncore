@@ -1,0 +1,419 @@
+﻿using System;
+using System.Data;
+using Modelo.Modelo;
+using System.Data.SqlClient;
+
+namespace Modelo.Modelo.Entidades
+{
+    public class Tarea
+    {
+        private int idTarea;
+        private int idProyecto;
+        private int? idHito;
+        private string nombre;
+        private string descripcion;
+        private string observaciones;
+        private int idResponsable;
+        private int idCreador;
+        private int idPrioridad;
+        private int idEstadoTarea;
+        private string prioridad;
+        private string estado;
+        private DateTime fechaInicio;
+        private DateTime fechaLimite;
+        private decimal avanceActual;
+        private DateTime fechaCreacion;
+        private DateTime? fechaCompletada;
+        private Conexion conexion;
+
+        public int IdTarea
+        {
+            get
+            {
+                return idTarea;
+            }
+            set
+            {
+                idTarea = value;
+            }
+        }
+
+        public int IdProyecto
+        {
+            get
+            {
+                return idProyecto;
+            }
+            set
+            {
+                idProyecto = value;
+            }
+        }
+
+        public int? IdHito
+        {
+            get
+            {
+                return idHito;
+            }
+            set
+            {
+                idHito = value;
+            }
+        }
+
+        public string Nombre
+        {
+            get
+            {
+                return nombre;
+            }
+            set
+            {
+                nombre = value;
+            }
+        }
+
+        public string Descripcion
+        {
+            get
+            {
+                return descripcion;
+            }
+            set
+            {
+                descripcion = value;
+            }
+        }
+
+        public string Observaciones
+        {
+            get
+            {
+                return observaciones;
+            }
+            set
+            {
+                observaciones = value;
+            }
+        }
+
+        public int IdResponsable
+        {
+            get
+            {
+                return idResponsable;
+            }
+            set
+            {
+                idResponsable = value;
+            }
+        }
+
+        public int IdCreador
+        {
+            get
+            {
+                return idCreador;
+            }
+            set
+            {
+                idCreador = value;
+            }
+        }
+
+        public int IdPrioridad
+        {
+            get
+            {
+                return idPrioridad;
+            }
+            set
+            {
+                idPrioridad = value;
+            }
+        }
+
+        public int IdEstadoTarea
+        {
+            get
+            {
+                return idEstadoTarea;
+            }
+            set
+            {
+                idEstadoTarea = value;
+            }
+        }
+
+        public string Prioridad
+        {
+            get
+            {
+                return prioridad;
+            }
+            set
+            {
+                prioridad = value;
+            }
+        }
+
+        public string Estado
+        {
+            get
+            {
+                return estado;
+            }
+            set
+            {
+                estado = value;
+            }
+        }
+
+        public DateTime FechaInicio
+        {
+            get
+            {
+                return fechaInicio;
+            }
+            set
+            {
+                fechaInicio = value;
+            }
+        }
+
+        public DateTime FechaLimite
+        {
+            get
+            {
+                return fechaLimite;
+            }
+            set
+            {
+                fechaLimite = value;
+            }
+        }
+
+        public decimal AvanceActual
+        {
+            get
+            {
+                return avanceActual;
+            }
+            set
+            {
+                avanceActual = value;
+            }
+        }
+
+        public DateTime FechaCreacion
+        {
+            get
+            {
+                return fechaCreacion;
+            }
+            set
+            {
+                fechaCreacion = value;
+            }
+        }
+
+        public DateTime? FechaCompletada
+        {
+            get
+            {
+                return fechaCompletada;
+            }
+            set
+            {
+                fechaCompletada = value;
+            }
+        }
+
+        public Tarea()
+        {
+            conexion = new Conexion();
+        }
+
+        public DataTable ObtenerDetalleTarea(int idTarea)
+        {
+            string query = $@"
+            SELECT
+            tbTarea.IdTarea,
+            tbTarea.IdProyecto,
+            tbTarea.Nombre Tarea,
+            tbTarea.Descripcion,
+            tbTarea.Observacion AS Observaciones,
+            tbPrioridad.Nombre AS Prioridad,
+            tbEstadoTarea.Nombre AS Estado,
+            tbTarea.FechaInicio,
+            tbTarea.FechaLimite,
+            tbTarea.AvanceActual,
+            tbProyecto.Nombre Proyecto,
+            tbUsuario.NombreCompleto Responsable,
+            tbHito.Nombre Hito
+            FROM tbTarea
+            INNER JOIN tbProyecto
+            ON tbTarea.IdProyecto = tbProyecto.IdProyecto
+            INNER JOIN tbUsuario
+            ON tbTarea.IdResponsable = tbUsuario.IdUsuario
+            INNER JOIN tbPrioridad ON tbTarea.IdPrioridad = tbPrioridad.IdPrioridad
+            INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
+            LEFT JOIN tbHito
+            ON tbTarea.IdHito = tbHito.IdHito
+            WHERE tbTarea.IdTarea = {idTarea}";
+
+            DataTable tarea = conexion.EjecutarConsulta(query);
+            return tarea;
+        }
+
+        public DataTable ObtenerTareasUsuarioProyecto(int idUsuario, int idProyecto)
+        {
+            string query;
+
+            query = $@"
+            SELECT tbTarea.IdTarea, tbTarea.Nombre AS Tarea, tbTarea.AvanceActual
+            FROM tbTarea
+            INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
+            WHERE tbTarea.IdResponsable = {idUsuario}
+            AND tbTarea.IdProyecto = {idProyecto}
+            AND tbEstadoTarea.Nombre <> N'Completada'
+            AND tbEstadoTarea.Nombre <> N'En revisión'
+            ORDER BY tbTarea.FechaLimite";
+
+            return conexion.EjecutarConsulta(query);
+        }
+
+        public int ObtenerAvanceActualTarea(int idTarea)
+        {
+            string query;
+            DataTable datos;
+            int avance;
+
+            query = $@"
+            SELECT AvanceActual
+            FROM tbTarea
+            WHERE IdTarea = {idTarea}";
+
+            datos = conexion.EjecutarConsulta(query);
+            avance = 0;
+
+            if (datos.Rows.Count > 0)
+            {
+                avance = Convert.ToInt32(datos.Rows[0]["AvanceActual"]);
+            }
+
+            return avance;
+        }
+
+        public bool CrearTarea()
+        {
+            string query;
+            SqlConnection conexionSql;
+            SqlTransaction transaccion;
+            SqlCommand comando;
+            object observaciones;
+            object idHito;
+            object resultado;
+            bool creada;
+
+            observaciones = this.Observaciones;
+            idHito = DBNull.Value;
+
+            if (string.IsNullOrEmpty(this.Observaciones) == true || string.IsNullOrEmpty(this.Observaciones.Trim()) == true)
+            {
+                observaciones = DBNull.Value;
+            }
+
+            if (this.IdHito.HasValue == true)
+            {
+                idHito = this.IdHito.Value;
+            }
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return false;
+            }
+
+            transaccion = conexionSql.BeginTransaction();
+            creada = false;
+
+            try
+            {
+                query = @"
+                INSERT INTO tbTarea
+                (IdProyecto, IdHito, Nombre, Descripcion, Observacion, IdResponsable, IdCreador, IdPrioridad, IdEstadoTarea, FechaInicio, FechaLimite, AvanceActual, FechaCreacion)
+                VALUES
+                (@IdProyecto, @IdHito, @Nombre, @Descripcion, @Observacion, @IdResponsable, @IdCreador, @IdPrioridad, @IdEstadoTarea, @FechaInicio, @FechaLimite, @AvanceActual, GETDATE());
+                SELECT SCOPE_IDENTITY();";
+
+                comando = new SqlCommand(query, conexionSql, transaccion);
+                comando.Parameters.AddWithValue("@IdProyecto", this.IdProyecto);
+                comando.Parameters.AddWithValue("@IdHito", idHito);
+                comando.Parameters.AddWithValue("@Nombre", this.Nombre);
+                comando.Parameters.AddWithValue("@Descripcion", this.Descripcion);
+                comando.Parameters.AddWithValue("@Observacion", observaciones);
+                comando.Parameters.AddWithValue("@IdResponsable", this.IdResponsable);
+                comando.Parameters.AddWithValue("@IdCreador", this.IdCreador);
+                comando.Parameters.AddWithValue("@IdPrioridad", this.IdPrioridad);
+                comando.Parameters.AddWithValue("@IdEstadoTarea", this.IdEstadoTarea);
+                comando.Parameters.AddWithValue("@FechaInicio", this.FechaInicio.Date);
+                comando.Parameters.AddWithValue("@FechaLimite", this.FechaLimite.Date);
+                comando.Parameters.AddWithValue("@AvanceActual", this.AvanceActual);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado == null)
+                {
+                    transaccion.Rollback();
+                    return false;
+                }
+
+                this.IdTarea = Convert.ToInt32(resultado);
+
+                query = @"
+                INSERT INTO tbNotificacion
+                (IdUsuario, IdTipoNotificacion, Titulo, Mensaje, IdPrioridad, IdTarea, IdProyecto, Leida, FechaCreacion)
+                VALUES
+                (@IdUsuario,
+                (SELECT TOP 1 IdTipoNotificacion FROM tbTipoNotificacion WHERE Nombre = N'Nueva tarea'),
+                @Titulo,
+                @Mensaje,
+                @IdPrioridad,
+                @IdTarea,
+                @IdProyecto,
+                0,
+                GETDATE())";
+
+                comando = new SqlCommand(query, conexionSql, transaccion);
+                comando.Parameters.AddWithValue("@IdUsuario", this.IdResponsable);
+                comando.Parameters.AddWithValue("@Titulo", "Nueva tarea asignada");
+                comando.Parameters.AddWithValue("@Mensaje", "Se te asignó la tarea " + this.Nombre + ".");
+                comando.Parameters.AddWithValue("@IdPrioridad", this.IdPrioridad);
+                comando.Parameters.AddWithValue("@IdTarea", this.IdTarea);
+                comando.Parameters.AddWithValue("@IdProyecto", this.IdProyecto);
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+
+                transaccion.Commit();
+                creada = true;
+            }
+            catch (SqlException ex)
+            {
+                transaccion.Rollback();
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                transaccion.Dispose();
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return creada;
+        }
+
+    }
+}
