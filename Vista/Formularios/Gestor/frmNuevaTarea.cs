@@ -12,8 +12,12 @@ namespace Vista
         private EquipoProyecto equipoModelo;
         private Prioridad prioridadModelo;
         private EstadoTarea estadoTareaModelo;
+        private Tarea tareaModelo;
 
         public event EventHandler VolverSolicitado;
+        public event EventHandler TareaGuardada;
+
+        public int IdTarea { get; set; }
 
         public frmNuevaTarea()
         {
@@ -26,6 +30,7 @@ namespace Vista
             equipoModelo = new EquipoProyecto();
             prioridadModelo = new Prioridad();
             estadoTareaModelo = new EstadoTarea();
+            tareaModelo = new Tarea();
             lblFecha.Text = DateTime.Today.ToString("dd/MM/yyyy");
             CargarCombos();
             PrepararFormulario();
@@ -37,7 +42,15 @@ namespace Vista
             DataTable prioridades;
             DataTable estados;
 
-            proyectos = proyectoModelo.ObtenerCatalogoProyectos();
+            if (Sesion.UsuarioActual == null)
+            {
+                proyectos = proyectoModelo.ObtenerCatalogoProyectos();
+            }
+            else
+            {
+                proyectos = proyectoModelo.ObtenerCatalogoProyectosResponsable(Sesion.UsuarioActual.IdUsuario);
+            }
+
             prioridades = prioridadModelo.ObtenerPrioridades();
             estados = estadoTareaModelo.ObtenerEstadosTarea();
 
@@ -54,7 +67,6 @@ namespace Vista
             cmbEstado.ValueMember = "IdEstadoTarea";
             cmbEstado.DataSource = estados;
         }
-
 
         private void CargarResponsablesProyecto()
         {
@@ -90,12 +102,68 @@ namespace Vista
 
         private void PrepararFormulario()
         {
+            if (IdTarea > 0)
+            {
+                CargarTareaEdicion();
+                return;
+            }
+
             cmbProyecto.SelectedIndex = -1;
             cmbResponsable.SelectedIndex = -1;
             cmbPrioridad.SelectedIndex = -1;
             cmbEstado.SelectedIndex = -1;
+            cmbEstado.Enabled = true;
             dtpInicio.Value = DateTime.Today;
             dtpLimite.Value = DateTime.Today.AddDays(1);
+            btnCrear.Text = "Crear tarea";
+        }
+
+        private void CargarTareaEdicion()
+        {
+            DataTable datos;
+            DataRow fila;
+            int idProyecto;
+            int idResponsable;
+
+            datos = tareaModelo.ObtenerTareaParaEditar(IdTarea);
+
+            if (datos.Rows.Count == 0)
+            {
+                MessageBox.Show("No se encontró la tarea seleccionada.");
+                return;
+            }
+
+            fila = datos.Rows[0];
+            idProyecto = Convert.ToInt32(fila["IdProyecto"]);
+            idResponsable = Convert.ToInt32(fila["IdResponsable"]);
+
+            lblBreadcrumbBase.Text = "Tareas > Detalle de tarea >";
+            lblBreadcrumbActual.Text = "Editar tarea";
+            lblTitulo.Text = "Editar tarea";
+            lblSubtitulo.Text = "Actualice los datos necesarios de la tarea.";
+            lblTituloFormulario.Text = "Datos de la tarea";
+            btnCrear.Text = "Guardar cambios";
+
+            cmbProyecto.SelectedValue = idProyecto;
+            CargarResponsablesProyecto();
+            cmbResponsable.SelectedValue = idResponsable;
+            cmbPrioridad.SelectedValue = Convert.ToInt32(fila["IdPrioridad"]);
+            cmbEstado.SelectedValue = Convert.ToInt32(fila["IdEstadoTarea"]);
+            cmbEstado.Enabled = false;
+            txtNombre.Text = fila["Nombre"].ToString();
+            txtDescripcion.Text = fila["Descripcion"].ToString();
+
+            if (fila["Observacion"] != DBNull.Value)
+            {
+                txtObservaciones.Text = fila["Observacion"].ToString();
+            }
+            else
+            {
+                txtObservaciones.Clear();
+            }
+
+            dtpInicio.Value = Convert.ToDateTime(fila["FechaInicio"]);
+            dtpLimite.Value = Convert.ToDateTime(fila["FechaLimite"]);
         }
 
         private bool ValidarDatos()
@@ -168,7 +236,6 @@ namespace Vista
         private void btnCrear_Click(object sender, EventArgs e)
         {
             bool datosCorrectos;
-            bool tareaCreada;
             Tarea tarea;
 
             datosCorrectos = ValidarDatos();
@@ -189,11 +256,30 @@ namespace Vista
             tarea.IdEstadoTarea = Convert.ToInt32(cmbEstado.SelectedValue);
             tarea.FechaInicio = dtpInicio.Value.Date;
             tarea.FechaLimite = dtpLimite.Value.Date;
+
+            if (IdTarea > 0)
+            {
+                bool actualizada;
+
+                tarea.IdTarea = IdTarea;
+                actualizada = tarea.ActualizarTarea();
+
+                if (actualizada == true)
+                {
+                    MessageBox.Show("La tarea fue actualizada correctamente.");
+
+                    if (TareaGuardada != null)
+                    {
+                        TareaGuardada(this, EventArgs.Empty);
+                    }
+                }
+
+                return;
+            }
+
             tarea.AvanceActual = 0;
 
-            tareaCreada = tarea.CrearTarea();
-
-            if (tareaCreada == true)
+            if (tarea.CrearTarea() == true)
             {
                 MessageBox.Show("La tarea fue creada correctamente.");
                 LimpiarCampos();

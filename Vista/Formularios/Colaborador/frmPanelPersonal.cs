@@ -21,6 +21,12 @@ namespace Vista
         public event EventHandler NotificacionesSolicitadas;
         public event EventHandler ProyectosSolicitados;
         public event EventHandler TareasSolicitadas;
+        public event EventHandler DetalleTareaSolicitado;
+        public event EventHandler TareasProyectoSolicitadas;
+        public event EventHandler DetalleProyectoSolicitado;
+
+        public int IdTareaSeleccionada { get; private set; }
+        public int IdProyectoSeleccionado { get; private set; }
 
         public frmPanelPersonal()
         {
@@ -91,6 +97,7 @@ namespace Vista
                 UCFilaTareaProxima control = controles[indice];
                 string prioridad = fila["Prioridad"].ToString();
                 string estado = fila["Estado"].ToString();
+                control.IdTarea = Convert.ToInt32(fila["IdTarea"]);
                 control.Tarea = fila["Tarea"].ToString();
                 control.Proyecto = fila["Proyecto"].ToString();
                 control.Fecha = Convert.ToDateTime(fila["FechaLimite"]).ToString("dd/MM");
@@ -98,10 +105,32 @@ namespace Vista
                 control.Estado = estado;
                 control.Avance = Convert.ToInt32(fila["AvanceActual"]);
                 control.TextoBoton = "Ver";
+                control.VerSolicitado -= tareaProxima_VerSolicitado;
+                control.VerSolicitado += tareaProxima_VerSolicitado;
                 CambiarColorPrioridad(control, prioridad);
                 CambiarColorEstadoTarea(control, estado);
                 control.Visible = true;
                 indice = indice + 1;
+            }
+        }
+
+
+        private void tareaProxima_VerSolicitado(object sender, EventArgs e)
+        {
+            UCFilaTareaProxima control;
+
+            control = sender as UCFilaTareaProxima;
+
+            if (control == null)
+            {
+                return;
+            }
+
+            IdTareaSeleccionada = control.IdTarea;
+
+            if (DetalleTareaSolicitado != null)
+            {
+                DetalleTareaSolicitado(this, EventArgs.Empty);
             }
         }
 
@@ -172,6 +201,7 @@ namespace Vista
                 DateTime? proximaFecha = seguimientoProyectoUsuario.ObtenerProximaFechaUsuarioProyecto(idUsuario, idProyecto);
                 UCFilaProyectoAsignado control = controles[indice];
                 string estado = fila["Estado"].ToString();
+                control.IdProyecto = idProyecto;
                 control.NombreProyecto = fila["Proyecto"].ToString();
                 control.Responsable = fila["Responsable"].ToString();
                 control.Estado = estado;
@@ -187,6 +217,8 @@ namespace Vista
                     control.ProximaFecha = Convert.ToDateTime(fila["FechaCierreEstimada"]).ToString("dd/MM");
                 }
 
+                control.MisTareasSolicitadas -= proyecto_MisTareasSolicitadas;
+                control.MisTareasSolicitadas += proyecto_MisTareasSolicitadas;
                 CambiarColorEstadoProyecto(control, estado);
                 control.Visible = true;
                 indice = indice + 1;
@@ -228,6 +260,19 @@ namespace Vista
             {
                 UCAlertaGestion control = controles[indice];
                 string prioridad = fila["Prioridad"].ToString();
+                control.IdTarea = 0;
+                control.IdProyecto = 0;
+
+                if (fila["IdTarea"] != DBNull.Value)
+                {
+                    control.IdTarea = Convert.ToInt32(fila["IdTarea"]);
+                }
+
+                if (fila["IdProyecto"] != DBNull.Value)
+                {
+                    control.IdProyecto = Convert.ToInt32(fila["IdProyecto"]);
+                }
+
                 control.Titulo = fila["Titulo"].ToString();
                 control.Detalle = fila["Mensaje"].ToString();
                 control.Fecha = Convert.ToDateTime(fila["FechaCreacion"]).ToString("dd/MM/yyyy");
@@ -246,8 +291,63 @@ namespace Vista
                     control.TipoAlerta = "Información";
                 }
 
+                control.AccionSolicitada -= alerta_AccionSolicitada;
+                control.AccionSolicitada += alerta_AccionSolicitada;
                 control.Visible = true;
                 indice = indice + 1;
+            }
+        }
+
+        private void alerta_AccionSolicitada(object sender, EventArgs e)
+        {
+            UCAlertaGestion control;
+
+            control = sender as UCAlertaGestion;
+
+            if (control == null)
+            {
+                return;
+            }
+
+            if (control.IdTarea > 0)
+            {
+                IdTareaSeleccionada = control.IdTarea;
+
+                if (DetalleTareaSolicitado != null)
+                {
+                    DetalleTareaSolicitado(this, EventArgs.Empty);
+                }
+
+                return;
+            }
+
+            if (control.IdProyecto > 0)
+            {
+                IdProyectoSeleccionado = control.IdProyecto;
+
+                if (DetalleProyectoSolicitado != null)
+                {
+                    DetalleProyectoSolicitado(this, EventArgs.Empty);
+                }
+            }
+        }
+
+        private void proyecto_MisTareasSolicitadas(object sender, EventArgs e)
+        {
+            UCFilaProyectoAsignado control;
+
+            control = sender as UCFilaProyectoAsignado;
+
+            if (control == null)
+            {
+                return;
+            }
+
+            IdProyectoSeleccionado = control.IdProyecto;
+
+            if (TareasProyectoSolicitadas != null)
+            {
+                TareasProyectoSolicitadas(this, EventArgs.Empty);
             }
         }
 

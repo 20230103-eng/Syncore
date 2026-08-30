@@ -47,13 +47,11 @@ C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.UCProductividad
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.UCTarjetaSeleccionUsuario.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmNuevoProyecto.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmDetalleProyecto.resources
-C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmMatrizResponsabilidades.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmHitosEntregables.resources
-C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmLineaTiempo.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmCronograma.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmRevisionTareas.resources
-C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmReunionesAcuerdos.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmAdministracionSistema.resources
+C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.Properties.Recursos.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmListadoProyectos.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmNuevaTarea.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmDetalleTareaGestor.resources
@@ -70,4 +68,3 @@ C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.csproj.CoreComp
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.csproj.Up2Date
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.exe
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.pdb
-C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.Properties.Recursos.resources

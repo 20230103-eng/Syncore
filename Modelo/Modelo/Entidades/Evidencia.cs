@@ -149,7 +149,7 @@ namespace Modelo.Modelo.Entidades
         public DataTable ObtenerEvidenciasTarea(int idTarea)
         {
             string query = $@"
-            SELECT tbEvidencia.NombreArchivo, tbEvidencia.TipoArchivo, tbEvidencia.FechaSubida
+            SELECT tbEvidencia.IdEvidencia, tbEvidencia.NombreArchivo, tbEvidencia.RutaArchivo, tbEvidencia.TipoArchivo, tbEvidencia.FechaSubida
             FROM tbEvidencia
             INNER JOIN tbAvance
             ON tbEvidencia.IdAvance = tbAvance.IdAvance

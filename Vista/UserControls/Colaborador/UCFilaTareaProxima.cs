@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Vista
@@ -7,9 +8,14 @@ namespace Vista
     {
         private int avance;
 
+        public event EventHandler VerSolicitado;
+
+        public int IdTarea { get; set; }
+
         public UCFilaTareaProxima()
         {
             InitializeComponent();
+            btnVer.Click += btnVer_Click;
         }
 
         public string Tarea
@@ -100,5 +106,13 @@ namespace Vista
             get { return btnVer.Text; }
             set { btnVer.Text = value; }
         }
+        private void btnVer_Click(object sender, EventArgs e)
+        {
+            if (VerSolicitado != null)
+            {
+                VerSolicitado(this, EventArgs.Empty);
+            }
+        }
+
     }
 }

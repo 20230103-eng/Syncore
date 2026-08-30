@@ -64,12 +64,14 @@ namespace Vista
             tabResumen.Text = "Resumen";
             tabResumen.BackColor = Color.FromArgb(247, 249, 252);
             tabResumen.Padding = new Padding(6);
+            tabResumen.AutoScroll = true;
 
             tabEquipoTrabajo.Text = "Equipo de trabajo";
             tabEquipoTrabajo.BackColor = Color.White;
             tabEquipoTrabajo.Padding = new Padding(6);
 
-            tlpPrincipal.Dock = DockStyle.Fill;
+            tlpPrincipal.Dock = DockStyle.Top;
+            tlpPrincipal.Height = 590;
             tabResumen.Controls.Add(tlpPrincipal);
 
             ucEquipoProyecto.Dock = DockStyle.Fill;

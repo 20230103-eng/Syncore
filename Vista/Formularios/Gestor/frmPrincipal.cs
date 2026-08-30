@@ -316,10 +316,17 @@ namespace Vista
             frmListadoProyectos formulario = new frmListadoProyectos();
             formulario.DetalleProyectoSolicitado += formularioListado_DetalleProyectoSolicitado;
             formulario.EditarProyectoSolicitado += formularioListado_EditarProyectoSolicitado;
+            formulario.NuevoProyectoSolicitado += formularioListado_NuevoProyectoSolicitado;
             AbrirFormulario(formulario);
             SeleccionarBoton(btnListadoProyectos);
         }
 
+
+
+        private void formularioListado_NuevoProyectoSolicitado(object sender, EventArgs e)
+        {
+            MostrarNuevoProyecto();
+        }
 
         private void formularioListado_EditarProyectoSolicitado(object sender, EventArgs e)
         {
@@ -541,8 +548,15 @@ namespace Vista
         {
             frmTableroTareasGestor formulario = new frmTableroTareasGestor();
             formulario.DetalleTareaSolicitado += formulario_DetalleTareaSolicitado;
+            formulario.NuevaTareaSolicitada += formularioTablero_NuevaTareaSolicitada;
             AbrirFormulario(formulario);
             SeleccionarBoton(btnTableroTareas);
+        }
+
+
+        private void formularioTablero_NuevaTareaSolicitada(object sender, EventArgs e)
+        {
+            MostrarNuevaTarea();
         }
 
         private void formulario_DetalleTareaSolicitado(object sender, EventArgs e)
@@ -561,8 +575,70 @@ namespace Vista
         {
             frmDetalleTareaGestor formulario = new frmDetalleTareaGestor(idTarea);
             formulario.VolverSolicitado += formularioDetalle_VolverSolicitado;
+            formulario.EditarTareaSolicitado += formularioDetalle_EditarTareaSolicitado;
+            formulario.TareaEliminada += formularioDetalle_TareaEliminada;
             AbrirFormulario(formulario);
             SeleccionarBoton(btnTableroTareas);
+        }
+
+
+        private void formularioDetalle_EditarTareaSolicitado(object sender, EventArgs e)
+        {
+            frmDetalleTareaGestor formulario;
+
+            formulario = sender as frmDetalleTareaGestor;
+
+            if (formulario == null)
+            {
+                return;
+            }
+
+            MostrarEditarTarea(formulario.IdTarea);
+        }
+
+        private void formularioDetalle_TareaEliminada(object sender, EventArgs e)
+        {
+            MostrarTableroTareas();
+        }
+
+        private void MostrarEditarTarea(int idTarea)
+        {
+            frmNuevaTarea formulario;
+
+            formulario = new frmNuevaTarea();
+            formulario.IdTarea = idTarea;
+            formulario.TareaGuardada += formularioEditarTarea_TareaGuardada;
+            formulario.VolverSolicitado += formularioEditarTarea_VolverSolicitado;
+            AbrirFormulario(formulario);
+            SeleccionarBoton(btnTableroTareas);
+        }
+
+        private void formularioEditarTarea_TareaGuardada(object sender, EventArgs e)
+        {
+            frmNuevaTarea formulario;
+
+            formulario = sender as frmNuevaTarea;
+
+            if (formulario == null)
+            {
+                return;
+            }
+
+            MostrarDetalleTarea(formulario.IdTarea);
+        }
+
+        private void formularioEditarTarea_VolverSolicitado(object sender, EventArgs e)
+        {
+            frmNuevaTarea formulario;
+
+            formulario = sender as frmNuevaTarea;
+
+            if (formulario == null)
+            {
+                return;
+            }
+
+            MostrarDetalleTarea(formulario.IdTarea);
         }
 
         private void formularioDetalle_VolverSolicitado(object sender, EventArgs e)

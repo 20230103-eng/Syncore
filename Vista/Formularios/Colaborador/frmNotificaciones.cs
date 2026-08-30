@@ -171,8 +171,17 @@ namespace Vista
         private void MostrarNotificaciones(DataTable datos)
         {
             int indice;
+            int altoNotificacion;
+            int anchoDisponible;
 
+            altoNotificacion = 134;
             flpNotificaciones.Controls.Clear();
+            anchoDisponible = flpNotificaciones.ClientSize.Width - 6;
+
+            if (anchoDisponible < 300)
+            {
+                anchoDisponible = 300;
+            }
 
             for (indice = datos.Rows.Count - 1; indice >= 0; indice = indice - 1)
             {
@@ -222,7 +231,10 @@ namespace Vista
 
                 control.AccionPrincipalSolicitada += control_AccionPrincipalSolicitada;
                 control.MarcarLeidaSolicitada += control_MarcarLeidaSolicitada;
-                control.Dock = DockStyle.Top;
+                control.Dock = DockStyle.None;
+                control.Width = anchoDisponible;
+                control.Height = 128;
+                control.Margin = new Padding(0, 0, 0, 6);
                 flpNotificaciones.Controls.Add(control);
             }
 
@@ -238,6 +250,11 @@ namespace Vista
                 mensaje.Text = "No hay notificaciones con los filtros seleccionados.";
                 mensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                 flpNotificaciones.Controls.Add(mensaje);
+                flpNotificaciones.Height = 70;
+            }
+            else
+            {
+                flpNotificaciones.Height = datos.Rows.Count * altoNotificacion;
             }
         }
 
@@ -274,6 +291,10 @@ namespace Vista
             if (notificacion.MarcarLeida() == true)
             {
                 CargarNotificaciones();
+            }
+            else
+            {
+                MessageBox.Show("No se pudo marcar la notificación como leída.");
             }
         }
 

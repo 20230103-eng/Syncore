@@ -599,6 +599,8 @@
             this.txtDescripcion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtDescripcion.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.txtDescripcion.Multiline = true;
+            this.txtDescripcion.MaxLength = 1000;
+            this.txtDescripcion.ShortcutsEnabled = false;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.ReadOnly = true;
             this.txtDescripcion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -611,6 +613,8 @@
             this.txtObservaciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtObservaciones.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.txtObservaciones.Multiline = true;
+            this.txtObservaciones.MaxLength = 500;
+            this.txtObservaciones.ShortcutsEnabled = false;
             this.txtObservaciones.Name = "txtObservaciones";
             this.txtObservaciones.ReadOnly = true;
             this.txtObservaciones.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -623,6 +627,8 @@
             this.txtUltimoAvance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtUltimoAvance.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.txtUltimoAvance.Multiline = true;
+            this.txtUltimoAvance.MaxLength = 1000;
+            this.txtUltimoAvance.ShortcutsEnabled = false;
             this.txtUltimoAvance.Name = "txtUltimoAvance";
             this.txtUltimoAvance.ReadOnly = true;
             this.txtUltimoAvance.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;

@@ -16,8 +16,21 @@ namespace Vista
         private Evidencia evidenciaModelo;
         private ComentarioTarea comentarioModelo;
         private UCComentarioTarea comentarioActual;
+        private FlowLayoutPanel flpAcciones;
+        private Button btnEditarTarea;
+        private Button btnEliminarTarea;
 
         public event EventHandler VolverSolicitado;
+        public event EventHandler EditarTareaSolicitado;
+        public event EventHandler TareaEliminada;
+
+        public int IdTarea
+        {
+            get
+            {
+                return idTarea;
+            }
+        }
 
         public frmDetalleTareaGestor()
             : this(0)
@@ -35,11 +48,55 @@ namespace Vista
             comentarioModelo = new ComentarioTarea();
             btnVolver.Click += btnVolver_Click;
             btnEnviarComentario.Click += btnEnviarComentario_Click;
+            ConfigurarAcciones();
 
             if (idTarea > 0)
             {
                 CargarDetalle();
             }
+        }
+
+
+        private void ConfigurarAcciones()
+        {
+            flpAcciones = new FlowLayoutPanel();
+            btnEditarTarea = new Button();
+            btnEliminarTarea = new Button();
+
+            pnlCabecera.Controls.Remove(btnVolver);
+
+            flpAcciones.Dock = DockStyle.Right;
+            flpAcciones.Width = 510;
+            flpAcciones.FlowDirection = FlowDirection.RightToLeft;
+            flpAcciones.WrapContents = false;
+            flpAcciones.Padding = new Padding(0, 8, 0, 0);
+
+            btnVolver.Size = new Size(170, 38);
+            btnVolver.Margin = new Padding(8, 0, 0, 0);
+
+            btnEditarTarea.Text = "Editar tarea";
+            btnEditarTarea.Size = new Size(145, 38);
+            btnEditarTarea.BackColor = Color.White;
+            btnEditarTarea.ForeColor = Color.FromArgb(0, 105, 240);
+            btnEditarTarea.FlatStyle = FlatStyle.Flat;
+            btnEditarTarea.FlatAppearance.BorderColor = Color.FromArgb(0, 105, 240);
+            btnEditarTarea.Margin = new Padding(8, 0, 0, 0);
+            btnEditarTarea.Click += btnEditarTarea_Click;
+
+            btnEliminarTarea.Text = "Eliminar";
+            btnEliminarTarea.Size = new Size(120, 38);
+            btnEliminarTarea.BackColor = Color.White;
+            btnEliminarTarea.ForeColor = Color.FromArgb(200, 45, 55);
+            btnEliminarTarea.FlatStyle = FlatStyle.Flat;
+            btnEliminarTarea.FlatAppearance.BorderColor = Color.FromArgb(200, 45, 55);
+            btnEliminarTarea.Margin = new Padding(8, 0, 0, 0);
+            btnEliminarTarea.Click += btnEliminarTarea_Click;
+
+            flpAcciones.Controls.Add(btnVolver);
+            flpAcciones.Controls.Add(btnEditarTarea);
+            flpAcciones.Controls.Add(btnEliminarTarea);
+            pnlCabecera.Controls.Add(flpAcciones);
+            flpAcciones.BringToFront();
         }
 
         private void CargarDetalle()
@@ -84,10 +141,77 @@ namespace Vista
             ucEstado.Prioridad = fila["Prioridad"].ToString();
             ucEstado.Evidencias = evidencias + " archivo(s)";
             ucEstado.TextoBoton = "";
+            ConfigurarAccionesEstado(fila["Estado"].ToString(), avance, Convert.ToInt32(fila["IdResponsableProyecto"]));
 
             CargarHistorial();
             CargarEvidencias();
             CargarComentario();
+        }
+
+
+        private void ConfigurarAccionesEstado(string estado, int avance, int idResponsableProyecto)
+        {
+            btnEditarTarea.Enabled = true;
+            btnEliminarTarea.Enabled = true;
+
+            if (Sesion.UsuarioActual == null || Sesion.UsuarioActual.IdUsuario != idResponsableProyecto)
+            {
+                btnEditarTarea.Enabled = false;
+                btnEliminarTarea.Enabled = false;
+                return;
+            }
+
+            if (estado == "En revisión" || estado == "Completada")
+            {
+                btnEditarTarea.Enabled = false;
+            }
+
+            if (avance > 0)
+            {
+                btnEliminarTarea.Enabled = false;
+            }
+        }
+
+        private void btnEditarTarea_Click(object sender, EventArgs e)
+        {
+            if (EditarTareaSolicitado != null)
+            {
+                EditarTareaSolicitado(this, EventArgs.Empty);
+            }
+        }
+
+        private void btnEliminarTarea_Click(object sender, EventArgs e)
+        {
+            DialogResult respuesta;
+            Tarea tarea;
+            bool eliminada;
+
+            respuesta = MessageBox.Show("¿Desea eliminar esta tarea? Esta acción solo se permite cuando la tarea todavía no tiene avances ni historial asociado.", "Eliminar tarea", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (respuesta != DialogResult.Yes)
+            {
+                return;
+            }
+
+            tarea = new Tarea();
+            tarea.IdTarea = idTarea;
+
+            if (Sesion.UsuarioActual != null)
+            {
+                tarea.IdCreador = Sesion.UsuarioActual.IdUsuario;
+            }
+
+            eliminada = tarea.EliminarTarea();
+
+            if (eliminada == true)
+            {
+                MessageBox.Show("La tarea fue eliminada correctamente.");
+
+                if (TareaEliminada != null)
+                {
+                    TareaEliminada(this, EventArgs.Empty);
+                }
+            }
         }
 
         private string ObtenerTexto(object valor)
@@ -190,7 +314,9 @@ namespace Vista
                 if (contador >= inicio)
                 {
                     UCEvidenciaTarea control = new UCEvidenciaTarea();
+                    control.IdEvidencia = Convert.ToInt32(fila["IdEvidencia"]);
                     control.NombreArchivo = fila["NombreArchivo"].ToString();
+                    control.RutaArchivo = fila["RutaArchivo"].ToString();
                     control.DetalleArchivo = Convert.ToDateTime(fila["FechaSubida"]).ToString("dd/MM/yyyy") + "  ·  " + ObtenerTipoArchivo(fila["TipoArchivo"]);
                     control.Dock = DockStyle.Top;
                     pnlFilasEvidencia.Controls.Add(control);

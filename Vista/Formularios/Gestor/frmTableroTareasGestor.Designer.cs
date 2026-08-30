@@ -245,7 +245,7 @@
             "Proyecto 3"});
             this.cboProyecto.Margin = new System.Windows.Forms.Padding(8, 6, 0, 0);
             this.cboProyecto.Name = "cboProyecto";
-            this.cboProyecto.Size = new System.Drawing.Size(220, 28);
+            this.cboProyecto.Size = new System.Drawing.Size(190, 28);
             this.cboProyecto.TabIndex = 0;
             // 
             // cboResponsable
@@ -260,7 +260,7 @@
             "Erick Mercado"});
             this.cboResponsable.Margin = new System.Windows.Forms.Padding(8, 6, 0, 0);
             this.cboResponsable.Name = "cboResponsable";
-            this.cboResponsable.Size = new System.Drawing.Size(220, 28);
+            this.cboResponsable.Size = new System.Drawing.Size(190, 28);
             this.cboResponsable.TabIndex = 1;
             // 
             // btnNuevaTarea
@@ -273,7 +273,7 @@
             this.btnNuevaTarea.ForeColor = System.Drawing.Color.White;
             this.btnNuevaTarea.Margin = new System.Windows.Forms.Padding(8, 3, 0, 0);
             this.btnNuevaTarea.Name = "btnNuevaTarea";
-            this.btnNuevaTarea.Size = new System.Drawing.Size(158, 34);
+            this.btnNuevaTarea.Size = new System.Drawing.Size(145, 34);
             this.btnNuevaTarea.TabIndex = 2;
             this.btnNuevaTarea.Text = "+ Nueva tarea";
             this.btnNuevaTarea.UseVisualStyleBackColor = false;

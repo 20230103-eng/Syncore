@@ -71,9 +71,56 @@ namespace Vista
             formulario.NotificacionesSolicitadas += formulario_NotificacionesSolicitadas;
             formulario.ProyectosSolicitados += formulario_ProyectosSolicitados;
             formulario.TareasSolicitadas += formulario_TareasSolicitadas;
+            formulario.DetalleTareaSolicitado += formularioPanel_DetalleTareaSolicitado;
+            formulario.TareasProyectoSolicitadas += formularioPanel_TareasProyectoSolicitadas;
+            formulario.DetalleProyectoSolicitado += formularioPanel_DetalleProyectoSolicitado;
 
             AbrirFormulario(formulario);
             SeleccionarBoton(btnPanelPersonal);
+        }
+
+
+
+        private void formularioPanel_TareasProyectoSolicitadas(object sender, EventArgs e)
+        {
+            frmPanelPersonal formulario;
+
+            formulario = sender as frmPanelPersonal;
+
+            if (formulario == null)
+            {
+                return;
+            }
+
+            MostrarTableroTareasProyecto(formulario.IdProyectoSeleccionado);
+        }
+
+        private void formularioPanel_DetalleProyectoSolicitado(object sender, EventArgs e)
+        {
+            frmPanelPersonal formulario;
+
+            formulario = sender as frmPanelPersonal;
+
+            if (formulario == null)
+            {
+                return;
+            }
+
+            MostrarProyectosAsignadosProyecto(formulario.IdProyectoSeleccionado);
+        }
+
+        private void formularioPanel_DetalleTareaSolicitado(object sender, EventArgs e)
+        {
+            frmPanelPersonal formulario;
+
+            formulario = sender as frmPanelPersonal;
+
+            if (formulario == null)
+            {
+                return;
+            }
+
+            MostrarDetalleTarea(formulario.IdTareaSeleccionada);
         }
 
         private void formulario_RegistrarAvanceSolicitado(object sender, EventArgs e)

@@ -250,6 +250,7 @@ namespace Modelo.Modelo.Entidades
             tbTarea.FechaLimite,
             tbTarea.AvanceActual,
             tbProyecto.Nombre Proyecto,
+            tbProyecto.IdResponsable AS IdResponsableProyecto,
             tbUsuario.NombreCompleto Responsable,
             tbHito.Nombre Hito
             FROM tbTarea
@@ -413,6 +414,205 @@ namespace Modelo.Modelo.Entidades
             }
 
             return creada;
+        }
+
+        public DataTable ObtenerTareaParaEditar(int idTarea)
+        {
+            string query;
+            DataTable datos;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
+
+            query = @"
+            SELECT
+            tbTarea.IdTarea,
+            tbTarea.IdProyecto,
+            tbTarea.IdHito,
+            tbTarea.Nombre,
+            tbTarea.Descripcion,
+            tbTarea.Observacion,
+            tbTarea.IdResponsable,
+            tbTarea.IdPrioridad,
+            tbTarea.IdEstadoTarea,
+            tbEstadoTarea.Nombre AS Estado,
+            tbTarea.FechaInicio,
+            tbTarea.FechaLimite,
+            tbTarea.AvanceActual
+            FROM tbTarea
+            INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
+            WHERE tbTarea.IdTarea = @IdTarea";
+
+            datos = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return datos;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdTarea", idTarea);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(datos);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return datos;
+        }
+
+        public bool ActualizarTarea()
+        {
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object observaciones;
+            bool actualizada;
+
+            observaciones = this.Observaciones;
+
+            if (string.IsNullOrEmpty(this.Observaciones) == true || string.IsNullOrEmpty(this.Observaciones.Trim()) == true)
+            {
+                observaciones = DBNull.Value;
+            }
+
+            query = @"
+            UPDATE tbTarea
+            SET IdProyecto = @IdProyecto,
+            Nombre = @Nombre,
+            Descripcion = @Descripcion,
+            Observacion = @Observacion,
+            IdResponsable = @IdResponsable,
+            IdPrioridad = @IdPrioridad,
+            FechaInicio = @FechaInicio,
+            FechaLimite = @FechaLimite
+            WHERE IdTarea = @IdTarea
+            AND EXISTS
+            (
+                SELECT 1
+                FROM tbProyecto
+                WHERE tbProyecto.IdProyecto = @IdProyecto
+                AND tbProyecto.IdResponsable = @IdGestor
+            )";
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return false;
+            }
+
+            actualizada = false;
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdProyecto", this.IdProyecto);
+                comando.Parameters.AddWithValue("@Nombre", this.Nombre);
+                comando.Parameters.AddWithValue("@Descripcion", this.Descripcion);
+                comando.Parameters.AddWithValue("@Observacion", observaciones);
+                comando.Parameters.AddWithValue("@IdResponsable", this.IdResponsable);
+                comando.Parameters.AddWithValue("@IdPrioridad", this.IdPrioridad);
+                comando.Parameters.AddWithValue("@FechaInicio", this.FechaInicio.Date);
+                comando.Parameters.AddWithValue("@FechaLimite", this.FechaLimite.Date);
+                comando.Parameters.AddWithValue("@IdTarea", this.IdTarea);
+                comando.Parameters.AddWithValue("@IdGestor", this.IdCreador);
+                actualizada = comando.ExecuteNonQuery() > 0;
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return actualizada;
+        }
+
+        public bool EliminarTarea()
+        {
+            string query;
+            SqlConnection conexionSql;
+            SqlTransaction transaccion;
+            SqlCommand comando;
+            bool eliminada;
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return false;
+            }
+
+            transaccion = conexionSql.BeginTransaction();
+            eliminada = false;
+
+            try
+            {
+                query = @"
+                DELETE FROM tbNotificacion
+                WHERE IdTarea = @IdTarea";
+
+                comando = new SqlCommand(query, conexionSql, transaccion);
+                comando.Parameters.AddWithValue("@IdTarea", this.IdTarea);
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+
+                query = @"
+                DELETE FROM tbTarea
+                WHERE IdTarea = @IdTarea
+                AND EXISTS
+                (
+                    SELECT 1
+                    FROM tbProyecto
+                    WHERE tbProyecto.IdProyecto = tbTarea.IdProyecto
+                    AND tbProyecto.IdResponsable = @IdGestor
+                )";
+
+                comando = new SqlCommand(query, conexionSql, transaccion);
+                comando.Parameters.AddWithValue("@IdTarea", this.IdTarea);
+                comando.Parameters.AddWithValue("@IdGestor", this.IdCreador);
+                eliminada = comando.ExecuteNonQuery() > 0;
+                comando.Dispose();
+
+                if (eliminada == true)
+                {
+                    transaccion.Commit();
+                }
+                else
+                {
+                    transaccion.Rollback();
+                }
+            }
+            catch (SqlException ex)
+            {
+                transaccion.Rollback();
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                transaccion.Dispose();
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return eliminada;
         }
 
     }

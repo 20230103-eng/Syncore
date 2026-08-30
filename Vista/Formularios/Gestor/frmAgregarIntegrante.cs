@@ -15,6 +15,7 @@ namespace Vista
         public frmAgregarIntegrante()
         {
             InitializeComponent();
+            btnCancelar.Click += btnCancelar_Click;
         }
 
         private void frmAgregarIntegrante_Load(object sender, EventArgs e)
@@ -94,6 +95,13 @@ namespace Vista
             }
 
             return true;
+        }
+
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

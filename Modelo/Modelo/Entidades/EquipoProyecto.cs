@@ -99,6 +99,8 @@ namespace Modelo.Modelo.Entidades
 
             query = $@"
             SELECT
+            tbEquipoProyecto.IdEquipo,
+            tbEquipoProyecto.IdRolProyecto,
             tbUsuario.IdUsuario,
             tbUsuario.NombreCompleto,
             ISNULL(tbArea.Nombre, N'Sin área') AS Area,
@@ -208,7 +210,8 @@ namespace Modelo.Modelo.Entidades
             SELECT COUNT(*)
             FROM tbEquipoProyecto
             WHERE IdProyecto = {idProyecto}
-            AND IdUsuario = {idUsuario}";
+            AND IdUsuario = {idUsuario}
+            AND Activo = 1";
 
             datos = conexion.EjecutarConsulta(query);
             cantidad = 0;
@@ -281,13 +284,8 @@ namespace Modelo.Modelo.Entidades
             string query;
             SqlConnection conexionSql;
             SqlCommand comando;
+            int filas;
             bool agregado;
-
-            query = @"
-            INSERT INTO tbEquipoProyecto
-            (IdProyecto, IdUsuario, IdRolProyecto, FechaAsignacion, Activo)
-            VALUES
-            (@IdProyecto, @IdUsuario, @IdRolProyecto, @FechaAsignacion, @Activo)";
 
             conexionSql = Conexion.conectar();
 
@@ -296,22 +294,51 @@ namespace Modelo.Modelo.Entidades
                 return false;
             }
 
+            agregado = false;
+
             try
             {
+                query = @"
+                UPDATE tbEquipoProyecto
+                SET IdRolProyecto = @IdRolProyecto,
+                FechaAsignacion = @FechaAsignacion,
+                Activo = @Activo
+                WHERE IdProyecto = @IdProyecto
+                AND IdUsuario = @IdUsuario
+                AND Activo = 0";
+
                 comando = new SqlCommand(query, conexionSql);
                 comando.Parameters.AddWithValue("@IdProyecto", this.IdProyecto);
                 comando.Parameters.AddWithValue("@IdUsuario", this.IdUsuario);
                 comando.Parameters.AddWithValue("@IdRolProyecto", this.IdRolProyecto);
                 comando.Parameters.AddWithValue("@FechaAsignacion", this.FechaAsignacion);
                 comando.Parameters.AddWithValue("@Activo", this.Activo);
-                comando.ExecuteNonQuery();
+                filas = comando.ExecuteNonQuery();
                 comando.Dispose();
+
+                if (filas == 0)
+                {
+                    query = @"
+                    INSERT INTO tbEquipoProyecto
+                    (IdProyecto, IdUsuario, IdRolProyecto, FechaAsignacion, Activo)
+                    VALUES
+                    (@IdProyecto, @IdUsuario, @IdRolProyecto, @FechaAsignacion, @Activo)";
+
+                    comando = new SqlCommand(query, conexionSql);
+                    comando.Parameters.AddWithValue("@IdProyecto", this.IdProyecto);
+                    comando.Parameters.AddWithValue("@IdUsuario", this.IdUsuario);
+                    comando.Parameters.AddWithValue("@IdRolProyecto", this.IdRolProyecto);
+                    comando.Parameters.AddWithValue("@FechaAsignacion", this.FechaAsignacion);
+                    comando.Parameters.AddWithValue("@Activo", this.Activo);
+                    comando.ExecuteNonQuery();
+                    comando.Dispose();
+                }
+
                 agregado = true;
             }
             catch (SqlException ex)
             {
                 Conexion.MostrarErrorSql(ex);
-                agregado = false;
             }
             finally
             {
@@ -321,5 +348,146 @@ namespace Modelo.Modelo.Entidades
 
             return agregado;
         }
+
+        public bool ActualizarRol()
+        {
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            bool actualizado;
+
+            query = @"
+            UPDATE tbEquipoProyecto
+            SET IdRolProyecto = @IdRolProyecto
+            WHERE IdEquipo = @IdEquipo
+            AND Activo = 1";
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return false;
+            }
+
+            actualizado = false;
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdRolProyecto", this.IdRolProyecto);
+                comando.Parameters.AddWithValue("@IdEquipo", this.IdEquipo);
+                actualizado = comando.ExecuteNonQuery() > 0;
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return actualizado;
+        }
+
+        public bool TieneTareasActivasAsignadas()
+        {
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int cantidad;
+
+            query = @"
+            SELECT COUNT(*)
+            FROM tbTarea
+            INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
+            WHERE tbTarea.IdProyecto = @IdProyecto
+            AND tbTarea.IdResponsable = @IdUsuario
+            AND tbEstadoTarea.Nombre <> N'Completada'";
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return true;
+            }
+
+            cantidad = 0;
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdProyecto", this.IdProyecto);
+                comando.Parameters.AddWithValue("@IdUsuario", this.IdUsuario);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+                return true;
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return cantidad > 0;
+        }
+
+        public bool RetirarIntegrante()
+        {
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            bool retirado;
+
+            query = @"
+            UPDATE tbEquipoProyecto
+            SET Activo = 0
+            WHERE IdEquipo = @IdEquipo
+            AND IdProyecto = @IdProyecto
+            AND IdUsuario = @IdUsuario";
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return false;
+            }
+
+            retirado = false;
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdEquipo", this.IdEquipo);
+                comando.Parameters.AddWithValue("@IdProyecto", this.IdProyecto);
+                comando.Parameters.AddWithValue("@IdUsuario", this.IdUsuario);
+                retirado = comando.ExecuteNonQuery() > 0;
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return retirado;
+        }
+
     }
 }

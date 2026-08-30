@@ -13,12 +13,14 @@ namespace Vista
 
         public event EventHandler DetalleProyectoSolicitado;
         public event EventHandler EditarProyectoSolicitado;
+        public event EventHandler NuevoProyectoSolicitado;
 
         public int IdProyectoSeleccionado { get; private set; }
 
         public frmListadoProyectos()
         {
             InitializeComponent();
+            btnNuevoProyecto.Click += btnNuevoProyecto_Click;
         }
 
         private void frmListadoProyectos_Load(object sender, EventArgs e)
@@ -225,6 +227,15 @@ namespace Vista
                 proyecto.EditarProyectoSolicitado += proyecto_EditarProyectoSolicitado;
                 proyecto.Dock = DockStyle.Top;
                 pnlFilas.Controls.Add(proyecto);
+            }
+        }
+
+
+        private void btnNuevoProyecto_Click(object sender, EventArgs e)
+        {
+            if (NuevoProyectoSolicitado != null)
+            {
+                NuevoProyectoSolicitado(this, EventArgs.Empty);
             }
         }
 

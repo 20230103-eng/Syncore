@@ -229,11 +229,17 @@ namespace Modelo.Modelo.Entidades
 
             try
             {
+                int filasAfectadas;
+
                 comando = new SqlCommand(query, conexionSql);
                 comando.Parameters.AddWithValue("@IdNotificacion", this.IdNotificacion);
-                comando.ExecuteNonQuery();
+                filasAfectadas = comando.ExecuteNonQuery();
                 comando.Dispose();
-                actualizada = true;
+
+                if (filasAfectadas > 0)
+                {
+                    actualizada = true;
+                }
             }
             catch (SqlException ex)
             {

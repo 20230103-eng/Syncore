@@ -31,6 +31,8 @@
             this.lblH4 = new System.Windows.Forms.Label();
             this.lblH5 = new System.Windows.Forms.Label();
             this.lblH6 = new System.Windows.Forms.Label();
+            this.lblH7 = new System.Windows.Forms.Label();
+            this.lblH8 = new System.Windows.Forms.Label();
             this.pnlCabecera.SuspendLayout();
             this.pnlTabla.SuspendLayout();
             this.tlpEncabezado.SuspendLayout();
@@ -124,14 +126,16 @@
             // tlpEncabezado
             // 
             this.tlpEncabezado.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
-            this.tlpEncabezado.ColumnCount = 7;
-            this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23F));
-            this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17F));
+            this.tlpEncabezado.ColumnCount = 9;
+            this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
-            this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11F));
+            this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
             this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9F));
+            this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.5F));
+            this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.5F));
             this.tlpEncabezado.Controls.Add(this.lblH0, 0, 0);
             this.tlpEncabezado.Controls.Add(this.lblH1, 1, 0);
             this.tlpEncabezado.Controls.Add(this.lblH2, 2, 0);
@@ -139,6 +143,8 @@
             this.tlpEncabezado.Controls.Add(this.lblH4, 4, 0);
             this.tlpEncabezado.Controls.Add(this.lblH5, 5, 0);
             this.tlpEncabezado.Controls.Add(this.lblH6, 6, 0);
+            this.tlpEncabezado.Controls.Add(this.lblH7, 7, 0);
+            this.tlpEncabezado.Controls.Add(this.lblH8, 8, 0);
             this.tlpEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
             this.tlpEncabezado.Location = new System.Drawing.Point(12, 12);
             this.tlpEncabezado.Name = "tlpEncabezado";
@@ -226,6 +232,26 @@
             this.lblH6.TabIndex = 6;
             this.lblH6.Text = "VENCIDAS";
             this.lblH6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // lblH7
+            // 
+            this.lblH7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblH7.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.lblH7.ForeColor = System.Drawing.Color.FromArgb(75, 89, 105);
+            this.lblH7.Name = "lblH7";
+            this.lblH7.TabIndex = 7;
+            this.lblH7.Text = "EDITAR";
+            this.lblH7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblH8
+            // 
+            this.lblH8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblH8.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.lblH8.ForeColor = System.Drawing.Color.FromArgb(75, 89, 105);
+            this.lblH8.Name = "lblH8";
+            this.lblH8.TabIndex = 8;
+            this.lblH8.Text = "RETIRAR";
+            this.lblH8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
             // 
             // UCEquipoProyectoDetalle
             // 
@@ -257,5 +283,7 @@
         private System.Windows.Forms.Label lblH4;
         private System.Windows.Forms.Label lblH5;
         private System.Windows.Forms.Label lblH6;
+        private System.Windows.Forms.Label lblH7;
+        private System.Windows.Forms.Label lblH8;
     }
 }

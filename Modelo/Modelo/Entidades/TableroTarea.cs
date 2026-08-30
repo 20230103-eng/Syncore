@@ -146,10 +146,13 @@ namespace Modelo.Modelo.Entidades
             tbTarea.IdTarea,
             tbTarea.Nombre Tarea,
             tbProyecto.Nombre Proyecto,
+            tbTarea.IdResponsable,
+            tbUsuario.NombreCompleto AS Responsable,
             tbTarea.FechaLimite,
             tbEstadoTarea.Nombre AS Estado
             FROM tbTarea
             INNER JOIN tbProyecto ON tbTarea.IdProyecto = tbProyecto.IdProyecto
+            INNER JOIN tbUsuario ON tbTarea.IdResponsable = tbUsuario.IdUsuario
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
             INNER JOIN tbEstadoProyecto ON tbProyecto.IdEstadoProyecto = tbEstadoProyecto.IdEstadoProyecto
             WHERE tbEstadoProyecto.Nombre <> N'Cerrado'

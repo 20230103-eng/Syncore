@@ -38,7 +38,7 @@
             this.lblCompletadas = new System.Windows.Forms.Label();
             this.lblVencidas = new System.Windows.Forms.Label();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.btnVer = new System.Windows.Forms.Button();
+            this.btnRetirar = new System.Windows.Forms.Button();
             this.pnlSeparador = new System.Windows.Forms.Panel();
             this.Margin = new System.Windows.Forms.Padding(0);
             this.tlpFila.SuspendLayout();
@@ -65,7 +65,7 @@
             this.tlpFila.Controls.Add(this.lblCompletadas, 5, 0);
             this.tlpFila.Controls.Add(this.lblVencidas, 6, 0);
             this.tlpFila.Controls.Add(this.btnEditar, 7, 0);
-            this.tlpFila.Controls.Add(this.btnVer, 8, 0);
+            this.tlpFila.Controls.Add(this.btnRetirar, 8, 0);
             this.tlpFila.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpFila.Name = "tlpFila";
             this.tlpFila.RowCount = 1;
@@ -159,17 +159,17 @@
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = false;
             // 
-            // btnVer
+            // btnRetirar
             // 
-            this.btnVer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(105)))), ((int)(((byte)(240)))));
-            this.btnVer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVer.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnVer.ForeColor = System.Drawing.Color.White;
-            this.btnVer.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
-            this.btnVer.Name = "btnVer";
-            this.btnVer.Text = "Ver";
-            this.btnVer.UseVisualStyleBackColor = false;
+            this.btnRetirar.BackColor = System.Drawing.Color.White;
+            this.btnRetirar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRetirar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRetirar.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnRetirar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(45)))), ((int)(((byte)(55)))));
+            this.btnRetirar.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
+            this.btnRetirar.Name = "btnRetirar";
+            this.btnRetirar.Text = "Retirar";
+            this.btnRetirar.UseVisualStyleBackColor = false;
             // 
             // pnlSeparador
             // 
@@ -202,7 +202,7 @@
         private System.Windows.Forms.Label lblCompletadas;
         private System.Windows.Forms.Label lblVencidas;
         private System.Windows.Forms.Button btnEditar;
-        private System.Windows.Forms.Button btnVer;
+        private System.Windows.Forms.Button btnRetirar;
         private System.Windows.Forms.Panel pnlSeparador;
     }
 }

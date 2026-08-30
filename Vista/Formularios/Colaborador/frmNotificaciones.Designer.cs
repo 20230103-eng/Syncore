@@ -32,7 +32,7 @@
             this.lblFiltrar = new System.Windows.Forms.Label();
             this.cboTipo = new System.Windows.Forms.ComboBox();
             this.cboPrioridad = new System.Windows.Forms.ComboBox();
-            this.flpNotificaciones = new System.Windows.Forms.Panel();
+            this.flpNotificaciones = new System.Windows.Forms.FlowLayoutPanel();
             this.notificacion1 = new Vista.UCNotificacion();
             this.notificacion2 = new Vista.UCNotificacion();
             this.notificacion3 = new Vista.UCNotificacion();
@@ -258,18 +258,22 @@
             // 
             // flpNotificaciones
             // 
-            this.flpNotificaciones.AutoScroll = true;
+            this.flpNotificaciones.AutoScroll = false;
+            this.flpNotificaciones.AutoSize = true;
+            this.flpNotificaciones.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flpNotificaciones.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpNotificaciones.BackColor = System.Drawing.Color.Transparent;
             this.flpNotificaciones.Controls.Add(this.notificacion3);
             this.flpNotificaciones.Controls.Add(this.notificacion2);
             this.flpNotificaciones.Controls.Add(this.notificacion1);
-            this.flpNotificaciones.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpNotificaciones.Dock = System.Windows.Forms.DockStyle.Top;
             this.flpNotificaciones.Location = new System.Drawing.Point(0, 126);
             this.flpNotificaciones.Margin = new System.Windows.Forms.Padding(0);
             this.flpNotificaciones.Name = "flpNotificaciones";
             this.flpNotificaciones.Padding = new System.Windows.Forms.Padding(0);
-            this.flpNotificaciones.Size = new System.Drawing.Size(1622, 877);
+            this.flpNotificaciones.Size = new System.Drawing.Size(1622, 408);
             this.flpNotificaciones.TabIndex = 2;
+            this.flpNotificaciones.WrapContents = false;
             // 
             // notificacion1
             // 
@@ -280,7 +284,7 @@
             this.notificacion1.Location = new System.Drawing.Point(0, 0);
             this.notificacion1.Margin = new System.Windows.Forms.Padding(0);
             this.notificacion1.Name = "notificacion1";
-            this.notificacion1.Size = new System.Drawing.Size(1605, 125);
+            this.notificacion1.Size = new System.Drawing.Size(1622, 136);
             this.notificacion1.TabIndex = 0;
             this.notificacion1.TextoBotonPrincipal = "Ir a tarea";
             this.notificacion1.TextoBotonSecundario = "Marcar leída";
@@ -296,7 +300,7 @@
             this.notificacion2.Location = new System.Drawing.Point(0, 133);
             this.notificacion2.Margin = new System.Windows.Forms.Padding(0);
             this.notificacion2.Name = "notificacion2";
-            this.notificacion2.Size = new System.Drawing.Size(1605, 125);
+            this.notificacion2.Size = new System.Drawing.Size(1622, 136);
             this.notificacion2.TabIndex = 1;
             this.notificacion2.TextoBotonPrincipal = "Ir a tarea";
             this.notificacion2.TextoBotonSecundario = "Marcar leída";
@@ -312,7 +316,7 @@
             this.notificacion3.Location = new System.Drawing.Point(0, 266);
             this.notificacion3.Margin = new System.Windows.Forms.Padding(0);
             this.notificacion3.Name = "notificacion3";
-            this.notificacion3.Size = new System.Drawing.Size(1605, 125);
+            this.notificacion3.Size = new System.Drawing.Size(1622, 136);
             this.notificacion3.TabIndex = 2;
             this.notificacion3.TextoBotonPrincipal = "Ir a tarea";
             this.notificacion3.TextoBotonSecundario = "Marcar leída";
@@ -364,7 +368,7 @@
         private System.Windows.Forms.Label lblFiltrar;
         private System.Windows.Forms.ComboBox cboTipo;
         private System.Windows.Forms.ComboBox cboPrioridad;
-        private System.Windows.Forms.Panel flpNotificaciones;
+        private System.Windows.Forms.FlowLayoutPanel flpNotificaciones;
         private Vista.UCNotificacion notificacion1;
         private Vista.UCNotificacion notificacion2;
         private Vista.UCNotificacion notificacion3;

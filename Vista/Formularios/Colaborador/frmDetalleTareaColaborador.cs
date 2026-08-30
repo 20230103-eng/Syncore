@@ -198,7 +198,9 @@ namespace Vista
                 if (contador >= inicio)
                 {
                     UCEvidenciaTarea control = new UCEvidenciaTarea();
+                    control.IdEvidencia = Convert.ToInt32(fila["IdEvidencia"]);
                     control.NombreArchivo = fila["NombreArchivo"].ToString();
+                    control.RutaArchivo = fila["RutaArchivo"].ToString();
                     control.DetalleArchivo = Convert.ToDateTime(fila["FechaSubida"]).ToString("dd/MM/yyyy") + "  ·  " + ObtenerTipoArchivo(fila["TipoArchivo"]);
                     control.Dock = DockStyle.Top;
                     pnlFilasEvidencia.Controls.Add(control);

@@ -175,7 +175,7 @@ namespace Vista
         private void AgregarTarjeta(Panel panel, UCTarjetaTarea tarjeta)
         {
             tarjeta.Dock = DockStyle.Top;
-            tarjeta.Height = 110;
+            tarjeta.Height = 122;
             panel.Controls.Add(tarjeta);
             tarjeta.SendToBack();
         }

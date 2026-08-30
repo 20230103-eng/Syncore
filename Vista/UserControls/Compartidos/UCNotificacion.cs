@@ -97,10 +97,12 @@ namespace Vista
                 if (leida == true)
                 {
                     btnMarcarLeida.Visible = false;
+                    lblLeida.Visible = true;
                     BackColor = Color.FromArgb(250, 251, 253);
                 }
                 else
                 {
+                    lblLeida.Visible = false;
                     btnMarcarLeida.Visible = true;
                     btnMarcarLeida.Enabled = true;
                     btnMarcarLeida.Text = "Marcar leída";

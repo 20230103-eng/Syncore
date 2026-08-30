@@ -267,23 +267,11 @@
     <Compile Include="Formularios\Gestor\frmDetalleProyecto.Designer.cs">
       <DependentUpon>frmDetalleProyecto.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\Gestor\frmMatrizResponsabilidades.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\Gestor\frmMatrizResponsabilidades.Designer.cs">
-      <DependentUpon>frmMatrizResponsabilidades.cs</DependentUpon>
-    </Compile>
     <Compile Include="Formularios\Gestor\frmHitosEntregables.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\Gestor\frmHitosEntregables.Designer.cs">
       <DependentUpon>frmHitosEntregables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\Gestor\frmLineaTiempo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\Gestor\frmLineaTiempo.Designer.cs">
-      <DependentUpon>frmLineaTiempo.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Gestor\frmCronograma.cs">
       <SubType>Form</SubType>
@@ -297,11 +285,11 @@
     <Compile Include="Formularios\Gestor\frmRevisionTareas.Designer.cs">
       <DependentUpon>frmRevisionTareas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\Gestor\frmReunionesAcuerdos.cs">
+    <Compile Include="Formularios\Gestor\frmEditarIntegranteProyecto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\Gestor\frmReunionesAcuerdos.Designer.cs">
-      <DependentUpon>frmReunionesAcuerdos.cs</DependentUpon>
+    <Compile Include="Formularios\Gestor\frmEditarIntegranteProyecto.Designer.cs">
+      <DependentUpon>frmEditarIntegranteProyecto.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Gestor\frmAdministracionSistema.cs">
       <SubType>Form</SubType>
@@ -333,7 +321,7 @@
     <Compile Include="Formularios\Gestor\frmNuevaTarea.Designer.cs">
       <DependentUpon>frmNuevaTarea.cs</DependentUpon>
     </Compile>
-<Compile Include="Formularios\Gestor\frmDetalleTareaGestor.cs">
+    <Compile Include="Formularios\Gestor\frmDetalleTareaGestor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\Gestor\frmDetalleTareaGestor.Designer.cs">
@@ -506,23 +494,14 @@
     <EmbeddedResource Include="Formularios\Gestor\frmDetalleProyecto.resx">
       <DependentUpon>frmDetalleProyecto.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Gestor\frmMatrizResponsabilidades.resx">
-      <DependentUpon>frmMatrizResponsabilidades.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Gestor\frmHitosEntregables.resx">
+<EmbeddedResource Include="Formularios\Gestor\frmHitosEntregables.resx">
       <DependentUpon>frmHitosEntregables.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Gestor\frmLineaTiempo.resx">
-      <DependentUpon>frmLineaTiempo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Gestor\frmCronograma.resx">
+<EmbeddedResource Include="Formularios\Gestor\frmCronograma.resx">
       <DependentUpon>frmCronograma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Gestor\frmRevisionTareas.resx">
       <DependentUpon>frmRevisionTareas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Gestor\frmReunionesAcuerdos.resx">
-      <DependentUpon>frmReunionesAcuerdos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Gestor\frmAdministracionSistema.resx">
       <DependentUpon>frmAdministracionSistema.cs</DependentUpon>
@@ -538,7 +517,7 @@
     <EmbeddedResource Include="Formularios\Gestor\frmNuevaTarea.resx">
       <DependentUpon>frmNuevaTarea.cs</DependentUpon>
     </EmbeddedResource>
-<EmbeddedResource Include="Formularios\Gestor\frmDetalleTareaGestor.resx">
+    <EmbeddedResource Include="Formularios\Gestor\frmDetalleTareaGestor.resx">
       <DependentUpon>frmDetalleTareaGestor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Colaborador\frmDetalleTareaColaborador.resx">
