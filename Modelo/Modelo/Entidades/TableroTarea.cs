@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using Modelo.Modelo;
 
 namespace Modelo.Modelo.Entidades
@@ -41,7 +42,7 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerResumenTareasVencidas()
         {
-            string query = $@"
+            string query = @"
             SELECT
             COUNT(*) AS TareasVencidas,
             COUNT(DISTINCT IdProyecto) AS ProyectosAfectados
@@ -55,7 +56,7 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerTareasPorEstado()
         {
-            string query = $@"
+            string query = @"
             SELECT
             tbEstadoTarea.Nombre AS Estado,
             COUNT(*) AS Cantidad
@@ -69,7 +70,7 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerTareasConResponsableInactivo()
         {
-            string query = $@"
+            string query = @"
             SELECT
             tbTarea.IdTarea,
             tbTarea.Nombre AS Tarea,
@@ -93,8 +94,14 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerTareasProximasUsuario(int idUsuario, int cantidad)
         {
-            string query = $@"
-            SELECT TOP {cantidad}
+            string query;
+            DataTable tareas;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
+
+            query = @"
+            SELECT TOP (@Cantidad)
             tbTarea.IdTarea,
             tbTarea.Nombre AS Tarea,
             tbProyecto.Nombre AS Proyecto,
@@ -103,45 +110,104 @@ namespace Modelo.Modelo.Entidades
             tbEstadoTarea.Nombre AS Estado,
             tbTarea.AvanceActual
             FROM tbTarea
-            INNER JOIN tbProyecto
-            ON tbTarea.IdProyecto = tbProyecto.IdProyecto
+            INNER JOIN tbProyecto ON tbTarea.IdProyecto = tbProyecto.IdProyecto
             INNER JOIN tbPrioridad ON tbTarea.IdPrioridad = tbPrioridad.IdPrioridad
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
-            WHERE tbTarea.IdResponsable = {idUsuario}
+            WHERE tbTarea.IdResponsable = @IdUsuario
             AND tbEstadoTarea.Nombre <> N'Completada'
             ORDER BY tbTarea.FechaLimite";
 
-            DataTable tareas = conexion.EjecutarConsulta(query);
+            tareas = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return tareas;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@Cantidad", cantidad);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(tareas);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
             return tareas;
         }
 
         public DataTable ObtenerTareasCompletadasUsuario(int idUsuario, int dias, int cantidad)
         {
-            string query = $@"
-            SELECT TOP {cantidad}
+            string query;
+            DataTable tareas;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
+
+            query = @"
+            SELECT TOP (@Cantidad)
             tbTarea.Nombre AS Tarea,
             tbTarea.FechaCompletada
             FROM tbTarea
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
-            WHERE tbTarea.IdResponsable = {idUsuario}
+            WHERE tbTarea.IdResponsable = @IdUsuario
             AND tbEstadoTarea.Nombre = N'Completada'
-            AND tbTarea.FechaCompletada >= DATEADD(DAY, -{dias}, GETDATE())
+            AND tbTarea.FechaCompletada >= DATEADD(DAY, -@Dias, GETDATE())
             ORDER BY tbTarea.FechaCompletada DESC";
 
-            DataTable tareas = conexion.EjecutarConsulta(query);
+            tareas = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return tareas;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@Cantidad", cantidad);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@Dias", dias);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(tareas);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
             return tareas;
         }
 
         public DataTable ObtenerTareasTableroGestor(int idProyecto)
         {
-            string filtroProyecto = "";
+            string query;
+            DataTable tareas;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
 
-            if (idProyecto > 0)
-            {
-                filtroProyecto = $"AND tbTarea.IdProyecto = {idProyecto}";
-            }
-
-            string query = $@"
+            query = @"
             SELECT
             tbTarea.IdTarea,
             tbTarea.Nombre Tarea,
@@ -156,23 +222,48 @@ namespace Modelo.Modelo.Entidades
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
             INNER JOIN tbEstadoProyecto ON tbProyecto.IdEstadoProyecto = tbEstadoProyecto.IdEstadoProyecto
             WHERE tbEstadoProyecto.Nombre <> N'Cerrado'
-            {filtroProyecto}
+            AND (@IdProyecto = 0 OR tbTarea.IdProyecto = @IdProyecto)
             ORDER BY tbTarea.FechaLimite";
 
-            DataTable tareas = conexion.EjecutarConsulta(query);
+            tareas = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return tareas;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(tareas);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
             return tareas;
         }
 
         public DataTable ObtenerTareasTableroUsuario(int idUsuario, int idProyecto)
         {
-            string filtroProyecto = "";
+            string query;
+            DataTable tareas;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
 
-            if (idProyecto > 0)
-            {
-                filtroProyecto = $"AND tbTarea.IdProyecto = {idProyecto}";
-            }
-
-            string query = $@"
+            query = @"
             SELECT
             tbTarea.IdTarea,
             tbTarea.Nombre Tarea,
@@ -182,11 +273,38 @@ namespace Modelo.Modelo.Entidades
             FROM tbTarea
             INNER JOIN tbProyecto ON tbTarea.IdProyecto = tbProyecto.IdProyecto
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
-            WHERE tbTarea.IdResponsable = {idUsuario}
-            {filtroProyecto}
+            WHERE tbTarea.IdResponsable = @IdUsuario
+            AND (@IdProyecto = 0 OR tbTarea.IdProyecto = @IdProyecto)
             ORDER BY tbTarea.FechaLimite";
 
-            DataTable tareas = conexion.EjecutarConsulta(query);
+            tareas = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return tareas;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(tareas);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
             return tareas;
         }
     }

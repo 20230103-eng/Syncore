@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using Modelo.Modelo;
 
 namespace Modelo.Modelo.Entidades
@@ -56,21 +57,49 @@ namespace Modelo.Modelo.Entidades
 
         public int ContarTareasCompletadas(int dias)
         {
-            DateTime fechaInicio = DateTime.Today.AddDays(-dias);
+            DateTime fechaInicio;
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int cantidad;
 
-            string query = $@"
+            fechaInicio = DateTime.Today.AddDays(-dias);
+            query = @"
             SELECT COUNT(*)
             FROM tbTarea
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
             WHERE tbEstadoTarea.Nombre = N'Completada'
-            AND FechaCompletada >= '{fechaInicio:yyyyMMdd}'";
+            AND FechaCompletada >= @FechaInicio";
 
-            DataTable datos = conexion.EjecutarConsulta(query);
-            int cantidad = 0;
+            cantidad = 0;
+            conexionSql = Conexion.conectar();
 
-            if (datos.Rows.Count > 0)
+            if (conexionSql == null)
             {
-                cantidad = Convert.ToInt32(datos.Rows[0][0]);
+                return cantidad;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@FechaInicio", fechaInicio.Date);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
 
             return cantidad;
@@ -78,22 +107,51 @@ namespace Modelo.Modelo.Entidades
 
         public int ContarTareasCompletadasUsuario(int idUsuario, int dias)
         {
-            DateTime fechaInicio = DateTime.Today.AddDays(-dias);
+            DateTime fechaInicio;
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int cantidad;
 
-            string query = $@"
+            fechaInicio = DateTime.Today.AddDays(-dias);
+            query = @"
             SELECT COUNT(*)
             FROM tbTarea
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
-            WHERE tbTarea.IdResponsable = {idUsuario}
+            WHERE tbTarea.IdResponsable = @IdUsuario
             AND tbEstadoTarea.Nombre = N'Completada'
-            AND FechaCompletada >= '{fechaInicio:yyyyMMdd}'";
+            AND FechaCompletada >= @FechaInicio";
 
-            DataTable datos = conexion.EjecutarConsulta(query);
-            int cantidad = 0;
+            cantidad = 0;
+            conexionSql = Conexion.conectar();
 
-            if (datos.Rows.Count > 0)
+            if (conexionSql == null)
             {
-                cantidad = Convert.ToInt32(datos.Rows[0][0]);
+                return cantidad;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@FechaInicio", fechaInicio.Date);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
 
             return cantidad;
@@ -101,22 +159,57 @@ namespace Modelo.Modelo.Entidades
 
         public int ContarTareasATiempo(int dias)
         {
-            DateTime fechaInicio = DateTime.Today.AddDays(-dias);
+            DateTime fechaInicio;
+            string query;
+            DataTable tareas;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
+            int cantidad;
 
-            string query = $@"
+            fechaInicio = DateTime.Today.AddDays(-dias);
+            query = @"
             SELECT FechaLimite, FechaCompletada
             FROM tbTarea
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
             WHERE tbEstadoTarea.Nombre = N'Completada'
-            AND FechaCompletada >= '{fechaInicio:yyyyMMdd}'";
+            AND FechaCompletada >= @FechaInicio";
 
-            DataTable tareas = conexion.EjecutarConsulta(query);
-            int cantidad = 0;
+            tareas = new DataTable();
+            cantidad = 0;
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return cantidad;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@FechaInicio", fechaInicio.Date);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(tareas);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
 
             foreach (DataRow fila in tareas.Rows)
             {
-                DateTime fechaLimite = Convert.ToDateTime(fila["FechaLimite"]);
-                DateTime fechaCompletada = Convert.ToDateTime(fila["FechaCompletada"]);
+                DateTime fechaLimite;
+                DateTime fechaCompletada;
+
+                fechaLimite = Convert.ToDateTime(fila["FechaLimite"]);
+                fechaCompletada = Convert.ToDateTime(fila["FechaCompletada"]);
 
                 if (fechaCompletada.Date <= fechaLimite.Date)
                 {
@@ -129,23 +222,59 @@ namespace Modelo.Modelo.Entidades
 
         public int ContarTareasATiempoUsuario(int idUsuario, int dias)
         {
-            DateTime fechaInicio = DateTime.Today.AddDays(-dias);
+            DateTime fechaInicio;
+            string query;
+            DataTable tareas;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
+            int cantidad;
 
-            string query = $@"
+            fechaInicio = DateTime.Today.AddDays(-dias);
+            query = @"
             SELECT FechaLimite, FechaCompletada
             FROM tbTarea
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
-            WHERE tbTarea.IdResponsable = {idUsuario}
+            WHERE tbTarea.IdResponsable = @IdUsuario
             AND tbEstadoTarea.Nombre = N'Completada'
-            AND FechaCompletada >= '{fechaInicio:yyyyMMdd}'";
+            AND FechaCompletada >= @FechaInicio";
 
-            DataTable tareas = conexion.EjecutarConsulta(query);
-            int cantidad = 0;
+            tareas = new DataTable();
+            cantidad = 0;
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return cantidad;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@FechaInicio", fechaInicio.Date);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(tareas);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
 
             foreach (DataRow fila in tareas.Rows)
             {
-                DateTime fechaLimite = Convert.ToDateTime(fila["FechaLimite"]);
-                DateTime fechaCompletada = Convert.ToDateTime(fila["FechaCompletada"]);
+                DateTime fechaLimite;
+                DateTime fechaCompletada;
+
+                fechaLimite = Convert.ToDateTime(fila["FechaLimite"]);
+                fechaCompletada = Convert.ToDateTime(fila["FechaCompletada"]);
 
                 if (fechaCompletada.Date <= fechaLimite.Date)
                 {
@@ -186,25 +315,63 @@ namespace Modelo.Modelo.Entidades
 
         public decimal CalcularDiasPromedioCierre(int dias)
         {
-            DateTime fechaInicioPeriodo = DateTime.Today.AddDays(-dias);
+            DateTime fechaInicioPeriodo;
+            string query;
+            DataTable tareas;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
+            decimal sumaDias;
+            decimal promedio;
+            int cantidad;
 
-            string query = $@"
+            fechaInicioPeriodo = DateTime.Today.AddDays(-dias);
+            query = @"
             SELECT FechaInicio, FechaCompletada
             FROM tbTarea
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
             WHERE tbEstadoTarea.Nombre = N'Completada'
-            AND FechaCompletada >= '{fechaInicioPeriodo:yyyyMMdd}'";
+            AND FechaCompletada >= @FechaInicioPeriodo";
 
-            DataTable tareas = conexion.EjecutarConsulta(query);
-            decimal sumaDias = 0;
-            decimal promedio = 0;
-            int cantidad = 0;
+            tareas = new DataTable();
+            sumaDias = 0;
+            promedio = 0;
+            cantidad = 0;
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return promedio;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@FechaInicioPeriodo", fechaInicioPeriodo.Date);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(tareas);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
 
             foreach (DataRow fila in tareas.Rows)
             {
-                DateTime fechaInicio = Convert.ToDateTime(fila["FechaInicio"]);
-                DateTime fechaCompletada = Convert.ToDateTime(fila["FechaCompletada"]);
-                TimeSpan diferencia = fechaCompletada.Date - fechaInicio.Date;
+                DateTime fechaInicio;
+                DateTime fechaCompletada;
+                TimeSpan diferencia;
+
+                fechaInicio = Convert.ToDateTime(fila["FechaInicio"]);
+                fechaCompletada = Convert.ToDateTime(fila["FechaCompletada"]);
+                diferencia = fechaCompletada.Date - fechaInicio.Date;
                 sumaDias = sumaDias + diferencia.Days;
                 cantidad = cantidad + 1;
             }
@@ -233,7 +400,7 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerProductividadColaboradores(int dias)
         {
-            string query = $@"
+            string query = @"
             SELECT tbUsuario.IdUsuario, tbUsuario.NombreCompleto
             FROM tbUsuario
             INNER JOIN tbTipoUsuario ON tbUsuario.IdTipoUsuario = tbTipoUsuario.IdTipoUsuario
@@ -277,25 +444,57 @@ namespace Modelo.Modelo.Entidades
 
         private int ContarTareasCompletadasUsuarioAnterior(int idUsuario, int dias)
         {
-            int diasAnteriores = dias * 2;
-            DateTime fechaInicio = DateTime.Today.AddDays(-diasAnteriores);
-            DateTime fechaFin = DateTime.Today.AddDays(-dias);
+            int diasAnteriores;
+            DateTime fechaInicio;
+            DateTime fechaFin;
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int cantidad;
 
-            string query = $@"
+            diasAnteriores = dias * 2;
+            fechaInicio = DateTime.Today.AddDays(-diasAnteriores);
+            fechaFin = DateTime.Today.AddDays(-dias);
+            query = @"
             SELECT COUNT(*)
             FROM tbTarea
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
-            WHERE tbTarea.IdResponsable = {idUsuario}
+            WHERE tbTarea.IdResponsable = @IdUsuario
             AND tbEstadoTarea.Nombre = N'Completada'
-            AND FechaCompletada >= '{fechaInicio:yyyyMMdd}'
-            AND FechaCompletada < '{fechaFin:yyyyMMdd}'";
+            AND FechaCompletada >= @FechaInicio
+            AND FechaCompletada < @FechaFin";
 
-            DataTable datos = conexion.EjecutarConsulta(query);
-            int cantidad = 0;
+            cantidad = 0;
+            conexionSql = Conexion.conectar();
 
-            if (datos.Rows.Count > 0)
+            if (conexionSql == null)
             {
-                cantidad = Convert.ToInt32(datos.Rows[0][0]);
+                return cantidad;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@FechaInicio", fechaInicio.Date);
+                comando.Parameters.AddWithValue("@FechaFin", fechaFin.Date);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
 
             return cantidad;
@@ -303,16 +502,46 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerTendenciaSemanal(int dias)
         {
-            DateTime fechaInicio = DateTime.Today.AddDays(-dias + 1);
+            DateTime fechaInicio;
+            string query;
+            DataTable tareas;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
 
-            string query = $@"
+            fechaInicio = DateTime.Today.AddDays(-dias + 1);
+            query = @"
             SELECT FechaCompletada
             FROM tbTarea
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
             WHERE tbEstadoTarea.Nombre = N'Completada'
-            AND FechaCompletada >= '{fechaInicio:yyyyMMdd}'";
+            AND FechaCompletada >= @FechaInicio";
 
-            DataTable tareas = conexion.EjecutarConsulta(query);
+            tareas = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql != null)
+            {
+                try
+                {
+                    comando = new SqlCommand(query, conexionSql);
+                    comando.Parameters.AddWithValue("@FechaInicio", fechaInicio.Date);
+                    adaptador = new SqlDataAdapter(comando);
+                    adaptador.Fill(tareas);
+                    adaptador.Dispose();
+                    comando.Dispose();
+                }
+                catch (SqlException ex)
+                {
+                    Conexion.MostrarErrorSql(ex);
+                }
+                finally
+                {
+                    conexionSql.Close();
+                    conexionSql.Dispose();
+                }
+            }
+
             DataTable semanas = new DataTable();
             semanas.Columns.Add("Semana", typeof(string));
             semanas.Columns.Add("Cantidad", typeof(int));

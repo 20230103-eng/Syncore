@@ -96,8 +96,11 @@ namespace Modelo.Modelo.Entidades
         {
             string query;
             DataTable equipo;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
 
-            query = $@"
+            query = @"
             SELECT
             tbEquipoProyecto.IdEquipo,
             tbEquipoProyecto.IdRolProyecto,
@@ -109,12 +112,38 @@ namespace Modelo.Modelo.Entidades
             INNER JOIN tbUsuario ON tbEquipoProyecto.IdUsuario = tbUsuario.IdUsuario
             INNER JOIN tbRolProyecto ON tbEquipoProyecto.IdRolProyecto = tbRolProyecto.IdRolProyecto
             LEFT JOIN tbArea ON tbUsuario.IdArea = tbArea.IdArea
-            WHERE tbEquipoProyecto.IdProyecto = {idProyecto}
+            WHERE tbEquipoProyecto.IdProyecto = @IdProyecto
             AND tbEquipoProyecto.Activo = 1
             AND tbUsuario.Activo = 1
             ORDER BY tbUsuario.NombreCompleto";
 
-            equipo = conexion.EjecutarConsulta(query);
+            equipo = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return equipo;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(equipo);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
             equipo.Columns.Add("TareasAsignadas", typeof(int));
             equipo.Columns.Add("TareasCompletadas", typeof(int));
             equipo.Columns.Add("TareasVencidas", typeof(int));
@@ -203,22 +232,47 @@ namespace Modelo.Modelo.Entidades
         public bool ExisteIntegrante(int idProyecto, int idUsuario)
         {
             string query;
-            DataTable datos;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
             int cantidad;
 
-            query = $@"
+            query = @"
             SELECT COUNT(*)
             FROM tbEquipoProyecto
-            WHERE IdProyecto = {idProyecto}
-            AND IdUsuario = {idUsuario}
+            WHERE IdProyecto = @IdProyecto
+            AND IdUsuario = @IdUsuario
             AND Activo = 1";
 
-            datos = conexion.EjecutarConsulta(query);
             cantidad = 0;
+            conexionSql = Conexion.conectar();
 
-            if (datos.Rows.Count > 0)
+            if (conexionSql == null)
             {
-                cantidad = Convert.ToInt32(datos.Rows[0][0]);
+                return false;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
 
             if (cantidad > 0)
@@ -232,21 +286,46 @@ namespace Modelo.Modelo.Entidades
         public int ContarTareas(int idProyecto, int idUsuario)
         {
             string query;
-            DataTable datos;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
             int cantidad;
 
-            query = $@"
+            query = @"
             SELECT COUNT(*)
             FROM tbTarea
-            WHERE IdProyecto = {idProyecto}
-            AND IdResponsable = {idUsuario}";
+            WHERE IdProyecto = @IdProyecto
+            AND IdResponsable = @IdUsuario";
 
-            datos = conexion.EjecutarConsulta(query);
             cantidad = 0;
+            conexionSql = Conexion.conectar();
 
-            if (datos.Rows.Count > 0)
+            if (conexionSql == null)
             {
-                cantidad = Convert.ToInt32(datos.Rows[0][0]);
+                return cantidad;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
 
             return cantidad;
@@ -255,25 +334,49 @@ namespace Modelo.Modelo.Entidades
         public int ContarTareasPorEstado(int idProyecto, int idUsuario, string estado)
         {
             string query;
-            DataTable datos;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
             int cantidad;
 
-            estado = estado.Replace("'", "''");
-
-            query = $@"
+            query = @"
             SELECT COUNT(*)
             FROM tbTarea
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
-            WHERE tbTarea.IdProyecto = {idProyecto}
-            AND tbTarea.IdResponsable = {idUsuario}
-            AND tbEstadoTarea.Nombre = N'{estado}'";
+            WHERE tbTarea.IdProyecto = @IdProyecto
+            AND tbTarea.IdResponsable = @IdUsuario
+            AND tbEstadoTarea.Nombre = @Estado";
 
-            datos = conexion.EjecutarConsulta(query);
             cantidad = 0;
+            conexionSql = Conexion.conectar();
 
-            if (datos.Rows.Count > 0)
+            if (conexionSql == null)
             {
-                cantidad = Convert.ToInt32(datos.Rows[0][0]);
+                return cantidad;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@Estado", estado);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
 
             return cantidad;

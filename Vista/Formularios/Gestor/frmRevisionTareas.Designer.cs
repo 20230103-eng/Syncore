@@ -20,6 +20,17 @@
         {
             System.Windows.Forms.DataGridViewCellStyle estiloEncabezado = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle estiloFila = new System.Windows.Forms.DataGridViewCellStyle();
+            estiloEncabezado.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            estiloEncabezado.BackColor = System.Drawing.Color.FromArgb(245, 248, 252);
+            estiloEncabezado.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
+            estiloEncabezado.ForeColor = System.Drawing.Color.FromArgb(75, 90, 108);
+            estiloEncabezado.SelectionBackColor = System.Drawing.Color.FromArgb(245, 248, 252);
+            estiloEncabezado.SelectionForeColor = System.Drawing.Color.FromArgb(75, 90, 108);
+            estiloFila.BackColor = System.Drawing.Color.White;
+            estiloFila.Font = new System.Drawing.Font("Segoe UI", 8.5F);
+            estiloFila.ForeColor = System.Drawing.Color.FromArgb(61, 74, 89);
+            estiloFila.SelectionBackColor = System.Drawing.Color.FromArgb(230, 241, 255);
+            estiloFila.SelectionForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
             this.pnlTop = new System.Windows.Forms.Panel();
             this.lblFecha = new System.Windows.Forms.Label();
             this.lblBreadcrumbActual = new System.Windows.Forms.Label();
@@ -75,11 +86,11 @@
             this.pnlBusqueda.SuspendLayout();
             this.tlpPrincipal.SuspendLayout();
             this.pnlLista.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRevisiones)).BeginInit();
             this.pnlDetalle.SuspendLayout();
             this.tlpDetalle.SuspendLayout();
             this.pnlAcciones.SuspendLayout();
             this.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRevisiones)).BeginInit();
             // 
             // pnlTop
             // 
@@ -279,12 +290,6 @@
             this.dgvRevisiones.BackgroundColor = System.Drawing.Color.White;
             this.dgvRevisiones.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvRevisiones.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            estiloEncabezado.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            estiloEncabezado.BackColor = System.Drawing.Color.FromArgb(245, 248, 252);
-            estiloEncabezado.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
-            estiloEncabezado.ForeColor = System.Drawing.Color.FromArgb(75, 90, 108);
-            estiloEncabezado.SelectionBackColor = System.Drawing.Color.FromArgb(245, 248, 252);
-            estiloEncabezado.SelectionForeColor = System.Drawing.Color.FromArgb(75, 90, 108);
             this.dgvRevisiones.ColumnHeadersDefaultCellStyle = estiloEncabezado;
             this.dgvRevisiones.ColumnHeadersHeight = 38;
             this.dgvRevisiones.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -295,17 +300,12 @@
             this.dgvRevisiones.Name = "dgvRevisiones";
             this.dgvRevisiones.ReadOnly = true;
             this.dgvRevisiones.RowHeadersVisible = false;
-            estiloFila.BackColor = System.Drawing.Color.White;
-            estiloFila.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            estiloFila.ForeColor = System.Drawing.Color.FromArgb(61, 74, 89);
-            estiloFila.SelectionBackColor = System.Drawing.Color.FromArgb(230, 241, 255);
-            estiloFila.SelectionForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
-            this.dgvRevisiones.RowsDefaultCellStyle = estiloFila;
             this.dgvRevisiones.RowTemplate.Height = 36;
+            this.dgvRevisiones.RowsDefaultCellStyle = estiloFila;
+            this.dgvRevisiones.SelectionChanged += new System.EventHandler(this.dgvRevisiones_SelectionChanged);
             this.dgvRevisiones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvRevisiones.Size = new System.Drawing.Size(894, 750);
             this.dgvRevisiones.TabIndex = 1;
-            this.dgvRevisiones.SelectionChanged += new System.EventHandler(this.dgvRevisiones_SelectionChanged);
             // 
             // lblListaTitulo
             // 
@@ -382,7 +382,6 @@
             this.tlpDetalle.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpDetalle.Size = new System.Drawing.Size(702, 682);
             this.tlpDetalle.TabIndex = 1;
-            // labels and value labels
             // 
             // lblTareaTitulo
             // 
@@ -598,12 +597,12 @@
             this.txtDescripcion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDescripcion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtDescripcion.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            this.txtDescripcion.Multiline = true;
             this.txtDescripcion.MaxLength = 1000;
-            this.txtDescripcion.ShortcutsEnabled = false;
+            this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.ReadOnly = true;
             this.txtDescripcion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtDescripcion.ShortcutsEnabled = false;
             this.txtDescripcion.TabStop = false;
             // 
             // txtObservaciones
@@ -612,12 +611,12 @@
             this.txtObservaciones.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtObservaciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtObservaciones.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            this.txtObservaciones.Multiline = true;
             this.txtObservaciones.MaxLength = 500;
-            this.txtObservaciones.ShortcutsEnabled = false;
+            this.txtObservaciones.Multiline = true;
             this.txtObservaciones.Name = "txtObservaciones";
             this.txtObservaciones.ReadOnly = true;
             this.txtObservaciones.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtObservaciones.ShortcutsEnabled = false;
             this.txtObservaciones.TabStop = false;
             // 
             // txtUltimoAvance
@@ -626,12 +625,12 @@
             this.txtUltimoAvance.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUltimoAvance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtUltimoAvance.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            this.txtUltimoAvance.Multiline = true;
             this.txtUltimoAvance.MaxLength = 1000;
-            this.txtUltimoAvance.ShortcutsEnabled = false;
+            this.txtUltimoAvance.Multiline = true;
             this.txtUltimoAvance.Name = "txtUltimoAvance";
             this.txtUltimoAvance.ReadOnly = true;
             this.txtUltimoAvance.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtUltimoAvance.ShortcutsEnabled = false;
             this.txtUltimoAvance.TabStop = false;
             // 
             // txtComentario
@@ -662,6 +661,7 @@
             // 
             this.btnAprobar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAprobar.BackColor = System.Drawing.Color.FromArgb(35, 145, 72);
+            this.btnAprobar.Click += new System.EventHandler(this.btnAprobar_Click);
             this.btnAprobar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAprobar.FlatAppearance.BorderSize = 0;
             this.btnAprobar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -673,12 +673,12 @@
             this.btnAprobar.TabIndex = 5;
             this.btnAprobar.Text = "Aprobar";
             this.btnAprobar.UseVisualStyleBackColor = false;
-            this.btnAprobar.Click += new System.EventHandler(this.btnAprobar_Click);
             // 
             // btnSolicitarCorreccion
             // 
             this.btnSolicitarCorreccion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSolicitarCorreccion.BackColor = System.Drawing.Color.FromArgb(226, 132, 50);
+            this.btnSolicitarCorreccion.Click += new System.EventHandler(this.btnSolicitarCorreccion_Click);
             this.btnSolicitarCorreccion.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSolicitarCorreccion.FlatAppearance.BorderSize = 0;
             this.btnSolicitarCorreccion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -690,11 +690,11 @@
             this.btnSolicitarCorreccion.TabIndex = 4;
             this.btnSolicitarCorreccion.Text = "Solicitar corrección";
             this.btnSolicitarCorreccion.UseVisualStyleBackColor = false;
-            this.btnSolicitarCorreccion.Click += new System.EventHandler(this.btnSolicitarCorreccion_Click);
             // 
             // btnVerDetalle
             // 
             this.btnVerDetalle.BackColor = System.Drawing.Color.White;
+            this.btnVerDetalle.Click += new System.EventHandler(this.btnVerDetalle_Click);
             this.btnVerDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVerDetalle.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(0, 105, 240);
             this.btnVerDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -706,7 +706,6 @@
             this.btnVerDetalle.TabIndex = 3;
             this.btnVerDetalle.Text = "Ver detalle";
             this.btnVerDetalle.UseVisualStyleBackColor = false;
-            this.btnVerDetalle.Click += new System.EventHandler(this.btnVerDetalle_Click);
             // 
             // lblDetalleTitulo
             // 
@@ -725,15 +724,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.ClientSize = new System.Drawing.Size(1670, 1080);
+            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.Controls.Add(this.pnlContenido);
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Load += new System.EventHandler(this.frmRevisionTareas_Load);
             this.MinimumSize = new System.Drawing.Size(1050, 700);
             this.Name = "frmRevisionTareas";
             this.Text = "Revisión de tareas";
-            this.Load += new System.EventHandler(this.frmRevisionTareas_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRevisiones)).EndInit();
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.pnlContenido.ResumeLayout(false);
@@ -744,7 +744,6 @@
             this.pnlBusqueda.PerformLayout();
             this.tlpPrincipal.ResumeLayout(false);
             this.pnlLista.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRevisiones)).EndInit();
             this.pnlDetalle.ResumeLayout(false);
             this.tlpDetalle.ResumeLayout(false);
             this.tlpDetalle.PerformLayout();

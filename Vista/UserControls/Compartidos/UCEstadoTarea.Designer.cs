@@ -70,9 +70,9 @@
             this.tlpEstado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlpEstado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlpEstado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.tlpEstado.SetColumnSpan(this.btnAccion, 2);
             this.tlpEstado.Size = new System.Drawing.Size(360, 192);
             this.tlpEstado.TabIndex = 0;
-            this.tlpEstado.SetColumnSpan(this.btnAccion, 2);
             // 
             // lblEstadoTitulo
             // 

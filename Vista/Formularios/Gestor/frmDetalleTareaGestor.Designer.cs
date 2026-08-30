@@ -265,7 +265,7 @@ namespace Vista
             // 
             this.ucInformacion.BackColor = System.Drawing.Color.White;
             this.ucInformacion.Descripcion = "Elaborar el informe mensual de avance del proyecto, incluyendo datos de campo de " +
-    "los sectores A, B y C.";
+            "los sectores A, B y C.";
             this.ucInformacion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucInformacion.FechaInicio = "1 de mayo de 2026";
             this.ucInformacion.FechaLimite = "30 de mayo de 2026";
@@ -484,7 +484,7 @@ namespace Vista
             // 
             this.comentario1.BackColor = System.Drawing.Color.White;
             this.comentario1.Comentario = "Asegúrate de incluir los datos del sector B. Es clave para el hito del 30 de abri" +
-    "l.";
+            "l.";
             this.comentario1.Dock = System.Windows.Forms.DockStyle.Top;
             this.comentario1.Fecha = "28 abr 2026";
             this.comentario1.ImagenPerfil = global::Vista.Properties.Recursos.AvatarUsuario;
@@ -682,8 +682,8 @@ namespace Vista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(2088, 1350);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.Controls.Add(this.pnlViewport);
             this.Controls.Add(this.pnlTop);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -721,7 +721,6 @@ namespace Vista
             this.pnlTituloEvidencias.ResumeLayout(false);
             this.pnlTituloEvidencias.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion

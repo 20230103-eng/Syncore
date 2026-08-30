@@ -148,33 +148,91 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerEvidenciasTarea(int idTarea)
         {
-            string query = $@"
+            string query;
+            DataTable evidencias;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
+
+            query = @"
             SELECT tbEvidencia.IdEvidencia, tbEvidencia.NombreArchivo, tbEvidencia.RutaArchivo, tbEvidencia.TipoArchivo, tbEvidencia.FechaSubida
             FROM tbEvidencia
-            INNER JOIN tbAvance
-            ON tbEvidencia.IdAvance = tbAvance.IdAvance
-            WHERE tbAvance.IdTarea = {idTarea}
+            INNER JOIN tbAvance ON tbEvidencia.IdAvance = tbAvance.IdAvance
+            WHERE tbAvance.IdTarea = @IdTarea
             ORDER BY tbEvidencia.IdEvidencia";
 
-            DataTable evidencias = conexion.EjecutarConsulta(query);
+            evidencias = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return evidencias;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdTarea", idTarea);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(evidencias);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
             return evidencias;
         }
 
         public int ContarEvidenciasTarea(int idTarea)
         {
-            string query = $@"
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int cantidad;
+
+            query = @"
             SELECT COUNT(*)
             FROM tbEvidencia
-            INNER JOIN tbAvance
-            ON tbEvidencia.IdAvance = tbAvance.IdAvance
-            WHERE tbAvance.IdTarea = {idTarea}";
+            INNER JOIN tbAvance ON tbEvidencia.IdAvance = tbAvance.IdAvance
+            WHERE tbAvance.IdTarea = @IdTarea";
 
-            DataTable datos = conexion.EjecutarConsulta(query);
-            int cantidad = 0;
+            cantidad = 0;
+            conexionSql = Conexion.conectar();
 
-            if (datos.Rows.Count > 0)
+            if (conexionSql == null)
             {
-                cantidad = Convert.ToInt32(datos.Rows[0][0]);
+                return cantidad;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdTarea", idTarea);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
 
             return cantidad;
@@ -182,17 +240,45 @@ namespace Modelo.Modelo.Entidades
 
         public int ContarEvidenciasAvance(int idAvance)
         {
-            string query = $@"
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int cantidad;
+
+            query = @"
             SELECT COUNT(*)
             FROM tbEvidencia
-            WHERE IdAvance = {idAvance}";
+            WHERE IdAvance = @IdAvance";
 
-            DataTable datos = conexion.EjecutarConsulta(query);
-            int cantidad = 0;
+            cantidad = 0;
+            conexionSql = Conexion.conectar();
 
-            if (datos.Rows.Count > 0)
+            if (conexionSql == null)
             {
-                cantidad = Convert.ToInt32(datos.Rows[0][0]);
+                return cantidad;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdAvance", idAvance);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
 
             return cantidad;

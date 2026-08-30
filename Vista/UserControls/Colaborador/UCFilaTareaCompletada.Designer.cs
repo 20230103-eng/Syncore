@@ -32,6 +32,7 @@
             this.lblTarea = new System.Windows.Forms.Label();
             this.pnlSeparador = new System.Windows.Forms.Panel();
             this.SuspendLayout();
+            // 
             // lblMarca
             // 
             this.lblMarca.AutoSize = true;
@@ -42,6 +43,7 @@
             this.lblMarca.Size = new System.Drawing.Size(18, 20);
             this.lblMarca.TabIndex = 0;
             this.lblMarca.Text = "✓";
+            // 
             // lblTarea
             // 
             this.lblTarea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
@@ -53,6 +55,7 @@
             this.lblTarea.Size = new System.Drawing.Size(380, 20);
             this.lblTarea.TabIndex = 1;
             this.lblTarea.Text = "Nombre de tarea 1";
+            // 
             // pnlSeparador
             // 
             this.pnlSeparador.BackColor = System.Drawing.Color.FromArgb(220, 226, 233);
@@ -61,6 +64,7 @@
             this.pnlSeparador.Name = "pnlSeparador";
             this.pnlSeparador.Size = new System.Drawing.Size(440, 1);
             this.pnlSeparador.TabIndex = 2;
+            // 
             // UCFilaTareaCompletada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -69,10 +73,10 @@
             this.Controls.Add(this.pnlSeparador);
             this.Controls.Add(this.lblTarea);
             this.Controls.Add(this.lblMarca);
+            this.Dock = System.Windows.Forms.DockStyle.Top;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MaximumSize = new System.Drawing.Size(0, 37);
             this.MinimumSize = new System.Drawing.Size(180, 37);
-            this.Dock = System.Windows.Forms.DockStyle.Top;
             this.Name = "UCFilaTareaCompletada";
             this.Size = new System.Drawing.Size(440, 37);
             this.ResumeLayout(false);

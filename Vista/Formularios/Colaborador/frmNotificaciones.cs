@@ -176,12 +176,22 @@ namespace Vista
 
             altoNotificacion = 134;
             flpNotificaciones.Controls.Clear();
-            anchoDisponible = flpNotificaciones.ClientSize.Width - 6;
+            anchoDisponible = pnlViewport.ClientSize.Width - 120;
+
+            if (anchoDisponible > 1100)
+            {
+                anchoDisponible = 1100;
+            }
 
             if (anchoDisponible < 300)
             {
                 anchoDisponible = 300;
             }
+
+            flpNotificaciones.AutoSize = false;
+            flpNotificaciones.Dock = DockStyle.None;
+            flpNotificaciones.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            flpNotificaciones.Width = anchoDisponible;
 
             for (indice = datos.Rows.Count - 1; indice >= 0; indice = indice - 1)
             {
@@ -232,7 +242,7 @@ namespace Vista
                 control.AccionPrincipalSolicitada += control_AccionPrincipalSolicitada;
                 control.MarcarLeidaSolicitada += control_MarcarLeidaSolicitada;
                 control.Dock = DockStyle.None;
-                control.Width = anchoDisponible;
+                control.Width = anchoDisponible - 2;
                 control.Height = 128;
                 control.Margin = new Padding(0, 0, 0, 6);
                 flpNotificaciones.Controls.Add(control);

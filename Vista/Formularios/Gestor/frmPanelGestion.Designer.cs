@@ -207,6 +207,7 @@
             // 
             this.btnNuevoProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNuevoProyecto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(105)))), ((int)(((byte)(240)))));
+            this.btnNuevoProyecto.Click += new System.EventHandler(this.btnNuevoProyecto_Click);
             this.btnNuevoProyecto.FlatAppearance.BorderSize = 0;
             this.btnNuevoProyecto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevoProyecto.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -218,12 +219,12 @@
             this.btnNuevoProyecto.TabIndex = 2;
             this.btnNuevoProyecto.Text = "+ Nuevo proyecto";
             this.btnNuevoProyecto.UseVisualStyleBackColor = false;
-            this.btnNuevoProyecto.Click += new System.EventHandler(this.btnNuevoProyecto_Click);
             // 
             // btnProductividad
             // 
             this.btnProductividad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnProductividad.BackColor = System.Drawing.Color.White;
+            this.btnProductividad.Click += new System.EventHandler(this.btnProductividad_Click);
             this.btnProductividad.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(105)))), ((int)(((byte)(240)))));
             this.btnProductividad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProductividad.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -235,7 +236,6 @@
             this.btnProductividad.TabIndex = 1;
             this.btnProductividad.Text = "▥ Productividad";
             this.btnProductividad.UseVisualStyleBackColor = false;
-            this.btnProductividad.Click += new System.EventHandler(this.btnProductividad_Click);
             // 
             // lblTitulo
             // 
@@ -366,8 +366,8 @@
             // 
             // flpProyectosCriticos
             // 
-            this.flpProyectosCriticos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.flpProyectosCriticos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flpProyectosCriticos.AutoScroll = true;
             this.flpProyectosCriticos.Controls.Add(this.proyecto4);
@@ -465,7 +465,7 @@
             // 
             // pnlEncabezadoProyectos
             // 
-            this.pnlEncabezadoProyectos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pnlEncabezadoProyectos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlEncabezadoProyectos.ColumnCount = 6;
             this.pnlEncabezadoProyectos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29F));
@@ -567,7 +567,7 @@
             // 
             // pnlSeparadorProyectos
             // 
-            this.pnlSeparadorProyectos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pnlSeparadorProyectos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlSeparadorProyectos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(190)))), ((int)(((byte)(202)))));
             this.pnlSeparadorProyectos.Location = new System.Drawing.Point(10, 46);
@@ -601,8 +601,8 @@
             // 
             // flpAlertas
             // 
-            this.flpAlertas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.flpAlertas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flpAlertas.AutoScroll = true;
             this.flpAlertas.Controls.Add(this.alerta3);
@@ -669,7 +669,7 @@
             // 
             // pnlSeparadorAlertas
             // 
-            this.pnlSeparadorAlertas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pnlSeparadorAlertas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlSeparadorAlertas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(190)))), ((int)(((byte)(202)))));
             this.pnlSeparadorAlertas.Location = new System.Drawing.Point(10, 46);
@@ -718,8 +718,8 @@
             // 
             // flpBarrasProyecto
             // 
-            this.flpBarrasProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.flpBarrasProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flpBarrasProyecto.AutoScroll = true;
             this.flpBarrasProyecto.Controls.Add(this.barraProyecto1);
@@ -782,7 +782,7 @@
             // 
             // pnlSeparadorAvance
             // 
-            this.pnlSeparadorAvance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pnlSeparadorAvance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlSeparadorAvance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(190)))), ((int)(((byte)(202)))));
             this.pnlSeparadorAvance.Location = new System.Drawing.Point(10, 46);
@@ -816,8 +816,8 @@
             // 
             // flpAvancesRecientes
             // 
-            this.flpAvancesRecientes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.flpAvancesRecientes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flpAvancesRecientes.AutoScroll = true;
             this.flpAvancesRecientes.Controls.Add(this.avanceReciente3);
@@ -882,10 +882,9 @@
             this.avanceReciente1.TabIndex = 0;
             this.avanceReciente1.Tarea = "Tarea 1";
             // 
-            // 
             // pnlSeparadorAvances
             // 
-            this.pnlSeparadorAvances.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pnlSeparadorAvances.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlSeparadorAvances.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(190)))), ((int)(((byte)(202)))));
             this.pnlSeparadorAvances.Location = new System.Drawing.Point(10, 46);
@@ -908,16 +907,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(1670, 1080);
+            this.Activated += new System.EventHandler(this.frmPanelGestion_Activated);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.Controls.Add(this.pnlViewport);
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmPanelGestion";
+            this.Shown += new System.EventHandler(this.frmPanelGestion_Shown);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Panel de gestión";
-            this.Activated += new System.EventHandler(this.frmPanelGestion_Activated);
-            this.Shown += new System.EventHandler(this.frmPanelGestion_Shown);
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.pnlViewport.ResumeLayout(false);
@@ -943,7 +942,6 @@
             this.pnlAvancesRecientes.PerformLayout();
             this.flpAvancesRecientes.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion

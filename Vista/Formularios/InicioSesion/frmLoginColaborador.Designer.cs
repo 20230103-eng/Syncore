@@ -34,8 +34,9 @@
             this.tlpCentro.SuspendLayout();
             this.pnlTarjeta.SuspendLayout();
             this.pnlTitulo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
+            // 
             // pnlFondo
             // 
             this.pnlFondo.BackColor = System.Drawing.Color.FromArgb(4, 51, 111);
@@ -48,6 +49,7 @@
             this.pnlFondo.Name = "pnlFondo";
             this.pnlFondo.Size = new System.Drawing.Size(1366, 768);
             this.pnlFondo.TabIndex = 0;
+            // 
             // tlpCentro
             // 
             this.tlpCentro.BackColor = System.Drawing.Color.Transparent;
@@ -65,6 +67,7 @@
             this.tlpCentro.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpCentro.Size = new System.Drawing.Size(1366, 768);
             this.tlpCentro.TabIndex = 0;
+            // 
             // pnlTarjeta
             // 
             this.pnlTarjeta.BackColor = System.Drawing.Color.White;
@@ -82,6 +85,7 @@
             this.pnlTarjeta.Name = "pnlTarjeta";
             this.pnlTarjeta.Size = new System.Drawing.Size(500, 560);
             this.pnlTarjeta.TabIndex = 0;
+            // 
             // chkRecordar
             // 
             this.chkRecordar.AutoSize = true;
@@ -92,9 +96,11 @@
             this.chkRecordar.TabIndex = 2;
             this.chkRecordar.Text = "Recordar usuario";
             this.chkRecordar.UseVisualStyleBackColor = true;
+            // 
             // btnIngresar
             // 
             this.btnIngresar.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
             this.btnIngresar.FlatAppearance.BorderSize = 0;
             this.btnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIngresar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
@@ -105,10 +111,11 @@
             this.btnIngresar.TabIndex = 3;
             this.btnIngresar.Text = "Ingresar";
             this.btnIngresar.UseVisualStyleBackColor = false;
-            this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
+            // 
             // btnCancelar
             // 
             this.btnCancelar.BackColor = System.Drawing.Color.White;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             this.btnCancelar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(11, 55, 104);
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -119,7 +126,7 @@
             this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
             // txtContrasena
             // 
             this.txtContrasena.Font = new System.Drawing.Font("Segoe UI", 11F);
@@ -130,6 +137,7 @@
             this.txtContrasena.ShortcutsEnabled = false;
             this.txtContrasena.Size = new System.Drawing.Size(340, 27);
             this.txtContrasena.TabIndex = 1;
+            // 
             // lblContrasena
             // 
             this.lblContrasena.AutoSize = true;
@@ -140,16 +148,18 @@
             this.lblContrasena.Size = new System.Drawing.Size(86, 19);
             this.lblContrasena.TabIndex = 3;
             this.lblContrasena.Text = "Contraseña";
+            // 
             // txtUsuario
             // 
             this.txtUsuario.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsuario_KeyPress);
             this.txtUsuario.Location = new System.Drawing.Point(80, 225);
             this.txtUsuario.MaxLength = 50;
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.ShortcutsEnabled = false;
             this.txtUsuario.Size = new System.Drawing.Size(340, 27);
             this.txtUsuario.TabIndex = 0;
-            this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsuario_KeyPress);
+            // 
             // lblUsuario
             // 
             this.lblUsuario.AutoSize = true;
@@ -160,6 +170,7 @@
             this.lblUsuario.Size = new System.Drawing.Size(60, 19);
             this.lblUsuario.TabIndex = 1;
             this.lblUsuario.Text = "Usuario";
+            // 
             // pnlTitulo
             // 
             this.pnlTitulo.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
@@ -169,6 +180,7 @@
             this.pnlTitulo.Name = "pnlTitulo";
             this.pnlTitulo.Size = new System.Drawing.Size(500, 125);
             this.pnlTitulo.TabIndex = 0;
+            // 
             // lblTitulo
             // 
             this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -180,6 +192,7 @@
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Inicio de Sesión - Colaborador";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // picLogo
             // 
             this.picLogo.BackColor = System.Drawing.Color.Transparent;
@@ -190,13 +203,14 @@
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLogo.TabIndex = 1;
             this.picLogo.TabStop = false;
+            // 
             // frmLoginColaborador
             // 
-            this.AcceptButton = this.btnIngresar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.CancelButton = this.btnCancelar;
             this.ClientSize = new System.Drawing.Size(1366, 768);
+            this.AcceptButton = this.btnIngresar;
+            this.CancelButton = this.btnCancelar;
             this.Controls.Add(this.pnlFondo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.MaximizeBox = true;
@@ -206,12 +220,12 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inicio de Sesión - Colaborador";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.pnlFondo.ResumeLayout(false);
             this.tlpCentro.ResumeLayout(false);
             this.pnlTarjeta.ResumeLayout(false);
             this.pnlTarjeta.PerformLayout();
             this.pnlTitulo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
         }
 

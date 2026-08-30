@@ -129,7 +129,6 @@
             this.tlpTexto.ResumeLayout(false);
             this.pnlBarraFondo.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion

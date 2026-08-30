@@ -20,6 +20,17 @@
         {
             System.Windows.Forms.DataGridViewCellStyle encabezadoHitos = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle filasHitos = new System.Windows.Forms.DataGridViewCellStyle();
+            encabezadoHitos.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            encabezadoHitos.BackColor = System.Drawing.Color.White;
+            encabezadoHitos.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
+            encabezadoHitos.ForeColor = System.Drawing.Color.FromArgb(78, 91, 107);
+            encabezadoHitos.SelectionBackColor = System.Drawing.Color.White;
+            encabezadoHitos.SelectionForeColor = System.Drawing.Color.FromArgb(78, 91, 107);
+            filasHitos.BackColor = System.Drawing.Color.White;
+            filasHitos.Font = new System.Drawing.Font("Segoe UI", 8.5F);
+            filasHitos.ForeColor = System.Drawing.Color.FromArgb(62, 75, 91);
+            filasHitos.SelectionBackColor = System.Drawing.Color.White;
+            filasHitos.SelectionForeColor = System.Drawing.Color.FromArgb(62, 75, 91);
             this.pnlTop = new System.Windows.Forms.Panel();
             this.lblFecha = new System.Windows.Forms.Label();
             this.lblBreadcrumbBase = new System.Windows.Forms.Label();
@@ -108,9 +119,9 @@
             this.pnlBarraReal.SuspendLayout();
             this.pnlBarraPlan.SuspendLayout();
             this.pnlHitos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHitos)).BeginInit();
             this.pnlAlertas.SuspendLayout();
             this.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHitos)).BeginInit();
             // 
             // pnlTop
             // 
@@ -221,6 +232,7 @@
             // btnCerrarProyecto
             // 
             this.btnCerrarProyecto.BackColor = System.Drawing.Color.White;
+            this.btnCerrarProyecto.Click += new System.EventHandler(this.btnCerrarProyecto_Click);
             this.btnCerrarProyecto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrarProyecto.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(142, 160, 181);
             this.btnCerrarProyecto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -232,11 +244,11 @@
             this.btnCerrarProyecto.TabIndex = 3;
             this.btnCerrarProyecto.Text = "Cerrar proyecto";
             this.btnCerrarProyecto.UseVisualStyleBackColor = false;
-            this.btnCerrarProyecto.Click += new System.EventHandler(this.btnCerrarProyecto_Click);
             // 
             // btnEquipoTrabajo
             // 
             this.btnEquipoTrabajo.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnEquipoTrabajo.Click += new System.EventHandler(this.btnEquipoTrabajo_Click);
             this.btnEquipoTrabajo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEquipoTrabajo.FlatAppearance.BorderSize = 0;
             this.btnEquipoTrabajo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -248,11 +260,11 @@
             this.btnEquipoTrabajo.TabIndex = 2;
             this.btnEquipoTrabajo.Text = "Equipo de trabajo";
             this.btnEquipoTrabajo.UseVisualStyleBackColor = false;
-            this.btnEquipoTrabajo.Click += new System.EventHandler(this.btnEquipoTrabajo_Click);
             // 
             // btnEditarProyecto
             // 
             this.btnEditarProyecto.BackColor = System.Drawing.Color.White;
+            this.btnEditarProyecto.Click += new System.EventHandler(this.btnEditarProyecto_Click);
             this.btnEditarProyecto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEditarProyecto.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(0, 105, 240);
             this.btnEditarProyecto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -264,11 +276,11 @@
             this.btnEditarProyecto.TabIndex = 1;
             this.btnEditarProyecto.Text = "Editar proyecto";
             this.btnEditarProyecto.UseVisualStyleBackColor = false;
-            this.btnEditarProyecto.Click += new System.EventHandler(this.btnEditarProyecto_Click);
             // 
             // btnVolverListado
             // 
             this.btnVolverListado.BackColor = System.Drawing.Color.White;
+            this.btnVolverListado.Click += new System.EventHandler(this.btnVolverListado_Click);
             this.btnVolverListado.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVolverListado.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(142, 160, 181);
             this.btnVolverListado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -280,7 +292,6 @@
             this.btnVolverListado.TabIndex = 0;
             this.btnVolverListado.Text = "← Volver al listado";
             this.btnVolverListado.UseVisualStyleBackColor = false;
-            this.btnVolverListado.Click += new System.EventHandler(this.btnVolverListado_Click);
             // 
             // lblSubtitulo
             // 
@@ -757,8 +768,8 @@
             // 
             // lblEstadoSalud
             // 
-            this.lblEstadoSalud.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEstadoSalud.AutoEllipsis = true;
+            this.lblEstadoSalud.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEstadoSalud.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblEstadoSalud.ForeColor = System.Drawing.Color.FromArgb(207, 48, 57);
             this.lblEstadoSalud.Location = new System.Drawing.Point(0, 0);
@@ -801,8 +812,8 @@
             this.pnlBarraPlan.Location = new System.Drawing.Point(3, 29);
             this.pnlBarraPlan.Name = "pnlBarraPlan";
             this.pnlBarraPlan.Size = new System.Drawing.Size(987, 8);
-            this.pnlBarraPlan.TabIndex = 1;
             this.pnlBarraPlan.SizeChanged += new System.EventHandler(this.pnlBarrasSalud_SizeChanged);
+            this.pnlBarraPlan.TabIndex = 1;
             // 
             // pnlRellenoPlan
             // 
@@ -844,8 +855,8 @@
             this.pnlBarraReal.Location = new System.Drawing.Point(3, 72);
             this.pnlBarraReal.Name = "pnlBarraReal";
             this.pnlBarraReal.Size = new System.Drawing.Size(987, 8);
-            this.pnlBarraReal.TabIndex = 4;
             this.pnlBarraReal.SizeChanged += new System.EventHandler(this.pnlBarrasSalud_SizeChanged);
+            this.pnlBarraReal.TabIndex = 4;
             // 
             // pnlRellenoReal
             // 
@@ -903,12 +914,6 @@
             this.dgvHitos.BackgroundColor = System.Drawing.Color.White;
             this.dgvHitos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvHitos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            encabezadoHitos.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            encabezadoHitos.BackColor = System.Drawing.Color.White;
-            encabezadoHitos.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
-            encabezadoHitos.ForeColor = System.Drawing.Color.FromArgb(78, 91, 107);
-            encabezadoHitos.SelectionBackColor = System.Drawing.Color.White;
-            encabezadoHitos.SelectionForeColor = System.Drawing.Color.FromArgb(78, 91, 107);
             this.dgvHitos.ColumnHeadersDefaultCellStyle = encabezadoHitos;
             this.dgvHitos.ColumnHeadersHeight = 34;
             this.dgvHitos.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -919,13 +924,8 @@
             this.dgvHitos.Name = "dgvHitos";
             this.dgvHitos.ReadOnly = true;
             this.dgvHitos.RowHeadersVisible = false;
-            filasHitos.BackColor = System.Drawing.Color.White;
-            filasHitos.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            filasHitos.ForeColor = System.Drawing.Color.FromArgb(62, 75, 91);
-            filasHitos.SelectionBackColor = System.Drawing.Color.White;
-            filasHitos.SelectionForeColor = System.Drawing.Color.FromArgb(62, 75, 91);
-            this.dgvHitos.RowsDefaultCellStyle = filasHitos;
             this.dgvHitos.RowTemplate.Height = 34;
+            this.dgvHitos.RowsDefaultCellStyle = filasHitos;
             this.dgvHitos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvHitos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvHitos.Size = new System.Drawing.Size(1221, 176);
@@ -988,15 +988,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.ClientSize = new System.Drawing.Size(1670, 1080);
+            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.Controls.Add(this.pnlContenido);
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Load += new System.EventHandler(this.frmDetalleProyecto_Load);
             this.MinimumSize = new System.Drawing.Size(1050, 700);
             this.Name = "frmDetalleProyecto";
             this.Text = "Detalle de proyecto";
-            this.Load += new System.EventHandler(this.frmDetalleProyecto_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHitos)).EndInit();
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.pnlContenido.ResumeLayout(false);
@@ -1028,7 +1029,6 @@
             this.pnlBarraReal.ResumeLayout(false);
             this.pnlBarraPlan.ResumeLayout(false);
             this.pnlHitos.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHitos)).EndInit();
             this.pnlAlertas.ResumeLayout(false);
             this.ResumeLayout(false);
         }

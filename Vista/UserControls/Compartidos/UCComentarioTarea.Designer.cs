@@ -22,8 +22,8 @@
             this.lblFecha = new System.Windows.Forms.Label();
             this.lblComentario = new System.Windows.Forms.Label();
             this.pnlSeparador = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.picUsuario)).BeginInit();
             this.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picUsuario)).BeginInit();
             // 
             // picUsuario
             // 

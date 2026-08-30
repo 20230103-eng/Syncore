@@ -29,6 +29,7 @@
             this.pnlTexto.SuspendLayout();
             this.pnlAccion.SuspendLayout();
             this.SuspendLayout();
+            // 
             // tlpPrincipal
             // 
             this.tlpPrincipal.ColumnCount = 3;
@@ -46,6 +47,7 @@
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPrincipal.Size = new System.Drawing.Size(322, 92);
             this.tlpPrincipal.TabIndex = 0;
+            // 
             // lblPunto
             // 
             this.lblPunto.Dock = System.Windows.Forms.DockStyle.Top;
@@ -58,6 +60,7 @@
             this.lblPunto.TabIndex = 0;
             this.lblPunto.Text = "•";
             this.lblPunto.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // pnlTexto
             // 
             this.pnlTexto.Controls.Add(this.lblDetalle);
@@ -68,6 +71,7 @@
             this.pnlTexto.Name = "pnlTexto";
             this.pnlTexto.Size = new System.Drawing.Size(198, 92);
             this.pnlTexto.TabIndex = 1;
+            // 
             // lblTitulo
             // 
             this.lblTitulo.AutoEllipsis = true;
@@ -80,6 +84,7 @@
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Proyecto atrasado";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblDetalle
             // 
             this.lblDetalle.AutoEllipsis = true;
@@ -91,6 +96,7 @@
             this.lblDetalle.Size = new System.Drawing.Size(198, 68);
             this.lblDetalle.TabIndex = 1;
             this.lblDetalle.Text = "PCN: 4 tareas vencidas sin actualizar";
+            // 
             // pnlAccion
             // 
             this.pnlAccion.Controls.Add(this.btnAccion);
@@ -101,6 +107,7 @@
             this.pnlAccion.Name = "pnlAccion";
             this.pnlAccion.Size = new System.Drawing.Size(100, 92);
             this.pnlAccion.TabIndex = 2;
+            // 
             // lblFecha
             // 
             this.lblFecha.Dock = System.Windows.Forms.DockStyle.Top;
@@ -112,10 +119,12 @@
             this.lblFecha.TabIndex = 0;
             this.lblFecha.Text = "Hace 30 min";
             this.lblFecha.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // btnAccion
             // 
             this.btnAccion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAccion.BackColor = System.Drawing.Color.White;
+            this.btnAccion.Click += new System.EventHandler(this.btnAccion_Click);
             this.btnAccion.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(11, 55, 104);
             this.btnAccion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAccion.Font = new System.Drawing.Font("Segoe UI", 7.5F);
@@ -127,17 +136,17 @@
             this.btnAccion.TabIndex = 1;
             this.btnAccion.Text = "Ver proyecto";
             this.btnAccion.UseVisualStyleBackColor = false;
-            this.btnAccion.Click += new System.EventHandler(this.btnAccion_Click);
+            // 
             // UCAlertaGestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.tlpPrincipal);
+            this.Dock = System.Windows.Forms.DockStyle.Top;
             this.Margin = new System.Windows.Forms.Padding(0, 0, 0, 4);
             this.MaximumSize = new System.Drawing.Size(0, 92);
             this.MinimumSize = new System.Drawing.Size(260, 92);
-            this.Dock = System.Windows.Forms.DockStyle.Top;
             this.Name = "UCAlertaGestion";
             this.Size = new System.Drawing.Size(322, 92);
             this.tlpPrincipal.ResumeLayout(false);

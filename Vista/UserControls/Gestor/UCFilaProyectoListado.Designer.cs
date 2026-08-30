@@ -240,6 +240,7 @@
             // btnEditar
             // 
             this.btnEditar.BackColor = System.Drawing.Color.White;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             this.btnEditar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditar.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -250,11 +251,11 @@
             this.btnEditar.TabIndex = 8;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = false;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnVer
             // 
             this.btnVer.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
             this.btnVer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnVer.FlatAppearance.BorderSize = 0;
             this.btnVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -266,7 +267,6 @@
             this.btnVer.TabIndex = 9;
             this.btnVer.Text = "Ver";
             this.btnVer.UseVisualStyleBackColor = false;
-            this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
             // 
             // pnlSeparador
             // 

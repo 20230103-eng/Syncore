@@ -18,6 +18,16 @@
         {
             System.Windows.Forms.DataGridViewCellStyle encabezado = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle filas = new System.Windows.Forms.DataGridViewCellStyle();
+            encabezado.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
+            encabezado.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
+            encabezado.ForeColor = System.Drawing.Color.FromArgb(75, 90, 108);
+            encabezado.SelectionBackColor = encabezado.BackColor;
+            encabezado.SelectionForeColor = encabezado.ForeColor;
+            filas.BackColor = System.Drawing.Color.White;
+            filas.Font = new System.Drawing.Font("Segoe UI", 8.5F);
+            filas.ForeColor = System.Drawing.Color.FromArgb(55, 70, 88);
+            filas.SelectionBackColor = System.Drawing.Color.FromArgb(232, 242, 255);
+            filas.SelectionForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
             this.pnlTop = new System.Windows.Forms.Panel();
             this.lblFecha = new System.Windows.Forms.Label();
             this.lblBreadcrumbActual = new System.Windows.Forms.Label();
@@ -46,37 +56,53 @@
             this.pnlCabecera.SuspendLayout();
             this.tlpFiltros.SuspendLayout();
             this.pnlTabla.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCronograma)).BeginInit();
             this.SuspendLayout();
-            // top
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCronograma)).BeginInit();
+            // 
+            // pnlTop
+            // 
             this.pnlTop.BackColor = System.Drawing.Color.White;
             this.pnlTop.Controls.Add(this.lblFecha);
             this.pnlTop.Controls.Add(this.lblBreadcrumbActual);
             this.pnlTop.Controls.Add(this.lblBreadcrumbBase);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Size = new System.Drawing.Size(1670, 43);
+            // 
+            // lblFecha
+            // 
             this.lblFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFecha.AutoSize = true;
             this.lblFecha.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblFecha.ForeColor = System.Drawing.Color.FromArgb(102, 118, 138);
             this.lblFecha.Location = new System.Drawing.Point(1587, 11);
             this.lblFecha.Text = "Fecha";
+            // 
+            // lblBreadcrumbBase
+            // 
             this.lblBreadcrumbBase.AutoSize = true;
             this.lblBreadcrumbBase.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblBreadcrumbBase.ForeColor = System.Drawing.Color.FromArgb(145, 151, 160);
             this.lblBreadcrumbBase.Location = new System.Drawing.Point(20, 11);
             this.lblBreadcrumbBase.Text = "Planificación >";
+            // 
+            // lblBreadcrumbActual
+            // 
             this.lblBreadcrumbActual.AutoSize = true;
             this.lblBreadcrumbActual.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblBreadcrumbActual.ForeColor = System.Drawing.Color.FromArgb(0, 105, 240);
             this.lblBreadcrumbActual.Location = new System.Drawing.Point(118, 11);
             this.lblBreadcrumbActual.Text = "Cronograma";
-            // content
+            // 
+            // pnlContenido
+            // 
             this.pnlContenido.AutoScroll = true;
             this.pnlContenido.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.pnlContenido.Controls.Add(this.tlpPrincipal);
             this.pnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContenido.Padding = new System.Windows.Forms.Padding(24, 18, 24, 24);
+            // 
+            // tlpPrincipal
+            // 
             this.tlpPrincipal.ColumnCount = 1;
             this.tlpPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPrincipal.Controls.Add(this.pnlCabecera, 0, 0);
@@ -88,21 +114,31 @@
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82F));
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 720F));
             this.tlpPrincipal.Size = new System.Drawing.Size(1622, 880);
-            // header
+            // 
+            // pnlCabecera
+            // 
             this.pnlCabecera.Controls.Add(this.lblSubtitulo);
             this.pnlCabecera.Controls.Add(this.lblTitulo);
             this.pnlCabecera.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // lblTitulo
+            // 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
             this.lblTitulo.Location = new System.Drawing.Point(0, 0);
             this.lblTitulo.Text = "Cronograma";
+            // 
+            // lblSubtitulo
+            // 
             this.lblSubtitulo.AutoSize = true;
             this.lblSubtitulo.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.lblSubtitulo.ForeColor = System.Drawing.Color.FromArgb(89, 105, 123);
             this.lblSubtitulo.Location = new System.Drawing.Point(2, 45);
             this.lblSubtitulo.Text = "Consulta tareas e hitos programados de los proyectos que administras.";
-            // filters
+            // 
+            // tlpFiltros
+            // 
             this.tlpFiltros.ColumnCount = 10;
             this.tlpFiltros.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72F));
             this.tlpFiltros.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
@@ -126,52 +162,87 @@
             this.tlpFiltros.Controls.Add(this.lblCantidad, 9, 0);
             this.tlpFiltros.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpFiltros.Padding = new System.Windows.Forms.Padding(0, 12, 0, 12);
+            // 
+            // lblProyecto
+            // 
             this.lblProyecto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblProyecto.Text = "Proyecto:";
             this.lblProyecto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cboProyecto
+            // 
             this.cboProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cboProyecto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboProyecto.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.cboProyecto.TabIndex = 0;
             this.cboProyecto.SelectedIndexChanged += new System.EventHandler(this.filtros_Cambio);
+            this.cboProyecto.TabIndex = 0;
+            // 
+            // lblDesde
+            // 
             this.lblDesde.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblDesde.Text = "Desde:";
             this.lblDesde.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // dtpDesde
+            // 
             this.dtpDesde.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDesde.TabIndex = 1;
+            // 
+            // lblHasta
+            // 
             this.lblHasta.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblHasta.Text = "Hasta:";
             this.lblHasta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // dtpHasta
+            // 
             this.dtpHasta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpHasta.TabIndex = 2;
+            // 
+            // lblTipo
+            // 
             this.lblTipo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTipo.Text = "Tipo:";
             this.lblTipo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cboTipo
+            // 
             this.cboTipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipo.Items.AddRange(new object[] { "Todos", "Solo tareas", "Solo hitos" });
-            this.cboTipo.TabIndex = 3;
             this.cboTipo.SelectedIndexChanged += new System.EventHandler(this.cboTipo_SelectedIndexChanged);
-            this.btnActualizar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnActualizar.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
-            this.btnActualizar.Text = "Actualizar";
+            this.cboTipo.TabIndex = 3;
+            // 
+            // btnActualizar
+            // 
             this.btnActualizar.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
-            this.btnActualizar.ForeColor = System.Drawing.Color.White;
-            this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnActualizar.TabIndex = 4;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            this.btnActualizar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActualizar.ForeColor = System.Drawing.Color.White;
+            this.btnActualizar.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
+            this.btnActualizar.TabIndex = 4;
+            this.btnActualizar.Text = "Actualizar";
+            // 
+            // lblCantidad
+            // 
             this.lblCantidad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCantidad.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblCantidad.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
             this.lblCantidad.Text = "0 elemento(s)";
             this.lblCantidad.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // table
+            // 
+            // pnlTabla
+            // 
             this.pnlTabla.BackColor = System.Drawing.Color.White;
             this.pnlTabla.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTabla.Controls.Add(this.dgvCronograma);
             this.pnlTabla.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // dgvCronograma
+            // 
             this.dgvCronograma.AllowUserToAddRows = false;
             this.dgvCronograma.AllowUserToDeleteRows = false;
             this.dgvCronograma.AllowUserToResizeRows = false;
@@ -179,37 +250,30 @@
             this.dgvCronograma.BackgroundColor = System.Drawing.Color.White;
             this.dgvCronograma.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvCronograma.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            encabezado.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
-            encabezado.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
-            encabezado.ForeColor = System.Drawing.Color.FromArgb(75, 90, 108);
-            encabezado.SelectionBackColor = encabezado.BackColor;
-            encabezado.SelectionForeColor = encabezado.ForeColor;
+            this.dgvCronograma.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvCronograma_CellFormatting);
             this.dgvCronograma.ColumnHeadersDefaultCellStyle = encabezado;
             this.dgvCronograma.ColumnHeadersHeight = 40;
-            filas.BackColor = System.Drawing.Color.White;
-            filas.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            filas.ForeColor = System.Drawing.Color.FromArgb(55, 70, 88);
-            filas.SelectionBackColor = System.Drawing.Color.FromArgb(232, 242, 255);
-            filas.SelectionForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
-            this.dgvCronograma.RowsDefaultCellStyle = filas;
             this.dgvCronograma.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCronograma.EnableHeadersVisualStyles = false;
             this.dgvCronograma.ReadOnly = true;
             this.dgvCronograma.RowHeadersVisible = false;
+            this.dgvCronograma.RowsDefaultCellStyle = filas;
             this.dgvCronograma.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCronograma.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvCronograma_CellFormatting);
-            // form
+            // 
+            // frmCronograma
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.ClientSize = new System.Drawing.Size(1670, 1080);
+            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.Controls.Add(this.pnlContenido);
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Load += new System.EventHandler(this.frmCronograma_Load);
             this.MinimumSize = new System.Drawing.Size(1050, 700);
             this.Name = "frmCronograma";
             this.Text = "Cronograma";
-            this.Load += new System.EventHandler(this.frmCronograma_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCronograma)).EndInit();
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.pnlContenido.ResumeLayout(false);
@@ -218,7 +282,6 @@
             this.pnlCabecera.PerformLayout();
             this.tlpFiltros.ResumeLayout(false);
             this.pnlTabla.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCronograma)).EndInit();
             this.ResumeLayout(false);
         }
 

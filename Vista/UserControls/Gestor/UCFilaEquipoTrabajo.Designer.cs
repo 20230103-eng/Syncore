@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-
             this.tlpFila = new System.Windows.Forms.TableLayoutPanel();
             this.picUsuario = new System.Windows.Forms.PictureBox();
             this.lblNombre = new System.Windows.Forms.Label();
@@ -40,7 +39,6 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnRetirar = new System.Windows.Forms.Button();
             this.pnlSeparador = new System.Windows.Forms.Panel();
-            this.Margin = new System.Windows.Forms.Padding(0);
             this.tlpFila.SuspendLayout();
             this.picUsuario.SuspendLayout();
             this.SuspendLayout();
@@ -84,68 +82,68 @@
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
+            this.lblNombre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblNombre.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Text = "María López";
-            this.lblNombre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblNombre.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblNombre.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
             // 
             // lblArea
             // 
             this.lblArea.AutoSize = true;
+            this.lblArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblArea.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblArea.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblArea.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
             this.lblArea.Name = "lblArea";
             this.lblArea.Text = "Tecnología";
-            this.lblArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblArea.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblArea.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
             // 
             // lblRol
             // 
             this.lblRol.AutoSize = true;
+            this.lblRol.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblRol.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblRol.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblRol.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
             this.lblRol.Name = "lblRol";
             this.lblRol.Text = "Coordinador";
-            this.lblRol.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblRol.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblRol.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
             // 
             // lblAsignadas
             // 
             this.lblAsignadas.AutoSize = true;
+            this.lblAsignadas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAsignadas.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblAsignadas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblAsignadas.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
             this.lblAsignadas.Name = "lblAsignadas";
             this.lblAsignadas.Text = "8";
-            this.lblAsignadas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAsignadas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblAsignadas.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
             // 
             // lblCompletadas
             // 
             this.lblCompletadas.AutoSize = true;
+            this.lblCompletadas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCompletadas.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblCompletadas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblCompletadas.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
             this.lblCompletadas.Name = "lblCompletadas";
             this.lblCompletadas.Text = "5";
-            this.lblCompletadas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCompletadas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblCompletadas.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
             // 
             // lblVencidas
             // 
             this.lblVencidas.AutoSize = true;
+            this.lblVencidas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblVencidas.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblVencidas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblVencidas.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
             this.lblVencidas.Name = "lblVencidas";
             this.lblVencidas.Text = "1";
-            this.lblVencidas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblVencidas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblVencidas.Margin = new System.Windows.Forms.Padding(8, 0, 4, 0);
             // 
             // btnEditar
             // 
@@ -180,11 +178,12 @@
             // 
             // UCFilaEquipoTrabajo
             // 
-            this.Size = new System.Drawing.Size(1540, 54);
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.tlpFila);
             this.Controls.Add(this.pnlSeparador);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "UCFilaEquipoTrabajo";
+            this.Size = new System.Drawing.Size(1540, 54);
             this.picUsuario.ResumeLayout(false);
             this.tlpFila.ResumeLayout(false);
             this.tlpFila.PerformLayout();

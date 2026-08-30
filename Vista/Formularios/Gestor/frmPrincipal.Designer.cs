@@ -61,10 +61,11 @@
             this.pnlMenu.SuspendLayout();
             this.pnlUsuario.SuspendLayout();
             this.pnlTarjetaUsuario.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picUsuario)).BeginInit();
             this.pnlLogo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picUsuario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
+            // 
             // pnlContenido
             // 
             this.pnlContenido.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
@@ -73,6 +74,7 @@
             this.pnlContenido.Name = "pnlContenido";
             this.pnlContenido.Size = new System.Drawing.Size(1670, 1061);
             this.pnlContenido.TabIndex = 1;
+            // 
             // pnlSideNav
             // 
             this.pnlSideNav.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
@@ -84,6 +86,7 @@
             this.pnlSideNav.Name = "pnlSideNav";
             this.pnlSideNav.Size = new System.Drawing.Size(240, 1061);
             this.pnlSideNav.TabIndex = 0;
+            // 
             // pnlMenu
             // 
             this.pnlMenu.AutoScroll = true;
@@ -110,9 +113,11 @@
             this.pnlMenu.Name = "pnlMenu";
             this.pnlMenu.Size = new System.Drawing.Size(240, 951);
             this.pnlMenu.TabIndex = 1;
+            // 
             // btnAdministracion
             // 
             this.btnAdministracion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
+            this.btnAdministracion.Click += new System.EventHandler(this.btnAdministracion_Click);
             this.btnAdministracion.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAdministracion.FlatAppearance.BorderSize = 0;
             this.btnAdministracion.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
@@ -132,10 +137,11 @@
             this.btnAdministracion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAdministracion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAdministracion.UseVisualStyleBackColor = false;
-            this.btnAdministracion.Click += new System.EventHandler(this.btnAdministracion_Click);
+            // 
             // btnNotificacionesGestion
             // 
             this.btnNotificacionesGestion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
+            this.btnNotificacionesGestion.Click += new System.EventHandler(this.btnNotificacionesGestion_Click);
             this.btnNotificacionesGestion.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNotificacionesGestion.FlatAppearance.BorderSize = 0;
             this.btnNotificacionesGestion.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
@@ -155,7 +161,6 @@
             this.btnNotificacionesGestion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNotificacionesGestion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnNotificacionesGestion.UseVisualStyleBackColor = false;
-            this.btnNotificacionesGestion.Click += new System.EventHandler(this.btnNotificacionesGestion_Click);
             // 
             // lblAdministracion
             // 
@@ -171,6 +176,7 @@
             // btnProductividad
             // 
             this.btnProductividad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
+            this.btnProductividad.Click += new System.EventHandler(this.btnProductividad_Click);
             this.btnProductividad.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnProductividad.FlatAppearance.BorderSize = 0;
             this.btnProductividad.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
@@ -190,7 +196,7 @@
             this.btnProductividad.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnProductividad.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnProductividad.UseVisualStyleBackColor = false;
-            this.btnProductividad.Click += new System.EventHandler(this.btnProductividad_Click);
+            // 
             // lblProductividad
             // 
             this.lblProductividad.AutoSize = true;
@@ -201,9 +207,11 @@
             this.lblProductividad.Size = new System.Drawing.Size(93, 13);
             this.lblProductividad.TabIndex = 13;
             this.lblProductividad.Text = "PRODUCTIVIDAD";
+            // 
             // btnRevisionTareas
             // 
             this.btnRevisionTareas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
+            this.btnRevisionTareas.Click += new System.EventHandler(this.btnRevisionTareas_Click);
             this.btnRevisionTareas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRevisionTareas.FlatAppearance.BorderSize = 0;
             this.btnRevisionTareas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
@@ -223,10 +231,11 @@
             this.btnRevisionTareas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRevisionTareas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRevisionTareas.UseVisualStyleBackColor = false;
-            this.btnRevisionTareas.Click += new System.EventHandler(this.btnRevisionTareas_Click);
+            // 
             // btnNuevaTarea
             // 
             this.btnNuevaTarea.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
+            this.btnNuevaTarea.Click += new System.EventHandler(this.btnNuevaTarea_Click);
             this.btnNuevaTarea.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNuevaTarea.FlatAppearance.BorderSize = 0;
             this.btnNuevaTarea.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
@@ -246,10 +255,11 @@
             this.btnNuevaTarea.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNuevaTarea.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnNuevaTarea.UseVisualStyleBackColor = false;
-            this.btnNuevaTarea.Click += new System.EventHandler(this.btnNuevaTarea_Click);
+            // 
             // btnTableroTareas
             // 
             this.btnTableroTareas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
+            this.btnTableroTareas.Click += new System.EventHandler(this.btnTableroTareas_Click);
             this.btnTableroTareas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTableroTareas.FlatAppearance.BorderSize = 0;
             this.btnTableroTareas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
@@ -269,7 +279,7 @@
             this.btnTableroTareas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTableroTareas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnTableroTareas.UseVisualStyleBackColor = false;
-            this.btnTableroTareas.Click += new System.EventHandler(this.btnTableroTareas_Click);
+            // 
             // lblTareas
             // 
             this.lblTareas.AutoSize = true;
@@ -280,9 +290,11 @@
             this.lblTareas.Size = new System.Drawing.Size(44, 13);
             this.lblTareas.TabIndex = 9;
             this.lblTareas.Text = "TAREAS";
+            // 
             // btnCronograma
             // 
             this.btnCronograma.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
+            this.btnCronograma.Click += new System.EventHandler(this.btnCronograma_Click);
             this.btnCronograma.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCronograma.FlatAppearance.BorderSize = 0;
             this.btnCronograma.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
@@ -302,10 +314,11 @@
             this.btnCronograma.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCronograma.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCronograma.UseVisualStyleBackColor = false;
-            this.btnCronograma.Click += new System.EventHandler(this.btnCronograma_Click);
+            // 
             // btnHitosEntregables
             // 
             this.btnHitosEntregables.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
+            this.btnHitosEntregables.Click += new System.EventHandler(this.btnHitosEntregables_Click);
             this.btnHitosEntregables.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnHitosEntregables.FlatAppearance.BorderSize = 0;
             this.btnHitosEntregables.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
@@ -325,7 +338,7 @@
             this.btnHitosEntregables.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnHitosEntregables.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHitosEntregables.UseVisualStyleBackColor = false;
-            this.btnHitosEntregables.Click += new System.EventHandler(this.btnHitosEntregables_Click);
+            // 
             // lblPlanificacion
             // 
             this.lblPlanificacion.AutoSize = true;
@@ -336,9 +349,11 @@
             this.lblPlanificacion.Size = new System.Drawing.Size(86, 13);
             this.lblPlanificacion.TabIndex = 5;
             this.lblPlanificacion.Text = "PLANIFICACIÓN";
+            // 
             // btnNuevoProyecto
             // 
             this.btnNuevoProyecto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
+            this.btnNuevoProyecto.Click += new System.EventHandler(this.btnNuevoProyecto_Click);
             this.btnNuevoProyecto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNuevoProyecto.FlatAppearance.BorderSize = 0;
             this.btnNuevoProyecto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
@@ -358,10 +373,11 @@
             this.btnNuevoProyecto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNuevoProyecto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnNuevoProyecto.UseVisualStyleBackColor = false;
-            this.btnNuevoProyecto.Click += new System.EventHandler(this.btnNuevoProyecto_Click);
+            // 
             // btnListadoProyectos
             // 
             this.btnListadoProyectos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
+            this.btnListadoProyectos.Click += new System.EventHandler(this.btnListadoProyectos_Click);
             this.btnListadoProyectos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnListadoProyectos.FlatAppearance.BorderSize = 0;
             this.btnListadoProyectos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
@@ -381,7 +397,7 @@
             this.btnListadoProyectos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnListadoProyectos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnListadoProyectos.UseVisualStyleBackColor = false;
-            this.btnListadoProyectos.Click += new System.EventHandler(this.btnListadoProyectos_Click);
+            // 
             // lblProyectos
             // 
             this.lblProyectos.AutoSize = true;
@@ -392,9 +408,11 @@
             this.lblProyectos.Size = new System.Drawing.Size(66, 13);
             this.lblProyectos.TabIndex = 2;
             this.lblProyectos.Text = "PROYECTOS";
+            // 
             // btnPanelGestion
             // 
             this.btnPanelGestion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(239)))), ((int)(((byte)(251)))));
+            this.btnPanelGestion.Click += new System.EventHandler(this.btnPanelGestion_Click);
             this.btnPanelGestion.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPanelGestion.FlatAppearance.BorderSize = 0;
             this.btnPanelGestion.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(228)))), ((int)(((byte)(247)))));
@@ -414,7 +432,7 @@
             this.btnPanelGestion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPanelGestion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnPanelGestion.UseVisualStyleBackColor = false;
-            this.btnPanelGestion.Click += new System.EventHandler(this.btnPanelGestion_Click);
+            // 
             // lblInicio
             // 
             this.lblInicio.AutoSize = true;
@@ -425,6 +443,7 @@
             this.lblInicio.Size = new System.Drawing.Size(40, 13);
             this.lblInicio.TabIndex = 0;
             this.lblInicio.Text = "INICIO";
+            // 
             // pnlUsuario
             // 
             this.pnlUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
@@ -434,6 +453,7 @@
             this.pnlUsuario.Name = "pnlUsuario";
             this.pnlUsuario.Size = new System.Drawing.Size(240, 62);
             this.pnlUsuario.TabIndex = 2;
+            // 
             // pnlTarjetaUsuario
             // 
             this.pnlTarjetaUsuario.BackColor = System.Drawing.Color.Transparent;
@@ -443,11 +463,13 @@
             this.pnlTarjetaUsuario.Controls.Add(this.picUsuario);
             this.pnlTarjetaUsuario.Location = new System.Drawing.Point(8, 7);
             this.pnlTarjetaUsuario.Name = "pnlTarjetaUsuario";
+            this.pnlTarjetaUsuario.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlTarjetaUsuario_Paint);
             this.pnlTarjetaUsuario.Size = new System.Drawing.Size(224, 48);
             this.pnlTarjetaUsuario.TabIndex = 0;
-            this.pnlTarjetaUsuario.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlTarjetaUsuario_Paint);
+            // 
             // btnCerrarSesion
             // 
+            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
             this.btnCerrarSesion.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrarSesion.FlatAppearance.BorderSize = 0;
             this.btnCerrarSesion.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
@@ -460,7 +482,7 @@
             this.btnCerrarSesion.Size = new System.Drawing.Size(32, 32);
             this.btnCerrarSesion.TabIndex = 3;
             this.btnCerrarSesion.UseVisualStyleBackColor = true;
-            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
+            // 
             // lblRolUsuario
             // 
             this.lblRolUsuario.AutoSize = true;
@@ -471,6 +493,7 @@
             this.lblRolUsuario.Size = new System.Drawing.Size(98, 12);
             this.lblRolUsuario.TabIndex = 2;
             this.lblRolUsuario.Text = "Gestor";
+            // 
             // lblNombreUsuario
             // 
             this.lblNombreUsuario.AutoSize = true;
@@ -481,6 +504,7 @@
             this.lblNombreUsuario.Size = new System.Drawing.Size(62, 15);
             this.lblNombreUsuario.TabIndex = 1;
             this.lblNombreUsuario.Text = "Juan Pérez";
+            // 
             // picUsuario
             // 
             this.picUsuario.Image = global::Vista.Properties.Recursos.IconoUsuario;
@@ -490,6 +514,7 @@
             this.picUsuario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picUsuario.TabIndex = 0;
             this.picUsuario.TabStop = false;
+            // 
             // pnlLogo
             // 
             this.pnlLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
@@ -500,6 +525,7 @@
             this.pnlLogo.Name = "pnlLogo";
             this.pnlLogo.Size = new System.Drawing.Size(240, 48);
             this.pnlLogo.TabIndex = 0;
+            // 
             // pnlLineaLogo
             // 
             this.pnlLineaLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(169)))), ((int)(((byte)(225)))));
@@ -508,6 +534,7 @@
             this.pnlLineaLogo.Name = "pnlLineaLogo";
             this.pnlLineaLogo.Size = new System.Drawing.Size(240, 2);
             this.pnlLineaLogo.TabIndex = 1;
+            // 
             // picLogo
             // 
             this.picLogo.Image = global::Vista.Properties.Recursos.LogoSyncore;
@@ -517,33 +544,33 @@
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLogo.TabIndex = 0;
             this.picLogo.TabStop = false;
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(1910, 1061);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.Controls.Add(this.pnlContenido);
             this.Controls.Add(this.pnlSideNav);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmPrincipal_FormClosed);
+            this.Load += new System.EventHandler(this.frmPrincipal_Load);
             this.MinimumSize = new System.Drawing.Size(1200, 700);
             this.Name = "frmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Syncore - Gestión de proyectos";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmPrincipal_FormClosed);
-            this.Load += new System.EventHandler(this.frmPrincipal_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.picUsuario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.pnlSideNav.ResumeLayout(false);
             this.pnlMenu.ResumeLayout(false);
             this.pnlMenu.PerformLayout();
             this.pnlUsuario.ResumeLayout(false);
             this.pnlTarjetaUsuario.ResumeLayout(false);
             this.pnlTarjetaUsuario.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picUsuario)).EndInit();
             this.pnlLogo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion

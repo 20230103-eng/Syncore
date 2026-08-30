@@ -41,6 +41,8 @@
             this.tlpContenido.RowCount = 2;
             this.tlpContenido.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpContenido.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpContenido.SetRowSpan(this.lblIcono, 2);
+            this.tlpContenido.SetRowSpan(this.btnVer, 2);
             this.tlpContenido.Size = new System.Drawing.Size(360, 68);
             this.tlpContenido.TabIndex = 0;
             // 
@@ -51,7 +53,6 @@
             this.lblIcono.ForeColor = System.Drawing.Color.FromArgb(102, 118, 138);
             this.lblIcono.Location = new System.Drawing.Point(3, 0);
             this.lblIcono.Name = "lblIcono";
-            this.tlpContenido.SetRowSpan(this.lblIcono, 2);
             this.lblIcono.Size = new System.Drawing.Size(38, 68);
             this.lblIcono.TabIndex = 0;
             this.lblIcono.Text = "▣";
@@ -92,7 +93,6 @@
             this.btnVer.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
             this.btnVer.Location = new System.Drawing.Point(300, 20);
             this.btnVer.Name = "btnVer";
-            this.tlpContenido.SetRowSpan(this.btnVer, 2);
             this.btnVer.Size = new System.Drawing.Size(52, 28);
             this.btnVer.TabIndex = 3;
             this.btnVer.Text = "Ver";

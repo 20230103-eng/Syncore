@@ -313,20 +313,44 @@ namespace Modelo.Modelo.Entidades
         public decimal ObtenerAvanceRealProyecto(int idProyecto)
         {
             string query;
-            DataTable datos;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
             decimal avanceReal;
 
-            query = $@"
+            query = @"
             SELECT ISNULL(AVG(AvanceActual), 0)
             FROM tbTarea
-            WHERE IdProyecto = {idProyecto}";
+            WHERE IdProyecto = @IdProyecto";
 
-            datos = conexion.EjecutarConsulta(query);
             avanceReal = 0;
+            conexionSql = Conexion.conectar();
 
-            if (datos.Rows.Count > 0)
+            if (conexionSql == null)
             {
-                avanceReal = Convert.ToDecimal(datos.Rows[0][0]);
+                return avanceReal;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null)
+                {
+                    avanceReal = Convert.ToDecimal(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
 
             return avanceReal;
@@ -367,8 +391,11 @@ namespace Modelo.Modelo.Entidades
         {
             string query;
             DataTable proyectos;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
 
-            query = $@"
+            query = @"
             SELECT DISTINCT
             tbProyecto.IdProyecto,
             tbProyecto.Nombre AS Proyecto,
@@ -381,11 +408,36 @@ namespace Modelo.Modelo.Entidades
             LEFT JOIN tbEquipoProyecto ON tbProyecto.IdProyecto = tbEquipoProyecto.IdProyecto
             LEFT JOIN tbTarea ON tbProyecto.IdProyecto = tbTarea.IdProyecto
             WHERE tbEstadoProyecto.Nombre <> N'Cerrado'
-            AND ((tbEquipoProyecto.IdUsuario = {idUsuario} AND tbEquipoProyecto.Activo = 1)
-            OR tbTarea.IdResponsable = {idUsuario})
+            AND ((tbEquipoProyecto.IdUsuario = @IdUsuario AND tbEquipoProyecto.Activo = 1)
+            OR tbTarea.IdResponsable = @IdUsuario)
             ORDER BY tbProyecto.FechaCierreEstimada";
 
-            proyectos = conexion.EjecutarConsulta(query);
+            proyectos = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return proyectos;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(proyectos);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
 
             return proyectos;
         }
@@ -527,22 +579,44 @@ namespace Modelo.Modelo.Entidades
         public bool ExisteCodigoProyecto(string codigo)
         {
             string query;
-            DataTable datos;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
             int cantidad;
 
-            codigo = codigo.Replace("'", "''");
-
-            query = $@"
+            query = @"
             SELECT COUNT(*)
             FROM tbProyecto
-            WHERE Codigo = N'{codigo}'";
+            WHERE Codigo = @Codigo";
 
-            datos = conexion.EjecutarConsulta(query);
             cantidad = 0;
+            conexionSql = Conexion.conectar();
 
-            if (datos.Rows.Count > 0)
+            if (conexionSql == null)
             {
-                cantidad = Convert.ToInt32(datos.Rows[0][0]);
+                return false;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@Codigo", codigo);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
 
             if (cantidad > 0)

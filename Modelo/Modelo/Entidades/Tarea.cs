@@ -237,7 +237,13 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerDetalleTarea(int idTarea)
         {
-            string query = $@"
+            string query;
+            DataTable tarea;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
+
+            query = @"
             SELECT
             tbTarea.IdTarea,
             tbTarea.IdProyecto,
@@ -254,54 +260,133 @@ namespace Modelo.Modelo.Entidades
             tbUsuario.NombreCompleto Responsable,
             tbHito.Nombre Hito
             FROM tbTarea
-            INNER JOIN tbProyecto
-            ON tbTarea.IdProyecto = tbProyecto.IdProyecto
-            INNER JOIN tbUsuario
-            ON tbTarea.IdResponsable = tbUsuario.IdUsuario
+            INNER JOIN tbProyecto ON tbTarea.IdProyecto = tbProyecto.IdProyecto
+            INNER JOIN tbUsuario ON tbTarea.IdResponsable = tbUsuario.IdUsuario
             INNER JOIN tbPrioridad ON tbTarea.IdPrioridad = tbPrioridad.IdPrioridad
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
-            LEFT JOIN tbHito
-            ON tbTarea.IdHito = tbHito.IdHito
-            WHERE tbTarea.IdTarea = {idTarea}";
+            LEFT JOIN tbHito ON tbTarea.IdHito = tbHito.IdHito
+            WHERE tbTarea.IdTarea = @IdTarea";
 
-            DataTable tarea = conexion.EjecutarConsulta(query);
+            tarea = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return tarea;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdTarea", idTarea);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(tarea);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
             return tarea;
         }
 
         public DataTable ObtenerTareasUsuarioProyecto(int idUsuario, int idProyecto)
         {
             string query;
+            DataTable tareas;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
 
-            query = $@"
+            query = @"
             SELECT tbTarea.IdTarea, tbTarea.Nombre AS Tarea, tbTarea.AvanceActual
             FROM tbTarea
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
-            WHERE tbTarea.IdResponsable = {idUsuario}
-            AND tbTarea.IdProyecto = {idProyecto}
+            WHERE tbTarea.IdResponsable = @IdUsuario
+            AND tbTarea.IdProyecto = @IdProyecto
             AND tbEstadoTarea.Nombre <> N'Completada'
             AND tbEstadoTarea.Nombre <> N'En revisión'
             ORDER BY tbTarea.FechaLimite";
 
-            return conexion.EjecutarConsulta(query);
+            tareas = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return tareas;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(tareas);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return tareas;
         }
 
         public int ObtenerAvanceActualTarea(int idTarea)
         {
             string query;
-            DataTable datos;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
             int avance;
 
-            query = $@"
+            query = @"
             SELECT AvanceActual
             FROM tbTarea
-            WHERE IdTarea = {idTarea}";
+            WHERE IdTarea = @IdTarea";
 
-            datos = conexion.EjecutarConsulta(query);
             avance = 0;
+            conexionSql = Conexion.conectar();
 
-            if (datos.Rows.Count > 0)
+            if (conexionSql == null)
             {
-                avance = Convert.ToInt32(datos.Rows[0]["AvanceActual"]);
+                return avance;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdTarea", idTarea);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null && resultado != DBNull.Value)
+                {
+                    avance = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
 
             return avance;

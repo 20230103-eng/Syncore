@@ -29,8 +29,9 @@
             this.tlpPrincipal.SuspendLayout();
             this.pnlOpciones.SuspendLayout();
             this.tlpOpciones.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
+            // 
             // pnlFondo
             // 
             this.pnlFondo.BackgroundImage = global::Vista.Properties.Recursos.FondoInicio;
@@ -41,6 +42,7 @@
             this.pnlFondo.Name = "pnlFondo";
             this.pnlFondo.Size = new System.Drawing.Size(1366, 768);
             this.pnlFondo.TabIndex = 0;
+            // 
             // tlpPrincipal
             // 
             this.tlpPrincipal.BackColor = System.Drawing.Color.Transparent;
@@ -55,6 +57,7 @@
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPrincipal.Size = new System.Drawing.Size(1366, 768);
             this.tlpPrincipal.TabIndex = 0;
+            // 
             // pnlOpciones
             // 
             this.pnlOpciones.BackColor = System.Drawing.Color.Transparent;
@@ -66,6 +69,7 @@
             this.pnlOpciones.Padding = new System.Windows.Forms.Padding(70, 35, 45, 35);
             this.pnlOpciones.Size = new System.Drawing.Size(614, 768);
             this.pnlOpciones.TabIndex = 0;
+            // 
             // tlpOpciones
             // 
             this.tlpOpciones.BackColor = System.Drawing.Color.Transparent;
@@ -89,6 +93,7 @@
             this.tlpOpciones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 58F));
             this.tlpOpciones.Size = new System.Drawing.Size(499, 698);
             this.tlpOpciones.TabIndex = 0;
+            // 
             // picLogo
             // 
             this.picLogo.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -100,6 +105,7 @@
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLogo.TabIndex = 0;
             this.picLogo.TabStop = false;
+            // 
             // lblBienvenido
             // 
             this.lblBienvenido.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -112,9 +118,11 @@
             this.lblBienvenido.TabIndex = 1;
             this.lblBienvenido.Text = "Bienvenido";
             this.lblBienvenido.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // btnGestor
             // 
             this.btnGestor.BackColor = System.Drawing.Color.FromArgb(45, 104, 183);
+            this.btnGestor.Click += new System.EventHandler(this.btnGestor_Click);
             this.btnGestor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnGestor.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(135, 190, 255);
             this.btnGestor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -129,10 +137,11 @@
             this.btnGestor.Text = "Como Gestor\r\nAccede a las herramientas de gestión";
             this.btnGestor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGestor.UseVisualStyleBackColor = false;
-            this.btnGestor.Click += new System.EventHandler(this.btnGestor_Click);
+            // 
             // btnColaborador
             // 
             this.btnColaborador.BackColor = System.Drawing.Color.FromArgb(45, 104, 183);
+            this.btnColaborador.Click += new System.EventHandler(this.btnColaborador_Click);
             this.btnColaborador.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnColaborador.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(135, 190, 255);
             this.btnColaborador.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -147,7 +156,7 @@
             this.btnColaborador.Text = "Como Colaborador\r\nAccede a las herramientas de colaboración";
             this.btnColaborador.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnColaborador.UseVisualStyleBackColor = false;
-            this.btnColaborador.Click += new System.EventHandler(this.btnColaborador_Click);
+            // 
             // frmSeleccionRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -162,11 +171,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Syncore - Selección de rol";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.pnlFondo.ResumeLayout(false);
             this.tlpPrincipal.ResumeLayout(false);
             this.pnlOpciones.ResumeLayout(false);
             this.tlpOpciones.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
         }
 

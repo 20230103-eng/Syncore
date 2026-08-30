@@ -806,8 +806,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.ClientSize = new System.Drawing.Size(1670, 1080);
+            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.Controls.Add(this.pnlViewport);
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

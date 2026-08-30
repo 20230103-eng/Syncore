@@ -71,6 +71,7 @@
             this.tlpFormulario.SuspendLayout();
             this.pnlBotones.SuspendLayout();
             this.SuspendLayout();
+            // 
             // pnlTop
             // 
             this.pnlTop.BackColor = System.Drawing.Color.White;
@@ -83,6 +84,7 @@
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(1670, 43);
             this.pnlTop.TabIndex = 0;
+            // 
             // lblFecha
             // 
             this.lblFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -94,6 +96,7 @@
             this.lblFecha.Size = new System.Drawing.Size(48, 20);
             this.lblFecha.TabIndex = 2;
             this.lblFecha.Text = "Fecha";
+            // 
             // lblBreadcrumbActual
             // 
             this.lblBreadcrumbActual.AutoSize = true;
@@ -104,6 +107,7 @@
             this.lblBreadcrumbActual.Size = new System.Drawing.Size(108, 20);
             this.lblBreadcrumbActual.TabIndex = 1;
             this.lblBreadcrumbActual.Text = "Editar proyecto";
+            // 
             // lblBreadcrumbBase
             // 
             this.lblBreadcrumbBase.AutoSize = true;
@@ -114,6 +118,7 @@
             this.lblBreadcrumbBase.Size = new System.Drawing.Size(271, 20);
             this.lblBreadcrumbBase.TabIndex = 0;
             this.lblBreadcrumbBase.Text = "Proyectos > Detalle de proyecto >";
+            // 
             // pnlViewport
             // 
             this.pnlViewport.AutoScroll = true;
@@ -124,6 +129,7 @@
             this.pnlViewport.Name = "pnlViewport";
             this.pnlViewport.Size = new System.Drawing.Size(1670, 1037);
             this.pnlViewport.TabIndex = 1;
+            // 
             // tlpPagina
             // 
             this.tlpPagina.AutoSize = true;
@@ -141,6 +147,7 @@
             this.tlpPagina.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
             this.tlpPagina.Size = new System.Drawing.Size(1670, 1050);
             this.tlpPagina.TabIndex = 0;
+            // 
             // pnlTitulos
             // 
             this.pnlTitulos.Controls.Add(this.lblModificacion);
@@ -152,6 +159,7 @@
             this.pnlTitulos.Name = "pnlTitulos";
             this.pnlTitulos.Size = new System.Drawing.Size(1622, 78);
             this.pnlTitulos.TabIndex = 0;
+            // 
             // lblModificacion
             // 
             this.lblModificacion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -163,6 +171,7 @@
             this.lblModificacion.Size = new System.Drawing.Size(282, 20);
             this.lblModificacion.TabIndex = 2;
             this.lblModificacion.Text = "Última modificación: 05/07/2026";
+            // 
             // lblSubtitulo
             // 
             this.lblSubtitulo.AutoSize = true;
@@ -173,6 +182,7 @@
             this.lblSubtitulo.Size = new System.Drawing.Size(337, 20);
             this.lblSubtitulo.TabIndex = 1;
             this.lblSubtitulo.Text = "Modifica la información del proyecto y guarda los cambios";
+            // 
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
@@ -183,6 +193,7 @@
             this.lblTitulo.Size = new System.Drawing.Size(242, 41);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Editar Proyecto";
+            // 
             // pnlFormulario
             // 
             this.pnlFormulario.AutoSize = true;
@@ -195,6 +206,7 @@
             this.pnlFormulario.Name = "pnlFormulario";
             this.pnlFormulario.Size = new System.Drawing.Size(1622, 930);
             this.pnlFormulario.TabIndex = 1;
+            // 
             // tlpFormulario
             // 
             this.tlpFormulario.AutoSize = true;
@@ -262,8 +274,6 @@
             this.tlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 66F));
             this.tlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tlpFormulario.Size = new System.Drawing.Size(1620, 928);
-            this.tlpFormulario.TabIndex = 0;
             this.tlpFormulario.SetColumnSpan(this.lblSeccion, 2);
             this.tlpFormulario.SetColumnSpan(this.lblIdentificacion, 2);
             this.tlpFormulario.SetColumnSpan(this.lblNombre, 2);
@@ -281,6 +291,9 @@
             this.tlpFormulario.SetColumnSpan(this.lblObservaciones, 2);
             this.tlpFormulario.SetColumnSpan(this.txtObservaciones, 2);
             this.tlpFormulario.SetColumnSpan(this.pnlBotones, 2);
+            this.tlpFormulario.Size = new System.Drawing.Size(1620, 928);
+            this.tlpFormulario.TabIndex = 0;
+            // 
             // lblSeccion
             // 
             this.lblSeccion.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -293,6 +306,7 @@
             this.lblSeccion.TabIndex = 0;
             this.lblSeccion.Text = "Información General";
             this.lblSeccion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblIdentificacion
             // 
             this.lblIdentificacion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -307,6 +321,8 @@
             this.lblIdentificacion.Text = "IDENTIFICACIÓN";
             this.lblIdentificacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // lblNombre
+            // 
             this.lblNombre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -315,13 +331,19 @@
             this.lblNombre.TabIndex = 0;
             this.lblNombre.Text = "Nombre del proyecto *";
             this.lblNombre.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // txtNombre
+            // 
             this.txtNombre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtNombre.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
-            this.txtNombre.Name = "txtNombre";
             this.txtNombre.MaxLength = 150;
+            this.txtNombre.Name = "txtNombre";
             this.txtNombre.ShortcutsEnabled = false;
             this.txtNombre.TabIndex = 0;
+            // 
+            // lblCodigo
+            // 
             this.lblCodigo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCodigo.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblCodigo.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -330,6 +352,9 @@
             this.lblCodigo.TabIndex = 0;
             this.lblCodigo.Text = "Código del proyecto *";
             this.lblCodigo.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // lblTipo
+            // 
             this.lblTipo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTipo.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblTipo.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -338,14 +363,20 @@
             this.lblTipo.TabIndex = 0;
             this.lblTipo.Text = "Tipo del proyecto *";
             this.lblTipo.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // txtCodigo
+            // 
             this.txtCodigo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtCodigo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtCodigo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodigo_KeyPress);
             this.txtCodigo.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
-            this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.MaxLength = 20;
+            this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.ShortcutsEnabled = false;
             this.txtCodigo.TabIndex = 1;
-            this.txtCodigo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodigo_KeyPress);
+            // 
+            // cboTipo
+            // 
             this.cboTipo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipo.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -353,6 +384,9 @@
             this.cboTipo.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
             this.cboTipo.Name = "cboTipo";
             this.cboTipo.TabIndex = 2;
+            // 
+            // lblArea
+            // 
             this.lblArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblArea.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblArea.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -361,6 +395,9 @@
             this.lblArea.TabIndex = 0;
             this.lblArea.Text = "Área solicitante *";
             this.lblArea.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // lblResponsable
+            // 
             this.lblResponsable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblResponsable.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblResponsable.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -369,6 +406,9 @@
             this.lblResponsable.TabIndex = 0;
             this.lblResponsable.Text = "Responsable principal *";
             this.lblResponsable.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // cboArea
+            // 
             this.cboArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cboArea.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboArea.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -376,6 +416,9 @@
             this.cboArea.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
             this.cboArea.Name = "cboArea";
             this.cboArea.TabIndex = 3;
+            // 
+            // cboResponsable
+            // 
             this.cboResponsable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cboResponsable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboResponsable.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -383,6 +426,9 @@
             this.cboResponsable.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
             this.cboResponsable.Name = "cboResponsable";
             this.cboResponsable.TabIndex = 4;
+            // 
+            // lblPlanificacion
+            // 
             this.lblPlanificacion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblPlanificacion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblPlanificacion.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -392,6 +438,9 @@
             this.lblPlanificacion.TabIndex = 0;
             this.lblPlanificacion.Text = "PLANIFICACIÓN";
             this.lblPlanificacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblFechaInicio
+            // 
             this.lblFechaInicio.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblFechaInicio.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblFechaInicio.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -400,6 +449,9 @@
             this.lblFechaInicio.TabIndex = 0;
             this.lblFechaInicio.Text = "Fecha de inicio *";
             this.lblFechaInicio.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // lblFechaCierre
+            // 
             this.lblFechaCierre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblFechaCierre.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblFechaCierre.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -408,18 +460,27 @@
             this.lblFechaCierre.TabIndex = 0;
             this.lblFechaCierre.Text = "Fecha estimada de cierre *";
             this.lblFechaCierre.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // dtpInicio
+            // 
             this.dtpInicio.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtpInicio.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtpInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpInicio.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
             this.dtpInicio.Name = "dtpInicio";
             this.dtpInicio.TabIndex = 5;
+            // 
+            // dtpCierre
+            // 
             this.dtpCierre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtpCierre.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtpCierre.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpCierre.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
             this.dtpCierre.Name = "dtpCierre";
             this.dtpCierre.TabIndex = 6;
+            // 
+            // lblPrioridad
+            // 
             this.lblPrioridad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblPrioridad.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblPrioridad.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -428,6 +489,9 @@
             this.lblPrioridad.TabIndex = 0;
             this.lblPrioridad.Text = "Prioridad *";
             this.lblPrioridad.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // cboPrioridad
+            // 
             this.cboPrioridad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cboPrioridad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboPrioridad.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -435,6 +499,9 @@
             this.cboPrioridad.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
             this.cboPrioridad.Name = "cboPrioridad";
             this.cboPrioridad.TabIndex = 7;
+            // 
+            // lblDescripcion
+            // 
             this.lblDescripcion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblDescripcion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblDescripcion.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -444,6 +511,9 @@
             this.lblDescripcion.TabIndex = 0;
             this.lblDescripcion.Text = "DESCRIPCIÓN";
             this.lblDescripcion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblObjetivo
+            // 
             this.lblObjetivo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblObjetivo.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblObjetivo.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -452,15 +522,21 @@
             this.lblObjetivo.TabIndex = 0;
             this.lblObjetivo.Text = "Objetivo *";
             this.lblObjetivo.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // txtObjetivo
+            // 
             this.txtObjetivo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtObjetivo.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtObjetivo.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
+            this.txtObjetivo.MaxLength = 500;
             this.txtObjetivo.Multiline = true;
             this.txtObjetivo.Name = "txtObjetivo";
-            this.txtObjetivo.MaxLength = 500;
-            this.txtObjetivo.ShortcutsEnabled = false;
             this.txtObjetivo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtObjetivo.ShortcutsEnabled = false;
             this.txtObjetivo.TabIndex = 8;
+            // 
+            // lblJustificacion
+            // 
             this.lblJustificacion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblJustificacion.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblJustificacion.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -469,15 +545,21 @@
             this.lblJustificacion.TabIndex = 0;
             this.lblJustificacion.Text = "Justificación";
             this.lblJustificacion.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // txtJustificacion
+            // 
             this.txtJustificacion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtJustificacion.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtJustificacion.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
+            this.txtJustificacion.MaxLength = 500;
             this.txtJustificacion.Multiline = true;
             this.txtJustificacion.Name = "txtJustificacion";
-            this.txtJustificacion.MaxLength = 500;
-            this.txtJustificacion.ShortcutsEnabled = false;
             this.txtJustificacion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtJustificacion.ShortcutsEnabled = false;
             this.txtJustificacion.TabIndex = 9;
+            // 
+            // lblAlcance
+            // 
             this.lblAlcance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAlcance.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblAlcance.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -486,15 +568,21 @@
             this.lblAlcance.TabIndex = 0;
             this.lblAlcance.Text = "Alcance";
             this.lblAlcance.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // txtAlcance
+            // 
             this.txtAlcance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtAlcance.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtAlcance.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
+            this.txtAlcance.MaxLength = 500;
             this.txtAlcance.Multiline = true;
             this.txtAlcance.Name = "txtAlcance";
-            this.txtAlcance.MaxLength = 500;
-            this.txtAlcance.ShortcutsEnabled = false;
             this.txtAlcance.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtAlcance.ShortcutsEnabled = false;
             this.txtAlcance.TabIndex = 10;
+            // 
+            // lblResultado
+            // 
             this.lblResultado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblResultado.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblResultado.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -503,15 +591,21 @@
             this.lblResultado.TabIndex = 0;
             this.lblResultado.Text = "Resultado esperado *";
             this.lblResultado.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // txtResultado
+            // 
             this.txtResultado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtResultado.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtResultado.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
+            this.txtResultado.MaxLength = 500;
             this.txtResultado.Multiline = true;
             this.txtResultado.Name = "txtResultado";
-            this.txtResultado.MaxLength = 500;
-            this.txtResultado.ShortcutsEnabled = false;
             this.txtResultado.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtResultado.ShortcutsEnabled = false;
             this.txtResultado.TabIndex = 11;
+            // 
+            // lblObservaciones
+            // 
             this.lblObservaciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblObservaciones.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblObservaciones.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -520,15 +614,19 @@
             this.lblObservaciones.TabIndex = 0;
             this.lblObservaciones.Text = "Observaciones";
             this.lblObservaciones.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // txtObservaciones
+            // 
             this.txtObservaciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtObservaciones.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtObservaciones.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
+            this.txtObservaciones.MaxLength = 500;
             this.txtObservaciones.Multiline = true;
             this.txtObservaciones.Name = "txtObservaciones";
-            this.txtObservaciones.MaxLength = 500;
-            this.txtObservaciones.ShortcutsEnabled = false;
             this.txtObservaciones.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtObservaciones.ShortcutsEnabled = false;
             this.txtObservaciones.TabIndex = 12;
+            // 
             // pnlBotones
             // 
             this.pnlBotones.Controls.Add(this.btnGuardar);
@@ -538,10 +636,12 @@
             this.pnlBotones.Margin = new System.Windows.Forms.Padding(0);
             this.pnlBotones.Name = "pnlBotones";
             this.pnlBotones.TabIndex = 13;
+            // 
             // btnGuardar
             // 
             this.btnGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             this.btnGuardar.FlatAppearance.BorderSize = 0;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -552,11 +652,12 @@
             this.btnGuardar.TabIndex = 0;
             this.btnGuardar.Text = "Guardar cambios";
             this.btnGuardar.UseVisualStyleBackColor = false;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
             // btnCerrarProyecto
             // 
             this.btnCerrarProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCerrarProyecto.BackColor = System.Drawing.Color.White;
+            this.btnCerrarProyecto.Click += new System.EventHandler(this.btnCerrarProyecto_Click);
             this.btnCerrarProyecto.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(229, 37, 42);
             this.btnCerrarProyecto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrarProyecto.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -567,11 +668,12 @@
             this.btnCerrarProyecto.TabIndex = 1;
             this.btnCerrarProyecto.Text = "Cerrar proyecto";
             this.btnCerrarProyecto.UseVisualStyleBackColor = false;
-            this.btnCerrarProyecto.Click += new System.EventHandler(this.btnCerrarProyecto_Click);
+            // 
             // btnCancelar
             // 
             this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelar.BackColor = System.Drawing.Color.White;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             this.btnCancelar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(0, 105, 240);
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -582,20 +684,20 @@
             this.btnCancelar.TabIndex = 2;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
             // frmEditarProyecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.ClientSize = new System.Drawing.Size(1670, 1080);
+            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.Controls.Add(this.pnlViewport);
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Load += new System.EventHandler(this.frmEditarProyecto_Load);
             this.Name = "frmEditarProyecto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Editar proyecto";
-            this.Load += new System.EventHandler(this.frmEditarProyecto_Load);
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.pnlViewport.ResumeLayout(false);

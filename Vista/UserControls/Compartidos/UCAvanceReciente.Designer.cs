@@ -24,9 +24,10 @@
             this.lblTarea = new System.Windows.Forms.Label();
             this.lblPorcentaje = new System.Windows.Forms.Label();
             this.tlpPrincipal.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
             this.pnlTexto.SuspendLayout();
             this.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
+            // 
             // tlpPrincipal
             // 
             this.tlpPrincipal.ColumnCount = 3;
@@ -44,6 +45,7 @@
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPrincipal.Size = new System.Drawing.Size(322, 68);
             this.tlpPrincipal.TabIndex = 0;
+            // 
             // picAvatar
             // 
             this.picAvatar.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -55,6 +57,7 @@
             this.picAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picAvatar.TabIndex = 0;
             this.picAvatar.TabStop = false;
+            // 
             // pnlTexto
             // 
             this.pnlTexto.Controls.Add(this.lblTarea);
@@ -65,6 +68,7 @@
             this.pnlTexto.Name = "pnlTexto";
             this.pnlTexto.Size = new System.Drawing.Size(214, 68);
             this.pnlTexto.TabIndex = 1;
+            // 
             // lblNombre
             // 
             this.lblNombre.AutoEllipsis = true;
@@ -77,6 +81,7 @@
             this.lblNombre.Size = new System.Drawing.Size(214, 31);
             this.lblNombre.TabIndex = 0;
             this.lblNombre.Text = "Alex Zometa";
+            // 
             // lblTarea
             // 
             this.lblTarea.AutoEllipsis = true;
@@ -89,6 +94,7 @@
             this.lblTarea.Size = new System.Drawing.Size(214, 37);
             this.lblTarea.TabIndex = 1;
             this.lblTarea.Text = "Tarea 1";
+            // 
             // lblPorcentaje
             // 
             this.lblPorcentaje.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -101,20 +107,21 @@
             this.lblPorcentaje.TabIndex = 2;
             this.lblPorcentaje.Text = "33%";
             this.lblPorcentaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // UCAvanceReciente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.tlpPrincipal);
+            this.Dock = System.Windows.Forms.DockStyle.Top;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MaximumSize = new System.Drawing.Size(0, 68);
             this.MinimumSize = new System.Drawing.Size(260, 68);
-            this.Dock = System.Windows.Forms.DockStyle.Top;
             this.Name = "UCAvanceReciente";
             this.Size = new System.Drawing.Size(322, 68);
-            this.tlpPrincipal.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).EndInit();
+            this.tlpPrincipal.ResumeLayout(false);
             this.pnlTexto.ResumeLayout(false);
             this.ResumeLayout(false);
         }

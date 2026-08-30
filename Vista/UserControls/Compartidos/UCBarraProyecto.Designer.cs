@@ -32,25 +32,28 @@
             this.lblPorcentaje = new System.Windows.Forms.Label();
             this.lblProyecto = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
             // pnlBarra
             // 
             this.pnlBarra.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(214)))), ((int)(((byte)(214)))));
             this.pnlBarra.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlBarra.Location = new System.Drawing.Point(28, 22);
-            this.pnlBarra.Size = new System.Drawing.Size(70, 108);
             this.pnlBarra.Name = "pnlBarra";
+            this.pnlBarra.Size = new System.Drawing.Size(70, 108);
             this.pnlBarra.TabIndex = 0;
+            // 
             // lblPorcentaje
             // 
             this.lblPorcentaje.AutoSize = false;
             this.lblPorcentaje.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPorcentaje.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(27)))), ((int)(((byte)(36)))));
             this.lblPorcentaje.Location = new System.Drawing.Point(28, 138);
-            this.lblPorcentaje.Size = new System.Drawing.Size(70, 20);
-            this.lblPorcentaje.Text = "45%";
             this.lblPorcentaje.Name = "lblPorcentaje";
+            this.lblPorcentaje.Size = new System.Drawing.Size(70, 20);
             this.lblPorcentaje.TabIndex = 1;
+            this.lblPorcentaje.Text = "45%";
             this.lblPorcentaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblProyecto
             // 
             this.lblProyecto.AutoEllipsis = true;
@@ -58,11 +61,12 @@
             this.lblProyecto.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProyecto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.lblProyecto.Location = new System.Drawing.Point(5, 158);
-            this.lblProyecto.Size = new System.Drawing.Size(115, 16);
-            this.lblProyecto.Text = "Proyecto";
             this.lblProyecto.Name = "lblProyecto";
+            this.lblProyecto.Size = new System.Drawing.Size(115, 16);
             this.lblProyecto.TabIndex = 2;
+            this.lblProyecto.Text = "Proyecto";
             this.lblProyecto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // UCBarraProyecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -76,7 +80,6 @@
             this.Size = new System.Drawing.Size(125, 175);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

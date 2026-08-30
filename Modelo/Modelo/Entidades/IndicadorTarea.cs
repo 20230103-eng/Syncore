@@ -42,15 +42,49 @@ namespace Modelo.Modelo.Entidades
 
         public int ContarTareasVencidasProyecto(int idProyecto)
         {
-            string query = $@"
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int cantidad;
+
+            query = @"
             SELECT COUNT(*)
             FROM tbTarea
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
-            WHERE tbTarea.IdProyecto = {idProyecto}
+            WHERE tbTarea.IdProyecto = @IdProyecto
             AND tbEstadoTarea.Nombre = N'Vencida'";
 
-            DataTable datos = conexion.EjecutarConsulta(query);
-            int cantidad = Convert.ToInt32(datos.Rows[0][0]);
+            cantidad = 0;
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return cantidad;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
             return cantidad;
         }
 
@@ -73,13 +107,47 @@ namespace Modelo.Modelo.Entidades
 
         public int ContarTareasProyecto(int idProyecto)
         {
-            string query = $@"
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int cantidad;
+
+            query = @"
             SELECT COUNT(*)
             FROM tbTarea
-            WHERE IdProyecto = {idProyecto}";
+            WHERE IdProyecto = @IdProyecto";
 
-            DataTable datos = conexion.EjecutarConsulta(query);
-            int cantidad = Convert.ToInt32(datos.Rows[0][0]);
+            cantidad = 0;
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return cantidad;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
             return cantidad;
         }
 

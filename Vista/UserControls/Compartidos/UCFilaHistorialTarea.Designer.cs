@@ -28,13 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-
             this.pnlPunto = new System.Windows.Forms.Panel();
             this.lblCabecera = new System.Windows.Forms.Label();
             this.lblDetalle = new System.Windows.Forms.Label();
             this.lblEvidencia = new System.Windows.Forms.Label();
             this.pnlSeparador = new System.Windows.Forms.Panel();
-            this.Margin = new System.Windows.Forms.Padding(0);
             this.SuspendLayout();
             // 
             // pnlPunto
@@ -46,33 +44,33 @@
             // 
             // lblCabecera
             // 
+            this.lblCabecera.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCabecera.AutoSize = true;
             this.lblCabecera.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblCabecera.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblCabecera.Location = new System.Drawing.Point(34, 10);
             this.lblCabecera.Name = "lblCabecera";
             this.lblCabecera.Text = "60%  -  28 abr 2026";
-            this.lblCabecera.Location = new System.Drawing.Point(34, 10);
-            this.lblCabecera.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // lblDetalle
             // 
+            this.lblDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDetalle.AutoSize = true;
             this.lblDetalle.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblDetalle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(118)))), ((int)(((byte)(138)))));
+            this.lblDetalle.Location = new System.Drawing.Point(34, 31);
             this.lblDetalle.Name = "lblDetalle";
             this.lblDetalle.Text = "Secciones 1 y 2 completadas. Pendiente sección 3.";
-            this.lblDetalle.Location = new System.Drawing.Point(34, 31);
-            this.lblDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // lblEvidencia
             // 
+            this.lblEvidencia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEvidencia.AutoSize = true;
             this.lblEvidencia.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblEvidencia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(118)))), ((int)(((byte)(138)))));
+            this.lblEvidencia.Location = new System.Drawing.Point(34, 50);
             this.lblEvidencia.Name = "lblEvidencia";
             this.lblEvidencia.Text = "Evidencia: 1 archivo";
-            this.lblEvidencia.Location = new System.Drawing.Point(34, 50);
-            this.lblEvidencia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // pnlSeparador
             // 
@@ -83,14 +81,15 @@
             // 
             // UCFilaHistorialTarea
             // 
-            this.Size = new System.Drawing.Size(1000, 74);
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.pnlPunto);
             this.Controls.Add(this.lblCabecera);
             this.Controls.Add(this.lblDetalle);
             this.Controls.Add(this.lblEvidencia);
             this.Controls.Add(this.pnlSeparador);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "UCFilaHistorialTarea";
+            this.Size = new System.Drawing.Size(1000, 74);
             this.ResumeLayout(false);
             this.PerformLayout();
         }

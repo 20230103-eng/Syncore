@@ -122,14 +122,17 @@ namespace Modelo.Modelo.Entidades
         {
             string query;
             DataTable avances;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
 
             if (cantidad < 1)
             {
                 cantidad = 5;
             }
 
-            query = $@"
-            SELECT TOP {cantidad}
+            query = @"
+            SELECT TOP (@Cantidad)
             tbAvance.IdAvance,
             tbTarea.Nombre AS Tarea,
             tbProyecto.Nombre AS Proyecto,
@@ -143,7 +146,33 @@ namespace Modelo.Modelo.Entidades
             INNER JOIN tbUsuario ON tbAvance.IdUsuario = tbUsuario.IdUsuario
             ORDER BY tbAvance.IdAvance DESC";
 
-            avances = conexion.EjecutarConsulta(query);
+            avances = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return avances;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@Cantidad", cantidad);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(avances);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
             return avances;
         }
 
@@ -151,9 +180,12 @@ namespace Modelo.Modelo.Entidades
         {
             string query;
             DataTable avances;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
 
-            query = $@"
-            SELECT TOP {cantidad}
+            query = @"
+            SELECT TOP (@Cantidad)
             tbAvance.FechaRegistro,
             tbTarea.Nombre AS Tarea,
             tbProyecto.Nombre AS Proyecto,
@@ -162,11 +194,39 @@ namespace Modelo.Modelo.Entidades
             FROM tbAvance
             INNER JOIN tbTarea ON tbAvance.IdTarea = tbTarea.IdTarea
             INNER JOIN tbProyecto ON tbTarea.IdProyecto = tbProyecto.IdProyecto
-            WHERE tbAvance.IdUsuario = {idUsuario}
-            AND tbAvance.FechaRegistro >= DATEADD(DAY, -{dias}, CAST(GETDATE() AS DATE))
+            WHERE tbAvance.IdUsuario = @IdUsuario
+            AND tbAvance.FechaRegistro >= DATEADD(DAY, -@Dias, CAST(GETDATE() AS DATE))
             ORDER BY tbAvance.FechaRegistro DESC, tbAvance.IdAvance DESC";
 
-            avances = conexion.EjecutarConsulta(query);
+            avances = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return avances;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@Cantidad", cantidad);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@Dias", dias);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(avances);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
             return avances;
         }
 
@@ -427,13 +487,45 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerHistorialTarea(int idTarea)
         {
-            string query = $@"
+            string query;
+            DataTable historial;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
+
+            query = @"
             SELECT IdAvance, Porcentaje, FechaRegistro, Descripcion
             FROM tbAvance
-            WHERE IdTarea = {idTarea}
+            WHERE IdTarea = @IdTarea
             ORDER BY IdAvance";
 
-            DataTable historial = conexion.EjecutarConsulta(query);
+            historial = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return historial;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdTarea", idTarea);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(historial);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
             return historial;
         }
     }

@@ -34,6 +34,7 @@
             this.pnlProgresoFondo.SuspendLayout();
             this.tlpProgreso.SuspendLayout();
             this.SuspendLayout();
+            // 
             // tlpDatos
             // 
             this.tlpDatos.ColumnCount = 6;
@@ -57,6 +58,7 @@
             this.tlpDatos.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpDatos.Size = new System.Drawing.Size(1160, 47);
             this.tlpDatos.TabIndex = 0;
+            // 
             // lblProyecto
             // 
             this.lblProyecto.AutoEllipsis = true;
@@ -70,6 +72,7 @@
             this.lblProyecto.TabIndex = 0;
             this.lblProyecto.Text = "Proyecto 1";
             this.lblProyecto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblArea
             // 
             this.lblArea.AutoEllipsis = true;
@@ -83,6 +86,7 @@
             this.lblArea.TabIndex = 1;
             this.lblArea.Text = "Social";
             this.lblArea.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // pnlAvanceCelda
             // 
             this.pnlAvanceCelda.Controls.Add(this.pnlProgresoFondo);
@@ -93,6 +97,7 @@
             this.pnlAvanceCelda.Name = "pnlAvanceCelda";
             this.pnlAvanceCelda.Size = new System.Drawing.Size(247, 47);
             this.pnlAvanceCelda.TabIndex = 2;
+            // 
             // lblAvance
             // 
             this.lblAvance.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -103,6 +108,7 @@
             this.lblAvance.TabIndex = 0;
             this.lblAvance.Text = "45%";
             this.lblAvance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // pnlProgresoFondo
             // 
             this.pnlProgresoFondo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right))));
@@ -113,6 +119,7 @@
             this.pnlProgresoFondo.Name = "pnlProgresoFondo";
             this.pnlProgresoFondo.Size = new System.Drawing.Size(190, 14);
             this.pnlProgresoFondo.TabIndex = 1;
+            // 
             // tlpProgreso
             // 
             this.tlpProgreso.BackColor = System.Drawing.Color.White;
@@ -128,6 +135,7 @@
             this.tlpProgreso.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpProgreso.Size = new System.Drawing.Size(188, 12);
             this.tlpProgreso.TabIndex = 0;
+            // 
             // pnlProgreso
             // 
             this.pnlProgreso.BackColor = System.Drawing.Color.FromArgb(52, 99, 171);
@@ -137,6 +145,7 @@
             this.pnlProgreso.Name = "pnlProgreso";
             this.pnlProgreso.Size = new System.Drawing.Size(84, 12);
             this.pnlProgreso.TabIndex = 0;
+            // 
             // lblTareas
             // 
             this.lblTareas.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -150,24 +159,27 @@
             this.lblTareas.Size = new System.Drawing.Size(31, 21);
             this.lblTareas.TabIndex = 3;
             this.lblTareas.Text = "2";
+            // 
             // lblEstado
             // 
             this.lblEstado.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblEstado.AutoSize = true;
-            this.lblEstado.MinimumSize = new System.Drawing.Size(86, 21);
             this.lblEstado.BackColor = System.Drawing.Color.FromArgb(255, 232, 232);
             this.lblEstado.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.lblEstado.ForeColor = System.Drawing.Color.FromArgb(229, 37, 42);
             this.lblEstado.Location = new System.Drawing.Point(927, 13);
+            this.lblEstado.MinimumSize = new System.Drawing.Size(86, 21);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Padding = new System.Windows.Forms.Padding(6, 1, 6, 1);
             this.lblEstado.Size = new System.Drawing.Size(59, 21);
             this.lblEstado.TabIndex = 4;
             this.lblEstado.Text = "Crítico";
+            // 
             // btnVer
             // 
             this.btnVer.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnVer.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
             this.btnVer.FlatAppearance.BorderSize = 0;
             this.btnVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVer.Font = new System.Drawing.Font("Segoe UI", 8.5F);
@@ -179,7 +191,7 @@
             this.btnVer.TabIndex = 5;
             this.btnVer.Text = "Ver";
             this.btnVer.UseVisualStyleBackColor = false;
-            this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
+            // 
             // pnlSeparador
             // 
             this.pnlSeparador.BackColor = System.Drawing.Color.FromArgb(180, 190, 202);
@@ -188,6 +200,7 @@
             this.pnlSeparador.Name = "pnlSeparador";
             this.pnlSeparador.Size = new System.Drawing.Size(1160, 1);
             this.pnlSeparador.TabIndex = 1;
+            // 
             // UCProyectoCritico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -195,10 +208,10 @@
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.tlpDatos);
             this.Controls.Add(this.pnlSeparador);
+            this.Dock = System.Windows.Forms.DockStyle.Top;
             this.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
             this.MaximumSize = new System.Drawing.Size(0, 48);
             this.MinimumSize = new System.Drawing.Size(600, 48);
-            this.Dock = System.Windows.Forms.DockStyle.Top;
             this.Name = "UCProyectoCritico";
             this.Size = new System.Drawing.Size(1160, 48);
             this.tlpDatos.ResumeLayout(false);

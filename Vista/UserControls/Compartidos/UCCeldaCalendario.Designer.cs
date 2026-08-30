@@ -33,6 +33,7 @@
             this.lblEvento = new System.Windows.Forms.Label();
             this.pnlEvento.SuspendLayout();
             this.SuspendLayout();
+            // 
             // lblDia
             // 
             this.lblDia.AutoSize = true;
@@ -43,15 +44,17 @@
             this.lblDia.Size = new System.Drawing.Size(17, 19);
             this.lblDia.TabIndex = 0;
             this.lblDia.Text = "1";
+            // 
             // pnlEvento
             // 
+            this.pnlEvento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlEvento.BackColor = System.Drawing.Color.FromArgb(232, 242, 255);
             this.pnlEvento.Controls.Add(this.lblEvento);
-            this.pnlEvento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlEvento.Location = new System.Drawing.Point(7, 36);
             this.pnlEvento.Name = "pnlEvento";
             this.pnlEvento.Size = new System.Drawing.Size(202, 30);
             this.pnlEvento.TabIndex = 1;
+            // 
             // lblEvento
             // 
             this.lblEvento.AutoEllipsis = true;
@@ -66,6 +69,7 @@
             this.lblEvento.TabIndex = 0;
             this.lblEvento.Text = "Realizar tarea 1";
             this.lblEvento.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // UCCeldaCalendario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);

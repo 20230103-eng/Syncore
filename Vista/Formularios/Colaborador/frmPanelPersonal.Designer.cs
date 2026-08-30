@@ -278,6 +278,7 @@
             // 
             this.btnActualizarAvance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnActualizarAvance.BackColor = System.Drawing.Color.White;
+            this.btnActualizarAvance.Click += new System.EventHandler(this.btnActualizarAvance_Click);
             this.btnActualizarAvance.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnActualizarAvance.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(105)))), ((int)(((byte)(240)))));
             this.btnActualizarAvance.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -291,7 +292,6 @@
             this.btnActualizarAvance.TabIndex = 1;
             this.btnActualizarAvance.Text = "Actualizar avance";
             this.btnActualizarAvance.UseVisualStyleBackColor = false;
-            this.btnActualizarAvance.Click += new System.EventHandler(this.btnActualizarAvance_Click);
             // 
             // tlpTarjetas
             // 
@@ -638,6 +638,7 @@
             // 
             this.btnVerTareas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVerTareas.BackColor = System.Drawing.Color.White;
+            this.btnVerTareas.Click += new System.EventHandler(this.btnVerTareas_Click);
             this.btnVerTareas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVerTareas.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
             this.btnVerTareas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -649,7 +650,6 @@
             this.btnVerTareas.TabIndex = 1;
             this.btnVerTareas.Text = "Ver todas";
             this.btnVerTareas.UseVisualStyleBackColor = false;
-            this.btnVerTareas.Click += new System.EventHandler(this.btnVerTareas_Click);
             // 
             // lblTareas
             // 
@@ -690,6 +690,7 @@
             // 
             // proyecto3
             // 
+            this.proyecto3.Avance = 70;
             this.proyecto3.ColorEstado = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(171)))), ((int)(((byte)(88)))));
             this.proyecto3.Dock = System.Windows.Forms.DockStyle.Top;
             this.proyecto3.Estado = "Activo";
@@ -702,11 +703,11 @@
             this.proyecto3.ProximaFecha = "18 may";
             this.proyecto3.Responsable = "Juan R.";
             this.proyecto3.Size = new System.Drawing.Size(1157, 51);
-            this.proyecto3.Avance = 70;
             this.proyecto3.TabIndex = 2;
             // 
             // proyecto2
             // 
+            this.proyecto2.Avance = 50;
             this.proyecto2.ColorEstado = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(171)))), ((int)(((byte)(88)))));
             this.proyecto2.Dock = System.Windows.Forms.DockStyle.Top;
             this.proyecto2.Estado = "Activo";
@@ -719,11 +720,11 @@
             this.proyecto2.ProximaFecha = "16 may";
             this.proyecto2.Responsable = "Juan R.";
             this.proyecto2.Size = new System.Drawing.Size(1157, 51);
-            this.proyecto2.Avance = 50;
             this.proyecto2.TabIndex = 1;
             // 
             // proyecto1
             // 
+            this.proyecto1.Avance = 45;
             this.proyecto1.ColorEstado = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(119)))), ((int)(((byte)(6)))));
             this.proyecto1.Dock = System.Windows.Forms.DockStyle.Top;
             this.proyecto1.Estado = "En progreso";
@@ -736,7 +737,6 @@
             this.proyecto1.ProximaFecha = "15 may";
             this.proyecto1.Responsable = "Juan R.";
             this.proyecto1.Size = new System.Drawing.Size(1157, 51);
-            this.proyecto1.Avance = 45;
             this.proyecto1.TabIndex = 0;
             // 
             // tlpEncabezadoProyectos
@@ -881,6 +881,7 @@
             // 
             this.btnVerProyectos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVerProyectos.BackColor = System.Drawing.Color.White;
+            this.btnVerProyectos.Click += new System.EventHandler(this.btnVerProyectos_Click);
             this.btnVerProyectos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVerProyectos.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
             this.btnVerProyectos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -892,7 +893,6 @@
             this.btnVerProyectos.TabIndex = 1;
             this.btnVerProyectos.Text = "Ver todos";
             this.btnVerProyectos.UseVisualStyleBackColor = false;
-            this.btnVerProyectos.Click += new System.EventHandler(this.btnVerProyectos_Click);
             // 
             // lblProyectos
             // 
@@ -1014,6 +1014,7 @@
             // 
             this.btnVerNotificaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVerNotificaciones.BackColor = System.Drawing.Color.White;
+            this.btnVerNotificaciones.Click += new System.EventHandler(this.btnVerNotificaciones_Click);
             this.btnVerNotificaciones.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVerNotificaciones.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
             this.btnVerNotificaciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1025,7 +1026,6 @@
             this.btnVerNotificaciones.TabIndex = 1;
             this.btnVerNotificaciones.Text = "Ver todas";
             this.btnVerNotificaciones.UseVisualStyleBackColor = false;
-            this.btnVerNotificaciones.Click += new System.EventHandler(this.btnVerNotificaciones_Click);
             // 
             // lblNotificaciones
             // 
@@ -1259,8 +1259,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(1670, 1080);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.Controls.Add(this.pnlViewport);
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -1301,7 +1301,6 @@
             this.pnlHeaderAvance.ResumeLayout(false);
             this.pnlHeaderAvance.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion

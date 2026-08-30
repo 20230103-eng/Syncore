@@ -81,15 +81,46 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerComentariosTarea(int idTarea)
         {
-            string query = $@"
+            string query;
+            DataTable comentarios;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
+
+            query = @"
             SELECT tbUsuario.NombreCompleto, tbComentarioTarea.FechaComentario, tbComentarioTarea.Comentario
             FROM tbComentarioTarea
-            INNER JOIN tbUsuario
-            ON tbComentarioTarea.IdUsuario = tbUsuario.IdUsuario
-            WHERE tbComentarioTarea.IdTarea = {idTarea}
+            INNER JOIN tbUsuario ON tbComentarioTarea.IdUsuario = tbUsuario.IdUsuario
+            WHERE tbComentarioTarea.IdTarea = @IdTarea
             ORDER BY tbComentarioTarea.IdComentario DESC";
 
-            DataTable comentarios = conexion.EjecutarConsulta(query);
+            comentarios = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return comentarios;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdTarea", idTarea);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(comentarios);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
             return comentarios;
         }
 

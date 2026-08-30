@@ -118,8 +118,8 @@
             // 
             // lblPrioridad
             // 
-            this.lblPrioridad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblPrioridad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.lblPrioridad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblPrioridad.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPrioridad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
             this.lblPrioridad.Location = new System.Drawing.Point(581, 14);
@@ -133,8 +133,8 @@
             // 
             // lblEstado
             // 
-            this.lblEstado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEstado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(243)))), ((int)(((byte)(199)))));
+            this.lblEstado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEstado.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEstado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(119)))), ((int)(((byte)(6)))));
             this.lblEstado.Location = new System.Drawing.Point(713, 14);
@@ -224,9 +224,9 @@
             // 
             // btnVer
             // 
-            this.btnVer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnVer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(105)))), ((int)(((byte)(240)))));
             this.btnVer.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnVer.FlatAppearance.BorderSize = 0;
             this.btnVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVer.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -265,7 +265,6 @@
             this.tlpAvance.ResumeLayout(false);
             this.tlpBarra.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion

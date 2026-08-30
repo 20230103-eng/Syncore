@@ -90,6 +90,7 @@
             this.pnlProductividadProyecto.SuspendLayout();
             this.pnlTendenciaSemanal.SuspendLayout();
             this.SuspendLayout();
+            // 
             // pnlTop
             // 
             this.pnlTop.BackColor = System.Drawing.Color.White;
@@ -102,6 +103,7 @@
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(1670, 43);
             this.pnlTop.TabIndex = 0;
+            // 
             // lblFecha
             // 
             this.lblFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -113,6 +115,7 @@
             this.lblFecha.Size = new System.Drawing.Size(48, 20);
             this.lblFecha.TabIndex = 2;
             this.lblFecha.Text = "Fecha";
+            // 
             // lblBreadcrumbActual
             // 
             this.lblBreadcrumbActual.AutoSize = true;
@@ -123,6 +126,7 @@
             this.lblBreadcrumbActual.Size = new System.Drawing.Size(133, 20);
             this.lblBreadcrumbActual.TabIndex = 1;
             this.lblBreadcrumbActual.Text = "Productividad general";
+            // 
             // lblBreadcrumbBase
             // 
             this.lblBreadcrumbBase.AutoSize = true;
@@ -133,6 +137,7 @@
             this.lblBreadcrumbBase.Size = new System.Drawing.Size(58, 20);
             this.lblBreadcrumbBase.TabIndex = 0;
             this.lblBreadcrumbBase.Text = "Productividad >";
+            // 
             // pnlViewport
             // 
             this.pnlViewport.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
@@ -142,6 +147,7 @@
             this.pnlViewport.Name = "pnlViewport";
             this.pnlViewport.Size = new System.Drawing.Size(1670, 1037);
             this.pnlViewport.TabIndex = 1;
+            // 
             // pnlCanvas
             // 
             this.pnlCanvas.AutoScroll = true;
@@ -152,6 +158,7 @@
             this.pnlCanvas.Name = "pnlCanvas";
             this.pnlCanvas.Size = new System.Drawing.Size(1670, 1037);
             this.pnlCanvas.TabIndex = 0;
+            // 
             // tlpPrincipal
             // 
             this.tlpPrincipal.ColumnCount = 1;
@@ -171,6 +178,7 @@
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 320F));
             this.tlpPrincipal.Size = new System.Drawing.Size(1653, 910);
             this.tlpPrincipal.TabIndex = 0;
+            // 
             // tlpCabecera
             // 
             this.tlpCabecera.ColumnCount = 2;
@@ -186,6 +194,7 @@
             this.tlpCabecera.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpCabecera.Size = new System.Drawing.Size(1605, 70);
             this.tlpCabecera.TabIndex = 0;
+            // 
             // pnlTitulos
             // 
             this.pnlTitulos.Controls.Add(this.lblSubtitulo);
@@ -196,6 +205,7 @@
             this.pnlTitulos.Name = "pnlTitulos";
             this.pnlTitulos.Size = new System.Drawing.Size(1123, 70);
             this.pnlTitulos.TabIndex = 0;
+            // 
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
@@ -206,6 +216,7 @@
             this.lblTitulo.Size = new System.Drawing.Size(321, 41);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Productividad general";
+            // 
             // lblSubtitulo
             // 
             this.lblSubtitulo.AutoSize = true;
@@ -216,6 +227,7 @@
             this.lblSubtitulo.Size = new System.Drawing.Size(244, 20);
             this.lblSubtitulo.TabIndex = 1;
             this.lblSubtitulo.Text = "Desempeño operativo - últimos 30 días";
+            // 
             // cboPeriodo
             // 
             this.cboPeriodo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -231,6 +243,7 @@
             this.cboPeriodo.Name = "cboPeriodo";
             this.cboPeriodo.Size = new System.Drawing.Size(174, 28);
             this.cboPeriodo.TabIndex = 1;
+            // 
             // tlpTarjetas
             // 
             this.tlpTarjetas.ColumnCount = 4;
@@ -250,6 +263,7 @@
             this.tlpTarjetas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpTarjetas.Size = new System.Drawing.Size(1605, 132);
             this.tlpTarjetas.TabIndex = 1;
+            // 
             // tarjeta1
             // 
             this.tarjeta1.ColorLinea = System.Drawing.Color.FromArgb(32, 169, 87);
@@ -263,6 +277,7 @@
             this.tarjeta1.TabIndex = 0;
             this.tarjeta1.Titulo = "Tareas completadas";
             this.tarjeta1.Valor = "20";
+            // 
             // tarjeta2
             // 
             this.tarjeta2.ColorLinea = System.Drawing.Color.FromArgb(52, 99, 171);
@@ -276,6 +291,7 @@
             this.tarjeta2.TabIndex = 1;
             this.tarjeta2.Titulo = "% a tiempo";
             this.tarjeta2.Valor = "82%";
+            // 
             // tarjeta3
             // 
             this.tarjeta3.ColorLinea = System.Drawing.Color.FromArgb(229, 37, 42);
@@ -289,6 +305,7 @@
             this.tarjeta3.TabIndex = 2;
             this.tarjeta3.Titulo = "Vencidas";
             this.tarjeta3.Valor = "87%";
+            // 
             // tarjeta4
             // 
             this.tarjeta4.ColorLinea = System.Drawing.Color.FromArgb(240, 128, 49);
@@ -302,6 +319,7 @@
             this.tarjeta4.TabIndex = 3;
             this.tarjeta4.Titulo = "Días promedio cierre";
             this.tarjeta4.Valor = "3.4 d";
+            // 
             // tlpSecciones
             // 
             this.tlpSecciones.ColumnCount = 2;
@@ -317,6 +335,7 @@
             this.tlpSecciones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpSecciones.Size = new System.Drawing.Size(1605, 340);
             this.tlpSecciones.TabIndex = 2;
+            // 
             // pnlProductividadColaborador
             // 
             this.pnlProductividadColaborador.BackColor = System.Drawing.Color.White;
@@ -331,6 +350,7 @@
             this.pnlProductividadColaborador.Name = "pnlProductividadColaborador";
             this.pnlProductividadColaborador.Size = new System.Drawing.Size(796, 330);
             this.pnlProductividadColaborador.TabIndex = 0;
+            // 
             // lblProductividadColaborador
             // 
             this.lblProductividadColaborador.AutoSize = true;
@@ -341,6 +361,7 @@
             this.lblProductividadColaborador.Size = new System.Drawing.Size(242, 23);
             this.lblProductividadColaborador.TabIndex = 0;
             this.lblProductividadColaborador.Text = "Productividad por colaborador";
+            // 
             // pnlSeparadorColaborador
             // 
             this.pnlSeparadorColaborador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
@@ -349,6 +370,7 @@
             this.pnlSeparadorColaborador.Name = "pnlSeparadorColaborador";
             this.pnlSeparadorColaborador.Size = new System.Drawing.Size(774, 1);
             this.pnlSeparadorColaborador.TabIndex = 1;
+            // 
             // tlpEncabezadoColaborador
             // 
             this.tlpEncabezadoColaborador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
@@ -370,6 +392,7 @@
             this.tlpEncabezadoColaborador.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpEncabezadoColaborador.Size = new System.Drawing.Size(778, 38);
             this.tlpEncabezadoColaborador.TabIndex = 1;
+            // 
             // lblHPersona
             // 
             this.lblHPersona.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -382,6 +405,7 @@
             this.lblHPersona.TabIndex = 0;
             this.lblHPersona.Text = "PERSONA";
             this.lblHPersona.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblHTareas
             // 
             this.lblHTareas.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -393,6 +417,7 @@
             this.lblHTareas.TabIndex = 1;
             this.lblHTareas.Text = "TAREAS";
             this.lblHTareas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblHATiempo
             // 
             this.lblHATiempo.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -404,6 +429,7 @@
             this.lblHATiempo.TabIndex = 2;
             this.lblHATiempo.Text = "% A TIEMPO";
             this.lblHATiempo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblHCumplimiento
             // 
             this.lblHCumplimiento.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -415,6 +441,7 @@
             this.lblHCumplimiento.TabIndex = 3;
             this.lblHCumplimiento.Text = "CUMPLIMIENTO";
             this.lblHCumplimiento.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblHTendencia
             // 
             this.lblHTendencia.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -426,6 +453,7 @@
             this.lblHTendencia.TabIndex = 4;
             this.lblHTendencia.Text = "TENDENCIA";
             this.lblHTendencia.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // flpColaboradores
             // 
             this.flpColaboradores.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
@@ -440,6 +468,7 @@
             this.flpColaboradores.Name = "flpColaboradores";
             this.flpColaboradores.Size = new System.Drawing.Size(778, 226);
             this.flpColaboradores.TabIndex = 2;
+            // 
             // colaborador1
             // 
             this.colaborador1.Cumplimiento = 100;
@@ -453,6 +482,7 @@
             this.colaborador1.TabIndex = 0;
             this.colaborador1.Tareas = 10;
             this.colaborador1.Tendencia = "Alta";
+            // 
             // colaborador2
             // 
             this.colaborador2.Cumplimiento = 86;
@@ -466,6 +496,7 @@
             this.colaborador2.TabIndex = 1;
             this.colaborador2.Tareas = 10;
             this.colaborador2.Tendencia = "Alta";
+            // 
             // colaborador3
             // 
             this.colaborador3.Cumplimiento = 83;
@@ -479,6 +510,7 @@
             this.colaborador3.TabIndex = 2;
             this.colaborador3.Tareas = 10;
             this.colaborador3.Tendencia = "Estable";
+            // 
             // colaborador4
             // 
             this.colaborador4.Cumplimiento = 77;
@@ -492,6 +524,7 @@
             this.colaborador4.TabIndex = 3;
             this.colaborador4.Tareas = 10;
             this.colaborador4.Tendencia = "Estable";
+            // 
             // colaborador5
             // 
             this.colaborador5.Cumplimiento = 68;
@@ -505,6 +538,7 @@
             this.colaborador5.TabIndex = 4;
             this.colaborador5.Tareas = 10;
             this.colaborador5.Tendencia = "Baja";
+            // 
             // colaborador6
             // 
             this.colaborador6.Cumplimiento = 89;
@@ -518,6 +552,7 @@
             this.colaborador6.TabIndex = 5;
             this.colaborador6.Tareas = 10;
             this.colaborador6.Tendencia = "Alta";
+            // 
             // pnlProductividadProyecto
             // 
             this.pnlProductividadProyecto.BackColor = System.Drawing.Color.White;
@@ -531,6 +566,7 @@
             this.pnlProductividadProyecto.Name = "pnlProductividadProyecto";
             this.pnlProductividadProyecto.Size = new System.Drawing.Size(797, 330);
             this.pnlProductividadProyecto.TabIndex = 1;
+            // 
             // lblProductividadProyecto
             // 
             this.lblProductividadProyecto.AutoSize = true;
@@ -541,6 +577,7 @@
             this.lblProductividadProyecto.Size = new System.Drawing.Size(217, 23);
             this.lblProductividadProyecto.TabIndex = 0;
             this.lblProductividadProyecto.Text = "Productividad por proyecto";
+            // 
             // pnlSeparadorProyecto
             // 
             this.pnlSeparadorProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
@@ -549,6 +586,7 @@
             this.pnlSeparadorProyecto.Name = "pnlSeparadorProyecto";
             this.pnlSeparadorProyecto.Size = new System.Drawing.Size(775, 1);
             this.pnlSeparadorProyecto.TabIndex = 1;
+            // 
             // flpProductividadProyecto
             // 
             this.flpProductividadProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
@@ -560,6 +598,7 @@
             this.flpProductividadProyecto.Name = "flpProductividadProyecto";
             this.flpProductividadProyecto.Size = new System.Drawing.Size(779, 264);
             this.flpProductividadProyecto.TabIndex = 1;
+            // 
             // productividadProyecto1
             // 
             this.productividadProyecto1.Avance = 88;
@@ -571,6 +610,7 @@
             this.productividadProyecto1.Size = new System.Drawing.Size(759, 48);
             this.productividadProyecto1.TabIndex = 0;
             this.productividadProyecto1.Tareas = 42;
+            // 
             // productividadProyecto2
             // 
             this.productividadProyecto2.Avance = 79;
@@ -582,6 +622,7 @@
             this.productividadProyecto2.Size = new System.Drawing.Size(759, 48);
             this.productividadProyecto2.TabIndex = 1;
             this.productividadProyecto2.Tareas = 38;
+            // 
             // productividadProyecto3
             // 
             this.productividadProyecto3.Avance = 92;
@@ -593,6 +634,7 @@
             this.productividadProyecto3.Size = new System.Drawing.Size(759, 48);
             this.productividadProyecto3.TabIndex = 2;
             this.productividadProyecto3.Tareas = 29;
+            // 
             // pnlTendenciaSemanal
             // 
             this.pnlTendenciaSemanal.BackColor = System.Drawing.Color.White;
@@ -606,6 +648,7 @@
             this.pnlTendenciaSemanal.Name = "pnlTendenciaSemanal";
             this.pnlTendenciaSemanal.Size = new System.Drawing.Size(1605, 320);
             this.pnlTendenciaSemanal.TabIndex = 3;
+            // 
             // lblTendenciaSemanal
             // 
             this.lblTendenciaSemanal.AutoSize = true;
@@ -616,6 +659,7 @@
             this.lblTendenciaSemanal.Size = new System.Drawing.Size(324, 23);
             this.lblTendenciaSemanal.TabIndex = 0;
             this.lblTendenciaSemanal.Text = "Tendencia semanal - Tareas completadas";
+            // 
             // pnlSeparadorTendencia
             // 
             this.pnlSeparadorTendencia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
@@ -624,6 +668,7 @@
             this.pnlSeparadorTendencia.Name = "pnlSeparadorTendencia";
             this.pnlSeparadorTendencia.Size = new System.Drawing.Size(1579, 1);
             this.pnlSeparadorTendencia.TabIndex = 1;
+            // 
             // flpSemanas
             // 
             this.flpSemanas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
@@ -638,6 +683,7 @@
             this.flpSemanas.Size = new System.Drawing.Size(1579, 258);
             this.flpSemanas.TabIndex = 1;
             this.flpSemanas.WrapContents = false;
+            // 
             // barraSemana1
             // 
             this.barraSemana1.Location = new System.Drawing.Point(0, 0);
@@ -648,6 +694,7 @@
             this.barraSemana1.TabIndex = 0;
             this.barraSemana1.Valor = 28;
             this.barraSemana1.ValorMaximo = 50;
+            // 
             // barraSemana2
             // 
             this.barraSemana2.Location = new System.Drawing.Point(386, 0);
@@ -658,6 +705,7 @@
             this.barraSemana2.TabIndex = 1;
             this.barraSemana2.Valor = 34;
             this.barraSemana2.ValorMaximo = 50;
+            // 
             // barraSemana3
             // 
             this.barraSemana3.Location = new System.Drawing.Point(772, 0);
@@ -668,6 +716,7 @@
             this.barraSemana3.TabIndex = 2;
             this.barraSemana3.Valor = 42;
             this.barraSemana3.ValorMaximo = 50;
+            // 
             // barraSemana4
             // 
             this.barraSemana4.Location = new System.Drawing.Point(1158, 0);
@@ -678,12 +727,13 @@
             this.barraSemana4.TabIndex = 3;
             this.barraSemana4.Valor = 38;
             this.barraSemana4.ValorMaximo = 50;
+            // 
             // frmProductividad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.ClientSize = new System.Drawing.Size(1670, 1080);
+            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.Controls.Add(this.pnlViewport);
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

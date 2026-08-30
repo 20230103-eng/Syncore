@@ -50,9 +50,9 @@
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpPrincipal.SetColumnSpan(this.lblDescripcion, 2);
             this.tlpPrincipal.Size = new System.Drawing.Size(1558, 128);
             this.tlpPrincipal.TabIndex = 0;
-            this.tlpPrincipal.SetColumnSpan(this.lblDescripcion, 2);
             // 
             // lblPunto
             // 
@@ -85,6 +85,7 @@
             // 
             this.btnMarcarLeida.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnMarcarLeida.BackColor = System.Drawing.Color.White;
+            this.btnMarcarLeida.Click += new System.EventHandler(this.btnMarcarLeida_Click);
             this.btnMarcarLeida.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMarcarLeida.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(11, 55, 104);
             this.btnMarcarLeida.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -97,7 +98,6 @@
             this.btnMarcarLeida.TabIndex = 2;
             this.btnMarcarLeida.Text = "Marcar leída";
             this.btnMarcarLeida.UseVisualStyleBackColor = false;
-            this.btnMarcarLeida.Click += new System.EventHandler(this.btnMarcarLeida_Click);
             // 
             // lblLeida
             // 
@@ -144,6 +144,7 @@
             // 
             this.btnIrTarea.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnIrTarea.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnIrTarea.Click += new System.EventHandler(this.btnIrTarea_Click);
             this.btnIrTarea.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnIrTarea.FlatAppearance.BorderSize = 0;
             this.btnIrTarea.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -156,7 +157,6 @@
             this.btnIrTarea.TabIndex = 6;
             this.btnIrTarea.Text = "Ir a tarea";
             this.btnIrTarea.UseVisualStyleBackColor = false;
-            this.btnIrTarea.Click += new System.EventHandler(this.btnIrTarea_Click);
             // 
             // UCNotificacion
             // 

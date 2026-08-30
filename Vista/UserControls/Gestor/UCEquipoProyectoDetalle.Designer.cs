@@ -55,6 +55,7 @@
             // 
             this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAgregar.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             this.btnAgregar.FlatAppearance.BorderSize = 0;
             this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregar.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -65,7 +66,6 @@
             this.btnAgregar.TabIndex = 0;
             this.btnAgregar.Text = "+ Agregar integrante";
             this.btnAgregar.UseVisualStyleBackColor = false;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // lblCantidad
             // 
@@ -232,6 +232,7 @@
             this.lblH6.TabIndex = 6;
             this.lblH6.Text = "VENCIDAS";
             this.lblH6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblH7
             // 
             this.lblH7.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -251,7 +252,6 @@
             this.lblH8.TabIndex = 8;
             this.lblH8.Text = "RETIRAR";
             this.lblH8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
             // 
             // UCEquipoProyectoDetalle
             // 

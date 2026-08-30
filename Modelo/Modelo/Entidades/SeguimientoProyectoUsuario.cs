@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using Modelo.Modelo;
 
 namespace Modelo.Modelo.Entidades
@@ -54,48 +55,147 @@ namespace Modelo.Modelo.Entidades
 
         public int ContarTareasUsuarioProyecto(int idUsuario, int idProyecto)
         {
-            string query = $@"
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int valor;
+
+            query = @"
             SELECT COUNT(*)
             FROM tbTarea
-            WHERE IdResponsable = {idUsuario}
-            AND IdProyecto = {idProyecto}";
+            WHERE IdResponsable = @IdUsuario
+            AND IdProyecto = @IdProyecto";
 
-            DataTable datos = conexion.EjecutarConsulta(query);
-            int cantidad = Convert.ToInt32(datos.Rows[0][0]);
-            return cantidad;
+            valor = 0;
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return valor;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null && resultado != DBNull.Value)
+                {
+                    valor = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return valor;
         }
 
         public int ContarTareasVencidasUsuarioProyecto(int idUsuario, int idProyecto)
         {
-            string query = $@"
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int valor;
+
+            query = @"
             SELECT COUNT(*)
             FROM tbTarea
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
-            WHERE tbTarea.IdResponsable = {idUsuario}
-            AND tbTarea.IdProyecto = {idProyecto}
-            AND tbEstadoTarea.Nombre = N'Vencida'";
+            WHERE tbTarea.IdResponsable = @IdUsuario
+            AND tbTarea.IdProyecto = @IdProyecto
+            AND tbEstadoTarea.Nombre = N'Vencida' ";
 
-            DataTable datos = conexion.EjecutarConsulta(query);
-            int cantidad = Convert.ToInt32(datos.Rows[0][0]);
-            return cantidad;
+            valor = 0;
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return valor;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null && resultado != DBNull.Value)
+                {
+                    valor = Convert.ToInt32(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return valor;
         }
 
         public DateTime? ObtenerProximaFechaUsuarioProyecto(int idUsuario, int idProyecto)
         {
-            string query = $@"
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            DateTime? fecha;
+
+            query = @"
             SELECT MIN(FechaLimite)
             FROM tbTarea
             INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
-            WHERE tbTarea.IdResponsable = {idUsuario}
-            AND tbTarea.IdProyecto = {idProyecto}
+            WHERE tbTarea.IdResponsable = @IdUsuario
+            AND tbTarea.IdProyecto = @IdProyecto
             AND tbEstadoTarea.Nombre <> N'Completada'";
 
-            DataTable datos = conexion.EjecutarConsulta(query);
-            DateTime? fecha = null;
+            fecha = null;
+            conexionSql = Conexion.conectar();
 
-            if (datos.Rows[0][0] != DBNull.Value)
+            if (conexionSql == null)
             {
-                fecha = Convert.ToDateTime(datos.Rows[0][0]);
+                return fecha;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null && resultado != DBNull.Value)
+                {
+                    fecha = Convert.ToDateTime(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
 
             return fecha;
@@ -103,15 +203,50 @@ namespace Modelo.Modelo.Entidades
 
         public decimal ObtenerAvanceUsuarioProyecto(int idUsuario, int idProyecto)
         {
-            string query = $@"
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            decimal valor;
+
+            query = @"
             SELECT ISNULL(AVG(AvanceActual), 0)
             FROM tbTarea
-            WHERE IdResponsable = {idUsuario}
-            AND IdProyecto = {idProyecto}";
+            WHERE IdResponsable = @IdUsuario
+            AND IdProyecto = @IdProyecto";
 
-            DataTable datos = conexion.EjecutarConsulta(query);
-            decimal avance = Convert.ToDecimal(datos.Rows[0][0]);
-            return avance;
+            valor = 0;
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return valor;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado != null && resultado != DBNull.Value)
+                {
+                    valor = Convert.ToDecimal(resultado);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return valor;
         }
     }
 }

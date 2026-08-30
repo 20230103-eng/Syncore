@@ -117,6 +117,7 @@
             this.tlpEncabezadoHistorial.SuspendLayout();
             this.pnlHeaderHistorial.SuspendLayout();
             this.SuspendLayout();
+            // 
             // pnlTop
             // 
             this.pnlTop.BackColor = System.Drawing.Color.White;
@@ -129,6 +130,7 @@
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(1670, 43);
             this.pnlTop.TabIndex = 0;
+            // 
             // lblFecha
             // 
             this.lblFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -140,6 +142,7 @@
             this.lblFecha.Size = new System.Drawing.Size(38, 15);
             this.lblFecha.TabIndex = 2;
             this.lblFecha.Text = "Fecha";
+            // 
             // lblBreadcrumbActual
             // 
             this.lblBreadcrumbActual.AutoSize = true;
@@ -150,6 +153,7 @@
             this.lblBreadcrumbActual.Size = new System.Drawing.Size(101, 15);
             this.lblBreadcrumbActual.TabIndex = 1;
             this.lblBreadcrumbActual.Text = "Mi productividad";
+            // 
             // lblBreadcrumbBase
             // 
             this.lblBreadcrumbBase.AutoSize = true;
@@ -160,6 +164,7 @@
             this.lblBreadcrumbBase.Size = new System.Drawing.Size(82, 15);
             this.lblBreadcrumbBase.TabIndex = 0;
             this.lblBreadcrumbBase.Text = "Mi avance >";
+            // 
             // pnlViewport
             // 
             this.pnlViewport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
@@ -169,6 +174,7 @@
             this.pnlViewport.Name = "pnlViewport";
             this.pnlViewport.Size = new System.Drawing.Size(1670, 1037);
             this.pnlViewport.TabIndex = 1;
+            // 
             // pnlCanvas
             // 
             this.pnlCanvas.AutoScroll = true;
@@ -179,6 +185,7 @@
             this.pnlCanvas.Name = "pnlCanvas";
             this.pnlCanvas.Size = new System.Drawing.Size(1670, 1037);
             this.pnlCanvas.TabIndex = 0;
+            // 
             // tlpPrincipal
             // 
             this.tlpPrincipal.ColumnCount = 1;
@@ -196,6 +203,7 @@
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 570F));
             this.tlpPrincipal.Size = new System.Drawing.Size(1670, 820);
             this.tlpPrincipal.TabIndex = 0;
+            // 
             // tlpCabecera
             // 
             this.tlpCabecera.ColumnCount = 2;
@@ -211,6 +219,7 @@
             this.tlpCabecera.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpCabecera.Size = new System.Drawing.Size(1622, 70);
             this.tlpCabecera.TabIndex = 0;
+            // 
             // pnlTitulos
             // 
             this.pnlTitulos.Controls.Add(this.lblSubtitulo);
@@ -221,6 +230,7 @@
             this.pnlTitulos.Name = "pnlTitulos";
             this.pnlTitulos.Size = new System.Drawing.Size(1135, 70);
             this.pnlTitulos.TabIndex = 0;
+            // 
             // lblSubtitulo
             // 
             this.lblSubtitulo.AutoSize = true;
@@ -231,6 +241,7 @@
             this.lblSubtitulo.Size = new System.Drawing.Size(187, 15);
             this.lblSubtitulo.TabIndex = 1;
             this.lblSubtitulo.Text = "Tu desempeño operativo personal";
+            // 
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
@@ -241,6 +252,7 @@
             this.lblTitulo.Size = new System.Drawing.Size(212, 32);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Mi productividad";
+            // 
             // cboPeriodo
             // 
             this.cboPeriodo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -256,6 +268,7 @@
             this.cboPeriodo.Name = "cboPeriodo";
             this.cboPeriodo.Size = new System.Drawing.Size(194, 23);
             this.cboPeriodo.TabIndex = 1;
+            // 
             // tlpTarjetas
             // 
             this.tlpTarjetas.ColumnCount = 4;
@@ -275,6 +288,7 @@
             this.tlpTarjetas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpTarjetas.Size = new System.Drawing.Size(1622, 132);
             this.tlpTarjetas.TabIndex = 1;
+            // 
             // tarjeta1
             // 
             this.tarjeta1.BackColor = System.Drawing.Color.White;
@@ -291,6 +305,7 @@
             this.tarjeta1.TabIndex = 0;
             this.tarjeta1.Titulo = "Completadas";
             this.tarjeta1.Valor = "12";
+            // 
             // tarjeta2
             // 
             this.tarjeta2.BackColor = System.Drawing.Color.White;
@@ -307,6 +322,7 @@
             this.tarjeta2.TabIndex = 1;
             this.tarjeta2.Titulo = "Pendientes";
             this.tarjeta2.Valor = "8";
+            // 
             // tarjeta3
             // 
             this.tarjeta3.BackColor = System.Drawing.Color.White;
@@ -323,6 +339,7 @@
             this.tarjeta3.TabIndex = 2;
             this.tarjeta3.Titulo = "Vencidas";
             this.tarjeta3.Valor = "2";
+            // 
             // tarjeta4
             // 
             this.tarjeta4.BackColor = System.Drawing.Color.White;
@@ -339,6 +356,7 @@
             this.tarjeta4.TabIndex = 3;
             this.tarjeta4.Titulo = "Cumplimiento";
             this.tarjeta4.Valor = "75%";
+            // 
             // tlpSecciones
             // 
             this.tlpSecciones.ColumnCount = 2;
@@ -357,6 +375,7 @@
             this.tlpSecciones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 300F));
             this.tlpSecciones.Size = new System.Drawing.Size(1622, 550);
             this.tlpSecciones.TabIndex = 2;
+            // 
             // pnlAvanceProyectos
             // 
             this.pnlAvanceProyectos.BackColor = System.Drawing.Color.White;
@@ -369,6 +388,7 @@
             this.pnlAvanceProyectos.Name = "pnlAvanceProyectos";
             this.pnlAvanceProyectos.Size = new System.Drawing.Size(1092, 240);
             this.pnlAvanceProyectos.TabIndex = 0;
+            // 
             // flpAvanceProyectos
             // 
             this.flpAvanceProyectos.AutoScroll = true;
@@ -381,6 +401,7 @@
             this.flpAvanceProyectos.Padding = new System.Windows.Forms.Padding(14, 12, 14, 12);
             this.flpAvanceProyectos.Size = new System.Drawing.Size(1090, 220);
             this.flpAvanceProyectos.TabIndex = 1;
+            // 
             // avanceProyecto1
             // 
             this.avanceProyecto1.Avance = 45;
@@ -395,6 +416,7 @@
             this.avanceProyecto1.Size = new System.Drawing.Size(1045, 48);
             this.avanceProyecto1.TabIndex = 0;
             this.avanceProyecto1.Tareas = 5;
+            // 
             // avanceProyecto2
             // 
             this.avanceProyecto2.Avance = 50;
@@ -409,6 +431,7 @@
             this.avanceProyecto2.Size = new System.Drawing.Size(1045, 48);
             this.avanceProyecto2.TabIndex = 1;
             this.avanceProyecto2.Tareas = 6;
+            // 
             // avanceProyecto3
             // 
             this.avanceProyecto3.Avance = 70;
@@ -423,6 +446,7 @@
             this.avanceProyecto3.Size = new System.Drawing.Size(1045, 48);
             this.avanceProyecto3.TabIndex = 2;
             this.avanceProyecto3.Tareas = 7;
+            // 
             // pnlHeaderAvance
             // 
             this.pnlHeaderAvance.BackColor = System.Drawing.Color.White;
@@ -432,6 +456,7 @@
             this.pnlHeaderAvance.Name = "pnlHeaderAvance";
             this.pnlHeaderAvance.Size = new System.Drawing.Size(1090, 48);
             this.pnlHeaderAvance.TabIndex = 0;
+            // 
             // lblAvanceProyectos
             // 
             this.lblAvanceProyectos.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -444,6 +469,7 @@
             this.lblAvanceProyectos.TabIndex = 0;
             this.lblAvanceProyectos.Text = "Avance por proyecto asignado";
             this.lblAvanceProyectos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // pnlTareasCompletadas
             // 
             this.pnlTareasCompletadas.BackColor = System.Drawing.Color.White;
@@ -456,6 +482,7 @@
             this.pnlTareasCompletadas.Name = "pnlTareasCompletadas";
             this.pnlTareasCompletadas.Size = new System.Drawing.Size(520, 240);
             this.pnlTareasCompletadas.TabIndex = 1;
+            // 
             // flpTareasCompletadas
             // 
             this.flpTareasCompletadas.AutoScroll = true;
@@ -469,6 +496,7 @@
             this.flpTareasCompletadas.Padding = new System.Windows.Forms.Padding(14, 12, 14, 12);
             this.flpTareasCompletadas.Size = new System.Drawing.Size(518, 220);
             this.flpTareasCompletadas.TabIndex = 1;
+            // 
             // tareaCompletada1
             // 
             this.tareaCompletada1.BackColor = System.Drawing.Color.White;
@@ -480,6 +508,7 @@
             this.tareaCompletada1.NombreTarea = "Nombre de tarea 1";
             this.tareaCompletada1.Size = new System.Drawing.Size(478, 37);
             this.tareaCompletada1.TabIndex = 0;
+            // 
             // tareaCompletada2
             // 
             this.tareaCompletada2.BackColor = System.Drawing.Color.White;
@@ -491,6 +520,7 @@
             this.tareaCompletada2.NombreTarea = "Nombre de tarea 2";
             this.tareaCompletada2.Size = new System.Drawing.Size(478, 37);
             this.tareaCompletada2.TabIndex = 1;
+            // 
             // tareaCompletada3
             // 
             this.tareaCompletada3.BackColor = System.Drawing.Color.White;
@@ -502,6 +532,7 @@
             this.tareaCompletada3.NombreTarea = "Nombre de tarea 3";
             this.tareaCompletada3.Size = new System.Drawing.Size(478, 37);
             this.tareaCompletada3.TabIndex = 2;
+            // 
             // tareaCompletada4
             // 
             this.tareaCompletada4.BackColor = System.Drawing.Color.White;
@@ -513,6 +544,7 @@
             this.tareaCompletada4.NombreTarea = "Nombre de tarea 4";
             this.tareaCompletada4.Size = new System.Drawing.Size(478, 37);
             this.tareaCompletada4.TabIndex = 3;
+            // 
             // pnlHeaderTareas
             // 
             this.pnlHeaderTareas.BackColor = System.Drawing.Color.White;
@@ -522,6 +554,7 @@
             this.pnlHeaderTareas.Name = "pnlHeaderTareas";
             this.pnlHeaderTareas.Size = new System.Drawing.Size(518, 48);
             this.pnlHeaderTareas.TabIndex = 0;
+            // 
             // lblTareasCompletadas
             // 
             this.lblTareasCompletadas.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -534,6 +567,7 @@
             this.lblTareasCompletadas.TabIndex = 0;
             this.lblTareasCompletadas.Text = "Mis tareas completadas";
             this.lblTareasCompletadas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // pnlEstadoTareas
             // 
             this.pnlEstadoTareas.BackColor = System.Drawing.Color.White;
@@ -546,6 +580,7 @@
             this.pnlEstadoTareas.Name = "pnlEstadoTareas";
             this.pnlEstadoTareas.Size = new System.Drawing.Size(1092, 300);
             this.pnlEstadoTareas.TabIndex = 2;
+            // 
             // tlpEstado
             // 
             this.tlpEstado.ColumnCount = 4;
@@ -565,6 +600,7 @@
             this.tlpEstado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpEstado.Size = new System.Drawing.Size(1090, 350);
             this.tlpEstado.TabIndex = 1;
+            // 
             // tlpPendiente
             // 
             this.tlpPendiente.ColumnCount = 1;
@@ -580,6 +616,7 @@
             this.tlpPendiente.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tlpPendiente.Size = new System.Drawing.Size(265, 324);
             this.tlpPendiente.TabIndex = 0;
+            // 
             // pnlBarraPendiente
             // 
             this.pnlBarraPendiente.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -589,6 +626,7 @@
             this.pnlBarraPendiente.Name = "pnlBarraPendiente";
             this.pnlBarraPendiente.Size = new System.Drawing.Size(120, 150);
             this.pnlBarraPendiente.TabIndex = 0;
+            // 
             // lblPendiente
             // 
             this.lblPendiente.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -600,6 +638,7 @@
             this.lblPendiente.TabIndex = 1;
             this.lblPendiente.Text = "Pendiente\r\n8";
             this.lblPendiente.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // tlpProgreso
             // 
             this.tlpProgreso.ColumnCount = 1;
@@ -615,6 +654,7 @@
             this.tlpProgreso.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tlpProgreso.Size = new System.Drawing.Size(265, 324);
             this.tlpProgreso.TabIndex = 1;
+            // 
             // pnlBarraProgreso
             // 
             this.pnlBarraProgreso.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -624,6 +664,7 @@
             this.pnlBarraProgreso.Name = "pnlBarraProgreso";
             this.pnlBarraProgreso.Size = new System.Drawing.Size(120, 180);
             this.pnlBarraProgreso.TabIndex = 0;
+            // 
             // lblProgreso
             // 
             this.lblProgreso.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -635,6 +676,7 @@
             this.lblProgreso.TabIndex = 1;
             this.lblProgreso.Text = "En progreso\r\n5";
             this.lblProgreso.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // tlpRevision
             // 
             this.tlpRevision.ColumnCount = 1;
@@ -650,6 +692,7 @@
             this.tlpRevision.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tlpRevision.Size = new System.Drawing.Size(265, 324);
             this.tlpRevision.TabIndex = 2;
+            // 
             // pnlBarraRevision
             // 
             this.pnlBarraRevision.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -659,6 +702,7 @@
             this.pnlBarraRevision.Name = "pnlBarraRevision";
             this.pnlBarraRevision.Size = new System.Drawing.Size(120, 220);
             this.pnlBarraRevision.TabIndex = 0;
+            // 
             // lblRevision
             // 
             this.lblRevision.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -670,6 +714,7 @@
             this.lblRevision.TabIndex = 1;
             this.lblRevision.Text = "En revisión\r\n3";
             this.lblRevision.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // tlpCompletada
             // 
             this.tlpCompletada.ColumnCount = 1;
@@ -685,6 +730,7 @@
             this.tlpCompletada.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tlpCompletada.Size = new System.Drawing.Size(267, 324);
             this.tlpCompletada.TabIndex = 3;
+            // 
             // pnlBarraCompletada
             // 
             this.pnlBarraCompletada.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -694,6 +740,7 @@
             this.pnlBarraCompletada.Name = "pnlBarraCompletada";
             this.pnlBarraCompletada.Size = new System.Drawing.Size(120, 250);
             this.pnlBarraCompletada.TabIndex = 0;
+            // 
             // lblCompletada
             // 
             this.lblCompletada.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -705,6 +752,7 @@
             this.lblCompletada.TabIndex = 1;
             this.lblCompletada.Text = "Completada\r\n12";
             this.lblCompletada.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // pnlHeaderEstado
             // 
             this.pnlHeaderEstado.BackColor = System.Drawing.Color.White;
@@ -714,6 +762,7 @@
             this.pnlHeaderEstado.Name = "pnlHeaderEstado";
             this.pnlHeaderEstado.Size = new System.Drawing.Size(1090, 48);
             this.pnlHeaderEstado.TabIndex = 0;
+            // 
             // lblEstadoTareas
             // 
             this.lblEstadoTareas.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -726,6 +775,7 @@
             this.lblEstadoTareas.TabIndex = 0;
             this.lblEstadoTareas.Text = "Tareas por estado - este mes";
             this.lblEstadoTareas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // pnlHistorial
             // 
             this.pnlHistorial.BackColor = System.Drawing.Color.White;
@@ -738,6 +788,7 @@
             this.pnlHistorial.Name = "pnlHistorial";
             this.pnlHistorial.Size = new System.Drawing.Size(520, 300);
             this.pnlHistorial.TabIndex = 3;
+            // 
             // pnlCuerpoHistorial
             // 
             this.pnlCuerpoHistorial.BackColor = System.Drawing.Color.White;
@@ -749,6 +800,7 @@
             this.pnlCuerpoHistorial.Padding = new System.Windows.Forms.Padding(14, 0, 14, 14);
             this.pnlCuerpoHistorial.Size = new System.Drawing.Size(518, 250);
             this.pnlCuerpoHistorial.TabIndex = 1;
+            // 
             // flpHistorial
             // 
             this.flpHistorial.AutoScroll = true;
@@ -760,12 +812,13 @@
             this.flpHistorial.Name = "flpHistorial";
             this.flpHistorial.Size = new System.Drawing.Size(490, 198);
             this.flpHistorial.TabIndex = 2;
+            // 
             // avance1
             // 
             this.avance1.Avance = "60%";
             this.avance1.BackColor = System.Drawing.Color.White;
-            this.avance1.Fecha = "28 abr";
             this.avance1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.avance1.Fecha = "28 abr";
             this.avance1.Location = new System.Drawing.Point(0, 0);
             this.avance1.Margin = new System.Windows.Forms.Padding(0);
             this.avance1.MinimumSize = new System.Drawing.Size(300, 41);
@@ -774,12 +827,13 @@
             this.avance1.Size = new System.Drawing.Size(464, 41);
             this.avance1.TabIndex = 0;
             this.avance1.Tarea = "Tarea 1";
+            // 
             // avance2
             // 
             this.avance2.Avance = "35%";
             this.avance2.BackColor = System.Drawing.Color.White;
-            this.avance2.Fecha = "21 abr";
             this.avance2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.avance2.Fecha = "21 abr";
             this.avance2.Location = new System.Drawing.Point(0, 41);
             this.avance2.Margin = new System.Windows.Forms.Padding(0);
             this.avance2.MinimumSize = new System.Drawing.Size(300, 41);
@@ -788,12 +842,13 @@
             this.avance2.Size = new System.Drawing.Size(464, 41);
             this.avance2.TabIndex = 1;
             this.avance2.Tarea = "Tarea 2";
+            // 
             // avance3
             // 
             this.avance3.Avance = "100%";
             this.avance3.BackColor = System.Drawing.Color.White;
-            this.avance3.Fecha = "18 abr";
             this.avance3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.avance3.Fecha = "18 abr";
             this.avance3.Location = new System.Drawing.Point(0, 82);
             this.avance3.Margin = new System.Windows.Forms.Padding(0);
             this.avance3.MinimumSize = new System.Drawing.Size(300, 41);
@@ -802,6 +857,7 @@
             this.avance3.Size = new System.Drawing.Size(464, 41);
             this.avance3.TabIndex = 2;
             this.avance3.Tarea = "Tarea 3";
+            // 
             // tlpEncabezadoHistorial
             // 
             this.tlpEncabezadoHistorial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
@@ -821,6 +877,7 @@
             this.tlpEncabezadoHistorial.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpEncabezadoHistorial.Size = new System.Drawing.Size(490, 38);
             this.tlpEncabezadoHistorial.TabIndex = 1;
+            // 
             // lblHFecha
             // 
             this.lblHFecha.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -832,6 +889,7 @@
             this.lblHFecha.TabIndex = 0;
             this.lblHFecha.Text = "FECHA";
             this.lblHFecha.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblHTarea
             // 
             this.lblHTarea.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -843,6 +901,7 @@
             this.lblHTarea.TabIndex = 1;
             this.lblHTarea.Text = "TAREA";
             this.lblHTarea.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblHProyecto
             // 
             this.lblHProyecto.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -854,6 +913,7 @@
             this.lblHProyecto.TabIndex = 2;
             this.lblHProyecto.Text = "PROYECTO";
             this.lblHProyecto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblHAvance
             // 
             this.lblHAvance.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -865,6 +925,7 @@
             this.lblHAvance.TabIndex = 3;
             this.lblHAvance.Text = "AVANCE";
             this.lblHAvance.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // pnlHeaderHistorial
             // 
             this.pnlHeaderHistorial.BackColor = System.Drawing.Color.White;
@@ -874,6 +935,7 @@
             this.pnlHeaderHistorial.Name = "pnlHeaderHistorial";
             this.pnlHeaderHistorial.Size = new System.Drawing.Size(518, 48);
             this.pnlHeaderHistorial.TabIndex = 0;
+            // 
             // lblHistorial
             // 
             this.lblHistorial.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -886,12 +948,13 @@
             this.lblHistorial.TabIndex = 0;
             this.lblHistorial.Text = "Historial de avances registrados";
             this.lblHistorial.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // frmMiProductividad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(1670, 1080);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.Controls.Add(this.pnlViewport);
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -926,7 +989,6 @@
             this.tlpEncabezadoHistorial.ResumeLayout(false);
             this.pnlHeaderHistorial.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion

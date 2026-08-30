@@ -251,6 +251,7 @@
             // btnAnterior
             // 
             this.btnAnterior.BackColor = System.Drawing.Color.White;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             this.btnAnterior.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAnterior.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(142, 160, 181);
             this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -263,11 +264,11 @@
             this.btnAnterior.TabIndex = 2;
             this.btnAnterior.Text = "< Abril";
             this.btnAnterior.UseVisualStyleBackColor = false;
-            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             // 
             // btnSiguiente
             // 
             this.btnSiguiente.BackColor = System.Drawing.Color.White;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             this.btnSiguiente.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSiguiente.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(142, 160, 181);
             this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -280,7 +281,6 @@
             this.btnSiguiente.TabIndex = 2;
             this.btnSiguiente.Text = "Junio >";
             this.btnSiguiente.UseVisualStyleBackColor = false;
-            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
             // cboVista
             // 
@@ -296,9 +296,9 @@
             this.cboVista.Margin = new System.Windows.Forms.Padding(5, 25, 5, 28);
             this.cboVista.Name = "cboVista";
             this.cboVista.SelectedIndex = 0;
+            this.cboVista.SelectedIndexChanged += new System.EventHandler(this.filtros_SelectedIndexChanged);
             this.cboVista.Size = new System.Drawing.Size(200, 28);
             this.cboVista.TabIndex = 4;
-            this.cboVista.SelectedIndexChanged += new System.EventHandler(this.filtros_SelectedIndexChanged);
             // 
             // cboProyecto
             // 
@@ -315,9 +315,9 @@
             this.cboProyecto.Margin = new System.Windows.Forms.Padding(5, 25, 5, 28);
             this.cboProyecto.Name = "cboProyecto";
             this.cboProyecto.SelectedIndex = 0;
+            this.cboProyecto.SelectedIndexChanged += new System.EventHandler(this.filtros_SelectedIndexChanged);
             this.cboProyecto.Size = new System.Drawing.Size(200, 28);
             this.cboProyecto.TabIndex = 5;
-            this.cboProyecto.SelectedIndexChanged += new System.EventHandler(this.filtros_SelectedIndexChanged);
             // 
             // cboTipo
             // 
@@ -334,9 +334,9 @@
             this.cboTipo.Margin = new System.Windows.Forms.Padding(5, 25, 5, 28);
             this.cboTipo.Name = "cboTipo";
             this.cboTipo.SelectedIndex = 0;
+            this.cboTipo.SelectedIndexChanged += new System.EventHandler(this.filtros_SelectedIndexChanged);
             this.cboTipo.Size = new System.Drawing.Size(200, 28);
             this.cboTipo.TabIndex = 6;
-            this.cboTipo.SelectedIndexChanged += new System.EventHandler(this.filtros_SelectedIndexChanged);
             // 
             // tlpDias
             // 
@@ -514,457 +514,492 @@
             this.tlpCalendario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tlpCalendario.Size = new System.Drawing.Size(1626, 847);
             this.tlpCalendario.TabIndex = 2;
+            // 
             // dia1
             // 
-            this.dia1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia1.Margin = new System.Windows.Forms.Padding(0);
             this.dia1.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia1.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia1.Dia = "26";
+            this.dia1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia1.Evento = "";
             this.dia1.Location = new System.Drawing.Point(0, 0);
+            this.dia1.Margin = new System.Windows.Forms.Padding(0);
             this.dia1.MostrarEvento = false;
             this.dia1.Name = "dia1";
             this.dia1.Size = new System.Drawing.Size(210, 100);
             this.dia1.TabIndex = 0;
+            // 
             // dia2
             // 
-            this.dia2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia2.Margin = new System.Windows.Forms.Padding(0);
             this.dia2.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia2.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia2.Dia = "27";
+            this.dia2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia2.Evento = "";
             this.dia2.Location = new System.Drawing.Point(0, 0);
+            this.dia2.Margin = new System.Windows.Forms.Padding(0);
             this.dia2.MostrarEvento = false;
             this.dia2.Name = "dia2";
             this.dia2.Size = new System.Drawing.Size(210, 100);
             this.dia2.TabIndex = 1;
+            // 
             // dia3
             // 
-            this.dia3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia3.Margin = new System.Windows.Forms.Padding(0);
             this.dia3.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia3.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia3.Dia = "28";
+            this.dia3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia3.Evento = "";
             this.dia3.Location = new System.Drawing.Point(0, 0);
+            this.dia3.Margin = new System.Windows.Forms.Padding(0);
             this.dia3.MostrarEvento = false;
             this.dia3.Name = "dia3";
             this.dia3.Size = new System.Drawing.Size(210, 100);
             this.dia3.TabIndex = 2;
+            // 
             // dia4
             // 
-            this.dia4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia4.Margin = new System.Windows.Forms.Padding(0);
             this.dia4.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia4.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia4.Dia = "29";
+            this.dia4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia4.Evento = "";
             this.dia4.Location = new System.Drawing.Point(0, 0);
+            this.dia4.Margin = new System.Windows.Forms.Padding(0);
             this.dia4.MostrarEvento = false;
             this.dia4.Name = "dia4";
             this.dia4.Size = new System.Drawing.Size(210, 100);
             this.dia4.TabIndex = 3;
+            // 
             // dia5
             // 
-            this.dia5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia5.Margin = new System.Windows.Forms.Padding(0);
             this.dia5.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia5.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia5.Dia = "30";
+            this.dia5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia5.Evento = "";
             this.dia5.Location = new System.Drawing.Point(0, 0);
+            this.dia5.Margin = new System.Windows.Forms.Padding(0);
             this.dia5.MostrarEvento = false;
             this.dia5.Name = "dia5";
             this.dia5.Size = new System.Drawing.Size(210, 100);
             this.dia5.TabIndex = 4;
+            // 
             // dia6
             // 
-            this.dia6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia6.Margin = new System.Windows.Forms.Padding(0);
             this.dia6.ColorEvento = System.Drawing.Color.FromArgb(255, 232, 232);
             this.dia6.ColorTextoEvento = System.Drawing.Color.FromArgb(229, 37, 42);
             this.dia6.Dia = "1";
+            this.dia6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia6.Evento = "Informe mensual vence";
             this.dia6.Location = new System.Drawing.Point(0, 0);
+            this.dia6.Margin = new System.Windows.Forms.Padding(0);
             this.dia6.MostrarEvento = true;
             this.dia6.Name = "dia6";
             this.dia6.Size = new System.Drawing.Size(210, 100);
             this.dia6.TabIndex = 5;
+            // 
             // dia7
             // 
-            this.dia7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia7.Margin = new System.Windows.Forms.Padding(0);
             this.dia7.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia7.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia7.Dia = "2";
+            this.dia7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia7.Evento = "";
             this.dia7.Location = new System.Drawing.Point(0, 0);
+            this.dia7.Margin = new System.Windows.Forms.Padding(0);
             this.dia7.MostrarEvento = false;
             this.dia7.Name = "dia7";
             this.dia7.Size = new System.Drawing.Size(210, 100);
             this.dia7.TabIndex = 6;
+            // 
             // dia8
             // 
-            this.dia8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia8.Margin = new System.Windows.Forms.Padding(0);
             this.dia8.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia8.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia8.Dia = "3";
+            this.dia8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia8.Evento = "";
             this.dia8.Location = new System.Drawing.Point(0, 0);
+            this.dia8.Margin = new System.Windows.Forms.Padding(0);
             this.dia8.MostrarEvento = false;
             this.dia8.Name = "dia8";
             this.dia8.Size = new System.Drawing.Size(210, 100);
             this.dia8.TabIndex = 7;
+            // 
             // dia9
             // 
-            this.dia9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia9.Margin = new System.Windows.Forms.Padding(0);
             this.dia9.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia9.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia9.Dia = "4";
+            this.dia9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia9.Evento = "Realizar tarea 1";
             this.dia9.Location = new System.Drawing.Point(0, 0);
+            this.dia9.Margin = new System.Windows.Forms.Padding(0);
             this.dia9.MostrarEvento = true;
             this.dia9.Name = "dia9";
             this.dia9.Size = new System.Drawing.Size(210, 100);
             this.dia9.TabIndex = 8;
+            // 
             // dia10
             // 
-            this.dia10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia10.Margin = new System.Windows.Forms.Padding(0);
             this.dia10.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia10.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia10.Dia = "5";
+            this.dia10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia10.Evento = "";
             this.dia10.Location = new System.Drawing.Point(0, 0);
+            this.dia10.Margin = new System.Windows.Forms.Padding(0);
             this.dia10.MostrarEvento = false;
             this.dia10.Name = "dia10";
             this.dia10.Size = new System.Drawing.Size(210, 100);
             this.dia10.TabIndex = 9;
+            // 
             // dia11
             // 
-            this.dia11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia11.Margin = new System.Windows.Forms.Padding(0);
             this.dia11.ColorEvento = System.Drawing.Color.FromArgb(255, 246, 218);
             this.dia11.ColorTextoEvento = System.Drawing.Color.FromArgb(215, 145, 0);
             this.dia11.Dia = "6";
+            this.dia11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia11.Evento = "Reunión";
             this.dia11.Location = new System.Drawing.Point(0, 0);
+            this.dia11.Margin = new System.Windows.Forms.Padding(0);
             this.dia11.MostrarEvento = true;
             this.dia11.Name = "dia11";
             this.dia11.Size = new System.Drawing.Size(210, 100);
             this.dia11.TabIndex = 10;
+            // 
             // dia12
             // 
-            this.dia12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia12.Margin = new System.Windows.Forms.Padding(0);
             this.dia12.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia12.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia12.Dia = "7";
+            this.dia12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia12.Evento = "";
             this.dia12.Location = new System.Drawing.Point(0, 0);
+            this.dia12.Margin = new System.Windows.Forms.Padding(0);
             this.dia12.MostrarEvento = false;
             this.dia12.Name = "dia12";
             this.dia12.Size = new System.Drawing.Size(210, 100);
             this.dia12.TabIndex = 11;
+            // 
             // dia13
             // 
-            this.dia13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia13.Margin = new System.Windows.Forms.Padding(0);
             this.dia13.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia13.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia13.Dia = "8";
+            this.dia13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia13.Evento = "Realizar tarea 2";
             this.dia13.Location = new System.Drawing.Point(0, 0);
+            this.dia13.Margin = new System.Windows.Forms.Padding(0);
             this.dia13.MostrarEvento = true;
             this.dia13.Name = "dia13";
             this.dia13.Size = new System.Drawing.Size(210, 100);
             this.dia13.TabIndex = 12;
+            // 
             // dia14
             // 
-            this.dia14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia14.Margin = new System.Windows.Forms.Padding(0);
             this.dia14.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia14.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia14.Dia = "9";
+            this.dia14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia14.Evento = "Realizar tarea 3";
             this.dia14.Location = new System.Drawing.Point(0, 0);
+            this.dia14.Margin = new System.Windows.Forms.Padding(0);
             this.dia14.MostrarEvento = true;
             this.dia14.Name = "dia14";
             this.dia14.Size = new System.Drawing.Size(210, 100);
             this.dia14.TabIndex = 13;
+            // 
             // dia15
             // 
-            this.dia15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia15.Margin = new System.Windows.Forms.Padding(0);
             this.dia15.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia15.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia15.Dia = "10";
+            this.dia15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia15.Evento = "";
             this.dia15.Location = new System.Drawing.Point(0, 0);
+            this.dia15.Margin = new System.Windows.Forms.Padding(0);
             this.dia15.MostrarEvento = false;
             this.dia15.Name = "dia15";
             this.dia15.Size = new System.Drawing.Size(210, 100);
             this.dia15.TabIndex = 14;
+            // 
             // dia16
             // 
-            this.dia16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia16.Margin = new System.Windows.Forms.Padding(0);
             this.dia16.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia16.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia16.Dia = "11";
+            this.dia16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia16.Evento = "";
             this.dia16.Location = new System.Drawing.Point(0, 0);
+            this.dia16.Margin = new System.Windows.Forms.Padding(0);
             this.dia16.MostrarEvento = false;
             this.dia16.Name = "dia16";
             this.dia16.Size = new System.Drawing.Size(210, 100);
             this.dia16.TabIndex = 15;
+            // 
             // dia17
             // 
-            this.dia17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia17.Margin = new System.Windows.Forms.Padding(0);
             this.dia17.ColorEvento = System.Drawing.Color.FromArgb(255, 246, 218);
             this.dia17.ColorTextoEvento = System.Drawing.Color.FromArgb(215, 145, 0);
             this.dia17.Dia = "12";
+            this.dia17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia17.Evento = "Reunión";
             this.dia17.Location = new System.Drawing.Point(0, 0);
+            this.dia17.Margin = new System.Windows.Forms.Padding(0);
             this.dia17.MostrarEvento = true;
             this.dia17.Name = "dia17";
             this.dia17.Size = new System.Drawing.Size(210, 100);
             this.dia17.TabIndex = 16;
+            // 
             // dia18
             // 
-            this.dia18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia18.Margin = new System.Windows.Forms.Padding(0);
             this.dia18.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia18.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia18.Dia = "13";
+            this.dia18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia18.Evento = "";
             this.dia18.Location = new System.Drawing.Point(0, 0);
+            this.dia18.Margin = new System.Windows.Forms.Padding(0);
             this.dia18.MostrarEvento = false;
             this.dia18.Name = "dia18";
             this.dia18.Size = new System.Drawing.Size(210, 100);
             this.dia18.TabIndex = 17;
+            // 
             // dia19
             // 
-            this.dia19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia19.Margin = new System.Windows.Forms.Padding(0);
             this.dia19.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia19.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia19.Dia = "14";
+            this.dia19.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia19.Evento = "";
             this.dia19.Location = new System.Drawing.Point(0, 0);
+            this.dia19.Margin = new System.Windows.Forms.Padding(0);
             this.dia19.MostrarEvento = false;
             this.dia19.Name = "dia19";
             this.dia19.Size = new System.Drawing.Size(210, 100);
             this.dia19.TabIndex = 18;
+            // 
             // dia20
             // 
-            this.dia20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia20.Margin = new System.Windows.Forms.Padding(0);
             this.dia20.ColorEvento = System.Drawing.Color.FromArgb(255, 246, 218);
             this.dia20.ColorTextoEvento = System.Drawing.Color.FromArgb(215, 145, 0);
             this.dia20.Dia = "15";
+            this.dia20.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia20.Evento = "Hito 1";
             this.dia20.Location = new System.Drawing.Point(0, 0);
+            this.dia20.Margin = new System.Windows.Forms.Padding(0);
             this.dia20.MostrarEvento = true;
             this.dia20.Name = "dia20";
             this.dia20.Size = new System.Drawing.Size(210, 100);
             this.dia20.TabIndex = 19;
+            // 
             // dia21
             // 
-            this.dia21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia21.Margin = new System.Windows.Forms.Padding(0);
             this.dia21.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia21.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia21.Dia = "16";
+            this.dia21.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia21.Evento = "";
             this.dia21.Location = new System.Drawing.Point(0, 0);
+            this.dia21.Margin = new System.Windows.Forms.Padding(0);
             this.dia21.MostrarEvento = false;
             this.dia21.Name = "dia21";
             this.dia21.Size = new System.Drawing.Size(210, 100);
             this.dia21.TabIndex = 20;
+            // 
             // dia22
             // 
-            this.dia22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia22.Margin = new System.Windows.Forms.Padding(0);
             this.dia22.ColorEvento = System.Drawing.Color.FromArgb(255, 246, 218);
             this.dia22.ColorTextoEvento = System.Drawing.Color.FromArgb(215, 145, 0);
             this.dia22.Dia = "17";
+            this.dia22.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia22.Evento = "Hito 2";
             this.dia22.Location = new System.Drawing.Point(0, 0);
+            this.dia22.Margin = new System.Windows.Forms.Padding(0);
             this.dia22.MostrarEvento = true;
             this.dia22.Name = "dia22";
             this.dia22.Size = new System.Drawing.Size(210, 100);
             this.dia22.TabIndex = 21;
+            // 
             // dia23
             // 
-            this.dia23.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia23.Margin = new System.Windows.Forms.Padding(0);
             this.dia23.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia23.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia23.Dia = "18";
+            this.dia23.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia23.Evento = "";
             this.dia23.Location = new System.Drawing.Point(0, 0);
+            this.dia23.Margin = new System.Windows.Forms.Padding(0);
             this.dia23.MostrarEvento = false;
             this.dia23.Name = "dia23";
             this.dia23.Size = new System.Drawing.Size(210, 100);
             this.dia23.TabIndex = 22;
+            // 
             // dia24
             // 
-            this.dia24.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia24.Margin = new System.Windows.Forms.Padding(0);
             this.dia24.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia24.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia24.Dia = "19";
+            this.dia24.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia24.Evento = "";
             this.dia24.Location = new System.Drawing.Point(0, 0);
+            this.dia24.Margin = new System.Windows.Forms.Padding(0);
             this.dia24.MostrarEvento = false;
             this.dia24.Name = "dia24";
             this.dia24.Size = new System.Drawing.Size(210, 100);
             this.dia24.TabIndex = 23;
+            // 
             // dia25
             // 
-            this.dia25.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia25.Margin = new System.Windows.Forms.Padding(0);
             this.dia25.ColorEvento = System.Drawing.Color.FromArgb(255, 246, 218);
             this.dia25.ColorTextoEvento = System.Drawing.Color.FromArgb(215, 145, 0);
             this.dia25.Dia = "20";
+            this.dia25.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia25.Evento = "Enviar evidencia";
             this.dia25.Location = new System.Drawing.Point(0, 0);
+            this.dia25.Margin = new System.Windows.Forms.Padding(0);
             this.dia25.MostrarEvento = true;
             this.dia25.Name = "dia25";
             this.dia25.Size = new System.Drawing.Size(210, 100);
             this.dia25.TabIndex = 24;
+            // 
             // dia26
             // 
-            this.dia26.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia26.Margin = new System.Windows.Forms.Padding(0);
             this.dia26.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia26.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia26.Dia = "21";
+            this.dia26.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia26.Evento = "";
             this.dia26.Location = new System.Drawing.Point(0, 0);
+            this.dia26.Margin = new System.Windows.Forms.Padding(0);
             this.dia26.MostrarEvento = false;
             this.dia26.Name = "dia26";
             this.dia26.Size = new System.Drawing.Size(210, 100);
             this.dia26.TabIndex = 25;
+            // 
             // dia27
             // 
-            this.dia27.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia27.Margin = new System.Windows.Forms.Padding(0);
             this.dia27.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia27.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia27.Dia = "22";
+            this.dia27.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia27.Evento = "";
             this.dia27.Location = new System.Drawing.Point(0, 0);
+            this.dia27.Margin = new System.Windows.Forms.Padding(0);
             this.dia27.MostrarEvento = false;
             this.dia27.Name = "dia27";
             this.dia27.Size = new System.Drawing.Size(210, 100);
             this.dia27.TabIndex = 26;
+            // 
             // dia28
             // 
-            this.dia28.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia28.Margin = new System.Windows.Forms.Padding(0);
             this.dia28.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia28.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia28.Dia = "23";
+            this.dia28.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia28.Evento = "";
             this.dia28.Location = new System.Drawing.Point(0, 0);
+            this.dia28.Margin = new System.Windows.Forms.Padding(0);
             this.dia28.MostrarEvento = false;
             this.dia28.Name = "dia28";
             this.dia28.Size = new System.Drawing.Size(210, 100);
             this.dia28.TabIndex = 27;
+            // 
             // dia29
             // 
-            this.dia29.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia29.Margin = new System.Windows.Forms.Padding(0);
             this.dia29.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia29.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia29.Dia = "24";
+            this.dia29.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia29.Evento = "";
             this.dia29.Location = new System.Drawing.Point(0, 0);
+            this.dia29.Margin = new System.Windows.Forms.Padding(0);
             this.dia29.MostrarEvento = false;
             this.dia29.Name = "dia29";
             this.dia29.Size = new System.Drawing.Size(210, 100);
             this.dia29.TabIndex = 28;
+            // 
             // dia30
             // 
-            this.dia30.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia30.Margin = new System.Windows.Forms.Padding(0);
             this.dia30.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia30.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia30.Dia = "25";
+            this.dia30.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia30.Evento = "";
             this.dia30.Location = new System.Drawing.Point(0, 0);
+            this.dia30.Margin = new System.Windows.Forms.Padding(0);
             this.dia30.MostrarEvento = false;
             this.dia30.Name = "dia30";
             this.dia30.Size = new System.Drawing.Size(210, 100);
             this.dia30.TabIndex = 29;
+            // 
             // dia31
             // 
-            this.dia31.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia31.Margin = new System.Windows.Forms.Padding(0);
             this.dia31.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia31.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia31.Dia = "26";
+            this.dia31.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia31.Evento = "";
             this.dia31.Location = new System.Drawing.Point(0, 0);
+            this.dia31.Margin = new System.Windows.Forms.Padding(0);
             this.dia31.MostrarEvento = false;
             this.dia31.Name = "dia31";
             this.dia31.Size = new System.Drawing.Size(210, 100);
             this.dia31.TabIndex = 30;
+            // 
             // dia32
             // 
-            this.dia32.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia32.Margin = new System.Windows.Forms.Padding(0);
             this.dia32.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia32.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia32.Dia = "27";
+            this.dia32.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia32.Evento = "";
             this.dia32.Location = new System.Drawing.Point(0, 0);
+            this.dia32.Margin = new System.Windows.Forms.Padding(0);
             this.dia32.MostrarEvento = false;
             this.dia32.Name = "dia32";
             this.dia32.Size = new System.Drawing.Size(210, 100);
             this.dia32.TabIndex = 31;
+            // 
             // dia33
             // 
-            this.dia33.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia33.Margin = new System.Windows.Forms.Padding(0);
             this.dia33.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia33.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia33.Dia = "28";
+            this.dia33.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia33.Evento = "";
             this.dia33.Location = new System.Drawing.Point(0, 0);
+            this.dia33.Margin = new System.Windows.Forms.Padding(0);
             this.dia33.MostrarEvento = false;
             this.dia33.Name = "dia33";
             this.dia33.Size = new System.Drawing.Size(210, 100);
             this.dia33.TabIndex = 32;
+            // 
             // dia34
             // 
-            this.dia34.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia34.Margin = new System.Windows.Forms.Padding(0);
             this.dia34.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia34.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia34.Dia = "29";
+            this.dia34.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia34.Evento = "";
             this.dia34.Location = new System.Drawing.Point(0, 0);
+            this.dia34.Margin = new System.Windows.Forms.Padding(0);
             this.dia34.MostrarEvento = false;
             this.dia34.Name = "dia34";
             this.dia34.Size = new System.Drawing.Size(210, 100);
             this.dia34.TabIndex = 33;
+            // 
             // dia35
             // 
-            this.dia35.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dia35.Margin = new System.Windows.Forms.Padding(0);
             this.dia35.ColorEvento = System.Drawing.Color.FromArgb(232, 242, 255);
             this.dia35.ColorTextoEvento = System.Drawing.Color.FromArgb(0, 105, 240);
             this.dia35.Dia = "30";
+            this.dia35.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dia35.Evento = "";
             this.dia35.Location = new System.Drawing.Point(0, 0);
+            this.dia35.Margin = new System.Windows.Forms.Padding(0);
             this.dia35.MostrarEvento = false;
             this.dia35.Name = "dia35";
             this.dia35.Size = new System.Drawing.Size(210, 100);
@@ -1024,14 +1059,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.ClientSize = new System.Drawing.Size(1670, 1080);
+            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.Controls.Add(this.pnlViewport);
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Load += new System.EventHandler(this.frmCalendario_Load);
             this.Name = "frmCalendario";
             this.Text = "Mi calendario";
-            this.Load += new System.EventHandler(this.frmCalendario_Load);
             this.flpLeyenda.ResumeLayout(false);
             this.flpLeyenda.PerformLayout();
             this.tlpCalendario.ResumeLayout(false);
@@ -1045,7 +1080,6 @@
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion

@@ -46,6 +46,7 @@ namespace Vista
             this.flpUsuarios.SuspendLayout();
             this.pnlBotones.SuspendLayout();
             this.SuspendLayout();
+            // 
             // pnlEncabezado
             // 
             this.pnlEncabezado.BackColor = System.Drawing.Color.White;
@@ -56,6 +57,7 @@ namespace Vista
             this.pnlEncabezado.Name = "pnlEncabezado";
             this.pnlEncabezado.Size = new System.Drawing.Size(742, 86);
             this.pnlEncabezado.TabIndex = 0;
+            // 
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
@@ -66,6 +68,7 @@ namespace Vista
             this.lblTitulo.Size = new System.Drawing.Size(240, 37);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Agregar integrante";
+            // 
             // lblSubtitulo
             // 
             this.lblSubtitulo.AutoSize = true;
@@ -76,6 +79,7 @@ namespace Vista
             this.lblSubtitulo.Size = new System.Drawing.Size(381, 20);
             this.lblSubtitulo.TabIndex = 1;
             this.lblSubtitulo.Text = "Selecciona uno o varios usuarios y asigna su rol en el equipo.";
+            // 
             // txtBuscar
             // 
             this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -85,9 +89,11 @@ namespace Vista
             this.txtBuscar.ShortcutsEnabled = false;
             this.txtBuscar.Size = new System.Drawing.Size(560, 27);
             this.txtBuscar.TabIndex = 0;
+            // 
             // btnBuscar
             // 
             this.btnBuscar.BackColor = System.Drawing.Color.White;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             this.btnBuscar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(0, 105, 240);
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -99,7 +105,7 @@ namespace Vista
             this.btnBuscar.TabIndex = 1;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
             // lblResultados
             // 
             this.lblResultados.AutoSize = true;
@@ -110,6 +116,7 @@ namespace Vista
             this.lblResultados.Size = new System.Drawing.Size(153, 20);
             this.lblResultados.TabIndex = 3;
             this.lblResultados.Text = "Usuarios disponibles";
+            // 
             // flpUsuarios
             // 
             this.flpUsuarios.AutoScroll = true;
@@ -125,6 +132,7 @@ namespace Vista
             this.flpUsuarios.Size = new System.Drawing.Size(694, 330);
             this.flpUsuarios.TabIndex = 2;
             this.flpUsuarios.WrapContents = false;
+            // 
             // usuario1
             // 
             this.usuario1.ImagenPerfil = null;
@@ -136,6 +144,7 @@ namespace Vista
             this.usuario1.Size = new System.Drawing.Size(690, 78);
             this.usuario1.TabIndex = 0;
             this.usuario1.Usuario = "jperez2026";
+            // 
             // usuario2
             // 
             this.usuario2.ImagenPerfil = null;
@@ -147,6 +156,7 @@ namespace Vista
             this.usuario2.Size = new System.Drawing.Size(690, 78);
             this.usuario2.TabIndex = 1;
             this.usuario2.Usuario = "azometa";
+            // 
             // usuario3
             // 
             this.usuario3.ImagenPerfil = null;
@@ -158,6 +168,7 @@ namespace Vista
             this.usuario3.Size = new System.Drawing.Size(690, 78);
             this.usuario3.TabIndex = 2;
             this.usuario3.Usuario = "emercado";
+            // 
             // usuario4
             // 
             this.usuario4.ImagenPerfil = null;
@@ -169,6 +180,7 @@ namespace Vista
             this.usuario4.Size = new System.Drawing.Size(690, 78);
             this.usuario4.TabIndex = 3;
             this.usuario4.Usuario = "esilva";
+            // 
             // pnlBotones
             // 
             this.pnlBotones.BackColor = System.Drawing.Color.White;
@@ -179,6 +191,7 @@ namespace Vista
             this.pnlBotones.Name = "pnlBotones";
             this.pnlBotones.Size = new System.Drawing.Size(742, 67);
             this.pnlBotones.TabIndex = 5;
+            // 
             // btnCancelar
             // 
             this.btnCancelar.BackColor = System.Drawing.Color.White;
@@ -194,9 +207,11 @@ namespace Vista
             this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
+            // 
             // btnAgregar
             // 
             this.btnAgregar.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             this.btnAgregar.FlatAppearance.BorderSize = 0;
             this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
@@ -208,15 +223,15 @@ namespace Vista
             this.btnAgregar.TabIndex = 3;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = false;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
             // frmAgregarIntegrante
             // 
-            this.AcceptButton = this.btnAgregar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(742, 599);
+            this.AcceptButton = this.btnAgregar;
             this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.CancelButton = this.btnCancelar;
-            this.ClientSize = new System.Drawing.Size(742, 599);
             this.Controls.Add(this.pnlBotones);
             this.Controls.Add(this.flpUsuarios);
             this.Controls.Add(this.lblResultados);
@@ -225,13 +240,13 @@ namespace Vista
             this.Controls.Add(this.pnlEncabezado);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Load += new System.EventHandler(this.frmAgregarIntegrante_Load);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAgregarIntegrante";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Agregar integrante";
-            this.Load += new System.EventHandler(this.frmAgregarIntegrante_Load);
             this.pnlEncabezado.ResumeLayout(false);
             this.pnlEncabezado.PerformLayout();
             this.flpUsuarios.ResumeLayout(false);

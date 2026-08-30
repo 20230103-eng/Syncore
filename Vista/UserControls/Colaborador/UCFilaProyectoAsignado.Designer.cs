@@ -46,6 +46,7 @@
             this.pnlAvanceFondo.SuspendLayout();
             this.tlpAvance.SuspendLayout();
             this.SuspendLayout();
+            // 
             // tlpDatos
             // 
             this.tlpDatos.ColumnCount = 7;
@@ -70,6 +71,7 @@
             this.tlpDatos.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpDatos.Size = new System.Drawing.Size(1540, 50);
             this.tlpDatos.TabIndex = 0;
+            // 
             // lblProyecto
             // 
             this.lblProyecto.AutoEllipsis = true;
@@ -83,6 +85,7 @@
             this.lblProyecto.TabIndex = 0;
             this.lblProyecto.Text = "Proyecto 1";
             this.lblProyecto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblResponsable
             // 
             this.lblResponsable.AutoEllipsis = true;
@@ -95,19 +98,21 @@
             this.lblResponsable.TabIndex = 1;
             this.lblResponsable.Text = "Juan P.";
             this.lblResponsable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblEstado
             // 
-            this.lblEstado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEstado.BackColor = System.Drawing.Color.FromArgb(255, 246, 218);
+            this.lblEstado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEstado.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.lblEstado.ForeColor = System.Drawing.Color.FromArgb(215, 145, 0);
             this.lblEstado.Location = new System.Drawing.Point(511, 0);
+            this.lblEstado.Margin = new System.Windows.Forms.Padding(8, 10, 8, 10);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(155, 49);
             this.lblEstado.TabIndex = 2;
             this.lblEstado.Text = "En progreso";
-            this.lblEstado.Margin = new System.Windows.Forms.Padding(8, 10, 8, 10);
             this.lblEstado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // pnlAvanceCelda
             // 
             this.pnlAvanceCelda.Controls.Add(this.lblAvance);
@@ -118,6 +123,7 @@
             this.pnlAvanceCelda.Name = "pnlAvanceCelda";
             this.pnlAvanceCelda.Size = new System.Drawing.Size(308, 50);
             this.pnlAvanceCelda.TabIndex = 3;
+            // 
             // pnlAvanceFondo
             // 
             this.pnlAvanceFondo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -127,6 +133,7 @@
             this.pnlAvanceFondo.Name = "pnlAvanceFondo";
             this.pnlAvanceFondo.Size = new System.Drawing.Size(235, 8);
             this.pnlAvanceFondo.TabIndex = 0;
+            // 
             // tlpAvance
             // 
             this.tlpAvance.BackColor = System.Drawing.Color.FromArgb(225, 230, 236);
@@ -141,6 +148,7 @@
             this.tlpAvance.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpAvance.Size = new System.Drawing.Size(235, 8);
             this.tlpAvance.TabIndex = 0;
+            // 
             // pnlAvance
             // 
             this.pnlAvance.BackColor = System.Drawing.Color.FromArgb(240, 128, 49);
@@ -150,6 +158,7 @@
             this.pnlAvance.Name = "pnlAvance";
             this.pnlAvance.Size = new System.Drawing.Size(105, 8);
             this.pnlAvance.TabIndex = 0;
+            // 
             // lblAvance
             // 
             this.lblAvance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -161,6 +170,7 @@
             this.lblAvance.TabIndex = 1;
             this.lblAvance.Text = "45%";
             this.lblAvance.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblTareas
             // 
             this.lblTareas.AutoEllipsis = true;
@@ -173,6 +183,7 @@
             this.lblTareas.TabIndex = 4;
             this.lblTareas.Text = "5 tareas - 2 vencidas";
             this.lblTareas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblFecha
             // 
             this.lblFecha.AutoEllipsis = true;
@@ -185,23 +196,25 @@
             this.lblFecha.TabIndex = 5;
             this.lblFecha.Text = "15 may";
             this.lblFecha.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // btnMisTareas
             // 
-            this.btnMisTareas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMisTareas.BackColor = System.Drawing.Color.White;
+            this.btnMisTareas.Click += new System.EventHandler(this.btnMisTareas_Click);
             this.btnMisTareas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMisTareas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMisTareas.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(0, 105, 240);
             this.btnMisTareas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMisTareas.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.btnMisTareas.ForeColor = System.Drawing.Color.FromArgb(0, 105, 240);
             this.btnMisTareas.Location = new System.Drawing.Point(1430, 10);
-            this.btnMisTareas.Name = "btnMisTareas";
             this.btnMisTareas.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
+            this.btnMisTareas.Name = "btnMisTareas";
             this.btnMisTareas.Size = new System.Drawing.Size(92, 37);
             this.btnMisTareas.TabIndex = 6;
             this.btnMisTareas.Text = "Mis tareas";
             this.btnMisTareas.UseVisualStyleBackColor = false;
-            this.btnMisTareas.Click += new System.EventHandler(this.btnMisTareas_Click);
+            // 
             // pnlSeparador
             // 
             this.pnlSeparador.BackColor = System.Drawing.Color.FromArgb(205, 214, 224);
@@ -210,6 +223,7 @@
             this.pnlSeparador.Name = "pnlSeparador";
             this.pnlSeparador.Size = new System.Drawing.Size(1540, 1);
             this.pnlSeparador.TabIndex = 1;
+            // 
             // UCFilaProyectoAsignado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -217,10 +231,10 @@
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.tlpDatos);
             this.Controls.Add(this.pnlSeparador);
+            this.Dock = System.Windows.Forms.DockStyle.Top;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MaximumSize = new System.Drawing.Size(0, 51);
             this.MinimumSize = new System.Drawing.Size(620, 51);
-            this.Dock = System.Windows.Forms.DockStyle.Top;
             this.Name = "UCFilaProyectoAsignado";
             this.Size = new System.Drawing.Size(1540, 51);
             this.tlpDatos.ResumeLayout(false);

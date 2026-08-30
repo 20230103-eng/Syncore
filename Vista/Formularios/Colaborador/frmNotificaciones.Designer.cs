@@ -176,6 +176,7 @@
             // 
             this.btnMarcarTodas.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnMarcarTodas.BackColor = System.Drawing.Color.White;
+            this.btnMarcarTodas.Click += new System.EventHandler(this.btnMarcarTodas_Click);
             this.btnMarcarTodas.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(0, 105, 240);
             this.btnMarcarTodas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMarcarTodas.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -186,7 +187,6 @@
             this.btnMarcarTodas.TabIndex = 1;
             this.btnMarcarTodas.Text = "Marcar todas como leídas";
             this.btnMarcarTodas.UseVisualStyleBackColor = false;
-            this.btnMarcarTodas.Click += new System.EventHandler(this.btnMarcarTodas_Click);
             // 
             // tlpFiltros
             // 
@@ -234,9 +234,9 @@
             this.cboTipo.Location = new System.Drawing.Point(70, 11);
             this.cboTipo.Margin = new System.Windows.Forms.Padding(0);
             this.cboTipo.Name = "cboTipo";
+            this.cboTipo.SelectedIndexChanged += new System.EventHandler(this.filtros_SelectedIndexChanged);
             this.cboTipo.Size = new System.Drawing.Size(210, 28);
             this.cboTipo.TabIndex = 1;
-            this.cboTipo.SelectedIndexChanged += new System.EventHandler(this.filtros_SelectedIndexChanged);
             // 
             // cboPrioridad
             // 
@@ -252,21 +252,21 @@
             this.cboPrioridad.Location = new System.Drawing.Point(300, 11);
             this.cboPrioridad.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.cboPrioridad.Name = "cboPrioridad";
+            this.cboPrioridad.SelectedIndexChanged += new System.EventHandler(this.filtros_SelectedIndexChanged);
             this.cboPrioridad.Size = new System.Drawing.Size(230, 28);
             this.cboPrioridad.TabIndex = 2;
-            this.cboPrioridad.SelectedIndexChanged += new System.EventHandler(this.filtros_SelectedIndexChanged);
             // 
             // flpNotificaciones
             // 
             this.flpNotificaciones.AutoScroll = false;
             this.flpNotificaciones.AutoSize = true;
             this.flpNotificaciones.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flpNotificaciones.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpNotificaciones.BackColor = System.Drawing.Color.Transparent;
             this.flpNotificaciones.Controls.Add(this.notificacion3);
             this.flpNotificaciones.Controls.Add(this.notificacion2);
             this.flpNotificaciones.Controls.Add(this.notificacion1);
             this.flpNotificaciones.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flpNotificaciones.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpNotificaciones.Location = new System.Drawing.Point(0, 126);
             this.flpNotificaciones.Margin = new System.Windows.Forms.Padding(0);
             this.flpNotificaciones.Name = "flpNotificaciones";
@@ -327,15 +327,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.ClientSize = new System.Drawing.Size(1670, 1080);
+            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.Controls.Add(this.pnlViewport);
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Load += new System.EventHandler(this.frmNotificaciones_Load);
             this.Name = "frmNotificaciones";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Notificaciones";
-            this.Load += new System.EventHandler(this.frmNotificaciones_Load);
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.pnlViewport.ResumeLayout(false);

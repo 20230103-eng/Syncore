@@ -28,7 +28,6 @@ namespace Vista
         /// </summary>
         private void InitializeComponent()
         {
-
             this.pnlTop = new System.Windows.Forms.Panel();
             this.lblFecha = new System.Windows.Forms.Label();
             this.lblBreadcrumbActual = new System.Windows.Forms.Label();
@@ -89,31 +88,31 @@ namespace Vista
             // 
             // lblFecha
             // 
+            this.lblFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFecha.AutoSize = true;
             this.lblFecha.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblFecha.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(118)))), ((int)(((byte)(138)))));
+            this.lblFecha.Location = new System.Drawing.Point(1610, 11);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Text = "Fecha";
-            this.lblFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFecha.Location = new System.Drawing.Point(1610, 11);
             // 
             // lblBreadcrumbActual
             // 
             this.lblBreadcrumbActual.AutoSize = true;
             this.lblBreadcrumbActual.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblBreadcrumbActual.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(105)))), ((int)(((byte)(240)))));
+            this.lblBreadcrumbActual.Location = new System.Drawing.Point(100, 11);
             this.lblBreadcrumbActual.Name = "lblBreadcrumbActual";
             this.lblBreadcrumbActual.Text = "Listado de proyectos";
-            this.lblBreadcrumbActual.Location = new System.Drawing.Point(100, 11);
             // 
             // lblBreadcrumbBase
             // 
             this.lblBreadcrumbBase.AutoSize = true;
             this.lblBreadcrumbBase.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblBreadcrumbBase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(118)))), ((int)(((byte)(138)))));
+            this.lblBreadcrumbBase.Location = new System.Drawing.Point(20, 11);
             this.lblBreadcrumbBase.Name = "lblBreadcrumbBase";
             this.lblBreadcrumbBase.Text = "Proyectos >";
-            this.lblBreadcrumbBase.Location = new System.Drawing.Point(20, 11);
             // 
             // pnlViewport
             // 
@@ -134,7 +133,6 @@ namespace Vista
             // 
             // tlpMain
             // 
-            this.tlpMain.Name = "tlpMain";
             this.tlpMain.AutoSize = true;
             this.tlpMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tlpMain.ColumnCount = 1;
@@ -143,6 +141,7 @@ namespace Vista
             this.tlpMain.Controls.Add(this.tlpFiltros, 0, 1);
             this.tlpMain.Controls.Add(this.pnlTabla, 0, 2);
             this.tlpMain.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tlpMain.Name = "tlpMain";
             this.tlpMain.Padding = new System.Windows.Forms.Padding(24, 18, 24, 24);
             this.tlpMain.RowCount = 3;
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
@@ -152,23 +151,32 @@ namespace Vista
             // 
             // pnlCabecera
             // 
-            this.pnlCabecera.Name = "pnlCabecera";
             this.pnlCabecera.Controls.Add(this.lblTitulo);
             this.pnlCabecera.Controls.Add(this.lblSubtitulo);
             this.pnlCabecera.Controls.Add(this.btnNuevoProyecto);
             this.pnlCabecera.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCabecera.Name = "pnlCabecera";
+            // 
+            // lblTitulo
+            // 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblTitulo.Location = new System.Drawing.Point(0, 0);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Text = "Proyectos";
-            this.lblTitulo.Location = new System.Drawing.Point(0, 0);
+            // 
+            // lblSubtitulo
+            // 
             this.lblSubtitulo.AutoSize = true;
             this.lblSubtitulo.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblSubtitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(118)))), ((int)(((byte)(138)))));
+            this.lblSubtitulo.Location = new System.Drawing.Point(2, 38);
             this.lblSubtitulo.Name = "lblSubtitulo";
             this.lblSubtitulo.Text = "Proyectos activos bajo tu cargo";
-            this.lblSubtitulo.Location = new System.Drawing.Point(2, 38);
+            // 
+            // btnNuevoProyecto
+            // 
             this.btnNuevoProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNuevoProyecto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(105)))), ((int)(((byte)(240)))));
             this.btnNuevoProyecto.FlatAppearance.BorderSize = 0;
@@ -183,7 +191,6 @@ namespace Vista
             // 
             // tlpFiltros
             // 
-            this.tlpFiltros.Name = "tlpFiltros";
             this.tlpFiltros.ColumnCount = 6;
             this.tlpFiltros.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22F));
             this.tlpFiltros.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
@@ -198,6 +205,7 @@ namespace Vista
             this.tlpFiltros.Controls.Add(this.cmbPrioridad, 4, 0);
             this.tlpFiltros.Controls.Add(this.cmbTipo, 5, 0);
             this.tlpFiltros.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpFiltros.Name = "tlpFiltros";
             this.tlpFiltros.RowCount = 1;
             this.tlpFiltros.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             // 
@@ -208,8 +216,8 @@ namespace Vista
             this.txtBuscar.Margin = new System.Windows.Forms.Padding(0, 9, 10, 9);
             this.txtBuscar.MaxLength = 150;
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.TabIndex = 0;
             this.txtBuscar.ShortcutsEnabled = false;
+            this.txtBuscar.TabIndex = 0;
             this.txtBuscar.Text = "";
             this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
             // 
@@ -270,16 +278,15 @@ namespace Vista
             // 
             // pnlTabla
             // 
-            this.pnlTabla.Name = "pnlTabla";
             this.pnlTabla.BackColor = System.Drawing.Color.White;
             this.pnlTabla.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTabla.Controls.Add(this.pnlFilas);
             this.pnlTabla.Controls.Add(this.tlpEncabezado);
             this.pnlTabla.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTabla.Name = "pnlTabla";
             // 
             // tlpEncabezado
             // 
-            this.tlpEncabezado.Name = "tlpEncabezado";
             this.tlpEncabezado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(242)))), ((int)(((byte)(248)))));
             this.tlpEncabezado.ColumnCount = 10;
             this.tlpEncabezado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
@@ -303,93 +310,123 @@ namespace Vista
             this.tlpEncabezado.Controls.Add(this.lblH8, 8, 0);
             this.tlpEncabezado.Controls.Add(this.lblH9, 9, 0);
             this.tlpEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tlpEncabezado.Name = "tlpEncabezado";
             this.tlpEncabezado.RowCount = 1;
             this.tlpEncabezado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpEncabezado.Size = new System.Drawing.Size(1616, 40);
+            // 
+            // lblH0
+            // 
             this.lblH0.AutoSize = true;
+            this.lblH0.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH0.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblH0.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblH0.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
             this.lblH0.Name = "lblH0";
             this.lblH0.Text = "CÓDIGO";
-            this.lblH0.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH0.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblH0.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
+            // 
+            // lblH1
+            // 
             this.lblH1.AutoSize = true;
+            this.lblH1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblH1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblH1.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
             this.lblH1.Name = "lblH1";
             this.lblH1.Text = "NOMBRE";
-            this.lblH1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblH1.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
+            // 
+            // lblH2
+            // 
             this.lblH2.AutoSize = true;
+            this.lblH2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblH2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblH2.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
             this.lblH2.Name = "lblH2";
             this.lblH2.Text = "TIPO";
-            this.lblH2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblH2.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
+            // 
+            // lblH3
+            // 
             this.lblH3.AutoSize = true;
+            this.lblH3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblH3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblH3.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
             this.lblH3.Name = "lblH3";
             this.lblH3.Text = "ÁREA";
-            this.lblH3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblH3.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
+            // 
+            // lblH4
+            // 
             this.lblH4.AutoSize = true;
+            this.lblH4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblH4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblH4.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
             this.lblH4.Name = "lblH4";
             this.lblH4.Text = "RESPONSABLE";
-            this.lblH4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblH4.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
+            // 
+            // lblH5
+            // 
             this.lblH5.AutoSize = true;
+            this.lblH5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH5.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblH5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblH5.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
             this.lblH5.Name = "lblH5";
             this.lblH5.Text = "ESTADO";
-            this.lblH5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblH5.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
+            // 
+            // lblH6
+            // 
             this.lblH6.AutoSize = true;
+            this.lblH6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH6.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblH6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblH6.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
             this.lblH6.Name = "lblH6";
             this.lblH6.Text = "AVANCE";
-            this.lblH6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblH6.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
+            // 
+            // lblH7
+            // 
             this.lblH7.AutoSize = true;
+            this.lblH7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH7.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblH7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblH7.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
             this.lblH7.Name = "lblH7";
             this.lblH7.Text = "PRIORIDAD";
-            this.lblH7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblH7.Margin = new System.Windows.Forms.Padding(8, 0, 2, 0);
+            // 
+            // lblH8
+            // 
             this.lblH8.AutoSize = true;
+            this.lblH8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH8.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblH8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblH8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblH8.Name = "lblH8";
             this.lblH8.Text = "EDITAR";
-            this.lblH8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblH8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            // 
+            // lblH9
+            // 
             this.lblH9.AutoSize = true;
+            this.lblH9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH9.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblH9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblH9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblH9.Name = "lblH9";
             this.lblH9.Text = "VER";
-            this.lblH9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblH9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblH9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             // 
             // pnlFilas
             // 
-            this.pnlFilas.Name = "pnlFilas";
             this.pnlFilas.AutoScroll = true;
             this.pnlFilas.Controls.Add(this.proyecto4);
             this.pnlFilas.Controls.Add(this.proyecto3);
@@ -397,76 +434,77 @@ namespace Vista
             this.pnlFilas.Controls.Add(this.proyecto1);
             this.pnlFilas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFilas.Location = new System.Drawing.Point(0, 40);
+            this.pnlFilas.Name = "pnlFilas";
             this.pnlFilas.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
             // 
             // proyecto1
             // 
-            this.proyecto1.Codigo = "PRY-2026-01";
-            this.proyecto1.NombreProyecto = "Plataforma de gestión";
-            this.proyecto1.TipoProyecto = "Interno";
             this.proyecto1.Area = "Tecnología";
-            this.proyecto1.Responsable = "Juan Pérez";
-            this.proyecto1.Estado = "Activo";
             this.proyecto1.Avance = 45;
-            this.proyecto1.Prioridad = "Alta";
+            this.proyecto1.Codigo = "PRY-2026-01";
             this.proyecto1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.proyecto1.Estado = "Activo";
             this.proyecto1.Name = "proyecto1";
+            this.proyecto1.NombreProyecto = "Plataforma de gestión";
+            this.proyecto1.Prioridad = "Alta";
+            this.proyecto1.Responsable = "Juan Pérez";
             this.proyecto1.Size = new System.Drawing.Size(1614, 54);
+            this.proyecto1.TipoProyecto = "Interno";
             // 
             // proyecto2
             // 
-            this.proyecto2.Codigo = "PRY-2026-02";
-            this.proyecto2.NombreProyecto = "Campaña institucional";
-            this.proyecto2.TipoProyecto = "Social";
             this.proyecto2.Area = "Comunicaciones";
-            this.proyecto2.Responsable = "Ana Mejía";
-            this.proyecto2.Estado = "Activo";
             this.proyecto2.Avance = 62;
-            this.proyecto2.Prioridad = "Media";
+            this.proyecto2.Codigo = "PRY-2026-02";
             this.proyecto2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.proyecto2.Estado = "Activo";
             this.proyecto2.Name = "proyecto2";
+            this.proyecto2.NombreProyecto = "Campaña institucional";
+            this.proyecto2.Prioridad = "Media";
+            this.proyecto2.Responsable = "Ana Mejía";
             this.proyecto2.Size = new System.Drawing.Size(1614, 54);
+            this.proyecto2.TipoProyecto = "Social";
             // 
             // proyecto3
             // 
-            this.proyecto3.Codigo = "PRY-2026-03";
-            this.proyecto3.NombreProyecto = "Mejora de procesos";
-            this.proyecto3.TipoProyecto = "Administrativo";
             this.proyecto3.Area = "Planificación";
-            this.proyecto3.Responsable = "Carlos Ruiz";
-            this.proyecto3.Estado = "Observación";
             this.proyecto3.Avance = 38;
-            this.proyecto3.Prioridad = "Alta";
+            this.proyecto3.Codigo = "PRY-2026-03";
             this.proyecto3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.proyecto3.Estado = "Observación";
             this.proyecto3.Name = "proyecto3";
+            this.proyecto3.NombreProyecto = "Mejora de procesos";
+            this.proyecto3.Prioridad = "Alta";
+            this.proyecto3.Responsable = "Carlos Ruiz";
             this.proyecto3.Size = new System.Drawing.Size(1614, 54);
+            this.proyecto3.TipoProyecto = "Administrativo";
             // 
             // proyecto4
             // 
-            this.proyecto4.Codigo = "PRY-2026-04";
-            this.proyecto4.NombreProyecto = "Portal de servicios";
-            this.proyecto4.TipoProyecto = "Interno";
             this.proyecto4.Area = "Tecnología";
-            this.proyecto4.Responsable = "Juan Pérez";
-            this.proyecto4.Estado = "Crítico";
             this.proyecto4.Avance = 29;
-            this.proyecto4.Prioridad = "Alta";
+            this.proyecto4.Codigo = "PRY-2026-04";
             this.proyecto4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.proyecto4.Estado = "Crítico";
             this.proyecto4.Name = "proyecto4";
+            this.proyecto4.NombreProyecto = "Portal de servicios";
+            this.proyecto4.Prioridad = "Alta";
+            this.proyecto4.Responsable = "Juan Pérez";
             this.proyecto4.Size = new System.Drawing.Size(1614, 54);
+            this.proyecto4.TipoProyecto = "Interno";
             // 
             // frmListadoProyectos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.ClientSize = new System.Drawing.Size(1670, 1080);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(1670, 1080);
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.Controls.Add(this.pnlViewport);
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Load += new System.EventHandler(this.frmListadoProyectos_Load);
             this.Name = "frmListadoProyectos";
             this.Text = "frmListadoProyectos";
-            this.Load += new System.EventHandler(this.frmListadoProyectos_Load);
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.pnlViewport.ResumeLayout(false);

@@ -131,7 +131,6 @@
             this.Size = new System.Drawing.Size(360, 38);
             this.tlpDatos.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion

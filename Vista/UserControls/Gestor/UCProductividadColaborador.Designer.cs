@@ -44,6 +44,7 @@
             this.pnlCumplimientoFondo.SuspendLayout();
             this.tlpCumplimiento.SuspendLayout();
             this.SuspendLayout();
+            // 
             // tlpDatos
             // 
             this.tlpDatos.ColumnCount = 5;
@@ -64,6 +65,7 @@
             this.tlpDatos.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpDatos.Size = new System.Drawing.Size(744, 41);
             this.tlpDatos.TabIndex = 0;
+            // 
             // pnlPersona
             // 
             this.pnlPersona.Controls.Add(this.lblNombre);
@@ -74,6 +76,7 @@
             this.pnlPersona.Name = "pnlPersona";
             this.pnlPersona.Size = new System.Drawing.Size(223, 41);
             this.pnlPersona.TabIndex = 0;
+            // 
             // lblAvatar
             // 
             this.lblAvatar.AutoSize = true;
@@ -84,6 +87,7 @@
             this.lblAvatar.Size = new System.Drawing.Size(29, 32);
             this.lblAvatar.TabIndex = 0;
             this.lblAvatar.Text = "●";
+            // 
             // lblNombre
             // 
             this.lblNombre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
@@ -95,6 +99,7 @@
             this.lblNombre.Size = new System.Drawing.Size(178, 20);
             this.lblNombre.TabIndex = 1;
             this.lblNombre.Text = "Nombre P.";
+            // 
             // lblTareas
             // 
             this.lblTareas.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -106,6 +111,7 @@
             this.lblTareas.TabIndex = 1;
             this.lblTareas.Text = "10";
             this.lblTareas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblATiempo
             // 
             this.lblATiempo.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -117,6 +123,7 @@
             this.lblATiempo.TabIndex = 2;
             this.lblATiempo.Text = "100%";
             this.lblATiempo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // pnlCumplimientoFondo
             // 
             this.pnlCumplimientoFondo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -127,6 +134,7 @@
             this.pnlCumplimientoFondo.Name = "pnlCumplimientoFondo";
             this.pnlCumplimientoFondo.Size = new System.Drawing.Size(180, 8);
             this.pnlCumplimientoFondo.TabIndex = 3;
+            // 
             // tlpCumplimiento
             // 
             this.tlpCumplimiento.BackColor = System.Drawing.Color.FromArgb(225, 231, 238);
@@ -142,6 +150,7 @@
             this.tlpCumplimiento.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpCumplimiento.Size = new System.Drawing.Size(180, 8);
             this.tlpCumplimiento.TabIndex = 0;
+            // 
             // pnlCumplimiento
             // 
             this.pnlCumplimiento.BackColor = System.Drawing.Color.FromArgb(32, 169, 87);
@@ -151,6 +160,7 @@
             this.pnlCumplimiento.Name = "pnlCumplimiento";
             this.pnlCumplimiento.Size = new System.Drawing.Size(180, 8);
             this.pnlCumplimiento.TabIndex = 0;
+            // 
             // lblTendencia
             // 
             this.lblTendencia.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -164,6 +174,7 @@
             this.lblTendencia.Size = new System.Drawing.Size(45, 21);
             this.lblTendencia.TabIndex = 4;
             this.lblTendencia.Text = "Alta";
+            // 
             // pnlSeparador
             // 
             this.pnlSeparador.BackColor = System.Drawing.Color.FromArgb(180, 190, 202);
@@ -172,6 +183,7 @@
             this.pnlSeparador.Name = "pnlSeparador";
             this.pnlSeparador.Size = new System.Drawing.Size(744, 1);
             this.pnlSeparador.TabIndex = 1;
+            // 
             // UCProductividadColaborador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -179,10 +191,10 @@
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.tlpDatos);
             this.Controls.Add(this.pnlSeparador);
+            this.Dock = System.Windows.Forms.DockStyle.Top;
             this.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.MaximumSize = new System.Drawing.Size(0, 42);
             this.MinimumSize = new System.Drawing.Size(350, 42);
-            this.Dock = System.Windows.Forms.DockStyle.Top;
             this.Name = "UCProductividadColaborador";
             this.Size = new System.Drawing.Size(744, 42);
             this.tlpDatos.ResumeLayout(false);

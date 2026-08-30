@@ -327,10 +327,10 @@
             // txtNombre
             // 
             this.txtNombre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
             this.txtNombre.Location = new System.Drawing.Point(0, 25);
             this.txtNombre.MaxLength = 150;
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
             this.txtNombre.ShortcutsEnabled = false;
             this.txtNombre.Size = new System.Drawing.Size(1584, 23);
             this.txtNombre.TabIndex = 0;
@@ -378,9 +378,9 @@
             this.cmbProyecto.FormattingEnabled = true;
             this.cmbProyecto.Location = new System.Drawing.Point(0, 25);
             this.cmbProyecto.Name = "cmbProyecto";
+            this.cmbProyecto.SelectedIndexChanged += new System.EventHandler(this.cmbProyecto_SelectedIndexChanged);
             this.cmbProyecto.Size = new System.Drawing.Size(784, 23);
             this.cmbProyecto.TabIndex = 1;
-            this.cmbProyecto.SelectedIndexChanged += new System.EventHandler(this.cmbProyecto_SelectedIndexChanged);
             // 
             // pnlCampoResponsable
             // 
@@ -650,11 +650,11 @@
             // 
             this.txtDescripcion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescripcion.Location = new System.Drawing.Point(0, 25);
-            this.txtDescripcion.Multiline = true;
             this.txtDescripcion.MaxLength = 1000;
+            this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.ShortcutsEnabled = false;
             this.txtDescripcion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtDescripcion.ShortcutsEnabled = false;
             this.txtDescripcion.Size = new System.Drawing.Size(1584, 54);
             this.txtDescripcion.TabIndex = 7;
             // 
@@ -682,11 +682,11 @@
             // 
             this.txtObservaciones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.txtObservaciones.Location = new System.Drawing.Point(0, 25);
-            this.txtObservaciones.Multiline = true;
             this.txtObservaciones.MaxLength = 500;
+            this.txtObservaciones.Multiline = true;
             this.txtObservaciones.Name = "txtObservaciones";
-            this.txtObservaciones.ShortcutsEnabled = false;
             this.txtObservaciones.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtObservaciones.ShortcutsEnabled = false;
             this.txtObservaciones.Size = new System.Drawing.Size(1584, 46);
             this.txtObservaciones.TabIndex = 8;
             // 
@@ -704,6 +704,7 @@
             // 
             this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelar.BackColor = System.Drawing.Color.White;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
             this.btnCancelar.Location = new System.Drawing.Point(1284, 12);
@@ -712,12 +713,12 @@
             this.btnCancelar.TabIndex = 10;
             this.btnCancelar.Text = "← Volver al tablero";
             this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnCrear
             // 
             this.btnCrear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCrear.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
             this.btnCrear.FlatAppearance.BorderSize = 0;
             this.btnCrear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCrear.ForeColor = System.Drawing.Color.White;
@@ -727,21 +728,20 @@
             this.btnCrear.TabIndex = 9;
             this.btnCrear.Text = "Crear tarea";
             this.btnCrear.UseVisualStyleBackColor = false;
-            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
             // 
             // frmNuevaTarea
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.ClientSize = new System.Drawing.Size(1670, 1080);
+            this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.Controls.Add(this.pnlViewport);
             this.Controls.Add(this.pnlTop);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Load += new System.EventHandler(this.frmNuevaTarea_Load);
             this.Name = "frmNuevaTarea";
             this.Text = "Nueva tarea";
-            this.Load += new System.EventHandler(this.frmNuevaTarea_Load);
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.pnlViewport.ResumeLayout(false);

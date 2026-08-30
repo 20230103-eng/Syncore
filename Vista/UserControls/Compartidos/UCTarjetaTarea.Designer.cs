@@ -74,11 +74,11 @@
             this.tlpContenido.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tlpContenido.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tlpContenido.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tlpContenido.Size = new System.Drawing.Size(273, 122);
-            this.tlpContenido.TabIndex = 1;
             this.tlpContenido.SetColumnSpan(this.lblProyecto, 2);
             this.tlpContenido.SetColumnSpan(this.lblTarea, 2);
             this.tlpContenido.SetColumnSpan(this.lblEstado, 2);
+            this.tlpContenido.Size = new System.Drawing.Size(273, 122);
+            this.tlpContenido.TabIndex = 1;
             // 
             // lblProyecto
             // 
