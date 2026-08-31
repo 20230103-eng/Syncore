@@ -356,6 +356,45 @@ namespace Modelo.Modelo.Entidades
             return avanceReal;
         }
 
+        public decimal CalcularAvancePlanificado(DateTime fechaInicio, DateTime fechaCierre)
+        {
+            decimal avancePlanificado;
+            double diasTotales;
+            double diasTranscurridos;
+
+            avancePlanificado = 0;
+
+            if (DateTime.Today <= fechaInicio.Date)
+            {
+                return avancePlanificado;
+            }
+
+            if (DateTime.Today >= fechaCierre.Date)
+            {
+                return 100;
+            }
+
+            diasTotales = (fechaCierre.Date - fechaInicio.Date).TotalDays;
+            diasTranscurridos = (DateTime.Today - fechaInicio.Date).TotalDays;
+
+            if (diasTotales > 0)
+            {
+                avancePlanificado = Convert.ToDecimal(diasTranscurridos / diasTotales * 100);
+            }
+
+            if (avancePlanificado < 0)
+            {
+                avancePlanificado = 0;
+            }
+
+            if (avancePlanificado > 100)
+            {
+                avancePlanificado = 100;
+            }
+
+            return avancePlanificado;
+        }
+
         public DataTable ObtenerAvancesProyectos()
         {
             string query = @"
@@ -363,6 +402,8 @@ namespace Modelo.Modelo.Entidades
             tbProyecto.IdProyecto,
             tbProyecto.Nombre AS Proyecto,
             tbProyecto.AvancePlanificado,
+            tbProyecto.FechaInicio,
+            tbProyecto.FechaCierreEstimada,
             tbEstadoProyecto.Nombre AS Estado
             FROM tbProyecto
             INNER JOIN tbEstadoProyecto ON tbProyecto.IdEstadoProyecto = tbEstadoProyecto.IdEstadoProyecto
@@ -378,10 +419,17 @@ namespace Modelo.Modelo.Entidades
             {
                 int idProyecto;
                 decimal avanceReal;
+                decimal avancePlanificado;
+                DateTime fechaInicio;
+                DateTime fechaCierre;
 
                 idProyecto = Convert.ToInt32(fila["IdProyecto"]);
+                fechaInicio = Convert.ToDateTime(fila["FechaInicio"]);
+                fechaCierre = Convert.ToDateTime(fila["FechaCierreEstimada"]);
                 avanceReal = ObtenerAvanceRealProyecto(idProyecto);
+                avancePlanificado = CalcularAvancePlanificado(fechaInicio, fechaCierre);
                 fila["AvanceReal"] = avanceReal;
+                fila["AvancePlanificado"] = avancePlanificado;
             }
 
             return proyectos;
@@ -542,7 +590,10 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerListadoProyectos()
         {
-            string query = @"
+            string query;
+            DataTable proyectos;
+
+            query = @"
             SELECT
             tbProyecto.IdProyecto,
             tbProyecto.Codigo,
@@ -551,7 +602,6 @@ namespace Modelo.Modelo.Entidades
             tbArea.Nombre AS Area,
             tbUsuario.NombreCompleto AS Responsable,
             tbEstadoProyecto.Nombre AS Estado,
-            tbProyecto.AvancePlanificado AS Avance,
             tbPrioridad.Nombre AS Prioridad
             FROM tbProyecto
             INNER JOIN tbArea ON tbProyecto.IdArea = tbArea.IdArea
@@ -561,7 +611,20 @@ namespace Modelo.Modelo.Entidades
             LEFT JOIN tbTipoProyecto ON tbProyecto.IdTipoProyecto = tbTipoProyecto.IdTipoProyecto
             ORDER BY tbProyecto.FechaCreacion DESC";
 
-            return conexion.EjecutarConsulta(query);
+            proyectos = conexion.EjecutarConsulta(query);
+            proyectos.Columns.Add("Avance", typeof(decimal));
+
+            foreach (DataRow fila in proyectos.Rows)
+            {
+                int idProyecto;
+                decimal avanceReal;
+
+                idProyecto = Convert.ToInt32(fila["IdProyecto"]);
+                avanceReal = ObtenerAvanceRealProyecto(idProyecto);
+                fila["Avance"] = avanceReal;
+            }
+
+            return proyectos;
         }
 
         public DataTable ObtenerCatalogoProyectos()

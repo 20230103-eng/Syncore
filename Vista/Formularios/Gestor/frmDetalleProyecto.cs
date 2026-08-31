@@ -124,7 +124,7 @@ namespace Vista
             fila = datos.Rows[0];
             fechaInicio = Convert.ToDateTime(fila["FechaInicio"]);
             fechaCierre = Convert.ToDateTime(fila["FechaCierreEstimada"]);
-            avancePlanificado = Convert.ToDecimal(fila["AvancePlanificado"]);
+            avancePlanificado = proyectoModelo.CalcularAvancePlanificado(fechaInicio, fechaCierre);
             avanceReal = proyectoModelo.ObtenerAvanceRealProyecto(IdProyecto);
             estadoProyecto = fila["Estado"].ToString();
             tareasTotales = indicadorTareaModelo.ContarTareasProyecto(IdProyecto);

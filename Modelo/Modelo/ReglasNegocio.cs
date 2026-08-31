@@ -55,14 +55,57 @@ namespace Modelo.Modelo
 
                 if (fechaLimite.Date < DateTime.Today && estado != "Completada" && estado != "Vencida")
                 {
-                    query = $@"
-                    UPDATE tbTarea
-                    SET IdEstadoTarea = (SELECT TOP 1 IdEstadoTarea FROM tbEstadoTarea WHERE Nombre = N'Vencida')
-                    WHERE IdTarea = {idTarea}";
-
-                    conexion.EjecutarComando(query);
-                    CrearAlertaTarea(idResponsable, idTarea, idProyecto, nombre);
+                    if (MarcarTareaVencida(idTarea) == true)
+                    {
+                        CrearAlertaTarea(idResponsable, idTarea, idProyecto, nombre);
+                    }
                 }
+            }
+        }
+
+        private bool MarcarTareaVencida(int idTarea)
+        {
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            int filasAfectadas;
+
+            query = @"
+            UPDATE tbTarea
+            SET IdEstadoTarea = (SELECT TOP 1 IdEstadoTarea FROM tbEstadoTarea WHERE Nombre = @Estado)
+            WHERE IdTarea = @IdTarea";
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@Estado", "Vencida");
+                comando.Parameters.AddWithValue("@IdTarea", idTarea);
+                filasAfectadas = comando.ExecuteNonQuery();
+                comando.Dispose();
+
+                if (filasAfectadas > 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+                return false;
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
         }
 
@@ -86,7 +129,6 @@ namespace Modelo.Modelo
                 int idProyecto;
                 string estadoActual;
                 DateTime fechaCierre;
-                DataTable tareasVencidas;
                 int cantidadVencidas;
                 string nuevoEstado;
 
@@ -99,15 +141,7 @@ namespace Modelo.Modelo
                     continue;
                 }
 
-                query = $@"
-                SELECT tbTarea.IdTarea
-                FROM tbTarea
-                INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
-                WHERE tbTarea.IdProyecto = {idProyecto}
-                AND tbEstadoTarea.Nombre = N'Vencida'";
-
-                tareasVencidas = conexion.EjecutarConsulta(query);
-                cantidadVencidas = tareasVencidas.Rows.Count;
+                cantidadVencidas = ContarTareasVencidasProyecto(idProyecto);
                 nuevoEstado = "Activo";
 
                 if (fechaCierre.Date < DateTime.Today || cantidadVencidas >= 3)
@@ -121,14 +155,105 @@ namespace Modelo.Modelo
 
                 if (estadoActual != nuevoEstado)
                 {
-                    query = $@"
-                    UPDATE tbProyecto
-                    SET IdEstadoProyecto = (SELECT TOP 1 IdEstadoProyecto FROM tbEstadoProyecto WHERE Nombre = N'{nuevoEstado}'),
-                    UltimaModificacion = GETDATE()
-                    WHERE IdProyecto = {idProyecto}";
-
-                    conexion.EjecutarComando(query);
+                    ActualizarEstadoProyecto(idProyecto, nuevoEstado);
                 }
+            }
+        }
+
+        private int ContarTareasVencidasProyecto(int idProyecto)
+        {
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int cantidad;
+
+            query = @"
+            SELECT COUNT(*)
+            FROM tbTarea
+            INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
+            WHERE tbTarea.IdProyecto = @IdProyecto
+            AND tbEstadoTarea.Nombre = @Estado";
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return 0;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                comando.Parameters.AddWithValue("@Estado", "Vencida");
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+                cantidad = 0;
+
+                if (resultado != null && resultado != DBNull.Value)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+
+                return cantidad;
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+                return 0;
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+        }
+
+        private bool ActualizarEstadoProyecto(int idProyecto, string nuevoEstado)
+        {
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            int filasAfectadas;
+
+            query = @"
+            UPDATE tbProyecto
+            SET IdEstadoProyecto = (SELECT TOP 1 IdEstadoProyecto FROM tbEstadoProyecto WHERE Nombre = @Estado),
+            UltimaModificacion = GETDATE()
+            WHERE IdProyecto = @IdProyecto";
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@Estado", nuevoEstado);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                filasAfectadas = comando.ExecuteNonQuery();
+                comando.Dispose();
+
+                if (filasAfectadas > 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+                return false;
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
         }
 

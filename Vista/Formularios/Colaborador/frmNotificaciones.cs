@@ -63,6 +63,7 @@ namespace Vista
             int idUsuario;
 
             idUsuario = Sesion.UsuarioActual.IdUsuario;
+            notificacionModelo.EliminarLeidasAntiguas(idUsuario, 90);
             notificacionesOriginales = notificacionModelo.ObtenerNotificacionesUsuario(idUsuario);
             CargarFiltros();
             AplicarFiltros();
@@ -176,12 +177,7 @@ namespace Vista
 
             altoNotificacion = 134;
             flpNotificaciones.Controls.Clear();
-            anchoDisponible = pnlViewport.ClientSize.Width - 120;
-
-            if (anchoDisponible > 1100)
-            {
-                anchoDisponible = 1100;
-            }
+            anchoDisponible = tlpPrincipal.ClientSize.Width - 48;
 
             if (anchoDisponible < 300)
             {
@@ -190,7 +186,7 @@ namespace Vista
 
             flpNotificaciones.AutoSize = false;
             flpNotificaciones.Dock = DockStyle.None;
-            flpNotificaciones.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            flpNotificaciones.Anchor = AnchorStyles.Top;
             flpNotificaciones.Width = anchoDisponible;
 
             for (indice = datos.Rows.Count - 1; indice >= 0; indice = indice - 1)

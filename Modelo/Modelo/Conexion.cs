@@ -7,9 +7,11 @@ namespace Modelo.Modelo
 {
     public class Conexion
     {
+        // ponemos el nombre de nuestra base de datos y el nombre de el servidor donde se encuentra
         private static string servidor = @".\MSSQLSERVER01";
         private static string baseDeDatos = "DbSyncore";
 
+        // definimos el metodo para conectarnos a la base de datos de el servidor, definimos el metodo conectar para conectarnos a la base de datos y devolver la conexion con la cual se van a poder realizar consultas
         public static SqlConnection conectar()
         {
             string cadena;
@@ -31,38 +33,47 @@ namespace Modelo.Modelo
             }
         }
 
+        // aca definimos el metodo para mostrar un error si el sql server nos tira error segun el numero de error
         public static void MostrarErrorSql(SqlException ex)
         {
+            // aca si no encuentra el servidor donde esta la base de datos
             if (ex.Number == 2 || ex.Number == 26 || ex.Number == 53)
             {
                 MessageBox.Show("No se pudo encontrar el servidor de base de datos.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            // aca si encuentra el servidor pero no encuentra la base de datos
             else if (ex.Number == 4060)
             {
                 MessageBox.Show("No se pudo encontrar la base de datos.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            // aca si no nos deja iniciar sesion en la base de datos
             else if (ex.Number == 18456)
             {
                 MessageBox.Show("No se pudo iniciar sesión en la base de datos.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            // aca si ya existe un registro con esos mismos datos
             else if (ex.Number == 2601 || ex.Number == 2627)
             {
                 MessageBox.Show("Ya existe un registro con esos datos.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            // aca si el registro esta relacionado con otro por llave foranea
             else if (ex.Number == 547)
             {
                 MessageBox.Show("No se puede completar la operación porque existen datos relacionados.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            // aca si falta llenar un campo que es obligatorio
             else if (ex.Number == 515)
             {
                 MessageBox.Show("Falta información obligatoria para guardar el registro.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            // aca cualquier otro error que no tengamos contemplado
             else
             {
                 MessageBox.Show("Ocurrió un error al trabajar con la base de datos.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        // aca definimos el metodo de ejecutar consulta, con este recibimos una consulta y nos conectamos a la base de datos, y ejecutamos una consulta teniendo en cuenta estos dos, definimos una datatable y la llenamos con los que nos devuelva la base de datos y retornamos la tabla definida
         public DataTable EjecutarConsulta(string consulta)
         {
             DataTable tabla;
@@ -96,67 +107,5 @@ namespace Modelo.Modelo
             return tabla;
         }
 
-        public bool EjecutarComando(string consulta)
-        {
-            SqlConnection conexion;
-            SqlCommand comando;
-
-            conexion = conectar();
-
-            if (conexion == null)
-            {
-                return false;
-            }
-
-            try
-            {
-                comando = new SqlCommand(consulta, conexion);
-                comando.ExecuteNonQuery();
-                comando.Dispose();
-                return true;
-            }
-            catch (SqlException ex)
-            {
-                MostrarErrorSql(ex);
-                return false;
-            }
-            finally
-            {
-                conexion.Close();
-                conexion.Dispose();
-            }
-        }
-
-        public object EjecutarEscalar(string consulta)
-        {
-            SqlConnection conexion;
-            SqlCommand comando;
-            object resultado;
-
-            conexion = conectar();
-
-            if (conexion == null)
-            {
-                return null;
-            }
-
-            try
-            {
-                comando = new SqlCommand(consulta, conexion);
-                resultado = comando.ExecuteScalar();
-                comando.Dispose();
-                return resultado;
-            }
-            catch (SqlException ex)
-            {
-                MostrarErrorSql(ex);
-                return null;
-            }
-            finally
-            {
-                conexion.Close();
-                conexion.Dispose();
-            }
-        }
     }
 }

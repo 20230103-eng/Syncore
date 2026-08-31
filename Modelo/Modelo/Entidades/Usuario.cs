@@ -196,17 +196,7 @@ namespace Modelo.Modelo.Entidades
 
             fila = datos.Rows[0];
             contrasenaGuardada = fila["Contrasena"].ToString();
-            contrasenaCorrecta = false;
-
-            if (EsHashBCrypt(contrasenaGuardada) == true)
-            {
-                contrasenaCorrecta = BCrypt.Net.BCrypt.Verify(contrasena, contrasenaGuardada);
-            }
-            else if (contrasena == contrasenaGuardada)
-            {
-                contrasenaCorrecta = true;
-                ActualizarHashContrasena(Convert.ToInt32(fila["IdUsuario"]), contrasena);
-            }
+            contrasenaCorrecta = BCrypt.Net.BCrypt.Verify(contrasena, contrasenaGuardada);
 
             if (contrasenaCorrecta == false)
             {
@@ -215,60 +205,6 @@ namespace Modelo.Modelo.Entidades
 
             usuario = CrearUsuarioDesdeFila(fila);
             return usuario;
-        }
-
-        private bool EsHashBCrypt(string valor)
-        {
-            if (string.IsNullOrEmpty(valor) == true)
-            {
-                return false;
-            }
-
-            if (valor.StartsWith("$2a$") == true || valor.StartsWith("$2b$") == true || valor.StartsWith("$2y$") == true)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private void ActualizarHashContrasena(int idUsuario, string contrasenaPlano)
-        {
-            string query;
-            string hash;
-            SqlConnection conexionSql;
-            SqlCommand comando;
-
-            hash = BCrypt.Net.BCrypt.HashPassword(contrasenaPlano);
-            query = @"
-            UPDATE tbUsuario
-            SET Contrasena = @Contrasena
-            WHERE IdUsuario = @IdUsuario";
-
-            conexionSql = Conexion.conectar();
-
-            if (conexionSql == null)
-            {
-                return;
-            }
-
-            try
-            {
-                comando = new SqlCommand(query, conexionSql);
-                comando.Parameters.AddWithValue("@Contrasena", hash);
-                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
-                comando.ExecuteNonQuery();
-                comando.Dispose();
-            }
-            catch (SqlException ex)
-            {
-                Conexion.MostrarErrorSql(ex);
-            }
-            finally
-            {
-                conexionSql.Close();
-                conexionSql.Dispose();
-            }
         }
 
         private Usuario CrearUsuarioDesdeFila(DataRow fila)

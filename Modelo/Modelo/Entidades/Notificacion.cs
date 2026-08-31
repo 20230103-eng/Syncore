@@ -123,7 +123,19 @@ namespace Modelo.Modelo.Entidades
             INNER JOIN tbTipoNotificacion ON tbNotificacion.IdTipoNotificacion = tbTipoNotificacion.IdTipoNotificacion
             INNER JOIN tbPrioridad ON tbNotificacion.IdPrioridad = tbPrioridad.IdPrioridad
             WHERE tbNotificacion.IdUsuario = @IdUsuario
-            ORDER BY tbNotificacion.IdNotificacion DESC";
+            AND
+            (
+                tbNotificacion.Leida = 0
+                OR tbNotificacion.IdNotificacion IN
+                (
+                    SELECT TOP (@CantidadLeidas) IdNotificacion
+                    FROM tbNotificacion
+                    WHERE IdUsuario = @IdUsuario
+                    AND Leida = 1
+                    ORDER BY IdNotificacion DESC
+                )
+            )
+            ORDER BY tbNotificacion.Leida, tbNotificacion.IdNotificacion DESC";
 
             notificaciones = new DataTable();
             conexionSql = Conexion.conectar();
@@ -137,6 +149,7 @@ namespace Modelo.Modelo.Entidades
             {
                 comando = new SqlCommand(query, conexionSql);
                 comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@CantidadLeidas", 30);
                 adaptador = new SqlDataAdapter(comando);
                 adaptador.Fill(notificaciones);
                 adaptador.Dispose();
@@ -153,6 +166,50 @@ namespace Modelo.Modelo.Entidades
             }
 
             return notificaciones;
+        }
+
+        public bool EliminarLeidasAntiguas(int idUsuario, int dias)
+        {
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            bool eliminadas;
+
+            query = @"
+            DELETE FROM tbNotificacion
+            WHERE IdUsuario = @IdUsuario
+            AND Leida = 1
+            AND FechaCreacion < DATEADD(DAY, -@Dias, GETDATE())";
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return false;
+            }
+
+            eliminadas = false;
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@Dias", dias);
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+                eliminadas = true;
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return eliminadas;
         }
 
         public int ContarNotificacionesNoLeidas(int idUsuario)
