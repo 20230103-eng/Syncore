@@ -161,6 +161,55 @@ namespace Modelo.Modelo.Entidades
             return equipo;
         }
 
+        public DataTable ObtenerColaboradoresProyecto(int idProyecto)
+        {
+            string query;
+            DataTable colaboradores;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
+
+            query = @"
+            SELECT DISTINCT tbUsuario.IdUsuario, tbUsuario.NombreCompleto
+            FROM tbEquipoProyecto
+            INNER JOIN tbUsuario ON tbEquipoProyecto.IdUsuario = tbUsuario.IdUsuario
+            INNER JOIN tbTipoUsuario ON tbUsuario.IdTipoUsuario = tbTipoUsuario.IdTipoUsuario
+            WHERE tbEquipoProyecto.IdProyecto = @IdProyecto
+            AND tbEquipoProyecto.Activo = 1
+            AND tbUsuario.Activo = 1
+            AND tbTipoUsuario.Nombre = N'Colaborador'
+            ORDER BY tbUsuario.NombreCompleto";
+
+            colaboradores = new DataTable();
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return colaboradores;
+            }
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(colaboradores);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return colaboradores;
+        }
+
         public DataTable ObtenerUsuariosDisponibles(int idProyecto, string texto)
         {
             DataTable usuarios;

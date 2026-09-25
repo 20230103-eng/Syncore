@@ -31,7 +31,7 @@ namespace Vista
             errorProviderValidacion.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             toolTipAyuda.SetToolTip(txtNombre, "Ingrese nombre.");
             toolTipAyuda.SetToolTip(cmbProyecto, "Seleccione proyecto.");
-            toolTipAyuda.SetToolTip(cmbResponsable, "Seleccione responsable.");
+            toolTipAyuda.SetToolTip(cmbResponsable, "Seleccione un colaborador activo del equipo del proyecto.");
             toolTipAyuda.SetToolTip(dtpInicio, "Seleccione fecha de inicio.");
             toolTipAyuda.SetToolTip(dtpLimite, "Seleccione fecha límite.");
             toolTipAyuda.SetToolTip(cmbPrioridad, "Seleccione prioridad.");
@@ -102,7 +102,7 @@ namespace Vista
             }
 
             idProyecto = Convert.ToInt32(cmbProyecto.SelectedValue);
-            equipo = equipoModelo.ObtenerEquipoProyecto(idProyecto);
+            equipo = equipoModelo.ObtenerColaboradoresProyecto(idProyecto);
             cmbResponsable.DisplayMember = "NombreCompleto";
             cmbResponsable.ValueMember = "IdUsuario";
             cmbResponsable.DataSource = equipo;
@@ -166,6 +166,12 @@ namespace Vista
             cmbProyecto.SelectedValue = idProyecto;
             CargarResponsablesProyecto();
             cmbResponsable.SelectedValue = idResponsable;
+
+            if (cmbResponsable.SelectedIndex < 0)
+            {
+                MessageBox.Show("El responsable actual no es un colaborador activo del equipo. Seleccione otro responsable.");
+            }
+
             cmbPrioridad.SelectedValue = Convert.ToInt32(fila["IdPrioridad"]);
             cmbEstado.SelectedValue = Convert.ToInt32(fila["IdEstadoTarea"]);
             cmbEstado.Enabled = false;
@@ -212,8 +218,8 @@ namespace Vista
 
             if (cmbResponsable.Items.Count == 0)
             {
-                errorProviderValidacion.SetError(cmbResponsable, "El proyecto no tiene integrantes activos.");
-                MessageBox.Show("El proyecto seleccionado no tiene integrantes activos. Agregue integrantes al equipo de trabajo antes de crear tareas.");
+                errorProviderValidacion.SetError(cmbResponsable, "El proyecto no tiene colaboradores activos.");
+                MessageBox.Show("El proyecto seleccionado no tiene colaboradores activos. Agregue un colaborador al equipo de trabajo antes de asignar tareas.");
                 cmbProyecto.Focus();
                 return false;
             }
@@ -221,7 +227,7 @@ namespace Vista
             if (cmbResponsable.SelectedValue == null)
             {
                 errorProviderValidacion.SetError(cmbResponsable, "Seleccione el responsable de la tarea.");
-                MessageBox.Show("Seleccione un integrante del equipo de trabajo como responsable de la tarea.");
+                MessageBox.Show("Seleccione un colaborador activo del equipo como responsable de la tarea.");
                 cmbResponsable.Focus();
                 return false;
             }

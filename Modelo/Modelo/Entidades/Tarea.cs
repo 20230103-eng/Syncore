@@ -431,8 +431,20 @@ namespace Modelo.Modelo.Entidades
                 query = @"
                 INSERT INTO tbTarea
                 (IdProyecto, IdHito, Nombre, Descripcion, Observacion, IdResponsable, IdCreador, IdPrioridad, IdEstadoTarea, FechaInicio, FechaLimite, AvanceActual, FechaCreacion)
-                VALUES
-                (@IdProyecto, @IdHito, @Nombre, @Descripcion, @Observacion, @IdResponsable, @IdCreador, @IdPrioridad, @IdEstadoTarea, @FechaInicio, @FechaLimite, @AvanceActual, GETDATE());
+                SELECT
+                @IdProyecto, @IdHito, @Nombre, @Descripcion, @Observacion, @IdResponsable, @IdCreador, @IdPrioridad, @IdEstadoTarea, @FechaInicio, @FechaLimite, @AvanceActual, GETDATE()
+                WHERE EXISTS
+                (
+                    SELECT 1
+                    FROM tbEquipoProyecto
+                    INNER JOIN tbUsuario ON tbEquipoProyecto.IdUsuario = tbUsuario.IdUsuario
+                    INNER JOIN tbTipoUsuario ON tbUsuario.IdTipoUsuario = tbTipoUsuario.IdTipoUsuario
+                    WHERE tbEquipoProyecto.IdProyecto = @IdProyecto
+                    AND tbEquipoProyecto.IdUsuario = @IdResponsable
+                    AND tbEquipoProyecto.Activo = 1
+                    AND tbUsuario.Activo = 1
+                    AND tbTipoUsuario.Nombre = N'Colaborador'
+                );
                 SELECT SCOPE_IDENTITY();";
 
                 comando = new SqlCommand(query, conexionSql, transaccion);
@@ -451,7 +463,7 @@ namespace Modelo.Modelo.Entidades
                 resultado = comando.ExecuteScalar();
                 comando.Dispose();
 
-                if (resultado == null)
+                if (resultado == null || resultado == DBNull.Value)
                 {
                     transaccion.Rollback();
                     return false;
@@ -590,6 +602,18 @@ namespace Modelo.Modelo.Entidades
                 FROM tbProyecto
                 WHERE tbProyecto.IdProyecto = @IdProyecto
                 AND tbProyecto.IdResponsable = @IdGestor
+            )
+            AND EXISTS
+            (
+                SELECT 1
+                FROM tbEquipoProyecto
+                INNER JOIN tbUsuario ON tbEquipoProyecto.IdUsuario = tbUsuario.IdUsuario
+                INNER JOIN tbTipoUsuario ON tbUsuario.IdTipoUsuario = tbTipoUsuario.IdTipoUsuario
+                WHERE tbEquipoProyecto.IdProyecto = @IdProyecto
+                AND tbEquipoProyecto.IdUsuario = @IdResponsable
+                AND tbEquipoProyecto.Activo = 1
+                AND tbUsuario.Activo = 1
+                AND tbTipoUsuario.Nombre = N'Colaborador'
             )";
 
             conexionSql = Conexion.conectar();
