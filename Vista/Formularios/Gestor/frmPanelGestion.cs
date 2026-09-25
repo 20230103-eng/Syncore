@@ -24,6 +24,7 @@ namespace Vista
         private TableroTarea tableroTarea;
         private IndicadorTarea indicadorTarea;
         private Avance avanceModelo;
+        private bool primeraActivacion = true;
 
         public frmPanelGestion()
         {
@@ -56,8 +57,18 @@ namespace Vista
             }
         }
 
+        private void frmPanelGestion_Load(object sender, EventArgs e)
+        {
+            CargarPanel();
+        }
+
         private void frmPanelGestion_Activated(object sender, EventArgs e)
         {
+            if (primeraActivacion == true)
+            {
+                primeraActivacion = false;
+                return;
+            }
             CargarPanel();
         }
 

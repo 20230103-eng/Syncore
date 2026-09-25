@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Vista\\Utilidades\\ExportadorExcel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Vista\\Utilidades\\ExportadorExcel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{911126E2-FF66-4F41-BBB8-D07B42359408}|Modelo\\Modelo.csproj|C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\modelo\\modelo\\reglasnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{911126E2-FF66-4F41-BBB8-D07B42359408}|Modelo\\Modelo.csproj|solutionrelative:modelo\\modelo\\reglasnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -35,29 +31,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ExportadorExcel.cs",
-              "DocumentMoniker": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Vista\\Utilidades\\ExportadorExcel.cs",
-              "RelativeDocumentMoniker": "Vista\\Utilidades\\ExportadorExcel.cs",
-              "ToolTip": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Vista\\Utilidades\\ExportadorExcel.cs",
-              "RelativeToolTip": "Vista\\Utilidades\\ExportadorExcel.cs",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-25T02:48:38.501Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "ReglasNegocio.cs",
               "DocumentMoniker": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Modelo\\Modelo\\ReglasNegocio.cs",
               "RelativeDocumentMoniker": "Modelo\\Modelo\\ReglasNegocio.cs",
               "ToolTip": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Modelo\\Modelo\\ReglasNegocio.cs",
               "RelativeToolTip": "Modelo\\Modelo\\ReglasNegocio.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAA1wAAAAAAAAAAA",
+              "ViewState": "AQIAABAAAAAAAAAAAAAQwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-31T02:08:51.177Z"
+              "WhenOpened": "2026-08-31T02:08:51.177Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "frmRevisionTareas.cs",
               "DocumentMoniker": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Vista\\Formularios\\Gestor\\frmRevisionTareas.cs",
               "RelativeDocumentMoniker": "Vista\\Formularios\\Gestor\\frmRevisionTareas.cs",
@@ -69,7 +55,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "frmRevisionTareas.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Vista\\Formularios\\Gestor\\frmRevisionTareas.cs",
               "RelativeDocumentMoniker": "Vista\\Formularios\\Gestor\\frmRevisionTareas.cs",
@@ -80,7 +66,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "frmDetalleTareaColaborador.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Vista\\Formularios\\Colaborador\\frmDetalleTareaColaborador.cs",
               "RelativeDocumentMoniker": "Vista\\Formularios\\Colaborador\\frmDetalleTareaColaborador.cs",

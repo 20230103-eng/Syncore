@@ -15,8 +15,14 @@ namespace Modelo.Modelo
         public static SqlConnection conectar()
         {
             string cadena;
+            string servidorConfigurado;
             SqlConnection conexion;
 
+            servidorConfigurado = System.Configuration.ConfigurationManager.AppSettings["ServidorSQL"];
+            if (string.IsNullOrEmpty(servidorConfigurado) == false)
+            {
+                servidor = servidorConfigurado;
+            }
             cadena = $"Data Source={servidor};Initial Catalog={baseDeDatos};Integrated Security=true;";
             conexion = new SqlConnection(cadena);
 

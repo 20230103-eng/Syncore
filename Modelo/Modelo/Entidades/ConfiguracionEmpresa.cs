@@ -10,6 +10,7 @@ namespace Modelo.Modelo.Entidades
         private int idConfiguracion;
         private string nombreEmpresa;
         private string rutaLogo;
+        private byte[] logoImagen;
         private string informacionGeneral;
         private Conexion conexion;
 
@@ -29,6 +30,12 @@ namespace Modelo.Modelo.Entidades
         {
             get { return rutaLogo; }
             set { rutaLogo = value; }
+        }
+
+        public byte[] LogoImagen
+        {
+            get { return logoImagen; }
+            set { logoImagen = value; }
         }
 
         public string InformacionGeneral
@@ -104,6 +111,7 @@ namespace Modelo.Modelo.Entidades
             IdConfiguracion,
             NombreEmpresa,
             RutaLogo,
+            LogoImagen,
             InformacionGeneral
             FROM TbConfiguracionEmpresa
             ORDER BY IdConfiguracion";
@@ -120,6 +128,10 @@ namespace Modelo.Modelo.Entidades
             configuracion.IdConfiguracion = Convert.ToInt32(fila["IdConfiguracion"]);
             configuracion.NombreEmpresa = fila["NombreEmpresa"].ToString();
             configuracion.RutaLogo = fila["RutaLogo"].ToString();
+            if (fila["LogoImagen"] != DBNull.Value)
+            {
+                configuracion.LogoImagen = (byte[])fila["LogoImagen"];
+            }
             configuracion.InformacionGeneral = fila["InformacionGeneral"].ToString();
             return configuracion;
         }
@@ -130,6 +142,7 @@ namespace Modelo.Modelo.Entidades
             SqlConnection conexionSql;
             SqlCommand comando;
             int filas;
+            object imagen;
 
             query = @"
             IF EXISTS (SELECT 1 FROM TbConfiguracionEmpresa)
@@ -137,15 +150,16 @@ namespace Modelo.Modelo.Entidades
                 UPDATE TbConfiguracionEmpresa
                 SET NombreEmpresa = @NombreEmpresa,
                     RutaLogo = @RutaLogo,
+                    LogoImagen = @LogoImagen,
                     InformacionGeneral = @InformacionGeneral,
                     FechaConfiguracion = GETDATE()
             END
             ELSE
             BEGIN
                 INSERT INTO TbConfiguracionEmpresa
-                (NombreEmpresa, RutaLogo, InformacionGeneral, FechaConfiguracion)
+                (NombreEmpresa, RutaLogo, LogoImagen, InformacionGeneral, FechaConfiguracion)
                 VALUES
-                (@NombreEmpresa, @RutaLogo, @InformacionGeneral, GETDATE())
+                (@NombreEmpresa, @RutaLogo, @LogoImagen, @InformacionGeneral, GETDATE())
             END";
 
             conexionSql = Conexion.conectar();
@@ -162,6 +176,12 @@ namespace Modelo.Modelo.Entidades
                 comando = new SqlCommand(query, conexionSql);
                 comando.Parameters.AddWithValue("@NombreEmpresa", this.NombreEmpresa);
                 comando.Parameters.AddWithValue("@RutaLogo", this.RutaLogo);
+                imagen = DBNull.Value;
+                if (this.LogoImagen != null)
+                {
+                    imagen = this.LogoImagen;
+                }
+                comando.Parameters.AddWithValue("@LogoImagen", imagen);
                 comando.Parameters.AddWithValue("@InformacionGeneral", this.InformacionGeneral);
                 filas = comando.ExecuteNonQuery();
                 comando.Dispose();

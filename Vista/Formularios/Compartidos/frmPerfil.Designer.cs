@@ -19,11 +19,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlEncabezado = new System.Windows.Forms.Panel();
+            this.picLogoEmpresa = new System.Windows.Forms.PictureBox();
             this.lblSubtitulo = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.tlpPrincipal = new System.Windows.Forms.TableLayoutPanel();
             this.pnlTarjeta = new System.Windows.Forms.Panel();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
+            this.btnConfigurarEmpresa = new System.Windows.Forms.Button();
             this.btnCambiarContrasena = new System.Windows.Forms.Button();
             this.lblRolValor = new System.Windows.Forms.Label();
             this.lblRol = new System.Windows.Forms.Label();
@@ -37,8 +39,10 @@
             this.tlpPrincipal.SuspendLayout();
             this.pnlTarjeta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picUsuario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogoEmpresa)).BeginInit();
             this.SuspendLayout();
             this.pnlEncabezado.BackColor = System.Drawing.Color.White;
+            this.pnlEncabezado.Controls.Add(this.picLogoEmpresa);
             this.pnlEncabezado.Controls.Add(this.lblSubtitulo);
             this.pnlEncabezado.Controls.Add(this.lblTitulo);
             this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
@@ -47,12 +51,21 @@
             this.pnlEncabezado.Padding = new System.Windows.Forms.Padding(32, 18, 32, 12);
             this.pnlEncabezado.Size = new System.Drawing.Size(1670, 82);
             this.pnlEncabezado.TabIndex = 0;
-            this.lblSubtitulo.AutoSize = true;
+            this.picLogoEmpresa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picLogoEmpresa.Location = new System.Drawing.Point(1490, 10);
+            this.picLogoEmpresa.Name = "picLogoEmpresa";
+            this.picLogoEmpresa.Size = new System.Drawing.Size(140, 57);
+            this.picLogoEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picLogoEmpresa.TabStop = false;
+            this.picLogoEmpresa.Visible = false;
+            this.lblSubtitulo.AutoEllipsis = true;
+            this.lblSubtitulo.AutoSize = false;
+            this.lblSubtitulo.Size = new System.Drawing.Size(580, 20);
             this.lblSubtitulo.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblSubtitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(108)))), ((int)(((byte)(128)))));
             this.lblSubtitulo.Location = new System.Drawing.Point(35, 50);
             this.lblSubtitulo.Name = "lblSubtitulo";
-            this.lblSubtitulo.Size = new System.Drawing.Size(266, 15);
+            this.lblSubtitulo.Size = new System.Drawing.Size(580, 20);
             this.lblSubtitulo.TabIndex = 1;
             this.lblSubtitulo.Text = "Información del usuario que tiene la sesión activa";
             this.lblTitulo.AutoSize = true;
@@ -79,6 +92,7 @@
             this.tlpPrincipal.Size = new System.Drawing.Size(1670, 979);
             this.tlpPrincipal.TabIndex = 1;
             this.pnlTarjeta.BackColor = System.Drawing.Color.White;
+            this.pnlTarjeta.Controls.Add(this.btnConfigurarEmpresa);
             this.pnlTarjeta.Controls.Add(this.btnCambiarContrasena);
             this.pnlTarjeta.Controls.Add(this.btnCerrarSesion);
             this.pnlTarjeta.Controls.Add(this.lblRolValor);
@@ -96,6 +110,20 @@
             this.pnlTarjeta.Padding = new System.Windows.Forms.Padding(34, 28, 34, 28);
             this.pnlTarjeta.Size = new System.Drawing.Size(1078, 324);
             this.pnlTarjeta.TabIndex = 0;
+            this.btnConfigurarEmpresa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfigurarEmpresa.BackColor = System.Drawing.Color.White;
+            this.btnConfigurarEmpresa.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnConfigurarEmpresa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfigurarEmpresa.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnConfigurarEmpresa.ForeColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnConfigurarEmpresa.Location = new System.Drawing.Point(466, 250);
+            this.btnConfigurarEmpresa.Name = "btnConfigurarEmpresa";
+            this.btnConfigurarEmpresa.Size = new System.Drawing.Size(184, 46);
+            this.btnConfigurarEmpresa.TabIndex = 10;
+            this.btnConfigurarEmpresa.Text = "Datos de empresa";
+            this.btnConfigurarEmpresa.Visible = false;
+            this.btnConfigurarEmpresa.UseVisualStyleBackColor = false;
+            this.btnConfigurarEmpresa.Click += new System.EventHandler(this.btnConfigurarEmpresa_Click);
             this.btnCambiarContrasena.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCambiarContrasena.BackColor = System.Drawing.Color.White;
             this.btnCambiarContrasena.Click += new System.EventHandler(this.btnCambiarContrasena_Click);
@@ -204,12 +232,15 @@
             this.pnlTarjeta.ResumeLayout(false);
             this.pnlTarjeta.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picUsuario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogoEmpresa)).EndInit();
             this.ResumeLayout(false);
         }
 
         #endregion
 
         private System.Windows.Forms.Panel pnlEncabezado;
+        private System.Windows.Forms.PictureBox picLogoEmpresa;
+        private System.Windows.Forms.Button btnConfigurarEmpresa;
         private System.Windows.Forms.Label lblSubtitulo;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.TableLayoutPanel tlpPrincipal;

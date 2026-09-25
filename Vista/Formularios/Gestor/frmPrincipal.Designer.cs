@@ -32,6 +32,8 @@
             this.pnlContenido = new System.Windows.Forms.Panel();
             this.pnlSideNav = new System.Windows.Forms.Panel();
             this.pnlMenu = new System.Windows.Forms.Panel();
+            this.pnlAyuda = new System.Windows.Forms.Panel();
+            this.btnManualUsuario = new System.Windows.Forms.Button();
             this.btnAdministracion = new System.Windows.Forms.Button();
             this.btnNotificacionesGestion = new System.Windows.Forms.Button();
             this.lblAdministracion = new System.Windows.Forms.Label();
@@ -58,6 +60,7 @@
             this.pnlLogo = new System.Windows.Forms.Panel();
             this.pnlLineaLogo = new System.Windows.Forms.Panel();
             this.picLogo = new System.Windows.Forms.PictureBox();
+            this.picLogoEmpresa = new System.Windows.Forms.PictureBox();
             this.pnlSideNav.SuspendLayout();
             this.pnlMenu.SuspendLayout();
             this.pnlUsuario.SuspendLayout();
@@ -66,6 +69,7 @@
             this.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picUsuario)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogoEmpresa)).BeginInit();
             // 
             // pnlContenido
             // 
@@ -80,6 +84,7 @@
             // 
             this.pnlSideNav.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
             this.pnlSideNav.Controls.Add(this.pnlMenu);
+            this.pnlSideNav.Controls.Add(this.pnlAyuda);
             this.pnlSideNav.Controls.Add(this.pnlUsuario);
             this.pnlSideNav.Controls.Add(this.pnlLogo);
             this.pnlSideNav.Dock = System.Windows.Forms.DockStyle.Left;
@@ -88,6 +93,22 @@
             this.pnlSideNav.Size = new System.Drawing.Size(240, 1061);
             this.pnlSideNav.TabIndex = 0;
             // 
+            this.pnlAyuda.BackColor = System.Drawing.Color.FromArgb(0, 47, 99);
+            this.pnlAyuda.Controls.Add(this.btnManualUsuario);
+            this.pnlAyuda.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlAyuda.Name = "pnlAyuda";
+            this.pnlAyuda.Size = new System.Drawing.Size(240, 48);
+            this.btnManualUsuario.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnManualUsuario.Enabled = false;
+            this.btnManualUsuario.FlatAppearance.BorderSize = 0;
+            this.btnManualUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnManualUsuario.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnManualUsuario.ForeColor = System.Drawing.Color.White;
+            this.btnManualUsuario.Name = "btnManualUsuario";
+            this.btnManualUsuario.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnManualUsuario.Text = "Manual de usuario";
+            this.btnManualUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnManualUsuario.UseVisualStyleBackColor = false;
             // pnlMenu
             // 
             this.pnlMenu.AutoScroll = true;
@@ -523,6 +544,7 @@
             // 
             this.pnlLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
             this.pnlLogo.Controls.Add(this.pnlLineaLogo);
+            this.pnlLogo.Controls.Add(this.picLogoEmpresa);
             this.pnlLogo.Controls.Add(this.picLogo);
             this.pnlLogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlLogo.Location = new System.Drawing.Point(0, 0);
@@ -539,6 +561,12 @@
             this.pnlLineaLogo.Size = new System.Drawing.Size(240, 2);
             this.pnlLineaLogo.TabIndex = 1;
             // 
+            this.picLogoEmpresa.Location = new System.Drawing.Point(128, 6);
+            this.picLogoEmpresa.Name = "picLogoEmpresa";
+            this.picLogoEmpresa.Size = new System.Drawing.Size(98, 34);
+            this.picLogoEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picLogoEmpresa.TabStop = false;
+            this.picLogoEmpresa.Visible = false;
             // picLogo
             // 
             this.picLogo.Image = global::Vista.Properties.Recursos.LogoSyncore;
@@ -568,6 +596,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.picUsuario)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogoEmpresa)).EndInit();
             this.pnlSideNav.ResumeLayout(false);
             this.pnlMenu.ResumeLayout(false);
             this.pnlMenu.PerformLayout();
@@ -583,6 +612,8 @@
         private System.Windows.Forms.Panel pnlContenido;
         private System.Windows.Forms.Panel pnlSideNav;
         private System.Windows.Forms.Panel pnlMenu;
+        private System.Windows.Forms.Panel pnlAyuda;
+        private System.Windows.Forms.Button btnManualUsuario;
         private System.Windows.Forms.Button btnAdministracion;
         private System.Windows.Forms.Button btnNotificacionesGestion;
         private System.Windows.Forms.Label lblAdministracion;
@@ -609,5 +640,6 @@
         private System.Windows.Forms.Panel pnlLogo;
         private System.Windows.Forms.Panel pnlLineaLogo;
         private System.Windows.Forms.PictureBox picLogo;
+        private System.Windows.Forms.PictureBox picLogoEmpresa;
     }
 }

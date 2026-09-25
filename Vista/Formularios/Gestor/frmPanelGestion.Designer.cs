@@ -909,6 +909,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1670, 1080);
+            this.Load += new System.EventHandler(this.frmPanelGestion_Load);
             this.Activated += new System.EventHandler(this.frmPanelGestion_Activated);
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.Controls.Add(this.pnlViewport);

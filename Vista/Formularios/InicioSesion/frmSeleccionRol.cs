@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using Modelo.Modelo.Entidades;
 
@@ -23,13 +25,32 @@ namespace Vista
         {
             ConfiguracionEmpresa modelo;
             ConfiguracionEmpresa configuracion;
+            Image anterior;
 
             modelo = new ConfiguracionEmpresa();
             configuracion = modelo.ObtenerConfiguracion();
+            anterior = picLogoEmpresa.Image;
+            picLogoEmpresa.Image = null;
+            picLogoEmpresa.Visible = false;
+            if (anterior != null)
+            {
+                anterior.Dispose();
+            }
 
             if (configuracion != null && string.IsNullOrEmpty(configuracion.NombreEmpresa) == false)
             {
                 lblBienvenido.Text = "Bienvenido a " + configuracion.NombreEmpresa;
+                if (configuracion.LogoImagen != null && configuracion.LogoImagen.Length > 0)
+                {
+                    using (MemoryStream flujo = new MemoryStream(configuracion.LogoImagen))
+                    {
+                        using (Image original = Image.FromStream(flujo))
+                        {
+                            picLogoEmpresa.Image = new Bitmap(original);
+                        }
+                    }
+                    picLogoEmpresa.Visible = true;
+                }
             }
         }
 
@@ -39,9 +60,11 @@ namespace Vista
 
             this.Hide();
             formulario.ShowDialog();
+            formulario.Dispose();
 
             if (this.IsDisposed == false)
             {
+                CargarEmpresa();
                 this.Show();
             }
         }
@@ -52,9 +75,11 @@ namespace Vista
 
             this.Hide();
             formulario.ShowDialog();
+            formulario.Dispose();
 
             if (this.IsDisposed == false)
             {
+                CargarEmpresa();
                 this.Show();
             }
         }

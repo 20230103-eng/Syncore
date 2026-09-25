@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using Modelo.Modelo.Entidades;
 
@@ -11,6 +12,7 @@ namespace Vista
         private ConfiguracionEmpresa configuracionModelo;
         private Usuario usuarioModelo;
         private bool requiereAdministrador;
+        private byte[] logoSeleccionado;
 
         public frmConfiguracionInicial()
         {
@@ -36,6 +38,15 @@ namespace Vista
         {
             configuracionModelo = new ConfiguracionEmpresa();
             usuarioModelo = new Usuario();
+            ConfiguracionEmpresa actual;
+            actual = configuracionModelo.ObtenerConfiguracion();
+            if (actual != null)
+            {
+                txtNombreEmpresa.Text = actual.NombreEmpresa;
+                txtRutaLogo.Text = actual.RutaLogo;
+                txtInformacionGeneral.Text = actual.InformacionGeneral;
+                logoSeleccionado = actual.LogoImagen;
+            }
             requiereAdministrador = usuarioModelo.ExisteGestorActivo() == false;
             pnlAdministrador.Enabled = requiereAdministrador;
 
@@ -61,6 +72,40 @@ namespace Vista
 
             if (resultado == DialogResult.OK)
             {
+                FileInfo archivo;
+                archivo = new FileInfo(selector.FileName);
+                if (archivo.Length > 2097152)
+                {
+                    MessageBox.Show("El logotipo no debe superar 2 MB.", "Configuración", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    selector.Dispose();
+                    return;
+                }
+                byte[] imagen;
+                bool formatoValido;
+                imagen = File.ReadAllBytes(selector.FileName);
+                formatoValido = false;
+                if (imagen.Length > 8)
+                {
+                    if (imagen[0] == 137 && imagen[1] == 80 && imagen[2] == 78 && imagen[3] == 71)
+                    {
+                        formatoValido = true;
+                    }
+                    else if (imagen[0] == 255 && imagen[1] == 216 && imagen[2] == 255)
+                    {
+                        formatoValido = true;
+                    }
+                    else if (imagen[0] == 66 && imagen[1] == 77)
+                    {
+                        formatoValido = true;
+                    }
+                }
+                if (formatoValido == false)
+                {
+                    MessageBox.Show("Seleccione una imagen PNG, JPEG o BMP válida.", "Configuración", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    selector.Dispose();
+                    return;
+                }
+                logoSeleccionado = imagen;
                 txtRutaLogo.Text = selector.FileName;
             }
 
@@ -80,7 +125,7 @@ namespace Vista
                 correcto = false;
             }
 
-            if (string.IsNullOrEmpty(txtRutaLogo.Text.Trim()) == true)
+            if (string.IsNullOrEmpty(txtRutaLogo.Text.Trim()) == true && logoSeleccionado == null)
             {
                 errorProviderValidacion.SetError(txtRutaLogo, "Seleccione el logotipo de la empresa.");
                 correcto = false;
@@ -142,6 +187,16 @@ namespace Vista
             configuracion = new ConfiguracionEmpresa();
             configuracion.NombreEmpresa = txtNombreEmpresa.Text.Trim();
             configuracion.RutaLogo = txtRutaLogo.Text.Trim();
+            if (logoSeleccionado == null && File.Exists(configuracion.RutaLogo) == true)
+            {
+                FileInfo archivo;
+                archivo = new FileInfo(configuracion.RutaLogo);
+                if (archivo.Length <= 2097152)
+                {
+                    logoSeleccionado = File.ReadAllBytes(configuracion.RutaLogo);
+                }
+            }
+            configuracion.LogoImagen = logoSeleccionado;
             configuracion.InformacionGeneral = txtInformacionGeneral.Text.Trim();
             guardado = configuracion.GuardarConfiguracion();
 

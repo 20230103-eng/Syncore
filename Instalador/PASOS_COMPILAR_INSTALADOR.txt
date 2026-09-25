@@ -1,0 +1,14 @@
+CRITERIO 18 — GENERACIÓN Y COMPROBACIÓN DEL INSTALADOR
+
+ESTADO: script preparado; NO se incluye Setup.exe porque esta sesión no ejecuta Visual Studio ni Inno Setup.
+
+1. En Windows, abrir Syncore.sln en Visual Studio 2022. Restaurar paquetes NuGet.
+2. Aplicar SQL/Actualizar_100.sql a la base de PRUEBAS.
+3. Configurar ServidorSQL en Vista/App.config ANTES de compilar, por ejemplo SERVIDOR\SQLEXPRESS, o dejar .\MSSQLSERVER01 si será local. El programa lee este valor sin alterar la cadena de conexión interpolada original. La cuenta Windows del cliente necesita permisos SQL Server porque se usa autenticación integrada.
+4. Rebuild Solution en Release, comprobar Vista/bin/Release/Vista.exe, Modelo.dll, librerías dependientes y Vista.exe.config.
+5. Instalar Inno Setup 6 y abrir Instalador/Syncore.iss. Compilar script.
+6. Obtener Instalador/SalidaInstalador/Syncore_Setup.exe.
+7. Probar el Setup.exe en otro Windows 10/11 con .NET Framework 4.7.2+ y acceso SQL Server; comprobar login, consulta, reportes y desinstalación.
+8. Si aparece falta de dll o error SQL, corregirlo y recompilar Setup.
+
+NO DAR EL CRITERIO 18 POR APROBADO HASTA INSTALARLO Y PROBARLO EN OTRO EQUIPO.

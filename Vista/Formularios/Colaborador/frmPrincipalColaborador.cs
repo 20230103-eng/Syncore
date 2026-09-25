@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using Modelo.Modelo.Infraestructura;
 using Modelo.Modelo.Entidades;
@@ -27,6 +28,40 @@ namespace Vista
             toolTipAyuda.SetToolTip(btnPanelPersonal, "Abrir el panel personal.");
             toolTipAyuda.SetToolTip(btnPerfil, "Abrir el perfil del usuario.");
             this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
+            CargarLogoEmpresa();
+        }
+
+        private void CargarLogoEmpresa()
+        {
+            ConfiguracionEmpresa modelo;
+            ConfiguracionEmpresa empresa;
+            Image anterior;
+
+            modelo = new ConfiguracionEmpresa();
+            empresa = modelo.ObtenerConfiguracion();
+            if (empresa == null)
+            {
+                return;
+            }
+            anterior = picLogoEmpresa.Image;
+            picLogoEmpresa.Image = null;
+            picLogoEmpresa.Visible = false;
+            if (empresa.LogoImagen != null && empresa.LogoImagen.Length > 0)
+            {
+                using (MemoryStream flujo = new MemoryStream(empresa.LogoImagen))
+                {
+                    using (Image original = Image.FromStream(flujo))
+                    {
+                        picLogoEmpresa.Image = new Bitmap(original);
+                    }
+                }
+                picLogoEmpresa.Visible = true;
+                toolTipAyuda.SetToolTip(picLogoEmpresa, empresa.NombreEmpresa);
+            }
+            if (anterior != null)
+            {
+                anterior.Dispose();
+            }
         }
 
         private void frmPrincipalColaborador_Load(object sender, EventArgs e)

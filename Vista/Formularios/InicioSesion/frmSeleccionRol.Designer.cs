@@ -23,6 +23,7 @@
             this.pnlOpciones = new System.Windows.Forms.Panel();
             this.tlpOpciones = new System.Windows.Forms.TableLayoutPanel();
             this.picLogo = new System.Windows.Forms.PictureBox();
+            this.picLogoEmpresa = new System.Windows.Forms.PictureBox();
             this.lblBienvenido = new System.Windows.Forms.Label();
             this.btnGestor = new System.Windows.Forms.Button();
             this.btnColaborador = new System.Windows.Forms.Button();
@@ -32,6 +33,7 @@
             this.tlpOpciones.SuspendLayout();
             this.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogoEmpresa)).BeginInit();
             // 
             // pnlFondo
             // 
@@ -77,6 +79,7 @@
             this.tlpOpciones.ColumnCount = 1;
             this.tlpOpciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpOpciones.Controls.Add(this.picLogo, 0, 0);
+            this.tlpOpciones.Controls.Add(this.picLogoEmpresa, 0, 1);
             this.tlpOpciones.Controls.Add(this.lblBienvenido, 0, 2);
             this.tlpOpciones.Controls.Add(this.btnGestor, 0, 4);
             this.tlpOpciones.Controls.Add(this.btnColaborador, 0, 6);
@@ -109,8 +112,17 @@
             // 
             // lblBienvenido
             // 
+            this.picLogoEmpresa.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.picLogoEmpresa.BackColor = System.Drawing.Color.Transparent;
+            this.picLogoEmpresa.Margin = new System.Windows.Forms.Padding(0, 6, 0, 6);
+            this.picLogoEmpresa.Name = "picLogoEmpresa";
+            this.picLogoEmpresa.Size = new System.Drawing.Size(170, 125);
+            this.picLogoEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picLogoEmpresa.TabStop = false;
+            this.picLogoEmpresa.Visible = false;
+            this.lblBienvenido.AutoEllipsis = true;
             this.lblBienvenido.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblBienvenido.Font = new System.Drawing.Font("Segoe UI", 30F, System.Drawing.FontStyle.Bold);
+            this.lblBienvenido.Font = new System.Drawing.Font("Segoe UI", 23F, System.Drawing.FontStyle.Bold);
             this.lblBienvenido.ForeColor = System.Drawing.Color.White;
             this.lblBienvenido.Location = new System.Drawing.Point(0, 217);
             this.lblBienvenido.Margin = new System.Windows.Forms.Padding(0);
@@ -173,6 +185,7 @@
             this.Text = "Syncore - Selección de rol";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogoEmpresa)).EndInit();
             this.pnlFondo.ResumeLayout(false);
             this.tlpPrincipal.ResumeLayout(false);
             this.pnlOpciones.ResumeLayout(false);
@@ -187,6 +200,7 @@
         private System.Windows.Forms.Panel pnlOpciones;
         private System.Windows.Forms.TableLayoutPanel tlpOpciones;
         private System.Windows.Forms.PictureBox picLogo;
+        private System.Windows.Forms.PictureBox picLogoEmpresa;
         private System.Windows.Forms.Label lblBienvenido;
         private System.Windows.Forms.Button btnGestor;
         private System.Windows.Forms.Button btnColaborador;
