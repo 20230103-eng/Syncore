@@ -10,6 +10,9 @@ namespace Vista
 {
     public partial class frmRegistrarAvance : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+        private System.Windows.Forms.ErrorProvider errorProviderValidacion;
+
         private Proyecto proyectoModelo;
         private Tarea tareaModelo;
         private Avance avanceModelo;
@@ -23,6 +26,21 @@ namespace Vista
         public frmRegistrarAvance()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            errorProviderValidacion = new System.Windows.Forms.ErrorProvider(this.components);
+            errorProviderValidacion.ContainerControl = this;
+            errorProviderValidacion.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            toolTipAyuda.SetToolTip(cboProyecto, "Seleccione proyecto.");
+            toolTipAyuda.SetToolTip(cboTarea, "Seleccione tarea.");
+            toolTipAyuda.SetToolTip(txtPorcentaje, "Ingrese porcentaje de avance.");
+            toolTipAyuda.SetToolTip(dtpFecha, "Seleccione fecha.");
+            toolTipAyuda.SetToolTip(txtDescripcion, "Ingrese descripción.");
+            toolTipAyuda.SetToolTip(txtDificultades, "Ingrese dificultades encontradas.");
+            toolTipAyuda.SetToolTip(txtProximos, "Ingrese próximos pasos.");
+            toolTipAyuda.SetToolTip(btnAdjuntar, "Adjuntar una evidencia al avance.");
+            toolTipAyuda.SetToolTip(btnGuardar, "Guardar la información ingresada.");
+            toolTipAyuda.SetToolTip(btnCancelar, "Cancelar la operación actual.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
         }
 
         private void frmRegistrarAvance_Load(object sender, EventArgs e)
@@ -209,6 +227,7 @@ namespace Vista
         private bool ValidarDatos()
         {
             int porcentaje;
+            errorProviderValidacion.Clear();
 
             if (Sesion.UsuarioActual == null)
             {
@@ -218,6 +237,7 @@ namespace Vista
 
             if (cboProyecto.SelectedValue == null)
             {
+                errorProviderValidacion.SetError(cboProyecto, "Seleccione el proyecto.");
                 MessageBox.Show("Seleccione el proyecto.");
                 cboProyecto.Focus();
                 return false;
@@ -225,6 +245,7 @@ namespace Vista
 
             if (cboTarea.SelectedValue == null)
             {
+                errorProviderValidacion.SetError(cboTarea, "Seleccione la tarea.");
                 MessageBox.Show("Seleccione la tarea.");
                 cboTarea.Focus();
                 return false;
@@ -232,6 +253,7 @@ namespace Vista
 
             if (int.TryParse(txtPorcentaje.Text, out porcentaje) == false)
             {
+                errorProviderValidacion.SetError(txtPorcentaje, "Ingrese un porcentaje válido.");
                 MessageBox.Show("Ingrese un porcentaje válido.");
                 txtPorcentaje.Focus();
                 return false;
@@ -239,6 +261,7 @@ namespace Vista
 
             if (porcentaje < 0 || porcentaje > 100)
             {
+                errorProviderValidacion.SetError(txtPorcentaje, "El porcentaje debe estar entre 0 y 100.");
                 MessageBox.Show("El porcentaje debe estar entre 0 y 100.");
                 txtPorcentaje.Focus();
                 return false;
@@ -253,6 +276,7 @@ namespace Vista
 
             if (dtpFecha.Value.Date > DateTime.Today)
             {
+                errorProviderValidacion.SetError(dtpFecha, "La fecha no puede ser futura.");
                 MessageBox.Show("La fecha de registro no puede ser futura.");
                 dtpFecha.Focus();
                 return false;
@@ -260,6 +284,7 @@ namespace Vista
 
             if (string.IsNullOrEmpty(txtDescripcion.Text.Trim()) == true)
             {
+                errorProviderValidacion.SetError(txtDescripcion, "Ingrese la descripción del avance.");
                 MessageBox.Show("Ingrese la descripción del avance.");
                 txtDescripcion.Focus();
                 return false;

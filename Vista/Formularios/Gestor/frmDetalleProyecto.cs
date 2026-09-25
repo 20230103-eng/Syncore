@@ -8,6 +8,8 @@ namespace Vista
 {
     public partial class frmDetalleProyecto : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private Proyecto proyectoModelo;
         private IndicadorTarea indicadorTareaModelo;
         private Hito hitoModelo;
@@ -29,6 +31,13 @@ namespace Vista
         public frmDetalleProyecto()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnVolverListado, "Volver al listado de proyectos.");
+            toolTipAyuda.SetToolTip(btnEditarProyecto, "Editar la información del proyecto.");
+            toolTipAyuda.SetToolTip(btnEquipoTrabajo, "Abrir el equipo de trabajo del proyecto.");
+            toolTipAyuda.SetToolTip(btnCerrarProyecto, "Cerrar el proyecto.");
+            toolTipAyuda.SetToolTip(dgvHitos, "Muestra los hitos disponibles.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
         }
 
         private void frmDetalleProyecto_Load(object sender, EventArgs e)

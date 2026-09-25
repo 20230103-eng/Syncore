@@ -1,0 +1,228 @@
+﻿namespace Vista
+{
+    partial class frmPerfil
+    {
+        private System.ComponentModel.IContainer components = null;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Código generado por el Diseñador de Windows Forms
+
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.pnlEncabezado = new System.Windows.Forms.Panel();
+            this.lblSubtitulo = new System.Windows.Forms.Label();
+            this.lblTitulo = new System.Windows.Forms.Label();
+            this.tlpPrincipal = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlTarjeta = new System.Windows.Forms.Panel();
+            this.btnCerrarSesion = new System.Windows.Forms.Button();
+            this.btnCambiarContrasena = new System.Windows.Forms.Button();
+            this.lblRolValor = new System.Windows.Forms.Label();
+            this.lblRol = new System.Windows.Forms.Label();
+            this.lblUsuarioValor = new System.Windows.Forms.Label();
+            this.lblUsuario = new System.Windows.Forms.Label();
+            this.lblNombreValor = new System.Windows.Forms.Label();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.lblDatosCuenta = new System.Windows.Forms.Label();
+            this.picUsuario = new System.Windows.Forms.PictureBox();
+            this.pnlEncabezado.SuspendLayout();
+            this.tlpPrincipal.SuspendLayout();
+            this.pnlTarjeta.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picUsuario)).BeginInit();
+            this.SuspendLayout();
+            this.pnlEncabezado.BackColor = System.Drawing.Color.White;
+            this.pnlEncabezado.Controls.Add(this.lblSubtitulo);
+            this.pnlEncabezado.Controls.Add(this.lblTitulo);
+            this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlEncabezado.Location = new System.Drawing.Point(0, 0);
+            this.pnlEncabezado.Name = "pnlEncabezado";
+            this.pnlEncabezado.Padding = new System.Windows.Forms.Padding(32, 18, 32, 12);
+            this.pnlEncabezado.Size = new System.Drawing.Size(1670, 82);
+            this.pnlEncabezado.TabIndex = 0;
+            this.lblSubtitulo.AutoSize = true;
+            this.lblSubtitulo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblSubtitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(108)))), ((int)(((byte)(128)))));
+            this.lblSubtitulo.Location = new System.Drawing.Point(35, 50);
+            this.lblSubtitulo.Name = "lblSubtitulo";
+            this.lblSubtitulo.Size = new System.Drawing.Size(266, 15);
+            this.lblSubtitulo.TabIndex = 1;
+            this.lblSubtitulo.Text = "Información del usuario que tiene la sesión activa";
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI Semibold", 20F, System.Drawing.FontStyle.Bold);
+            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblTitulo.Location = new System.Drawing.Point(31, 14);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(123, 37);
+            this.lblTitulo.TabIndex = 0;
+            this.lblTitulo.Text = "Mi perfil";
+            this.tlpPrincipal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
+            this.tlpPrincipal.ColumnCount = 3;
+            this.tlpPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17F));
+            this.tlpPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66F));
+            this.tlpPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17F));
+            this.tlpPrincipal.Controls.Add(this.pnlTarjeta, 1, 1);
+            this.tlpPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpPrincipal.Location = new System.Drawing.Point(0, 82);
+            this.tlpPrincipal.Name = "tlpPrincipal";
+            this.tlpPrincipal.RowCount = 3;
+            this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 360F));
+            this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpPrincipal.Size = new System.Drawing.Size(1670, 979);
+            this.tlpPrincipal.TabIndex = 1;
+            this.pnlTarjeta.BackColor = System.Drawing.Color.White;
+            this.pnlTarjeta.Controls.Add(this.btnCambiarContrasena);
+            this.pnlTarjeta.Controls.Add(this.btnCerrarSesion);
+            this.pnlTarjeta.Controls.Add(this.lblRolValor);
+            this.pnlTarjeta.Controls.Add(this.lblRol);
+            this.pnlTarjeta.Controls.Add(this.lblUsuarioValor);
+            this.pnlTarjeta.Controls.Add(this.lblUsuario);
+            this.pnlTarjeta.Controls.Add(this.lblNombreValor);
+            this.pnlTarjeta.Controls.Add(this.lblNombre);
+            this.pnlTarjeta.Controls.Add(this.lblDatosCuenta);
+            this.pnlTarjeta.Controls.Add(this.picUsuario);
+            this.pnlTarjeta.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTarjeta.Location = new System.Drawing.Point(296, 70);
+            this.pnlTarjeta.Margin = new System.Windows.Forms.Padding(12, 18, 12, 18);
+            this.pnlTarjeta.Name = "pnlTarjeta";
+            this.pnlTarjeta.Padding = new System.Windows.Forms.Padding(34, 28, 34, 28);
+            this.pnlTarjeta.Size = new System.Drawing.Size(1078, 324);
+            this.pnlTarjeta.TabIndex = 0;
+            this.btnCambiarContrasena.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCambiarContrasena.BackColor = System.Drawing.Color.White;
+            this.btnCambiarContrasena.Click += new System.EventHandler(this.btnCambiarContrasena_Click);
+            this.btnCambiarContrasena.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCambiarContrasena.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(105)))), ((int)(((byte)(240)))));
+            this.btnCambiarContrasena.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCambiarContrasena.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btnCambiarContrasena.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(105)))), ((int)(((byte)(240)))));
+            this.btnCambiarContrasena.Location = new System.Drawing.Point(662, 250);
+            this.btnCambiarContrasena.Name = "btnCambiarContrasena";
+            this.btnCambiarContrasena.Size = new System.Drawing.Size(190, 46);
+            this.btnCambiarContrasena.TabIndex = 9;
+            this.btnCambiarContrasena.Text = "Cambiar contraseña";
+            this.btnCambiarContrasena.UseVisualStyleBackColor = false;
+            this.btnCerrarSesion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCerrarSesion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
+            this.btnCerrarSesion.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCerrarSesion.FlatAppearance.BorderSize = 0;
+            this.btnCerrarSesion.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
+            this.btnCerrarSesion.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(76)))), ((int)(((byte)(132)))));
+            this.btnCerrarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCerrarSesion.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.btnCerrarSesion.ForeColor = System.Drawing.Color.White;
+            this.btnCerrarSesion.Location = new System.Drawing.Point(864, 250);
+            this.btnCerrarSesion.Name = "btnCerrarSesion";
+            this.btnCerrarSesion.Size = new System.Drawing.Size(180, 46);
+            this.btnCerrarSesion.TabIndex = 8;
+            this.btnCerrarSesion.Text = "Cerrar Sesión";
+            this.btnCerrarSesion.UseVisualStyleBackColor = false;
+            this.lblRolValor.AutoSize = true;
+            this.lblRolValor.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.lblRolValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblRolValor.Location = new System.Drawing.Point(248, 207);
+            this.lblRolValor.Name = "lblRolValor";
+            this.lblRolValor.Size = new System.Drawing.Size(48, 20);
+            this.lblRolValor.TabIndex = 7;
+            this.lblRolValor.Text = "Gestor";
+            this.lblRol.AutoSize = true;
+            this.lblRol.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblRol.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(108)))), ((int)(((byte)(128)))));
+            this.lblRol.Location = new System.Drawing.Point(248, 188);
+            this.lblRol.Name = "lblRol";
+            this.lblRol.Size = new System.Drawing.Size(24, 15);
+            this.lblRol.TabIndex = 6;
+            this.lblRol.Text = "Rol";
+            this.lblUsuarioValor.AutoSize = true;
+            this.lblUsuarioValor.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.lblUsuarioValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblUsuarioValor.Location = new System.Drawing.Point(248, 146);
+            this.lblUsuarioValor.Name = "lblUsuarioValor";
+            this.lblUsuarioValor.Size = new System.Drawing.Size(60, 20);
+            this.lblUsuarioValor.TabIndex = 5;
+            this.lblUsuarioValor.Text = "usuario";
+            this.lblUsuario.AutoSize = true;
+            this.lblUsuario.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(108)))), ((int)(((byte)(128)))));
+            this.lblUsuario.Location = new System.Drawing.Point(248, 127);
+            this.lblUsuario.Name = "lblUsuario";
+            this.lblUsuario.Size = new System.Drawing.Size(47, 15);
+            this.lblUsuario.TabIndex = 4;
+            this.lblUsuario.Text = "Usuario";
+            this.lblNombreValor.AutoSize = true;
+            this.lblNombreValor.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.lblNombreValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
+            this.lblNombreValor.Location = new System.Drawing.Point(248, 84);
+            this.lblNombreValor.Name = "lblNombreValor";
+            this.lblNombreValor.Size = new System.Drawing.Size(138, 21);
+            this.lblNombreValor.TabIndex = 3;
+            this.lblNombreValor.Text = "Nombre completo";
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(108)))), ((int)(((byte)(128)))));
+            this.lblNombre.Location = new System.Drawing.Point(248, 65);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(104, 15);
+            this.lblNombre.TabIndex = 2;
+            this.lblNombre.Text = "Nombre completo";
+            this.lblDatosCuenta.AutoSize = true;
+            this.lblDatosCuenta.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold);
+            this.lblDatosCuenta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(95)))), ((int)(((byte)(173)))));
+            this.lblDatosCuenta.Location = new System.Drawing.Point(248, 27);
+            this.lblDatosCuenta.Name = "lblDatosCuenta";
+            this.lblDatosCuenta.Size = new System.Drawing.Size(156, 25);
+            this.lblDatosCuenta.TabIndex = 1;
+            this.lblDatosCuenta.Text = "Datos de la cuenta";
+            this.picUsuario.Image = global::Vista.Properties.Recursos.AvatarUsuario;
+            this.picUsuario.Location = new System.Drawing.Point(50, 55);
+            this.picUsuario.Name = "picUsuario";
+            this.picUsuario.Size = new System.Drawing.Size(150, 150);
+            this.picUsuario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picUsuario.TabIndex = 0;
+            this.picUsuario.TabStop = false;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
+            this.ClientSize = new System.Drawing.Size(1670, 1061);
+            this.Controls.Add(this.tlpPrincipal);
+            this.Controls.Add(this.pnlEncabezado);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Name = "frmPerfil";
+            this.Text = "Perfil";
+            this.pnlEncabezado.ResumeLayout(false);
+            this.pnlEncabezado.PerformLayout();
+            this.tlpPrincipal.ResumeLayout(false);
+            this.pnlTarjeta.ResumeLayout(false);
+            this.pnlTarjeta.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picUsuario)).EndInit();
+            this.ResumeLayout(false);
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Panel pnlEncabezado;
+        private System.Windows.Forms.Label lblSubtitulo;
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.TableLayoutPanel tlpPrincipal;
+        private System.Windows.Forms.Panel pnlTarjeta;
+        private System.Windows.Forms.Button btnCerrarSesion;
+        private System.Windows.Forms.Button btnCambiarContrasena;
+        private System.Windows.Forms.Label lblRolValor;
+        private System.Windows.Forms.Label lblRol;
+        private System.Windows.Forms.Label lblUsuarioValor;
+        private System.Windows.Forms.Label lblUsuario;
+        private System.Windows.Forms.Label lblNombreValor;
+        private System.Windows.Forms.Label lblNombre;
+        private System.Windows.Forms.Label lblDatosCuenta;
+        private System.Windows.Forms.PictureBox picUsuario;
+    }
+}

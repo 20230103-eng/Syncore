@@ -10,6 +10,8 @@ namespace Vista
 {
     public partial class frmCalendario : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private Agenda agendaModelo;
         private Proyecto proyectoModelo;
         private List<UCCeldaCalendario> celdas;
@@ -23,6 +25,13 @@ namespace Vista
         public frmCalendario()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnAnterior, "Mostrar el período anterior.");
+            toolTipAyuda.SetToolTip(btnSiguiente, "Mostrar el período siguiente.");
+            toolTipAyuda.SetToolTip(cboVista, "Seleccione tipo de vista.");
+            toolTipAyuda.SetToolTip(cboProyecto, "Seleccione proyecto.");
+            toolTipAyuda.SetToolTip(cboTipo, "Seleccione tipo.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             lblFecha.Text = DateTime.Today.ToString("dd/MM/yyyy");
             agendaModelo = new Agenda();
             proyectoModelo = new Proyecto();

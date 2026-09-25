@@ -6,6 +6,8 @@ namespace Vista
 {
     public partial class UCEstadoTarea : UserControl
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private int avance = 60;
 
         public event EventHandler AccionSolicitada;
@@ -13,6 +15,8 @@ namespace Vista
         public UCEstadoTarea()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnAccion, "Ejecutar la acción disponible.");
             btnAccion.Click += btnAccion_Click;
         }
 

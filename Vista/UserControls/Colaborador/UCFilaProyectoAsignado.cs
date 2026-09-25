@@ -6,6 +6,8 @@ namespace Vista
 {
     public partial class UCFilaProyectoAsignado : UserControl
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private int avance;
 
         public event EventHandler MisTareasSolicitadas;
@@ -15,6 +17,8 @@ namespace Vista
         public UCFilaProyectoAsignado()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnMisTareas, "Abrir las tareas de este proyecto.");
             pnlAvanceFondo.SizeChanged += pnlAvanceFondo_SizeChanged;
         }
 

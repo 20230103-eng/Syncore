@@ -7,6 +7,8 @@ namespace Vista
 {
     public partial class frmListadoProyectos : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private Proyecto proyectoModelo;
         private DataTable proyectosOriginales;
         private bool cargandoFiltros;
@@ -20,6 +22,15 @@ namespace Vista
         public frmListadoProyectos()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnNuevoProyecto, "Crear un nuevo proyecto.");
+            toolTipAyuda.SetToolTip(txtBuscar, "Escriba el texto que desea buscar.");
+            toolTipAyuda.SetToolTip(cmbEstado, "Seleccione estado.");
+            toolTipAyuda.SetToolTip(cmbArea, "Seleccione área.");
+            toolTipAyuda.SetToolTip(cmbResponsable, "Seleccione responsable.");
+            toolTipAyuda.SetToolTip(cmbPrioridad, "Seleccione prioridad.");
+            toolTipAyuda.SetToolTip(cmbTipo, "Seleccione tipo.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             btnNuevoProyecto.Click += btnNuevoProyecto_Click;
         }
 

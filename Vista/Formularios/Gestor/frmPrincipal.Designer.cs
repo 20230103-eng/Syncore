@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlContenido = new System.Windows.Forms.Panel();
             this.pnlSideNav = new System.Windows.Forms.Panel();
             this.pnlMenu = new System.Windows.Forms.Panel();
@@ -50,7 +51,7 @@
             this.lblInicio = new System.Windows.Forms.Label();
             this.pnlUsuario = new System.Windows.Forms.Panel();
             this.pnlTarjetaUsuario = new System.Windows.Forms.Panel();
-            this.btnCerrarSesion = new System.Windows.Forms.Button();
+            this.btnPerfil = new System.Windows.Forms.Button();
             this.lblRolUsuario = new System.Windows.Forms.Label();
             this.lblNombreUsuario = new System.Windows.Forms.Label();
             this.picUsuario = new System.Windows.Forms.PictureBox();
@@ -457,7 +458,7 @@
             // pnlTarjetaUsuario
             // 
             this.pnlTarjetaUsuario.BackColor = System.Drawing.Color.Transparent;
-            this.pnlTarjetaUsuario.Controls.Add(this.btnCerrarSesion);
+            this.pnlTarjetaUsuario.Controls.Add(this.btnPerfil);
             this.pnlTarjetaUsuario.Controls.Add(this.lblRolUsuario);
             this.pnlTarjetaUsuario.Controls.Add(this.lblNombreUsuario);
             this.pnlTarjetaUsuario.Controls.Add(this.picUsuario);
@@ -467,41 +468,44 @@
             this.pnlTarjetaUsuario.Size = new System.Drawing.Size(224, 48);
             this.pnlTarjetaUsuario.TabIndex = 0;
             // 
-            // btnCerrarSesion
             // 
-            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
-            this.btnCerrarSesion.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCerrarSesion.FlatAppearance.BorderSize = 0;
-            this.btnCerrarSesion.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
-            this.btnCerrarSesion.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
-            this.btnCerrarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrarSesion.Image = global::Vista.Properties.Recursos.IconoSalir;
-            this.btnCerrarSesion.Location = new System.Drawing.Point(184, 8);
-            this.btnCerrarSesion.MinimumSize = new System.Drawing.Size(24, 24);
-            this.btnCerrarSesion.Name = "btnCerrarSesion";
-            this.btnCerrarSesion.Size = new System.Drawing.Size(32, 32);
-            this.btnCerrarSesion.TabIndex = 3;
-            this.btnCerrarSesion.UseVisualStyleBackColor = true;
+            this.btnPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(47)))), ((int)(((byte)(99)))));
+            this.btnPerfil.Click += new System.EventHandler(this.btnPerfil_Click);
+            this.btnPerfil.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPerfil.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(169)))), ((int)(((byte)(225)))));
+            this.btnPerfil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
+            this.btnPerfil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(57)))), ((int)(((byte)(112)))));
+            this.btnPerfil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPerfil.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.btnPerfil.ForeColor = System.Drawing.Color.White;
+            this.btnPerfil.Location = new System.Drawing.Point(158, 9);
+            this.btnPerfil.Name = "btnPerfil";
+            this.btnPerfil.Size = new System.Drawing.Size(58, 30);
+            this.btnPerfil.TabIndex = 3;
+            this.btnPerfil.Text = "Perfil";
+            this.btnPerfil.UseVisualStyleBackColor = false;
             // 
             // lblRolUsuario
             // 
-            this.lblRolUsuario.AutoSize = true;
+            this.lblRolUsuario.AutoEllipsis = true;
+            this.lblRolUsuario.AutoSize = false;
             this.lblRolUsuario.Font = new System.Drawing.Font("Segoe UI", 7.5F);
             this.lblRolUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(193)))), ((int)(((byte)(211)))), ((int)(((byte)(232)))));
-            this.lblRolUsuario.Location = new System.Drawing.Point(40, 25);
+            this.lblRolUsuario.Location = new System.Drawing.Point(40, 24);
             this.lblRolUsuario.Name = "lblRolUsuario";
-            this.lblRolUsuario.Size = new System.Drawing.Size(98, 12);
+            this.lblRolUsuario.Size = new System.Drawing.Size(112, 16);
             this.lblRolUsuario.TabIndex = 2;
             this.lblRolUsuario.Text = "Gestor";
             // 
             // lblNombreUsuario
             // 
-            this.lblNombreUsuario.AutoSize = true;
+            this.lblNombreUsuario.AutoEllipsis = true;
+            this.lblNombreUsuario.AutoSize = false;
             this.lblNombreUsuario.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblNombreUsuario.ForeColor = System.Drawing.Color.White;
-            this.lblNombreUsuario.Location = new System.Drawing.Point(40, 9);
+            this.lblNombreUsuario.Location = new System.Drawing.Point(40, 7);
             this.lblNombreUsuario.Name = "lblNombreUsuario";
-            this.lblNombreUsuario.Size = new System.Drawing.Size(62, 15);
+            this.lblNombreUsuario.Size = new System.Drawing.Size(112, 18);
             this.lblNombreUsuario.TabIndex = 1;
             this.lblNombreUsuario.Text = "Juan Pérez";
             // 
@@ -554,6 +558,7 @@
             this.Controls.Add(this.pnlContenido);
             this.Controls.Add(this.pnlSideNav);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPrincipal_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmPrincipal_FormClosed);
             this.Load += new System.EventHandler(this.frmPrincipal_Load);
             this.MinimumSize = new System.Drawing.Size(1200, 700);
@@ -597,7 +602,7 @@
         private System.Windows.Forms.Label lblInicio;
         private System.Windows.Forms.Panel pnlUsuario;
         private System.Windows.Forms.Panel pnlTarjetaUsuario;
-        private System.Windows.Forms.Button btnCerrarSesion;
+        private System.Windows.Forms.Button btnPerfil;
         private System.Windows.Forms.Label lblRolUsuario;
         private System.Windows.Forms.Label lblNombreUsuario;
         private System.Windows.Forms.PictureBox picUsuario;

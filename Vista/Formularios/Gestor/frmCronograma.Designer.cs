@@ -16,6 +16,7 @@
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle encabezado = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle filas = new System.Windows.Forms.DataGridViewCellStyle();
             encabezado.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
@@ -50,6 +51,7 @@
             this.lblCantidad = new System.Windows.Forms.Label();
             this.pnlTabla = new System.Windows.Forms.Panel();
             this.dgvCronograma = new System.Windows.Forms.DataGridView();
+            this.ucPaginador = new Vista.UCPaginadorGrid();
             this.pnlTop.SuspendLayout();
             this.pnlContenido.SuspendLayout();
             this.tlpPrincipal.SuspendLayout();
@@ -239,6 +241,7 @@
             this.pnlTabla.BackColor = System.Drawing.Color.White;
             this.pnlTabla.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTabla.Controls.Add(this.dgvCronograma);
+            this.pnlTabla.Controls.Add(this.ucPaginador);
             this.pnlTabla.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // dgvCronograma
@@ -260,6 +263,15 @@
             this.dgvCronograma.RowsDefaultCellStyle = filas;
             this.dgvCronograma.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             // 
+            //
+            //
+            this.ucPaginador.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginador.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginador.Margin = new System.Windows.Forms.Padding(0);
+            this.ucPaginador.Name = "ucPaginador";
+            this.ucPaginador.Size = new System.Drawing.Size(800, 42);
+            this.ucPaginador.TabIndex = 20;
+            this.ucPaginador.Visible = false;
             // frmCronograma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -307,5 +319,6 @@
         private System.Windows.Forms.Label lblCantidad;
         private System.Windows.Forms.Panel pnlTabla;
         private System.Windows.Forms.DataGridView dgvCronograma;
+        private Vista.UCPaginadorGrid ucPaginador;
     }
 }

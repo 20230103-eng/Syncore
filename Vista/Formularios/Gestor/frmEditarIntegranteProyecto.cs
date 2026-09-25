@@ -7,6 +7,9 @@ namespace Vista
 {
     public partial class frmEditarIntegranteProyecto : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+        private System.Windows.Forms.ErrorProvider errorProviderValidacion;
+
         private RolProyecto rolProyectoModelo;
 
         public int IdEquipo { get; set; }
@@ -16,6 +19,14 @@ namespace Vista
         public frmEditarIntegranteProyecto()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            errorProviderValidacion = new System.Windows.Forms.ErrorProvider(this.components);
+            errorProviderValidacion.ContainerControl = this;
+            errorProviderValidacion.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            toolTipAyuda.SetToolTip(cboRol, "Seleccione rol.");
+            toolTipAyuda.SetToolTip(btnCancelar, "Cancelar la operación actual.");
+            toolTipAyuda.SetToolTip(btnGuardar, "Guardar la información ingresada.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
         }
 
         private void frmEditarIntegranteProyecto_Load(object sender, EventArgs e)
@@ -41,8 +52,11 @@ namespace Vista
             EquipoProyecto integrante;
             bool actualizado;
 
+            errorProviderValidacion.Clear();
+
             if (cboRol.SelectedValue == null)
             {
+                errorProviderValidacion.SetError(cboRol, "Seleccione el rol del integrante.");
                 MessageBox.Show("Seleccione el rol del integrante.");
                 cboRol.Focus();
                 return;

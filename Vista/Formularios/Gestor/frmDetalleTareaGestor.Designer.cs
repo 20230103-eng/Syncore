@@ -17,6 +17,7 @@ namespace Vista
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.lblFecha = new System.Windows.Forms.Label();
             this.lblBreadcrumbActual = new System.Windows.Forms.Label();

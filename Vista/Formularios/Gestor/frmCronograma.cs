@@ -9,6 +9,8 @@ namespace Vista
 {
     public partial class frmCronograma : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private Proyecto proyectoModelo;
         private Cronograma cronogramaModelo;
         private DataTable cronogramaOriginal;
@@ -17,6 +19,16 @@ namespace Vista
         public frmCronograma()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(cboProyecto, "Seleccione proyecto.");
+            toolTipAyuda.SetToolTip(dtpDesde, "Seleccione fecha inicial.");
+            toolTipAyuda.SetToolTip(dtpHasta, "Seleccione fecha final.");
+            toolTipAyuda.SetToolTip(cboTipo, "Seleccione tipo.");
+            toolTipAyuda.SetToolTip(btnActualizar, "Actualizar la información.");
+            toolTipAyuda.SetToolTip(dgvCronograma, "Muestra los registros del cronograma.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
+
+            ucPaginador.Tabla = dgvCronograma;
             proyectoModelo = new Proyecto();
             cronogramaModelo = new Cronograma();
             cronogramaOriginal = new DataTable();
@@ -125,7 +137,7 @@ namespace Vista
                 }
             }
 
-            dgvCronograma.DataSource = resultado;
+            ucPaginador.Mostrar(resultado);
             ConfigurarTabla();
             lblCantidad.Text = resultado.Rows.Count.ToString() + " elemento(s)";
         }

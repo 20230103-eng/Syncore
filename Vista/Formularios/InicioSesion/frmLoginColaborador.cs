@@ -9,12 +9,25 @@ namespace Vista
 {
     public partial class frmLoginColaborador : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+        private System.Windows.Forms.ErrorProvider errorProviderValidacion;
+
         private Usuario usuarioModelo;
         private string rutaUsuarioRecordado;
 
         public frmLoginColaborador()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            errorProviderValidacion = new System.Windows.Forms.ErrorProvider(this.components);
+            errorProviderValidacion.ContainerControl = this;
+            errorProviderValidacion.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            toolTipAyuda.SetToolTip(txtUsuario, "Ingrese nombre de usuario.");
+            toolTipAyuda.SetToolTip(txtContrasena, "Ingrese contraseña.");
+            toolTipAyuda.SetToolTip(chkRecordar, "Active esta opción para recordar el nombre de usuario.");
+            toolTipAyuda.SetToolTip(btnCancelar, "Cancelar la operación actual.");
+            toolTipAyuda.SetToolTip(btnIngresar, "Iniciar sesión con las credenciales ingresadas.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             usuarioModelo = new Usuario();
             rutaUsuarioRecordado = Application.UserAppDataPath + "\\usuario_colaborador.txt";
             CargarUsuarioRecordado();
@@ -24,6 +37,18 @@ namespace Vista
         {
             string nombreUsuario = txtUsuario.Text.Trim();
             string contrasena = txtContrasena.Text;
+
+            errorProviderValidacion.Clear();
+
+            if (string.IsNullOrEmpty(nombreUsuario) == true)
+            {
+                errorProviderValidacion.SetError(txtUsuario, "Ingrese el nombre de usuario.");
+            }
+
+            if (string.IsNullOrEmpty(contrasena) == true)
+            {
+                errorProviderValidacion.SetError(txtContrasena, "Ingrese la contraseña.");
+            }
 
             if (string.IsNullOrEmpty(nombreUsuario) == true || string.IsNullOrEmpty(contrasena) == true)
             {

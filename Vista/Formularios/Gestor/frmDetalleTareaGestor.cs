@@ -10,6 +10,9 @@ namespace Vista
 {
     public partial class frmDetalleTareaGestor : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+        private System.Windows.Forms.ErrorProvider errorProviderValidacion;
+
         private int idTarea;
         private Tarea tareaModelo;
         private Avance avanceModelo;
@@ -40,6 +43,14 @@ namespace Vista
         public frmDetalleTareaGestor(int idTarea)
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            errorProviderValidacion = new System.Windows.Forms.ErrorProvider(this.components);
+            errorProviderValidacion.ContainerControl = this;
+            errorProviderValidacion.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            toolTipAyuda.SetToolTip(btnVolver, "Volver a la pantalla anterior.");
+            toolTipAyuda.SetToolTip(txtNuevoComentario, "Ingrese nuevo comentario.");
+            toolTipAyuda.SetToolTip(btnEnviarComentario, "Enviar el comentario escrito.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             lblFecha.Text = System.DateTime.Today.ToString("dd/MM/yyyy");
             this.idTarea = idTarea;
             tareaModelo = new Tarea();
@@ -395,8 +406,11 @@ namespace Vista
         {
             string comentario = txtNuevoComentario.Text.Trim();
 
+            errorProviderValidacion.Clear();
+
             if (string.IsNullOrEmpty(comentario) == true)
             {
+                errorProviderValidacion.SetError(txtNuevoComentario, "Escriba un comentario antes de enviarlo.");
                 MessageBox.Show("Escribe un comentario.", "Comentario", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }

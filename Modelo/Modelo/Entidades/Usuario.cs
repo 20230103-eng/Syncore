@@ -525,5 +525,232 @@ namespace Modelo.Modelo.Entidades
 
             return false;
         }
+        public bool ExisteGestorActivo()
+        {
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int cantidad;
+
+            query = @"
+            SELECT COUNT(*)
+            FROM tbUsuario
+            INNER JOIN tbTipoUsuario ON tbUsuario.IdTipoUsuario = tbTipoUsuario.IdTipoUsuario
+            WHERE tbTipoUsuario.Nombre = N'Gestor'
+            AND tbUsuario.Activo = 1";
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return false;
+            }
+
+            cantidad = 0;
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                resultado = comando.ExecuteScalar();
+
+                if (resultado != null)
+                {
+                    cantidad = Convert.ToInt32(resultado);
+                }
+
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+                return false;
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            if (cantidad > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public int ObtenerIdTipoUsuario(string nombreTipoUsuario)
+        {
+            string query;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int idTipo;
+
+            query = @"
+            SELECT IdTipoUsuario
+            FROM tbTipoUsuario
+            WHERE Nombre = @Nombre";
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return 0;
+            }
+
+            idTipo = 0;
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@Nombre", nombreTipoUsuario);
+                resultado = comando.ExecuteScalar();
+
+                if (resultado != null)
+                {
+                    idTipo = Convert.ToInt32(resultado);
+                }
+
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            return idTipo;
+        }
+
+        public bool RestablecerContrasenaTemporal(string claveTemporal)
+        {
+            string query;
+            string hash;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            int filas;
+
+            hash = BCrypt.Net.BCrypt.HashPassword(claveTemporal);
+            query = @"
+            UPDATE tbUsuario
+            SET Contrasena = @Contrasena
+            WHERE IdUsuario = @IdUsuario";
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return false;
+            }
+
+            filas = 0;
+
+            try
+            {
+                comando = new SqlCommand(query, conexionSql);
+                comando.Parameters.AddWithValue("@Contrasena", hash);
+                comando.Parameters.AddWithValue("@IdUsuario", this.IdUsuario);
+                filas = comando.ExecuteNonQuery();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            if (filas > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool CambiarContrasena(int idUsuario, string contrasenaActual, string nuevaContrasena)
+        {
+            string queryConsulta;
+            string queryActualizar;
+            string contrasenaGuardada;
+            string hashNuevo;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            object resultado;
+            int filas;
+
+            queryConsulta = @"
+            SELECT Contrasena
+            FROM tbUsuario
+            WHERE IdUsuario = @IdUsuario
+            AND Activo = 1";
+
+            queryActualizar = @"
+            UPDATE tbUsuario
+            SET Contrasena = @Contrasena
+            WHERE IdUsuario = @IdUsuario";
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return false;
+            }
+
+            filas = 0;
+
+            try
+            {
+                comando = new SqlCommand(queryConsulta, conexionSql);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado == null)
+                {
+                    return false;
+                }
+
+                contrasenaGuardada = resultado.ToString();
+
+                if (BCrypt.Net.BCrypt.Verify(contrasenaActual, contrasenaGuardada) == false)
+                {
+                    return false;
+                }
+
+                hashNuevo = BCrypt.Net.BCrypt.HashPassword(nuevaContrasena);
+                comando = new SqlCommand(queryActualizar, conexionSql);
+                comando.Parameters.AddWithValue("@Contrasena", hashNuevo);
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                filas = comando.ExecuteNonQuery();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+
+            if (filas > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

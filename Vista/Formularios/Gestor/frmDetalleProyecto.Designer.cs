@@ -18,6 +18,7 @@
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle encabezadoHitos = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle filasHitos = new System.Windows.Forms.DataGridViewCellStyle();
             encabezadoHitos.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;

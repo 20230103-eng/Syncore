@@ -17,6 +17,7 @@
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.lblFechaSuperior = new System.Windows.Forms.Label();
             this.lblBreadcrumbActual = new System.Windows.Forms.Label();
@@ -32,17 +33,14 @@
             this.lblFiltrar = new System.Windows.Forms.Label();
             this.cboTipo = new System.Windows.Forms.ComboBox();
             this.cboPrioridad = new System.Windows.Forms.ComboBox();
-            this.flpNotificaciones = new System.Windows.Forms.FlowLayoutPanel();
-            this.notificacion1 = new Vista.UCNotificacion();
-            this.notificacion2 = new Vista.UCNotificacion();
-            this.notificacion3 = new Vista.UCNotificacion();
+            this.tlpNotificaciones = new System.Windows.Forms.TableLayoutPanel();
             this.pnlTop.SuspendLayout();
             this.pnlViewport.SuspendLayout();
             this.tlpPrincipal.SuspendLayout();
             this.tlpCabecera.SuspendLayout();
             this.pnlTitulos.SuspendLayout();
             this.tlpFiltros.SuspendLayout();
-            this.flpNotificaciones.SuspendLayout();
+            this.tlpNotificaciones.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlTop
@@ -106,21 +104,20 @@
             // 
             // tlpPrincipal
             // 
-            this.tlpPrincipal.AutoSize = true;
-            this.tlpPrincipal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tlpPrincipal.AutoSize = false;
             this.tlpPrincipal.ColumnCount = 1;
             this.tlpPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPrincipal.Controls.Add(this.tlpCabecera, 0, 0);
             this.tlpPrincipal.Controls.Add(this.tlpFiltros, 0, 1);
-            this.tlpPrincipal.Controls.Add(this.flpNotificaciones, 0, 2);
+            this.tlpPrincipal.Controls.Add(this.tlpNotificaciones, 0, 2);
             this.tlpPrincipal.Dock = System.Windows.Forms.DockStyle.Top;
             this.tlpPrincipal.Location = new System.Drawing.Point(24, 24);
             this.tlpPrincipal.Name = "tlpPrincipal";
             this.tlpPrincipal.RowCount = 3;
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 76F));
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.tlpPrincipal.Size = new System.Drawing.Size(1622, 517);
+            this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpPrincipal.Size = new System.Drawing.Size(1622, 196);
             this.tlpPrincipal.TabIndex = 0;
             // 
             // tlpCabecera
@@ -256,72 +253,19 @@
             this.cboPrioridad.Size = new System.Drawing.Size(230, 28);
             this.cboPrioridad.TabIndex = 2;
             // 
-            // flpNotificaciones
             // 
-            this.flpNotificaciones.AutoScroll = false;
-            this.flpNotificaciones.AutoSize = true;
-            this.flpNotificaciones.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flpNotificaciones.BackColor = System.Drawing.Color.Transparent;
-            this.flpNotificaciones.Controls.Add(this.notificacion3);
-            this.flpNotificaciones.Controls.Add(this.notificacion2);
-            this.flpNotificaciones.Controls.Add(this.notificacion1);
-            this.flpNotificaciones.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flpNotificaciones.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpNotificaciones.Location = new System.Drawing.Point(0, 126);
-            this.flpNotificaciones.Margin = new System.Windows.Forms.Padding(0);
-            this.flpNotificaciones.Name = "flpNotificaciones";
-            this.flpNotificaciones.Padding = new System.Windows.Forms.Padding(0);
-            this.flpNotificaciones.Size = new System.Drawing.Size(1622, 408);
-            this.flpNotificaciones.TabIndex = 2;
-            this.flpNotificaciones.WrapContents = false;
-            // 
-            // notificacion1
-            // 
-            this.notificacion1.Descripcion = "Esta tarea del proyecto “Proyecto 1” venció hoy. Actualiza el avance";
-            this.notificacion1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.notificacion1.Fecha = "Hoy, 08:00";
-            this.notificacion1.Leida = false;
-            this.notificacion1.Location = new System.Drawing.Point(0, 0);
-            this.notificacion1.Margin = new System.Windows.Forms.Padding(0);
-            this.notificacion1.Name = "notificacion1";
-            this.notificacion1.Size = new System.Drawing.Size(1622, 136);
-            this.notificacion1.TabIndex = 0;
-            this.notificacion1.TextoBotonPrincipal = "Ir a tarea";
-            this.notificacion1.TextoBotonSecundario = "Marcar leída";
-            this.notificacion1.TipoNotificacion = "Vencida";
-            this.notificacion1.Titulo = "Tarea vencida - “Nombre de la tarea”";
-            // 
-            // notificacion2
-            // 
-            this.notificacion2.Descripcion = "El coordinador J. Perez devolvió esta tarea con observación.";
-            this.notificacion2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.notificacion2.Fecha = "Hoy, 08:00";
-            this.notificacion2.Leida = false;
-            this.notificacion2.Location = new System.Drawing.Point(0, 133);
-            this.notificacion2.Margin = new System.Windows.Forms.Padding(0);
-            this.notificacion2.Name = "notificacion2";
-            this.notificacion2.Size = new System.Drawing.Size(1622, 136);
-            this.notificacion2.TabIndex = 1;
-            this.notificacion2.TextoBotonPrincipal = "Ir a tarea";
-            this.notificacion2.TextoBotonSecundario = "Marcar leída";
-            this.notificacion2.TipoNotificacion = "Devuelta";
-            this.notificacion2.Titulo = "Tarea devuelta - “Nombre de la tarea”";
-            // 
-            // notificacion3
-            // 
-            this.notificacion3.Descripcion = "Esta tarea del proyecto “Proyecto 1” venció hoy. Actualiza el avance";
-            this.notificacion3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.notificacion3.Fecha = "Hoy, 08:00";
-            this.notificacion3.Leida = false;
-            this.notificacion3.Location = new System.Drawing.Point(0, 266);
-            this.notificacion3.Margin = new System.Windows.Forms.Padding(0);
-            this.notificacion3.Name = "notificacion3";
-            this.notificacion3.Size = new System.Drawing.Size(1622, 136);
-            this.notificacion3.TabIndex = 2;
-            this.notificacion3.TextoBotonPrincipal = "Ir a tarea";
-            this.notificacion3.TextoBotonSecundario = "Marcar leída";
-            this.notificacion3.TipoNotificacion = "Vencida";
-            this.notificacion3.Titulo = "Tarea vencida - “Nombre de la tarea”";
+            this.tlpNotificaciones.AutoSize = false;
+            this.tlpNotificaciones.BackColor = System.Drawing.Color.Transparent;
+            this.tlpNotificaciones.ColumnCount = 1;
+            this.tlpNotificaciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpNotificaciones.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpNotificaciones.Location = new System.Drawing.Point(0, 126);
+            this.tlpNotificaciones.Margin = new System.Windows.Forms.Padding(0);
+            this.tlpNotificaciones.Name = "tlpNotificaciones";
+            this.tlpNotificaciones.RowCount = 1;
+            this.tlpNotificaciones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tlpNotificaciones.Size = new System.Drawing.Size(1622, 70);
+            this.tlpNotificaciones.TabIndex = 2;
             // 
             // frmNotificaciones
             // 
@@ -347,7 +291,7 @@
             this.pnlTitulos.PerformLayout();
             this.tlpFiltros.ResumeLayout(false);
             this.tlpFiltros.PerformLayout();
-            this.flpNotificaciones.ResumeLayout(false);
+            this.tlpNotificaciones.ResumeLayout(false);
             this.ResumeLayout(false);
         }
 
@@ -368,9 +312,6 @@
         private System.Windows.Forms.Label lblFiltrar;
         private System.Windows.Forms.ComboBox cboTipo;
         private System.Windows.Forms.ComboBox cboPrioridad;
-        private System.Windows.Forms.FlowLayoutPanel flpNotificaciones;
-        private Vista.UCNotificacion notificacion1;
-        private Vista.UCNotificacion notificacion2;
-        private Vista.UCNotificacion notificacion3;
+        private System.Windows.Forms.TableLayoutPanel tlpNotificaciones;
     }
 }

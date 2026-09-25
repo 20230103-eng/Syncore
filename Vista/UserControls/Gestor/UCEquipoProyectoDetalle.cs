@@ -7,6 +7,8 @@ namespace Vista
 {
     public partial class UCEquipoProyectoDetalle : UserControl
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private EquipoProyecto equipoModelo;
 
         public int IdProyecto { get; set; }
@@ -14,6 +16,8 @@ namespace Vista
         public UCEquipoProyectoDetalle()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnAgregar, "Agregar el elemento seleccionado.");
             equipoModelo = new EquipoProyecto();
         }
 

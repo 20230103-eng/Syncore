@@ -6,6 +6,8 @@ namespace Vista
 {
     public partial class UCTarjetaTarea : UserControl
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private int idTarea;
 
         public event EventHandler VerSolicitado;
@@ -13,6 +15,8 @@ namespace Vista
         public UCTarjetaTarea()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnVer, "Ver el detalle del registro.");
             btnVer.Click += btnVer_Click;
         }
 

@@ -8,6 +8,8 @@ namespace Vista
 {
     public partial class frmPrincipalColaborador : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private Form formularioActivo;
 
         public bool CerrarSesionSolicitada { get; private set; }
@@ -15,6 +17,16 @@ namespace Vista
         public frmPrincipalColaborador()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnCalendario, "Abrir el calendario.");
+            toolTipAyuda.SetToolTip(btnMiProductividad, "Abrir la sección de productividad personal.");
+            toolTipAyuda.SetToolTip(btnRegistrarAvance, "Registrar el avance de una tarea.");
+            toolTipAyuda.SetToolTip(btnTableroTareas, "Abrir el tablero de tareas.");
+            toolTipAyuda.SetToolTip(btnProyectosAsignados, "Abrir los proyectos asignados.");
+            toolTipAyuda.SetToolTip(btnNotificaciones, "Abrir las notificaciones.");
+            toolTipAyuda.SetToolTip(btnPanelPersonal, "Abrir el panel personal.");
+            toolTipAyuda.SetToolTip(btnPerfil, "Abrir el perfil del usuario.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
         }
 
         private void frmPrincipalColaborador_Load(object sender, EventArgs e)
@@ -468,11 +480,34 @@ namespace Vista
             boton.FlatAppearance.MouseDownBackColor = Color.FromArgb(8, 57, 112);
         }
 
-        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        private void btnPerfil_Click(object sender, EventArgs e)
+        {
+            MostrarPerfil();
+        }
+
+        private void MostrarPerfil()
+        {
+            frmPerfil formulario;
+
+            formulario = new frmPerfil();
+            formulario.CerrarSesionSolicitada += formularioPerfil_CerrarSesionSolicitada;
+            AbrirFormulario(formulario);
+        }
+
+        private void formularioPerfil_CerrarSesionSolicitada(object sender, EventArgs e)
         {
             CerrarSesionSolicitada = true;
             Sesion.CerrarSesion();
             this.Close();
+        }
+
+        private void frmPrincipalColaborador_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing && CerrarSesionSolicitada == false)
+            {
+                e.Cancel = true;
+                MessageBox.Show("Para salir del sistema utilice la opción Cerrar Sesión desde Perfil.", "Cerrar sesión", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void frmPrincipalColaborador_FormClosed(object sender, FormClosedEventArgs e)

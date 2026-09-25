@@ -9,6 +9,9 @@ namespace Vista
 {
     public partial class frmRevisionTareas : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+        private System.Windows.Forms.ErrorProvider errorProviderValidacion;
+
         private RevisionTarea revisionModelo;
         private DataTable revisionesOriginales;
         private int idRevisionSeleccionada;
@@ -27,6 +30,23 @@ namespace Vista
         public frmRevisionTareas()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            errorProviderValidacion = new System.Windows.Forms.ErrorProvider(this.components);
+            errorProviderValidacion.ContainerControl = this;
+            errorProviderValidacion.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            toolTipAyuda.SetToolTip(txtBuscar, "Escriba el texto que desea buscar.");
+            toolTipAyuda.SetToolTip(dgvRevisiones, "Muestra las revisiones disponibles.");
+            toolTipAyuda.SetToolTip(txtDescripcion, "Muestra descripción.");
+            toolTipAyuda.SetToolTip(txtObservaciones, "Muestra observaciones.");
+            toolTipAyuda.SetToolTip(txtUltimoAvance, "Muestra último avance.");
+            toolTipAyuda.SetToolTip(txtComentario, "Ingrese comentario.");
+            toolTipAyuda.SetToolTip(btnVerDetalle, "Ver el detalle del registro seleccionado.");
+            toolTipAyuda.SetToolTip(btnSolicitarCorreccion, "Solicitar correcciones para la tarea seleccionada.");
+            toolTipAyuda.SetToolTip(btnAprobar, "Aprobar la tarea seleccionada.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
+
+            ucPaginador.Tabla = dgvRevisiones;
+            ucPaginador.PaginaCambiada += ucPaginador_PaginaCambiada;
         }
 
         private void frmRevisionTareas_Load(object sender, EventArgs e)
@@ -110,7 +130,7 @@ namespace Vista
                 }
             }
 
-            dgvRevisiones.DataSource = filtradas;
+            ucPaginador.Mostrar(filtradas);
             PrepararColumnas();
 
             if (dgvRevisiones.Rows.Count > 0)
@@ -338,6 +358,8 @@ namespace Vista
             DialogResult respuesta;
             bool devuelta;
 
+            errorProviderValidacion.Clear();
+
             if (ValidarSeleccion() == false)
             {
                 return;
@@ -350,6 +372,7 @@ namespace Vista
 
             if (string.IsNullOrEmpty(txtComentario.Text.Trim()) == true)
             {
+                errorProviderValidacion.SetError(txtComentario, "Escriba la corrección solicitada.");
                 MessageBox.Show("Escriba la corrección que debe realizar el colaborador.");
                 txtComentario.Focus();
                 return;
@@ -426,5 +449,10 @@ namespace Vista
 
             return true;
         }
+        private void ucPaginador_PaginaCambiada(object sender, EventArgs e)
+        {
+            DeshabilitarDetalle();
+        }
+
     }
 }

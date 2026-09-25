@@ -10,11 +10,15 @@ C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\bin\Debug\Modelo.dll
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\bin\Debug\Modelo.pdb
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\bin\Debug\Modelo.dll.config
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.csproj.AssemblyReference.cache
+C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.UCPaginadorGrid.resources
+C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmReportes.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmSeleccionRol.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmLoginGestor.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmLoginColaborador.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmPanelPersonal.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmPrincipalColaborador.resources
+C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmCambiarContrasena.resources
+C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmConfiguracionInicial.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmCalendario.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmMiProductividad.resources
 C:\Users\marco\OneDrive\Escritorio\Syncore\Vista\obj\Debug\Vista.frmMisProyectosAsignados.resources

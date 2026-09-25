@@ -8,6 +8,8 @@ namespace Vista
 {
     public partial class frmPrincipal : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private Form formularioActivo;
 
         public bool CerrarSesionSolicitada { get; private set; }
@@ -15,6 +17,20 @@ namespace Vista
         public frmPrincipal()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnAdministracion, "Abrir la administración de usuarios.");
+            toolTipAyuda.SetToolTip(btnNotificacionesGestion, "Abrir las notificaciones.");
+            toolTipAyuda.SetToolTip(btnProductividad, "Abrir la sección de productividad.");
+            toolTipAyuda.SetToolTip(btnRevisionTareas, "Abrir la revisión de tareas.");
+            toolTipAyuda.SetToolTip(btnNuevaTarea, "Crear una nueva tarea.");
+            toolTipAyuda.SetToolTip(btnTableroTareas, "Abrir el tablero de tareas.");
+            toolTipAyuda.SetToolTip(btnCronograma, "Abrir el cronograma.");
+            toolTipAyuda.SetToolTip(btnHitosEntregables, "Abrir hitos y entregables.");
+            toolTipAyuda.SetToolTip(btnNuevoProyecto, "Crear un nuevo proyecto.");
+            toolTipAyuda.SetToolTip(btnListadoProyectos, "Abrir el listado de proyectos.");
+            toolTipAyuda.SetToolTip(btnPanelGestion, "Abrir el panel de gestión.");
+            toolTipAyuda.SetToolTip(btnPerfil, "Abrir el perfil del usuario.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
         }
 
         private void frmPrincipal_Load(object sender, EventArgs e)
@@ -646,11 +662,34 @@ namespace Vista
             MostrarTableroTareas();
         }
 
-        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        private void btnPerfil_Click(object sender, EventArgs e)
+        {
+            MostrarPerfil();
+        }
+
+        private void MostrarPerfil()
+        {
+            frmPerfil formulario;
+
+            formulario = new frmPerfil();
+            formulario.CerrarSesionSolicitada += formularioPerfil_CerrarSesionSolicitada;
+            AbrirFormulario(formulario);
+        }
+
+        private void formularioPerfil_CerrarSesionSolicitada(object sender, EventArgs e)
         {
             CerrarSesionSolicitada = true;
             Sesion.CerrarSesion();
             this.Close();
+        }
+
+        private void frmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing && CerrarSesionSolicitada == false)
+            {
+                e.Cancel = true;
+                MessageBox.Show("Para salir del sistema utilice la opción Cerrar Sesión desde Perfil.", "Cerrar sesión", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void frmPrincipal_FormClosed(object sender, FormClosedEventArgs e)

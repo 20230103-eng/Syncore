@@ -8,6 +8,9 @@ namespace Vista
 {
     public partial class frmNuevaTarea : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+        private System.Windows.Forms.ErrorProvider errorProviderValidacion;
+
         private Proyecto proyectoModelo;
         private EquipoProyecto equipoModelo;
         private Prioridad prioridadModelo;
@@ -22,6 +25,22 @@ namespace Vista
         public frmNuevaTarea()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            errorProviderValidacion = new System.Windows.Forms.ErrorProvider(this.components);
+            errorProviderValidacion.ContainerControl = this;
+            errorProviderValidacion.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            toolTipAyuda.SetToolTip(txtNombre, "Ingrese nombre.");
+            toolTipAyuda.SetToolTip(cmbProyecto, "Seleccione proyecto.");
+            toolTipAyuda.SetToolTip(cmbResponsable, "Seleccione responsable.");
+            toolTipAyuda.SetToolTip(dtpInicio, "Seleccione fecha de inicio.");
+            toolTipAyuda.SetToolTip(dtpLimite, "Seleccione fecha límite.");
+            toolTipAyuda.SetToolTip(cmbPrioridad, "Seleccione prioridad.");
+            toolTipAyuda.SetToolTip(cmbEstado, "Seleccione estado.");
+            toolTipAyuda.SetToolTip(txtDescripcion, "Ingrese descripción.");
+            toolTipAyuda.SetToolTip(txtObservaciones, "Ingrese observaciones.");
+            toolTipAyuda.SetToolTip(btnCancelar, "Cancelar la operación actual.");
+            toolTipAyuda.SetToolTip(btnCrear, "Crear la tarea con la información ingresada.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
         }
 
         private void frmNuevaTarea_Load(object sender, EventArgs e)
@@ -168,6 +187,7 @@ namespace Vista
 
         private bool ValidarDatos()
         {
+            errorProviderValidacion.Clear();
             if (Sesion.UsuarioActual == null)
             {
                 MessageBox.Show("No hay una sesión activa.");
@@ -176,6 +196,7 @@ namespace Vista
 
             if (string.IsNullOrEmpty(txtNombre.Text.Trim()) == true)
             {
+                errorProviderValidacion.SetError(txtNombre, "Ingrese el nombre de la tarea.");
                 MessageBox.Show("Ingrese el nombre de la tarea.");
                 txtNombre.Focus();
                 return false;
@@ -183,6 +204,7 @@ namespace Vista
 
             if (cmbProyecto.SelectedValue == null)
             {
+                errorProviderValidacion.SetError(cmbProyecto, "Seleccione el proyecto.");
                 MessageBox.Show("Seleccione el proyecto.");
                 cmbProyecto.Focus();
                 return false;
@@ -190,6 +212,7 @@ namespace Vista
 
             if (cmbResponsable.Items.Count == 0)
             {
+                errorProviderValidacion.SetError(cmbResponsable, "El proyecto no tiene integrantes activos.");
                 MessageBox.Show("El proyecto seleccionado no tiene integrantes activos. Agregue integrantes al equipo de trabajo antes de crear tareas.");
                 cmbProyecto.Focus();
                 return false;
@@ -197,6 +220,7 @@ namespace Vista
 
             if (cmbResponsable.SelectedValue == null)
             {
+                errorProviderValidacion.SetError(cmbResponsable, "Seleccione el responsable de la tarea.");
                 MessageBox.Show("Seleccione un integrante del equipo de trabajo como responsable de la tarea.");
                 cmbResponsable.Focus();
                 return false;
@@ -204,6 +228,7 @@ namespace Vista
 
             if (cmbPrioridad.SelectedIndex < 0)
             {
+                errorProviderValidacion.SetError(cmbPrioridad, "Seleccione la prioridad de la tarea.");
                 MessageBox.Show("Seleccione la prioridad de la tarea.");
                 cmbPrioridad.Focus();
                 return false;
@@ -211,6 +236,7 @@ namespace Vista
 
             if (cmbEstado.SelectedIndex < 0)
             {
+                errorProviderValidacion.SetError(cmbEstado, "Seleccione el estado inicial de la tarea.");
                 MessageBox.Show("Seleccione el estado inicial de la tarea.");
                 cmbEstado.Focus();
                 return false;
@@ -218,6 +244,7 @@ namespace Vista
 
             if (dtpLimite.Value.Date < dtpInicio.Value.Date)
             {
+                errorProviderValidacion.SetError(dtpLimite, "La fecha límite no puede ser anterior a la fecha de inicio.");
                 MessageBox.Show("La fecha límite no puede ser anterior a la fecha de inicio.");
                 dtpLimite.Focus();
                 return false;
@@ -225,6 +252,7 @@ namespace Vista
 
             if (string.IsNullOrEmpty(txtDescripcion.Text.Trim()) == true)
             {
+                errorProviderValidacion.SetError(txtDescripcion, "Ingrese la descripción de la tarea.");
                 MessageBox.Show("Ingrese la descripción de la tarea.");
                 txtDescripcion.Focus();
                 return false;

@@ -8,6 +8,8 @@ namespace Vista
 {
     public partial class frmTableroTareasGestor : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private Proyecto proyectoModelo;
         private TableroTarea tableroTarea;
         private Usuario usuarioModelo;
@@ -22,6 +24,11 @@ namespace Vista
         public frmTableroTareasGestor()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(cboProyecto, "Seleccione proyecto.");
+            toolTipAyuda.SetToolTip(cboResponsable, "Seleccione responsable.");
+            toolTipAyuda.SetToolTip(btnNuevaTarea, "Crear una nueva tarea.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             lblFecha.Text = DateTime.Today.ToString("dd/MM/yyyy");
             proyectoModelo = new Proyecto();
             tableroTarea = new TableroTarea();

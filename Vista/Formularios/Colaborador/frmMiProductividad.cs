@@ -10,6 +10,8 @@ namespace Vista
 {
     public partial class frmMiProductividad : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private Proyecto proyectoModelo;
         private IndicadorUsuario indicadorUsuario;
         private SeguimientoProyectoUsuario seguimientoProyectoUsuario;
@@ -20,6 +22,9 @@ namespace Vista
         public frmMiProductividad()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(cboPeriodo, "Seleccione período.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             lblFecha.Text = System.DateTime.Today.ToString("dd/MM/yyyy");
             proyectoModelo = new Proyecto();
             indicadorUsuario = new IndicadorUsuario();

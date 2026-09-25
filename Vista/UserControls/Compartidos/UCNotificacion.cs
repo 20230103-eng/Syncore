@@ -6,6 +6,8 @@ namespace Vista
 {
     public partial class UCNotificacion : UserControl
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private string tipoNotificacion;
         private bool leida;
 
@@ -19,6 +21,9 @@ namespace Vista
         public UCNotificacion()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnIrTarea, "Abrir la tarea relacionada.");
+            toolTipAyuda.SetToolTip(btnMarcarLeida, "Marcar esta notificación como leída.");
         }
 
         public string Titulo

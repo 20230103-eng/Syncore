@@ -6,6 +6,8 @@ namespace Vista
 {
     public partial class UCFilaTareaProxima : UserControl
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private int avance;
 
         public event EventHandler VerSolicitado;
@@ -15,6 +17,8 @@ namespace Vista
         public UCFilaTareaProxima()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnVer, "Ver el detalle del registro.");
             btnVer.Click += btnVer_Click;
         }
 

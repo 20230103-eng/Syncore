@@ -5,6 +5,8 @@ namespace Vista
 {
     public partial class UCFilaEquipoTrabajo : UserControl
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         public event EventHandler EditarSolicitado;
         public event EventHandler RetirarSolicitado;
 
@@ -15,6 +17,9 @@ namespace Vista
         public UCFilaEquipoTrabajo()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnEditar, "Editar el registro seleccionado.");
+            toolTipAyuda.SetToolTip(btnRetirar, "Retirar el integrante del proyecto.");
             btnEditar.Click += btnEditar_Click;
             btnRetirar.Click += btnRetirar_Click;
         }

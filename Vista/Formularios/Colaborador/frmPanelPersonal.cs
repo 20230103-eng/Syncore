@@ -10,6 +10,8 @@ namespace Vista
 {
     public partial class frmPanelPersonal : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private Proyecto proyectoModelo;
         private IndicadorUsuario indicadorUsuario;
         private SeguimientoProyectoUsuario seguimientoProyectoUsuario;
@@ -31,6 +33,12 @@ namespace Vista
         public frmPanelPersonal()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnActualizarAvance, "Registrar o actualizar el avance de una tarea.");
+            toolTipAyuda.SetToolTip(btnVerTareas, "Abrir el tablero de tareas.");
+            toolTipAyuda.SetToolTip(btnVerProyectos, "Abrir los proyectos asignados.");
+            toolTipAyuda.SetToolTip(btnVerNotificaciones, "Abrir las notificaciones.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             lblFecha.Text = System.DateTime.Today.ToString("dd/MM/yyyy");
             proyectoModelo = new Proyecto();
             indicadorUsuario = new IndicadorUsuario();

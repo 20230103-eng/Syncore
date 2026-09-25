@@ -33,44 +33,75 @@ namespace Modelo.Modelo
             }
         }
 
-        // aca definimos el metodo para mostrar un error si el sql server nos tira error segun el numero de error
         public static void MostrarErrorSql(SqlException ex)
         {
+            string codigo;
+            string mensaje;
+            MessageBoxIcon icono;
+
             // aca si no encuentra el servidor donde esta la base de datos
             if (ex.Number == 2 || ex.Number == 26 || ex.Number == 53)
             {
-                MessageBox.Show("No se pudo encontrar el servidor de base de datos.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                codigo = "ERR-SQL-001";
+                mensaje = "No se pudo encontrar el servidor de base de datos.";
+                icono = MessageBoxIcon.Error;
             }
             // aca si encuentra el servidor pero no encuentra la base de datos
             else if (ex.Number == 4060)
             {
-                MessageBox.Show("No se pudo encontrar la base de datos.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                codigo = "ERR-SQL-002";
+                mensaje = "No se pudo encontrar la base de datos.";
+                icono = MessageBoxIcon.Error;
             }
             // aca si no nos deja iniciar sesion en la base de datos
             else if (ex.Number == 18456)
             {
-                MessageBox.Show("No se pudo iniciar sesión en la base de datos.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                codigo = "ERR-SQL-003";
+                mensaje = "No se pudo iniciar sesión en la base de datos.";
+                icono = MessageBoxIcon.Error;
             }
             // aca si ya existe un registro con esos mismos datos
             else if (ex.Number == 2601 || ex.Number == 2627)
             {
-                MessageBox.Show("Ya existe un registro con esos datos.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                codigo = "ERR-SQL-004";
+                mensaje = "Ya existe un registro con esos datos.";
+                icono = MessageBoxIcon.Warning;
             }
             // aca si el registro esta relacionado con otro por llave foranea
             else if (ex.Number == 547)
             {
-                MessageBox.Show("No se puede completar la operación porque existen datos relacionados.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                codigo = "ERR-SQL-005";
+                mensaje = "No se puede completar la operación porque existen datos relacionados.";
+                icono = MessageBoxIcon.Warning;
             }
             // aca si falta llenar un campo que es obligatorio
             else if (ex.Number == 515)
             {
-                MessageBox.Show("Falta información obligatoria para guardar el registro.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                codigo = "ERR-SQL-006";
+                mensaje = "Falta información obligatoria para guardar el registro.";
+                icono = MessageBoxIcon.Warning;
+            }
+            else if (ex.Number == 102 || ex.Number == 156)
+            {
+                codigo = "ERR-SQL-007";
+                mensaje = "Ocurrió un error al procesar una consulta de la base de datos.";
+                icono = MessageBoxIcon.Error;
+            }
+            else if (ex.Number == 64 || ex.Number == 121 || ex.Number == 233 || ex.Number == 258 || ex.Number == 10053 || ex.Number == 10054 || ex.Number == 10060)
+            {
+                codigo = "ERR-SQL-008";
+                mensaje = "Se perdió la comunicación con el servidor de base de datos.";
+                icono = MessageBoxIcon.Error;
             }
             // aca cualquier otro error que no tengamos contemplado
             else
             {
-                MessageBox.Show("Ocurrió un error al trabajar con la base de datos.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                codigo = "ERR-SQL-999";
+                mensaje = "Ocurrió un error al trabajar con la base de datos.";
+                icono = MessageBoxIcon.Error;
             }
+
+            MessageBox.Show(codigo + " - " + mensaje, "Base de datos", MessageBoxButtons.OK, icono);
         }
 
         // aca definimos el metodo de ejecutar consulta, con este recibimos una consulta y nos conectamos a la base de datos, y ejecutamos una consulta teniendo en cuenta estos dos, definimos una datatable y la llenamos con los que nos devuelva la base de datos y retornamos la tabla definida

@@ -6,9 +6,14 @@ namespace Vista
 {
     public partial class UCTarjetaSeleccionUsuario : UserControl
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         public UCTarjetaSeleccionUsuario()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(cboRol, "Seleccione rol.");
+            toolTipAyuda.SetToolTip(chkSeleccionar, "Seleccione este usuario.");
         }
 
         public int IdUsuario { get; set; }

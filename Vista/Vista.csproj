@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <ApplicationIcon>Recursos\Syncore.ico</ApplicationIcon>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -57,11 +58,29 @@
     <Compile Include="Formularios\InicioSesion\frmLoginGestor.Designer.cs">
       <DependentUpon>frmLoginGestor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\InicioSesion\frmConfiguracionInicial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\InicioSesion\frmConfiguracionInicial.Designer.cs">
+      <DependentUpon>frmConfiguracionInicial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\InicioSesion\frmLoginColaborador.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\InicioSesion\frmLoginColaborador.Designer.cs">
       <DependentUpon>frmLoginColaborador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Compartidos\frmCambiarContrasena.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Compartidos\frmCambiarContrasena.Designer.cs">
+      <DependentUpon>frmCambiarContrasena.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Compartidos\frmPerfil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Compartidos\frmPerfil.Designer.cs">
+      <DependentUpon>frmPerfil.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Colaborador\frmPanelPersonal.cs">
       <SubType>Form</SubType>
@@ -135,6 +154,24 @@
     <Compile Include="Formularios\Gestor\frmPanelGestion.Designer.cs">
       <DependentUpon>frmPanelGestion.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Compartidos\UCPaginadorGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCPaginadorGrid.Designer.cs">
+      <DependentUpon>UCPaginadorGrid.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UserControls\Compartidos\UCPaginadorGrid.resx">
+      <DependentUpon>UCPaginadorGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Formularios\Gestor\frmReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Gestor\frmReportes.Designer.cs">
+      <DependentUpon>frmReportes.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Formularios\Gestor\frmReportes.resx">
+      <DependentUpon>frmReportes.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Formularios\Gestor\frmProductividad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -398,6 +435,12 @@
     <EmbeddedResource Include="Formularios\Colaborador\frmPrincipalColaborador.resx">
       <DependentUpon>frmPrincipalColaborador.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Compartidos\frmCambiarContrasena.resx">
+      <DependentUpon>frmCambiarContrasena.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\InicioSesion\frmConfiguracionInicial.resx">
+      <DependentUpon>frmConfiguracionInicial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Colaborador\frmCalendario.resx">
       <DependentUpon>frmCalendario.cs</DependentUpon>
     </EmbeddedResource>
@@ -576,6 +619,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Recursos\AvatarUsuario.png" />
+    <Content Include="Recursos\Syncore.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Modelo\Modelo.csproj">

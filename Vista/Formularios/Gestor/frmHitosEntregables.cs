@@ -9,6 +9,9 @@ namespace Vista
 {
     public partial class frmHitosEntregables : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+        private System.Windows.Forms.ErrorProvider errorProviderValidacion;
+
         private Hito hitoModelo;
         private Proyecto proyectoModelo;
         private EquipoProyecto equipoModelo;
@@ -20,6 +23,29 @@ namespace Vista
         public frmHitosEntregables()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            errorProviderValidacion = new System.Windows.Forms.ErrorProvider(this.components);
+            errorProviderValidacion.ContainerControl = this;
+            errorProviderValidacion.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            toolTipAyuda.SetToolTip(cboProyectoFiltro, "Seleccione proyecto para filtrar.");
+            toolTipAyuda.SetToolTip(cboEstadoFiltro, "Seleccione estado para filtrar.");
+            toolTipAyuda.SetToolTip(txtBuscar, "Escriba el texto que desea buscar.");
+            toolTipAyuda.SetToolTip(cboProyecto, "Seleccione proyecto.");
+            toolTipAyuda.SetToolTip(txtNombre, "Ingrese nombre.");
+            toolTipAyuda.SetToolTip(txtDescripcion, "Ingrese descripción.");
+            toolTipAyuda.SetToolTip(dtpFechaObjetivo, "Seleccione fecha objetivo.");
+            toolTipAyuda.SetToolTip(cboResponsable, "Seleccione responsable.");
+            toolTipAyuda.SetToolTip(cboEstado, "Seleccione estado.");
+            toolTipAyuda.SetToolTip(btnNuevo, "Preparar el formulario para un nuevo registro.");
+            toolTipAyuda.SetToolTip(btnGuardar, "Guardar la información ingresada.");
+            toolTipAyuda.SetToolTip(btnActualizar, "Actualizar la información.");
+            toolTipAyuda.SetToolTip(btnCumplir, "Marcar el hito seleccionado como cumplido.");
+            toolTipAyuda.SetToolTip(btnEliminar, "Eliminar el registro seleccionado.");
+            toolTipAyuda.SetToolTip(dgvHitos, "Muestra los hitos disponibles.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
+
+            ucPaginador.Tabla = dgvHitos;
+            ucPaginador.PaginaCambiada += ucPaginador_PaginaCambiada;
             hitoModelo = new Hito();
             proyectoModelo = new Proyecto();
             equipoModelo = new EquipoProyecto();
@@ -208,7 +234,7 @@ namespace Vista
             }
 
             cargando = true;
-            dgvHitos.DataSource = resultado;
+            ucPaginador.Mostrar(resultado);
             ConfigurarTabla();
             lblCantidad.Text = resultado.Rows.Count.ToString() + " hito(s)";
             cargando = false;
@@ -319,6 +345,7 @@ namespace Vista
 
         private bool ValidarDatos()
         {
+            errorProviderValidacion.Clear();
             DataTable proyecto;
             DateTime fechaInicio;
             DateTime fechaCierre;
@@ -326,6 +353,7 @@ namespace Vista
 
             if (cboProyecto.SelectedValue == null)
             {
+                errorProviderValidacion.SetError(cboProyecto, "Seleccione el proyecto.");
                 MessageBox.Show("Seleccione el proyecto.");
                 cboProyecto.Focus();
                 return false;
@@ -333,6 +361,7 @@ namespace Vista
 
             if (string.IsNullOrEmpty(txtNombre.Text.Trim()) == true)
             {
+                errorProviderValidacion.SetError(txtNombre, "Ingrese el nombre del hito o entregable.");
                 MessageBox.Show("Ingrese el nombre del hito o entregable.");
                 txtNombre.Focus();
                 return false;
@@ -340,6 +369,7 @@ namespace Vista
 
             if (cboEstado.SelectedValue == null)
             {
+                errorProviderValidacion.SetError(cboEstado, "Seleccione el estado.");
                 MessageBox.Show("Seleccione el estado.");
                 cboEstado.Focus();
                 return false;
@@ -359,6 +389,7 @@ namespace Vista
 
             if (dtpFechaObjetivo.Value.Date < fechaInicio.Date || dtpFechaObjetivo.Value.Date > fechaCierre.Date)
             {
+                errorProviderValidacion.SetError(dtpFechaObjetivo, "La fecha objetivo debe estar dentro de las fechas del proyecto.");
                 MessageBox.Show("La fecha objetivo debe estar dentro de las fechas del proyecto.");
                 dtpFechaObjetivo.Focus();
                 return false;
@@ -575,5 +606,10 @@ namespace Vista
         {
             AplicarFiltros();
         }
+        private void ucPaginador_PaginaCambiada(object sender, EventArgs e)
+        {
+            PrepararNuevo();
+        }
+
     }
 }

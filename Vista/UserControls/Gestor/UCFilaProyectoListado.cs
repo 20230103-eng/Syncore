@@ -5,12 +5,17 @@ namespace Vista
 {
     public partial class UCFilaProyectoListado : UserControl
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         public event EventHandler VerProyectoSolicitado;
         public event EventHandler EditarProyectoSolicitado;
 
         public UCFilaProyectoListado()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnEditar, "Editar el registro seleccionado.");
+            toolTipAyuda.SetToolTip(btnVer, "Ver el detalle del registro.");
         }
 
         public int IdProyecto { get; set; }

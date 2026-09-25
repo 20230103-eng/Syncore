@@ -7,6 +7,8 @@ namespace Vista
 {
     public partial class UCEvidenciaTarea : UserControl
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         public int IdEvidencia { get; set; }
 
         public string RutaArchivo { get; set; }
@@ -14,6 +16,8 @@ namespace Vista
         public UCEvidenciaTarea()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnVer, "Ver el detalle del registro.");
             btnVer.Click += btnVer_Click;
         }
 

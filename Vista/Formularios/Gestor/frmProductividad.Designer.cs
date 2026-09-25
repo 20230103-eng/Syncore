@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.lblFecha = new System.Windows.Forms.Label();
             this.lblBreadcrumbActual = new System.Windows.Forms.Label();
@@ -39,7 +40,9 @@
             this.pnlTitulos = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.lblSubtitulo = new System.Windows.Forms.Label();
+            this.pnlAcciones = new System.Windows.Forms.Panel();
             this.cboPeriodo = new System.Windows.Forms.ComboBox();
+            this.btnReportes = new System.Windows.Forms.Button();
             this.tlpTarjetas = new System.Windows.Forms.TableLayoutPanel();
             this.tarjeta1 = new Vista.UCTarjetaIndicador();
             this.tarjeta2 = new Vista.UCTarjetaIndicador();
@@ -82,6 +85,7 @@
             this.pnlCanvas.SuspendLayout();
             this.tlpPrincipal.SuspendLayout();
             this.tlpCabecera.SuspendLayout();
+            this.pnlAcciones.SuspendLayout();
             this.pnlTitulos.SuspendLayout();
             this.tlpTarjetas.SuspendLayout();
             this.tlpSecciones.SuspendLayout();
@@ -185,7 +189,7 @@
             this.tlpCabecera.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tlpCabecera.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tlpCabecera.Controls.Add(this.pnlTitulos, 0, 0);
-            this.tlpCabecera.Controls.Add(this.cboPeriodo, 1, 0);
+            this.tlpCabecera.Controls.Add(this.pnlAcciones, 1, 0);
             this.tlpCabecera.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpCabecera.Location = new System.Drawing.Point(24, 24);
             this.tlpCabecera.Margin = new System.Windows.Forms.Padding(0);
@@ -195,6 +199,13 @@
             this.tlpCabecera.Size = new System.Drawing.Size(1605, 70);
             this.tlpCabecera.TabIndex = 0;
             // 
+            this.pnlAcciones.Controls.Add(this.cboPeriodo);
+            this.pnlAcciones.Controls.Add(this.btnReportes);
+            this.pnlAcciones.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlAcciones.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlAcciones.Name = "pnlAcciones";
+            this.pnlAcciones.Size = new System.Drawing.Size(482, 70);
+            //
             // pnlTitulos
             // 
             this.pnlTitulos.Controls.Add(this.lblSubtitulo);
@@ -206,6 +217,21 @@
             this.pnlTitulos.Size = new System.Drawing.Size(1123, 70);
             this.pnlTitulos.TabIndex = 0;
             // 
+            this.btnReportes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReportes.BackColor = System.Drawing.Color.FromArgb(0, 61, 117);
+            this.btnReportes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReportes.FlatAppearance.BorderSize = 0;
+            this.btnReportes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnReportes.ForeColor = System.Drawing.Color.White;
+            this.btnReportes.Location = new System.Drawing.Point(304, 38);
+            this.btnReportes.Name = "btnReportes";
+            this.btnReportes.Size = new System.Drawing.Size(174, 28);
+            this.btnReportes.TabIndex = 2;
+            this.btnReportes.Text = "Generar reportes";
+            this.btnReportes.UseVisualStyleBackColor = false;
+            this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
+            //
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
@@ -238,7 +264,7 @@
             "Últimos 30 días",
             "Últimos 60 días",
             "Últimos 90 días"});
-            this.cboPeriodo.Location = new System.Drawing.Point(1431, 8);
+            this.cboPeriodo.Location = new System.Drawing.Point(304, 5);
             this.cboPeriodo.Margin = new System.Windows.Forms.Padding(0, 8, 0, 0);
             this.cboPeriodo.Name = "cboPeriodo";
             this.cboPeriodo.Size = new System.Drawing.Size(174, 28);
@@ -747,6 +773,7 @@
             this.pnlCanvas.PerformLayout();
             this.tlpPrincipal.ResumeLayout(false);
             this.tlpCabecera.ResumeLayout(false);
+            this.pnlAcciones.ResumeLayout(false);
             this.pnlTitulos.ResumeLayout(false);
             this.pnlTitulos.PerformLayout();
             this.tlpTarjetas.ResumeLayout(false);
@@ -774,7 +801,9 @@
         private System.Windows.Forms.Panel pnlTitulos;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblSubtitulo;
+        private System.Windows.Forms.Panel pnlAcciones;
         private System.Windows.Forms.ComboBox cboPeriodo;
+        private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.TableLayoutPanel tlpTarjetas;
         private Vista.UCTarjetaIndicador tarjeta1;
         private Vista.UCTarjetaIndicador tarjeta2;

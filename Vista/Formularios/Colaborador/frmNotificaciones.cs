@@ -8,6 +8,8 @@ namespace Vista
 {
     public partial class frmNotificaciones : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private Notificacion notificacionModelo;
         private DataTable notificacionesOriginales;
         private bool cargandoFiltros;
@@ -24,6 +26,11 @@ namespace Vista
         public frmNotificaciones()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnMarcarTodas, "Marcar todas las notificaciones como leídas.");
+            toolTipAyuda.SetToolTip(cboTipo, "Seleccione tipo.");
+            toolTipAyuda.SetToolTip(cboPrioridad, "Seleccione prioridad.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             lblFechaSuperior.Text = DateTime.Today.ToString("dd/MM/yyyy");
             notificacionModelo = new Notificacion();
             notificacionesOriginales = new DataTable();
@@ -172,22 +179,15 @@ namespace Vista
         private void MostrarNotificaciones(DataTable datos)
         {
             int indice;
+            int filaVisual;
             int altoNotificacion;
-            int anchoDisponible;
 
             altoNotificacion = 134;
-            flpNotificaciones.Controls.Clear();
-            anchoDisponible = tlpPrincipal.ClientSize.Width - 48;
-
-            if (anchoDisponible < 300)
-            {
-                anchoDisponible = 300;
-            }
-
-            flpNotificaciones.AutoSize = false;
-            flpNotificaciones.Dock = DockStyle.None;
-            flpNotificaciones.Anchor = AnchorStyles.Top;
-            flpNotificaciones.Width = anchoDisponible;
+            tlpNotificaciones.SuspendLayout();
+            tlpNotificaciones.Controls.Clear();
+            tlpNotificaciones.RowStyles.Clear();
+            tlpNotificaciones.RowCount = Math.Max(1, datos.Rows.Count);
+            filaVisual = 0;
 
             for (indice = datos.Rows.Count - 1; indice >= 0; indice = indice - 1)
             {
@@ -237,11 +237,11 @@ namespace Vista
 
                 control.AccionPrincipalSolicitada += control_AccionPrincipalSolicitada;
                 control.MarcarLeidaSolicitada += control_MarcarLeidaSolicitada;
-                control.Dock = DockStyle.None;
-                control.Width = anchoDisponible - 2;
-                control.Height = 128;
+                control.Dock = DockStyle.Fill;
                 control.Margin = new Padding(0, 0, 0, 6);
-                flpNotificaciones.Controls.Add(control);
+                tlpNotificaciones.RowStyles.Add(new RowStyle(SizeType.Absolute, altoNotificacion));
+                tlpNotificaciones.Controls.Add(control, 0, filaVisual);
+                filaVisual = filaVisual + 1;
             }
 
             if (datos.Rows.Count == 0)
@@ -249,19 +249,23 @@ namespace Vista
                 Label mensaje;
 
                 mensaje = new Label();
-                mensaje.Dock = DockStyle.Top;
-                mensaje.Height = 70;
+                mensaje.Dock = DockStyle.Fill;
                 mensaje.Font = new System.Drawing.Font("Segoe UI", 9F);
                 mensaje.ForeColor = System.Drawing.Color.FromArgb(102, 118, 138);
                 mensaje.Text = "No hay notificaciones con los filtros seleccionados.";
                 mensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-                flpNotificaciones.Controls.Add(mensaje);
-                flpNotificaciones.Height = 70;
+                tlpNotificaciones.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
+                tlpNotificaciones.Controls.Add(mensaje, 0, 0);
+                tlpNotificaciones.RowCount = 1;
+                tlpPrincipal.Height = 126 + 70;
             }
             else
             {
-                flpNotificaciones.Height = datos.Rows.Count * altoNotificacion;
+                tlpNotificaciones.RowCount = datos.Rows.Count;
+                tlpPrincipal.Height = 126 + datos.Rows.Count * altoNotificacion;
             }
+
+            tlpNotificaciones.ResumeLayout(true);
         }
 
         private void ActualizarCantidadSinLeer()

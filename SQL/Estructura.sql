@@ -414,3 +414,13 @@ CREATE TABLE TbNotificacion
         REFERENCES tbProyecto(IdProyecto)
 );
 GO
+
+CREATE TABLE TbConfiguracionEmpresa
+(
+    IdConfiguracion INT IDENTITY(1,1) PRIMARY KEY,
+    NombreEmpresa NVARCHAR(150) NOT NULL,
+    RutaLogo NVARCHAR(500) NOT NULL,
+    InformacionGeneral NVARCHAR(500) NOT NULL,
+    FechaConfiguracion DATETIME NOT NULL DEFAULT GETDATE()
+);
+GO

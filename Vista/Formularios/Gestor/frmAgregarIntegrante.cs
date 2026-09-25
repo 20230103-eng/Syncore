@@ -7,6 +7,9 @@ namespace Vista
 {
     public partial class frmAgregarIntegrante : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+        private System.Windows.Forms.ErrorProvider errorProviderValidacion;
+
         private EquipoProyecto equipoModelo;
         private RolProyecto rolProyectoModelo;
 
@@ -15,6 +18,15 @@ namespace Vista
         public frmAgregarIntegrante()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            errorProviderValidacion = new System.Windows.Forms.ErrorProvider(this.components);
+            errorProviderValidacion.ContainerControl = this;
+            errorProviderValidacion.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            toolTipAyuda.SetToolTip(txtBuscar, "Escriba el texto que desea buscar.");
+            toolTipAyuda.SetToolTip(btnBuscar, "Buscar según el criterio ingresado.");
+            toolTipAyuda.SetToolTip(btnCancelar, "Cancelar la operación actual.");
+            toolTipAyuda.SetToolTip(btnAgregar, "Agregar el elemento seleccionado.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             btnCancelar.Click += btnCancelar_Click;
         }
 
@@ -68,6 +80,8 @@ namespace Vista
         {
             int seleccionados;
 
+            errorProviderValidacion.Clear();
+
             seleccionados = 0;
 
             foreach (Control controlBase in flpUsuarios.Controls)
@@ -82,6 +96,7 @@ namespace Vista
 
                     if (control.IdRolProyecto == 0)
                     {
+                        errorProviderValidacion.SetError(flpUsuarios, "Seleccione el rol de los usuarios marcados.");
                         MessageBox.Show("Seleccione el rol de " + control.NombreCompleto + ".");
                         return false;
                     }
@@ -90,6 +105,7 @@ namespace Vista
 
             if (seleccionados == 0)
             {
+                errorProviderValidacion.SetError(flpUsuarios, "Seleccione al menos un usuario.");
                 MessageBox.Show("Seleccione al menos un usuario.");
                 return false;
             }

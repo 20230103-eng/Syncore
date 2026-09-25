@@ -17,6 +17,7 @@
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tlpContenido = new System.Windows.Forms.TableLayoutPanel();
             this.lblIcono = new System.Windows.Forms.Label();
             this.lblArchivo = new System.Windows.Forms.Label();

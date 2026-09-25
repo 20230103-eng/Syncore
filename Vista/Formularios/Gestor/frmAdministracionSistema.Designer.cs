@@ -17,6 +17,7 @@
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle encabezado = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle filas = new System.Windows.Forms.DataGridViewCellStyle();
             encabezado.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
@@ -37,6 +38,7 @@
             this.tlpPrincipal = new System.Windows.Forms.TableLayoutPanel();
             this.pnlFormulario = new System.Windows.Forms.Panel();
             this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnClaveTemporal = new System.Windows.Forms.Button();
             this.tlpBotones = new System.Windows.Forms.TableLayoutPanel();
             this.tlpTipoArea = new System.Windows.Forms.TableLayoutPanel();
             this.btnActualizar = new System.Windows.Forms.Button();
@@ -61,6 +63,7 @@
             this.lblTituloFormulario = new System.Windows.Forms.Label();
             this.pnlListado = new System.Windows.Forms.Panel();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
+            this.ucPaginador = new Vista.UCPaginadorGrid();
             this.pnlBuscar = new System.Windows.Forms.Panel();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblBuscar = new System.Windows.Forms.Label();
@@ -419,20 +422,22 @@
             // tlpBotones
             // 
             this.tlpBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.tlpBotones.ColumnCount = 4;
-            this.tlpBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlpBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlpBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlpBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpBotones.ColumnCount = 2;
+            this.tlpBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpBotones.Controls.Add(this.btnNuevo, 0, 0);
             this.tlpBotones.Controls.Add(this.btnGuardar, 1, 0);
-            this.tlpBotones.Controls.Add(this.btnActualizar, 2, 0);
-            this.tlpBotones.Controls.Add(this.btnEliminar, 3, 0);
+            this.tlpBotones.Controls.Add(this.btnActualizar, 0, 1);
+            this.tlpBotones.Controls.Add(this.btnEliminar, 1, 1);
+            this.tlpBotones.Controls.Add(this.btnClaveTemporal, 0, 2);
+            this.tlpBotones.SetColumnSpan(this.btnClaveTemporal, 2);
             this.tlpBotones.Location = new System.Drawing.Point(24, 565);
             this.tlpBotones.Name = "tlpBotones";
-            this.tlpBotones.RowCount = 1;
-            this.tlpBotones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpBotones.Size = new System.Drawing.Size(526, 46);
+            this.tlpBotones.RowCount = 3;
+            this.tlpBotones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tlpBotones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tlpBotones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tlpBotones.Size = new System.Drawing.Size(526, 138);
             this.tlpBotones.TabIndex = 7;
             // 
             // btnNuevo
@@ -495,11 +500,27 @@
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = false;
             // 
+            // 
+            this.btnClaveTemporal.BackColor = System.Drawing.Color.White;
+            this.btnClaveTemporal.Click += new System.EventHandler(this.btnClaveTemporal_Click);
+            this.btnClaveTemporal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnClaveTemporal.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnClaveTemporal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClaveTemporal.Font = new System.Drawing.Font("Segoe UI", 8.5F);
+            this.btnClaveTemporal.ForeColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnClaveTemporal.Margin = new System.Windows.Forms.Padding(4);
+            this.btnClaveTemporal.Name = "btnClaveTemporal";
+            this.btnClaveTemporal.TabIndex = 11;
+            this.btnClaveTemporal.Text = "Clave temporal";
+            this.btnClaveTemporal.UseVisualStyleBackColor = false;
+            // 
+            // 
             // pnlListado
             // 
             this.pnlListado.BackColor = System.Drawing.Color.White;
             this.pnlListado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlListado.Controls.Add(this.dgvUsuarios);
+            this.pnlListado.Controls.Add(this.ucPaginador);
             this.pnlListado.Controls.Add(this.pnlBuscar);
             this.pnlListado.Controls.Add(this.lblTituloListado);
             this.pnlListado.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -580,6 +601,15 @@
             this.dgvUsuarios.Size = new System.Drawing.Size(1025, 642);
             this.dgvUsuarios.TabIndex = 1;
             // 
+            //
+            //
+            this.ucPaginador.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginador.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginador.Margin = new System.Windows.Forms.Padding(0);
+            this.ucPaginador.Name = "ucPaginador";
+            this.ucPaginador.Size = new System.Drawing.Size(800, 42);
+            this.ucPaginador.TabIndex = 20;
+            this.ucPaginador.Visible = false;
             // frmAdministracionSistema
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -644,6 +674,7 @@
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.Button btnClaveTemporal;
         private System.Windows.Forms.TableLayoutPanel tlpBotones;
         private System.Windows.Forms.TableLayoutPanel tlpTipoArea;
         private System.Windows.Forms.Panel pnlListado;
@@ -652,5 +683,6 @@
         private System.Windows.Forms.Label lblBuscar;
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.DataGridView dgvUsuarios;
+        private Vista.UCPaginadorGrid ucPaginador;
     }
 }

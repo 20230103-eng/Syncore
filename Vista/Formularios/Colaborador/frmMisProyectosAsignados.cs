@@ -9,6 +9,8 @@ namespace Vista
 {
     public partial class frmMisProyectosAsignados : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private Proyecto proyectoModelo;
         private SeguimientoProyectoUsuario seguimientoModelo;
         private DataTable proyectosOriginales;
@@ -22,6 +24,11 @@ namespace Vista
         public frmMisProyectosAsignados()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(txtBuscar, "Escriba el texto que desea buscar.");
+            toolTipAyuda.SetToolTip(cboEstado, "Seleccione estado.");
+            toolTipAyuda.SetToolTip(cboFecha, "Seleccione fecha.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             lblFecha.Text = DateTime.Today.ToString("dd/MM/yyyy");
             proyectoModelo = new Proyecto();
             seguimientoModelo = new SeguimientoProyectoUsuario();

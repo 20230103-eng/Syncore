@@ -8,6 +8,9 @@ namespace Vista
 {
     public partial class frmAdministracionSistema : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+        private System.Windows.Forms.ErrorProvider errorProviderValidacion;
+
         private Usuario usuarioModelo;
         private Area areaModelo;
         private TipoUsuario tipoUsuarioModelo;
@@ -17,6 +20,28 @@ namespace Vista
         public frmAdministracionSistema()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            errorProviderValidacion = new System.Windows.Forms.ErrorProvider(this.components);
+            errorProviderValidacion.ContainerControl = this;
+            errorProviderValidacion.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            toolTipAyuda.SetToolTip(txtNombreCompleto, "Ingrese nombre completo.");
+            toolTipAyuda.SetToolTip(txtUsuario, "Ingrese nombre de usuario.");
+            toolTipAyuda.SetToolTip(txtContrasena, "Ingrese contraseña.");
+            toolTipAyuda.SetToolTip(txtConfirmarContrasena, "Ingrese confirmación de contraseña.");
+            toolTipAyuda.SetToolTip(cboTipoUsuario, "Seleccione el tipo de usuario.");
+            toolTipAyuda.SetToolTip(cboArea, "Seleccione área.");
+            toolTipAyuda.SetToolTip(chkActivo, "Indique si el usuario se encuentra activo.");
+            toolTipAyuda.SetToolTip(btnNuevo, "Preparar el formulario para un nuevo registro.");
+            toolTipAyuda.SetToolTip(btnGuardar, "Guardar la información ingresada.");
+            toolTipAyuda.SetToolTip(btnActualizar, "Actualizar la información.");
+            toolTipAyuda.SetToolTip(btnEliminar, "Eliminar el registro seleccionado.");
+            toolTipAyuda.SetToolTip(btnClaveTemporal, "Generar una clave temporal para recuperar el acceso del usuario seleccionado.");
+            toolTipAyuda.SetToolTip(txtBuscar, "Escriba el texto que desea buscar.");
+            toolTipAyuda.SetToolTip(dgvUsuarios, "Muestra los usuarios registrados.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
+
+            ucPaginador.Tabla = dgvUsuarios;
+            ucPaginador.PaginaCambiada += ucPaginador_PaginaCambiada;
         }
 
         private void frmAdministracionSistema_Load(object sender, EventArgs e)
@@ -66,7 +91,7 @@ namespace Vista
 
             if (string.IsNullOrEmpty(texto) == true)
             {
-                dgvUsuarios.DataSource = usuariosOriginales;
+                ucPaginador.Mostrar(usuariosOriginales);
                 ConfigurarColumnas();
                 return;
             }
@@ -81,7 +106,7 @@ namespace Vista
                 }
             }
 
-            dgvUsuarios.DataSource = filtrados;
+            ucPaginador.Mostrar(filtrados);
             ConfigurarColumnas();
         }
 
@@ -166,8 +191,11 @@ namespace Vista
         {
             bool existe;
 
+            errorProviderValidacion.Clear();
+
             if (string.IsNullOrEmpty(txtNombreCompleto.Text.Trim()) == true)
             {
+                errorProviderValidacion.SetError(txtNombreCompleto, "Ingrese el nombre completo del usuario.");
                 MessageBox.Show("Ingrese el nombre completo del usuario.");
                 txtNombreCompleto.Focus();
                 return false;
@@ -175,6 +203,7 @@ namespace Vista
 
             if (string.IsNullOrEmpty(txtUsuario.Text.Trim()) == true)
             {
+                errorProviderValidacion.SetError(txtUsuario, "Ingrese el nombre de usuario.");
                 MessageBox.Show("Ingrese el nombre de usuario.");
                 txtUsuario.Focus();
                 return false;
@@ -184,6 +213,7 @@ namespace Vista
 
             if (existe == true)
             {
+                errorProviderValidacion.SetError(txtUsuario, "El nombre de usuario ya existe.");
                 MessageBox.Show("El nombre de usuario ya existe.");
                 txtUsuario.Focus();
                 return false;
@@ -191,6 +221,7 @@ namespace Vista
 
             if (cboTipoUsuario.SelectedValue == null)
             {
+                errorProviderValidacion.SetError(cboTipoUsuario, "Seleccione el tipo de usuario.");
                 MessageBox.Show("Seleccione el tipo de usuario.");
                 cboTipoUsuario.Focus();
                 return false;
@@ -200,6 +231,7 @@ namespace Vista
             {
                 if (string.IsNullOrEmpty(txtContrasena.Text) == true)
                 {
+                    errorProviderValidacion.SetError(txtContrasena, "Ingrese la contraseña.");
                     MessageBox.Show("Ingrese la contraseña.");
                     txtContrasena.Focus();
                     return false;
@@ -207,6 +239,7 @@ namespace Vista
 
                 if (txtContrasena.Text.Length < 6)
                 {
+                    errorProviderValidacion.SetError(txtContrasena, "La contraseña debe tener al menos 6 caracteres.");
                     MessageBox.Show("La contraseña debe tener al menos 6 caracteres.");
                     txtContrasena.Focus();
                     return false;
@@ -214,6 +247,7 @@ namespace Vista
 
                 if (txtContrasena.Text != txtConfirmarContrasena.Text)
                 {
+                    errorProviderValidacion.SetError(txtConfirmarContrasena, "Las contraseñas no coinciden.");
                     MessageBox.Show("Las contraseñas no coinciden.");
                     txtConfirmarContrasena.Focus();
                     return false;
@@ -322,6 +356,34 @@ namespace Vista
             MessageBox.Show("El usuario fue actualizado correctamente.");
             CargarUsuarios();
             PrepararNuevoUsuario();
+        }
+
+
+        private void btnClaveTemporal_Click(object sender, EventArgs e)
+        {
+            Usuario usuario;
+            Random aleatorio;
+            string claveTemporal;
+            bool actualizado;
+
+            if (idUsuarioSeleccionado <= 0)
+            {
+                MessageBox.Show("Seleccione un usuario de la lista.", "Clave temporal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            aleatorio = new Random();
+            claveTemporal = "TMP" + aleatorio.Next(100000, 999999).ToString();
+            usuario = new Usuario();
+            usuario.IdUsuario = idUsuarioSeleccionado;
+            actualizado = usuario.RestablecerContrasenaTemporal(claveTemporal);
+
+            if (actualizado == false)
+            {
+                return;
+            }
+
+            MessageBox.Show("Clave temporal generada: " + claveTemporal + "\n\nEl usuario puede iniciar sesión con esta clave y luego cambiarla desde Perfil.", "Recuperación de contraseña", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -456,5 +518,10 @@ namespace Vista
                 e.Handled = true;
             }
         }
+        private void ucPaginador_PaginaCambiada(object sender, EventArgs e)
+        {
+            PrepararNuevoUsuario();
+        }
+
     }
 }

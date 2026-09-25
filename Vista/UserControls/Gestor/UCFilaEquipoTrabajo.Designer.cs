@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tlpFila = new System.Windows.Forms.TableLayoutPanel();
             this.picUsuario = new System.Windows.Forms.PictureBox();
             this.lblNombre = new System.Windows.Forms.Label();

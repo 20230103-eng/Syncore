@@ -16,6 +16,7 @@
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tlpPrincipal = new System.Windows.Forms.TableLayoutPanel();
             this.pnlColor = new System.Windows.Forms.Panel();
             this.tlpContenido = new System.Windows.Forms.TableLayoutPanel();

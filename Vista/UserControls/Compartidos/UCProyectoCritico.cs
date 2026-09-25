@@ -6,6 +6,8 @@ namespace Vista
 {
     public partial class UCProyectoCritico : UserControl
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private int avance;
         private int tareasVencidas;
         private string estado;
@@ -17,6 +19,8 @@ namespace Vista
         public UCProyectoCritico()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnVer, "Ver el detalle del registro.");
             this.Dock = DockStyle.Top;
         }
 

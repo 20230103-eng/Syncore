@@ -9,6 +9,8 @@ namespace Vista
 {
     public partial class frmProductividad : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private Proyecto proyectoModelo;
         private IndicadorTarea indicadorTarea;
         private TableroTarea tableroTarea;
@@ -17,6 +19,10 @@ namespace Vista
         public frmProductividad()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(cboPeriodo, "Seleccione período.");
+            toolTipAyuda.SetToolTip(btnReportes, "Consultar y exportar los tres reportes de gestión.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             lblFecha.Text = System.DateTime.Today.ToString("dd/MM/yyyy");
             proyectoModelo = new Proyecto();
             indicadorTarea = new IndicadorTarea();
@@ -24,6 +30,14 @@ namespace Vista
             productividadModelo = new Productividad();
             this.Load += frmProductividad_Load;
             cboPeriodo.SelectedIndexChanged += cboPeriodo_SelectedIndexChanged;
+        }
+
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            using (frmReportes reportes = new frmReportes())
+            {
+                reportes.ShowDialog();
+            }
         }
 
         private void frmProductividad_Load(object sender, EventArgs e)

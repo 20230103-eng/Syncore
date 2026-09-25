@@ -9,6 +9,8 @@ namespace Vista
 {
     public partial class frmDetalleTareaColaborador : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private int idTarea;
         private Tarea tareaModelo;
         private Avance avanceModelo;
@@ -35,6 +37,9 @@ namespace Vista
         public frmDetalleTareaColaborador(int idTarea)
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnVolver, "Volver a la pantalla anterior.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             lblFecha.Text = System.DateTime.Today.ToString("dd/MM/yyyy");
             this.idTarea = idTarea;
             tareaModelo = new Tarea();

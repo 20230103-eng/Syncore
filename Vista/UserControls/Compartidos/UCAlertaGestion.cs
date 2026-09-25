@@ -6,6 +6,8 @@ namespace Vista
 {
     public partial class UCAlertaGestion : UserControl
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         private string tipoAlerta;
 
         public event EventHandler AccionSolicitada;
@@ -17,6 +19,8 @@ namespace Vista
         public UCAlertaGestion()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnAccion, "Ejecutar la acción disponible.");
             this.Dock = DockStyle.Top;
         }
 

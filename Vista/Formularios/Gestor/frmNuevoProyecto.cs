@@ -8,6 +8,9 @@ namespace Vista
 {
     public partial class frmNuevoProyecto : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+        private System.Windows.Forms.ErrorProvider errorProviderValidacion;
+
         private Proyecto proyectoModelo;
         private Area areaModelo;
         private TipoProyecto tipoProyectoModelo;
@@ -18,6 +21,26 @@ namespace Vista
         public frmNuevoProyecto()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            errorProviderValidacion = new System.Windows.Forms.ErrorProvider(this.components);
+            errorProviderValidacion.ContainerControl = this;
+            errorProviderValidacion.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            toolTipAyuda.SetToolTip(txtNombre, "Ingrese nombre.");
+            toolTipAyuda.SetToolTip(txtCodigo, "Ingrese código.");
+            toolTipAyuda.SetToolTip(cboTipo, "Seleccione tipo.");
+            toolTipAyuda.SetToolTip(cboArea, "Seleccione área.");
+            toolTipAyuda.SetToolTip(cboResponsable, "Seleccione responsable.");
+            toolTipAyuda.SetToolTip(dtpInicio, "Seleccione fecha de inicio.");
+            toolTipAyuda.SetToolTip(dtpCierre, "Seleccione fecha de cierre.");
+            toolTipAyuda.SetToolTip(cboPrioridad, "Seleccione prioridad.");
+            toolTipAyuda.SetToolTip(txtObjetivo, "Ingrese objetivo.");
+            toolTipAyuda.SetToolTip(txtJustificacion, "Ingrese justificación.");
+            toolTipAyuda.SetToolTip(txtAlcance, "Ingrese alcance.");
+            toolTipAyuda.SetToolTip(txtResultado, "Ingrese resultado esperado.");
+            toolTipAyuda.SetToolTip(txtObservaciones, "Ingrese observaciones.");
+            toolTipAyuda.SetToolTip(btnCrearProyecto, "Crear el proyecto con la información ingresada.");
+            toolTipAyuda.SetToolTip(btnCancelar, "Cancelar la operación actual.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
         }
 
         private void frmNuevoProyecto_Load(object sender, EventArgs e)
@@ -87,6 +110,7 @@ namespace Vista
         private bool ValidarDatos()
         {
             bool codigoExiste;
+            errorProviderValidacion.Clear();
 
             if (Sesion.UsuarioActual == null)
             {
@@ -102,6 +126,7 @@ namespace Vista
 
             if (string.IsNullOrEmpty(txtNombre.Text.Trim()) == true)
             {
+                errorProviderValidacion.SetError(txtNombre, "Ingrese el nombre del proyecto.");
                 MessageBox.Show("Ingrese el nombre del proyecto.");
                 txtNombre.Focus();
                 return false;
@@ -109,6 +134,7 @@ namespace Vista
 
             if (string.IsNullOrEmpty(txtCodigo.Text.Trim()) == true)
             {
+                errorProviderValidacion.SetError(txtCodigo, "Ingrese el código del proyecto.");
                 MessageBox.Show("Ingrese el código del proyecto.");
                 txtCodigo.Focus();
                 return false;
@@ -118,6 +144,7 @@ namespace Vista
 
             if (codigoExiste == true)
             {
+                errorProviderValidacion.SetError(txtCodigo, "El código del proyecto ya existe.");
                 MessageBox.Show("El código del proyecto ya existe.");
                 txtCodigo.Focus();
                 return false;
@@ -125,6 +152,7 @@ namespace Vista
 
             if (cboTipo.SelectedValue == null)
             {
+                errorProviderValidacion.SetError(cboTipo, "Seleccione el tipo de proyecto.");
                 MessageBox.Show("Seleccione el tipo de proyecto.");
                 cboTipo.Focus();
                 return false;
@@ -132,6 +160,7 @@ namespace Vista
 
             if (cboArea.SelectedValue == null)
             {
+                errorProviderValidacion.SetError(cboArea, "Seleccione el área solicitante.");
                 MessageBox.Show("Seleccione el área solicitante.");
                 cboArea.Focus();
                 return false;
@@ -139,6 +168,7 @@ namespace Vista
 
             if (cboPrioridad.SelectedIndex < 0)
             {
+                errorProviderValidacion.SetError(cboPrioridad, "Seleccione la prioridad.");
                 MessageBox.Show("Seleccione la prioridad del proyecto.");
                 cboPrioridad.Focus();
                 return false;
@@ -146,6 +176,7 @@ namespace Vista
 
             if (dtpCierre.Value.Date < dtpInicio.Value.Date)
             {
+                errorProviderValidacion.SetError(dtpCierre, "Revise la fecha de cierre.");
                 MessageBox.Show("La fecha de cierre no puede ser anterior a la fecha de inicio.");
                 dtpCierre.Focus();
                 return false;
@@ -153,6 +184,7 @@ namespace Vista
 
             if (string.IsNullOrEmpty(txtObjetivo.Text.Trim()) == true)
             {
+                errorProviderValidacion.SetError(txtObjetivo, "Ingrese el objetivo.");
                 MessageBox.Show("Ingrese el objetivo del proyecto.");
                 txtObjetivo.Focus();
                 return false;
@@ -160,6 +192,7 @@ namespace Vista
 
             if (string.IsNullOrEmpty(txtResultado.Text.Trim()) == true)
             {
+                errorProviderValidacion.SetError(txtResultado, "Ingrese el resultado esperado.");
                 MessageBox.Show("Ingrese el resultado esperado.");
                 txtResultado.Focus();
                 return false;

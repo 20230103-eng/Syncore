@@ -17,10 +17,12 @@
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlFondo = new System.Windows.Forms.Panel();
             this.tlpCentro = new System.Windows.Forms.TableLayoutPanel();
             this.pnlTarjeta = new System.Windows.Forms.Panel();
             this.chkRecordar = new System.Windows.Forms.CheckBox();
+            this.lblRecuperacion = new System.Windows.Forms.Label();
             this.btnIngresar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.txtContrasena = new System.Windows.Forms.TextBox();
@@ -71,6 +73,7 @@
             // pnlTarjeta
             // 
             this.pnlTarjeta.BackColor = System.Drawing.Color.White;
+            this.pnlTarjeta.Controls.Add(this.lblRecuperacion);
             this.pnlTarjeta.Controls.Add(this.chkRecordar);
             this.pnlTarjeta.Controls.Add(this.btnIngresar);
             this.pnlTarjeta.Controls.Add(this.btnCancelar);
@@ -96,6 +99,17 @@
             this.chkRecordar.TabIndex = 2;
             this.chkRecordar.Text = "Recordar usuario";
             this.chkRecordar.UseVisualStyleBackColor = true;
+            // 
+            // 
+            this.lblRecuperacion.AutoSize = true;
+            this.lblRecuperacion.Font = new System.Drawing.Font("Segoe UI", 8.5F);
+            this.lblRecuperacion.ForeColor = System.Drawing.Color.FromArgb(91, 108, 128);
+            this.lblRecuperacion.Location = new System.Drawing.Point(80, 420);
+            this.lblRecuperacion.Name = "lblRecuperacion";
+            this.lblRecuperacion.Size = new System.Drawing.Size(318, 15);
+            this.lblRecuperacion.TabIndex = 5;
+            this.lblRecuperacion.Text = "¿Olvidó su contraseña? Solicite una clave temporal al Gestor.";
+            // 
             // 
             // btnIngresar
             // 
@@ -242,6 +256,7 @@
         private System.Windows.Forms.Label lblContrasena;
         private System.Windows.Forms.TextBox txtContrasena;
         private System.Windows.Forms.CheckBox chkRecordar;
+        private System.Windows.Forms.Label lblRecuperacion;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnIngresar;
     }

@@ -18,6 +18,7 @@
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle estiloEncabezado = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle estiloFila = new System.Windows.Forms.DataGridViewCellStyle();
             estiloEncabezado.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -47,6 +48,7 @@
             this.tlpPrincipal = new System.Windows.Forms.TableLayoutPanel();
             this.pnlLista = new System.Windows.Forms.Panel();
             this.dgvRevisiones = new System.Windows.Forms.DataGridView();
+            this.ucPaginador = new Vista.UCPaginadorGrid();
             this.lblListaTitulo = new System.Windows.Forms.Label();
             this.pnlDetalle = new System.Windows.Forms.Panel();
             this.tlpDetalle = new System.Windows.Forms.TableLayoutPanel();
@@ -273,6 +275,7 @@
             this.pnlLista.BackColor = System.Drawing.Color.White;
             this.pnlLista.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlLista.Controls.Add(this.dgvRevisiones);
+            this.pnlLista.Controls.Add(this.ucPaginador);
             this.pnlLista.Controls.Add(this.lblListaTitulo);
             this.pnlLista.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlLista.Location = new System.Drawing.Point(0, 0);
@@ -720,6 +723,15 @@
             this.lblDetalleTitulo.Text = "Detalle de la revisión";
             this.lblDetalleTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            //
+            //
+            this.ucPaginador.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginador.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginador.Margin = new System.Windows.Forms.Padding(0);
+            this.ucPaginador.Name = "ucPaginador";
+            this.ucPaginador.Size = new System.Drawing.Size(800, 42);
+            this.ucPaginador.TabIndex = 20;
+            this.ucPaginador.Visible = false;
             // frmRevisionTareas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -770,6 +782,7 @@
         private System.Windows.Forms.Panel pnlLista;
         private System.Windows.Forms.Label lblListaTitulo;
         private System.Windows.Forms.DataGridView dgvRevisiones;
+        private Vista.UCPaginadorGrid ucPaginador;
         private System.Windows.Forms.Panel pnlDetalle;
         private System.Windows.Forms.Label lblDetalleTitulo;
         private System.Windows.Forms.TableLayoutPanel tlpDetalle;

@@ -16,6 +16,7 @@
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle encabezado = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle filas = new System.Windows.Forms.DataGridViewCellStyle();
             encabezado.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
@@ -69,6 +70,7 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.pnlListado = new System.Windows.Forms.Panel();
             this.dgvHitos = new System.Windows.Forms.DataGridView();
+            this.ucPaginador = new Vista.UCPaginadorGrid();
             this.lblListado = new System.Windows.Forms.Label();
             this.pnlTop.SuspendLayout();
             this.pnlContenido.SuspendLayout();
@@ -494,6 +496,7 @@
             this.pnlListado.BackColor = System.Drawing.Color.White;
             this.pnlListado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlListado.Controls.Add(this.dgvHitos);
+            this.pnlListado.Controls.Add(this.ucPaginador);
             this.pnlListado.Controls.Add(this.lblListado);
             this.pnlListado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlListado.Location = new System.Drawing.Point(626, 0);
@@ -533,6 +536,15 @@
             this.dgvHitos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvHitos.TabIndex = 9;
             // 
+            //
+            //
+            this.ucPaginador.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginador.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginador.Margin = new System.Windows.Forms.Padding(0);
+            this.ucPaginador.Name = "ucPaginador";
+            this.ucPaginador.Size = new System.Drawing.Size(800, 42);
+            this.ucPaginador.TabIndex = 20;
+            this.ucPaginador.Visible = false;
             // frmHitosEntregables
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -604,6 +616,7 @@
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Panel pnlListado;
         private System.Windows.Forms.DataGridView dgvHitos;
+        private Vista.UCPaginadorGrid ucPaginador;
         private System.Windows.Forms.Label lblListado;
     }
 }

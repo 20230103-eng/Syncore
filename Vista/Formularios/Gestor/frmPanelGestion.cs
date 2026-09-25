@@ -9,6 +9,8 @@ namespace Vista
 {
     public partial class frmPanelGestion : Form
     {
+        private System.Windows.Forms.ToolTip toolTipAyuda;
+
         public event EventHandler ProductividadSolicitada;
         public event EventHandler NuevoProyectoSolicitado;
         public event EventHandler DetalleProyectoSolicitado;
@@ -26,6 +28,10 @@ namespace Vista
         public frmPanelGestion()
         {
             InitializeComponent();
+            toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
+            toolTipAyuda.SetToolTip(btnProductividad, "Abrir la sección de productividad.");
+            toolTipAyuda.SetToolTip(btnNuevoProyecto, "Crear un nuevo proyecto.");
+            this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             lblFecha.Text = System.DateTime.Today.ToString("dd/MM/yyyy");
             proyectoModelo = new Proyecto();
             resumenProyecto = new ResumenProyecto();

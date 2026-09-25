@@ -17,6 +17,7 @@
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tlpPrincipal = new System.Windows.Forms.TableLayoutPanel();
             this.lblPunto = new System.Windows.Forms.Label();
             this.pnlTexto = new System.Windows.Forms.Panel();
