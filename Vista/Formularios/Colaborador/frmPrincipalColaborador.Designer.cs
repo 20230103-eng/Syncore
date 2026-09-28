@@ -95,7 +95,7 @@
             this.pnlAyuda.Name = "pnlAyuda";
             this.pnlAyuda.Size = new System.Drawing.Size(240, 48);
             this.btnManualUsuario.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnManualUsuario.Enabled = false;
+            this.btnManualUsuario.Enabled = true;
             this.btnManualUsuario.FlatAppearance.BorderSize = 0;
             this.btnManualUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnManualUsuario.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -105,6 +105,7 @@
             this.btnManualUsuario.Text = "Manual de usuario";
             this.btnManualUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnManualUsuario.UseVisualStyleBackColor = false;
+            this.btnManualUsuario.Click += new System.EventHandler(this.btnManualUsuario_Click);
             // pnlMenu
             // 
             this.pnlMenu.AutoScroll = true;

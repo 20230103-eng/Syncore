@@ -287,6 +287,80 @@ namespace Modelo.Modelo.Entidades
             conexion = new Conexion();
         }
 
+        public DataTable ObtenerResumenDashboard()
+        {
+            string consulta = @"
+                SELECT ISNULL(SUM(CASE WHEN proyectos.Estado = N'Activo' THEN 1 ELSE 0 END), 0) AS ProyectosActivos,
+                    ISNULL(SUM(CASE WHEN proyectos.AvanceReal < proyectos.AvancePlanificado THEN 1 ELSE 0 END), 0) AS ProyectosAtrasados,
+                    ISNULL(AVG(proyectos.AvanceReal), 0) AS AvancePromedio
+                FROM
+                (
+                    SELECT ep.Nombre AS Estado, ISNULL(tareas.AvanceReal, 0) AS AvanceReal,
+                        CASE
+                            WHEN CAST(GETDATE() AS DATE) <= p.FechaInicio THEN 0.0
+                            WHEN CAST(GETDATE() AS DATE) >= p.FechaCierreEstimada THEN 100.0
+                            WHEN DATEDIFF(DAY, p.FechaInicio, p.FechaCierreEstimada) > 0
+                                THEN CAST(DATEDIFF(DAY, p.FechaInicio, CAST(GETDATE() AS DATE)) AS DECIMAL(18,4))
+                                    * 100.0 / DATEDIFF(DAY, p.FechaInicio, p.FechaCierreEstimada)
+                            ELSE 0.0
+                        END AS AvancePlanificado
+                    FROM tbProyecto p
+                    INNER JOIN tbEstadoProyecto ep ON ep.IdEstadoProyecto = p.IdEstadoProyecto
+                    OUTER APPLY
+                    (
+                        SELECT AVG(CAST(t.AvanceActual AS DECIMAL(10,2))) AS AvanceReal
+                        FROM tbTarea t WHERE t.IdProyecto = p.IdProyecto
+                    ) tareas
+                    WHERE ep.Nombre <> N'Cerrado'
+                ) proyectos";
+            return conexion.EjecutarConsulta(consulta);
+        }
+
+        public DataTable ObtenerProyectosConAlertaPagina(int pagina, out int total)
+        {
+            string consulta = @"
+                SELECT p.IdProyecto, p.Nombre AS Proyecto, a.Nombre AS Area,
+                    ep.Nombre AS Estado, p.FechaCierreEstimada,
+                    ISNULL(tareas.TareasVencidas, 0) AS TareasVencidas,
+                    ISNULL(tareas.AvanceReal, 0) AS AvanceReal,
+                    COUNT(*) OVER() AS TotalRegistros
+                FROM tbProyecto p
+                INNER JOIN tbArea a ON a.IdArea = p.IdArea
+                INNER JOIN tbEstadoProyecto ep ON ep.IdEstadoProyecto = p.IdEstadoProyecto
+                OUTER APPLY
+                (
+                    SELECT COUNT(CASE WHEN et.Nombre = N'Vencida' THEN 1 END) AS TareasVencidas,
+                        AVG(CAST(t.AvanceActual AS DECIMAL(10,2))) AS AvanceReal
+                    FROM tbTarea t
+                    INNER JOIN tbEstadoTarea et ON et.IdEstadoTarea = t.IdEstadoTarea
+                    WHERE t.IdProyecto = p.IdProyecto
+                ) tareas
+                WHERE ep.Nombre IN (N'Crítico', N'Observación')
+                ORDER BY CASE WHEN ep.Nombre = N'Crítico' THEN 0 ELSE 1 END,
+                    p.FechaCierreEstimada, p.IdProyecto
+                OFFSET @Inicio ROWS FETCH NEXT 20 ROWS ONLY";
+            return conexion.EjecutarPagina(consulta, new SqlParameter[0], pagina, out total);
+        }
+
+        public DataTable ObtenerAvancesProyectosPagina(int pagina, out int total)
+        {
+            string consulta = @"
+                SELECT p.IdProyecto, p.Nombre AS Proyecto, ep.Nombre AS Estado,
+                    ISNULL(tareas.AvanceReal, 0) AS AvanceReal,
+                    COUNT(*) OVER() AS TotalRegistros
+                FROM tbProyecto p
+                INNER JOIN tbEstadoProyecto ep ON ep.IdEstadoProyecto = p.IdEstadoProyecto
+                OUTER APPLY
+                (
+                    SELECT AVG(CAST(t.AvanceActual AS DECIMAL(10,2))) AS AvanceReal
+                    FROM tbTarea t WHERE t.IdProyecto = p.IdProyecto
+                ) tareas
+                WHERE ep.Nombre <> N'Cerrado'
+                ORDER BY p.Nombre, p.IdProyecto
+                OFFSET @Inicio ROWS FETCH NEXT 20 ROWS ONLY";
+            return conexion.EjecutarPagina(consulta, new SqlParameter[0], pagina, out total);
+        }
+
         public DataTable ObtenerProyectosConAlerta()
         {
             string query = @"
@@ -591,40 +665,14 @@ namespace Modelo.Modelo.Entidades
         public DataTable ObtenerListadoProyectos()
         {
             string query;
-            DataTable proyectos;
 
             query = @"
-            SELECT
-            tbProyecto.IdProyecto,
-            tbProyecto.Codigo,
-            tbProyecto.Nombre AS Proyecto,
-            ISNULL(tbTipoProyecto.Nombre, N'Sin tipo') AS Tipo,
-            tbArea.Nombre AS Area,
-            tbUsuario.NombreCompleto AS Responsable,
-            tbEstadoProyecto.Nombre AS Estado,
-            tbPrioridad.Nombre AS Prioridad
-            FROM tbProyecto
-            INNER JOIN tbArea ON tbProyecto.IdArea = tbArea.IdArea
-            INNER JOIN tbUsuario ON tbProyecto.IdResponsable = tbUsuario.IdUsuario
-            INNER JOIN tbPrioridad ON tbProyecto.IdPrioridad = tbPrioridad.IdPrioridad
-            INNER JOIN tbEstadoProyecto ON tbProyecto.IdEstadoProyecto = tbEstadoProyecto.IdEstadoProyecto
-            LEFT JOIN tbTipoProyecto ON tbProyecto.IdTipoProyecto = tbTipoProyecto.IdTipoProyecto
-            ORDER BY tbProyecto.FechaCreacion DESC";
+            SELECT IdProyecto, Codigo, Proyecto, Tipo, Area,
+                   Responsable, Estado, Prioridad, Avance
+            FROM vwReporteProyectos
+            ORDER BY FechaCreacion DESC, IdProyecto DESC";
 
-            proyectos = conexion.EjecutarConsulta(query);
-            proyectos.Columns.Add("Avance", typeof(decimal));
-
-            foreach (DataRow fila in proyectos.Rows)
-            {
-                int idProyecto;
-                decimal avanceReal;
-
-                idProyecto = Convert.ToInt32(fila["IdProyecto"]);
-                avanceReal = ObtenerAvanceRealProyecto(idProyecto);
-                fila["Avance"] = avanceReal;
-            }
-
-            return proyectos;
+            return conexion.EjecutarConsulta(query);
         }
 
         public DataTable ObtenerCatalogoProyectos()
@@ -695,10 +743,14 @@ namespace Modelo.Modelo.Entidades
             string query;
             SqlConnection conexionSql;
             SqlCommand comando;
+            SqlTransaction transaccion;
             object justificacion;
             object alcance;
             object observaciones;
             bool creado;
+            object resultado;
+            int idRolCoordinador;
+            int gestorValido;
 
             justificacion = this.Justificacion;
             alcance = this.Alcance;
@@ -723,7 +775,8 @@ namespace Modelo.Modelo.Entidades
             INSERT INTO tbProyecto
             (Codigo, Nombre, Objetivo, Justificacion, Alcance, ResultadoEsperado, Observacion, IdArea, IdTipoProyecto, IdResponsable, IdPrioridad, IdEstadoProyecto, FechaInicio, FechaCierreEstimada, FechaCierreReal, AvancePlanificado, FechaCreacion, UltimaModificacion)
             VALUES
-            (@Codigo, @Nombre, @Objetivo, @Justificacion, @Alcance, @ResultadoEsperado, @Observacion, @IdArea, @IdTipoProyecto, @IdResponsable, @IdPrioridad, (SELECT TOP 1 IdEstadoProyecto FROM tbEstadoProyecto WHERE Nombre = N'Activo'), @FechaInicio, @FechaCierreEstimada, NULL, @AvancePlanificado, GETDATE(), NULL)";
+            (@Codigo, @Nombre, @Objetivo, @Justificacion, @Alcance, @ResultadoEsperado, @Observacion, @IdArea, @IdTipoProyecto, @IdResponsable, @IdPrioridad, (SELECT TOP 1 IdEstadoProyecto FROM tbEstadoProyecto WHERE Nombre = N'Activo'), @FechaInicio, @FechaCierreEstimada, NULL, @AvancePlanificado, GETDATE(), NULL);
+            SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             conexionSql = Conexion.conectar();
 
@@ -732,9 +785,45 @@ namespace Modelo.Modelo.Entidades
                 return false;
             }
 
+            transaccion = null;
+            creado = false;
+
             try
             {
-                comando = new SqlCommand(query, conexionSql);
+                transaccion = conexionSql.BeginTransaction();
+
+                comando = new SqlCommand(@"
+                    SELECT COUNT(*)
+                    FROM tbUsuario
+                    INNER JOIN tbTipoUsuario ON tbUsuario.IdTipoUsuario = tbTipoUsuario.IdTipoUsuario
+                    WHERE tbUsuario.IdUsuario = @IdResponsable
+                    AND tbUsuario.Activo = 1
+                    AND tbTipoUsuario.Nombre = N'Gestor'", conexionSql, transaccion);
+                comando.Parameters.AddWithValue("@IdResponsable", this.IdResponsable);
+                gestorValido = Convert.ToInt32(comando.ExecuteScalar());
+                comando.Dispose();
+
+                if (gestorValido == 0)
+                {
+                    transaccion.Rollback();
+                    return false;
+                }
+
+                comando = new SqlCommand(@"
+                    SELECT TOP 1 IdRolProyecto
+                    FROM tbRolProyecto
+                    WHERE Nombre = N'Coordinador' AND Activo = 1", conexionSql, transaccion);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado == null || resultado == DBNull.Value)
+                {
+                    transaccion.Rollback();
+                    return false;
+                }
+
+                idRolCoordinador = Convert.ToInt32(resultado);
+                comando = new SqlCommand(query, conexionSql, transaccion);
                 comando.Parameters.AddWithValue("@Codigo", this.Codigo);
                 comando.Parameters.AddWithValue("@Nombre", this.Nombre);
                 comando.Parameters.AddWithValue("@Objetivo", this.Objetivo);
@@ -749,17 +838,52 @@ namespace Modelo.Modelo.Entidades
                 comando.Parameters.AddWithValue("@FechaInicio", this.FechaInicio.Date);
                 comando.Parameters.AddWithValue("@FechaCierreEstimada", this.FechaCierreEstimada.Date);
                 comando.Parameters.AddWithValue("@AvancePlanificado", this.AvancePlanificado);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado == null || resultado == DBNull.Value)
+                {
+                    transaccion.Rollback();
+                    return false;
+                }
+
+                this.IdProyecto = Convert.ToInt32(resultado);
+
+                comando = new SqlCommand(@"
+                    INSERT INTO tbEquipoProyecto
+                    (IdProyecto, IdUsuario, IdRolProyecto, FechaAsignacion, Activo)
+                    VALUES
+                    (@IdProyecto, @IdResponsable, @IdRolProyecto, GETDATE(), 1)", conexionSql, transaccion);
+                comando.Parameters.AddWithValue("@IdProyecto", this.IdProyecto);
+                comando.Parameters.AddWithValue("@IdResponsable", this.IdResponsable);
+                comando.Parameters.AddWithValue("@IdRolProyecto", idRolCoordinador);
                 comando.ExecuteNonQuery();
                 comando.Dispose();
+
+                transaccion.Commit();
                 creado = true;
             }
             catch (SqlException ex)
             {
+                if (transaccion != null && transaccion.Connection != null)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch (SqlException)
+                    {
+                    }
+                }
                 Conexion.MostrarErrorSql(ex);
                 creado = false;
             }
             finally
             {
+                if (transaccion != null)
+                {
+                    transaccion.Dispose();
+                }
                 conexionSql.Close();
                 conexionSql.Dispose();
             }
@@ -951,11 +1075,16 @@ namespace Modelo.Modelo.Entidades
             return false;
         }
 
-        public bool ActualizarProyecto()
+        public bool ActualizarProyecto(int idGestorActual)
         {
             string query;
             SqlConnection conexionSql;
             SqlCommand comando;
+            SqlTransaction transaccion;
+            object resultado;
+            int idRolCoordinador;
+            int gestorValido;
+            int filasEquipo;
             object justificacion;
             object alcance;
             object observaciones;
@@ -996,7 +1125,7 @@ namespace Modelo.Modelo.Entidades
             FechaInicio = @FechaInicio,
             FechaCierreEstimada = @FechaCierreEstimada,
             UltimaModificacion = GETDATE()
-            WHERE IdProyecto = @IdProyecto";
+            WHERE IdProyecto = @IdProyecto AND IdResponsable = @IdGestorActual";
 
             conexionSql = Conexion.conectar();
 
@@ -1005,9 +1134,45 @@ namespace Modelo.Modelo.Entidades
                 return false;
             }
 
+            transaccion = null;
+            actualizado = false;
+
             try
             {
-                comando = new SqlCommand(query, conexionSql);
+                transaccion = conexionSql.BeginTransaction();
+
+                comando = new SqlCommand(@"
+                    SELECT COUNT(*)
+                    FROM tbUsuario
+                    INNER JOIN tbTipoUsuario ON tbUsuario.IdTipoUsuario = tbTipoUsuario.IdTipoUsuario
+                    WHERE tbUsuario.IdUsuario = @IdResponsable
+                    AND tbUsuario.Activo = 1
+                    AND tbTipoUsuario.Nombre = N'Gestor'", conexionSql, transaccion);
+                comando.Parameters.AddWithValue("@IdResponsable", this.IdResponsable);
+                gestorValido = Convert.ToInt32(comando.ExecuteScalar());
+                comando.Dispose();
+
+                if (gestorValido == 0)
+                {
+                    transaccion.Rollback();
+                    return false;
+                }
+
+                comando = new SqlCommand(@"
+                    SELECT TOP 1 IdRolProyecto
+                    FROM tbRolProyecto
+                    WHERE Nombre = N'Coordinador' AND Activo = 1", conexionSql, transaccion);
+                resultado = comando.ExecuteScalar();
+                comando.Dispose();
+
+                if (resultado == null || resultado == DBNull.Value)
+                {
+                    transaccion.Rollback();
+                    return false;
+                }
+
+                idRolCoordinador = Convert.ToInt32(resultado);
+                comando = new SqlCommand(query, conexionSql, transaccion);
                 comando.Parameters.AddWithValue("@Codigo", this.Codigo);
                 comando.Parameters.AddWithValue("@Nombre", this.Nombre);
                 comando.Parameters.AddWithValue("@Objetivo", this.Objetivo);
@@ -1022,16 +1187,63 @@ namespace Modelo.Modelo.Entidades
                 comando.Parameters.AddWithValue("@FechaInicio", this.FechaInicio.Date);
                 comando.Parameters.AddWithValue("@FechaCierreEstimada", this.FechaCierreEstimada.Date);
                 comando.Parameters.AddWithValue("@IdProyecto", this.IdProyecto);
+                comando.Parameters.AddWithValue("@IdGestorActual", idGestorActual);
                 actualizado = comando.ExecuteNonQuery() > 0;
                 comando.Dispose();
+
+                if (actualizado == false)
+                {
+                    transaccion.Rollback();
+                    return false;
+                }
+
+                comando = new SqlCommand(@"
+                    UPDATE tbEquipoProyecto
+                    SET Activo = 1, IdRolProyecto = @IdRolProyecto
+                    WHERE IdProyecto = @IdProyecto AND IdUsuario = @IdResponsable", conexionSql, transaccion);
+                comando.Parameters.AddWithValue("@IdProyecto", this.IdProyecto);
+                comando.Parameters.AddWithValue("@IdResponsable", this.IdResponsable);
+                comando.Parameters.AddWithValue("@IdRolProyecto", idRolCoordinador);
+                filasEquipo = comando.ExecuteNonQuery();
+                comando.Dispose();
+
+                if (filasEquipo == 0)
+                {
+                    comando = new SqlCommand(@"
+                        INSERT INTO tbEquipoProyecto
+                        (IdProyecto, IdUsuario, IdRolProyecto, FechaAsignacion, Activo)
+                        VALUES
+                        (@IdProyecto, @IdResponsable, @IdRolProyecto, GETDATE(), 1)", conexionSql, transaccion);
+                    comando.Parameters.AddWithValue("@IdProyecto", this.IdProyecto);
+                    comando.Parameters.AddWithValue("@IdResponsable", this.IdResponsable);
+                    comando.Parameters.AddWithValue("@IdRolProyecto", idRolCoordinador);
+                    comando.ExecuteNonQuery();
+                    comando.Dispose();
+                }
+
+                transaccion.Commit();
             }
             catch (SqlException ex)
             {
+                if (transaccion != null && transaccion.Connection != null)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch (SqlException)
+                    {
+                    }
+                }
                 Conexion.MostrarErrorSql(ex);
                 actualizado = false;
             }
             finally
             {
+                if (transaccion != null)
+                {
+                    transaccion.Dispose();
+                }
                 conexionSql.Close();
                 conexionSql.Dispose();
             }
@@ -1091,11 +1303,12 @@ namespace Modelo.Modelo.Entidades
                 return false;
             }
 
-            transaccion = conexionSql.BeginTransaction();
+            transaccion = null;
             eliminado = false;
 
             try
             {
+                transaccion = conexionSql.BeginTransaction();
                 cerrado = EsProyectoCerrado(conexionSql, transaccion);
 
                 if (cerrado == true)
@@ -1174,12 +1387,25 @@ namespace Modelo.Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                transaccion.Rollback();
+                if (transaccion != null && transaccion.Connection != null)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch (SqlException)
+                    {
+                    }
+                }
                 Conexion.MostrarErrorSql(ex);
                 eliminado = false;
             }
             finally
             {
+                if (transaccion != null)
+                {
+                    transaccion.Dispose();
+                }
                 conexionSql.Close();
                 conexionSql.Dispose();
             }
@@ -1229,5 +1455,178 @@ namespace Modelo.Modelo.Entidades
 
             return cerrado;
         }
+        public DataTable ObtenerFiltrosListadoProyectos()
+        {
+            return conexion.EjecutarConsulta(@"SELECT DISTINCT Area, Responsable, Tipo FROM vwReporteProyectos");
+        }
+
+        public DataTable ObtenerListadoProyectosPagina(string texto, string estado,
+            string area, string responsable, string prioridad, string tipo, int pagina)
+        {
+            DataTable proyectos = new DataTable();
+            SqlConnection conexionSql = Conexion.conectar();
+            if (conexionSql == null)
+            {
+                return proyectos;
+            }
+            string query = @"
+                WITH Filtrados AS
+                (
+                    SELECT IdProyecto, Codigo, Proyecto, Tipo, Area, Responsable,
+                        Estado, Prioridad, Avance, FechaCreacion
+                    FROM vwReporteProyectos
+                    WHERE (@Texto = N'' OR Codigo LIKE N'%' + @Texto + N'%'
+                        OR Proyecto LIKE N'%' + @Texto + N'%')
+                        AND ((@Estado = N'Todos los visibles' AND Estado <> N'Cerrado')
+                             OR (@Estado <> N'Todos los visibles' AND Estado = @Estado))
+                        AND (@Area = N'' OR Area = @Area)
+                        AND (@Responsable = N'' OR Responsable = @Responsable)
+                        AND (@Prioridad = N'' OR Prioridad = @Prioridad)
+                        AND (@Tipo = N'' OR Tipo = @Tipo)
+                )
+                SELECT IdProyecto, Codigo, Proyecto, Tipo, Area, Responsable,
+                    Estado, Prioridad, Avance, COUNT(*) OVER() AS TotalRegistros
+                FROM Filtrados
+                ORDER BY FechaCreacion DESC, IdProyecto DESC
+                OFFSET @Inicio ROWS FETCH NEXT 20 ROWS ONLY";
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(query, conexionSql))
+                {
+                    comando.Parameters.AddWithValue("@Texto", texto);
+                    comando.Parameters.AddWithValue("@Estado", estado);
+                    comando.Parameters.AddWithValue("@Area", area);
+                    comando.Parameters.AddWithValue("@Responsable", responsable);
+                    comando.Parameters.AddWithValue("@Prioridad", prioridad);
+                    comando.Parameters.AddWithValue("@Tipo", tipo);
+                    comando.Parameters.AddWithValue("@Inicio", Math.Max(0, pagina) * 20);
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(proyectos);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+            return proyectos;
+        }
+
+        public DataTable ObtenerReporteProyectosPagina(int pagina, out int total)
+        {
+            string consulta = @"
+                SELECT IdProyecto, Codigo, Proyecto, Tipo, Area, Responsable,
+                    Estado, Prioridad, Avance, COUNT(*) OVER() AS TotalRegistros
+                FROM vwReporteProyectos
+                ORDER BY FechaCreacion DESC, IdProyecto DESC
+                OFFSET @Inicio ROWS FETCH NEXT 20 ROWS ONLY";
+            return new Conexion().EjecutarPagina(consulta,
+                new SqlParameter[0], pagina, out total);
+        }
+
+        public DataTable ObtenerProyectosUsuarioPagina(int idUsuario, string texto,
+            string estado, int filtroFecha, int pagina, int idInicial)
+        {
+            DataTable proyectos = new DataTable();
+            SqlConnection conexionSql = Conexion.conectar();
+            if (conexionSql == null)
+            {
+                return proyectos;
+            }
+            string query = @"
+                WITH Filtrados AS
+                (
+                    SELECT p.IdProyecto, p.Nombre AS Proyecto, u.NombreCompleto AS Responsable,
+                        ep.Nombre AS Estado, p.FechaCierreEstimada
+                    FROM tbProyecto p
+                    INNER JOIN tbUsuario u ON u.IdUsuario = p.IdResponsable
+                    INNER JOIN tbEstadoProyecto ep ON ep.IdEstadoProyecto = p.IdEstadoProyecto
+                    WHERE ep.Nombre <> N'Cerrado'
+                        AND (EXISTS (SELECT 1 FROM tbEquipoProyecto e WHERE e.IdProyecto = p.IdProyecto
+                            AND e.IdUsuario = @IdUsuario AND e.Activo = 1)
+                            OR EXISTS (SELECT 1 FROM tbTarea t WHERE t.IdProyecto = p.IdProyecto
+                                AND t.IdResponsable = @IdUsuario))
+                        AND (@IdInicial = 0 OR p.IdProyecto = @IdInicial)
+                        AND (@Texto = N'' OR p.Nombre LIKE N'%' + @Texto + N'%'
+                            OR u.NombreCompleto LIKE N'%' + @Texto + N'%')
+                        AND (@Estado = N'Todos los estados' OR ep.Nombre = @Estado)
+                        AND (@FiltroFecha = 0 OR
+                            (p.FechaCierreEstimada >= @Hoy AND
+                            ((@FiltroFecha = 1 AND p.FechaCierreEstimada <= @Hasta7)
+                            OR (@FiltroFecha = 2 AND p.FechaCierreEstimada <= @Hasta30))))
+                )
+                SELECT *, COUNT(*) OVER() AS TotalRegistros
+                FROM Filtrados
+                ORDER BY FechaCierreEstimada ASC, IdProyecto DESC
+                OFFSET @Inicio ROWS FETCH NEXT 20 ROWS ONLY";
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(query, conexionSql))
+                {
+                    comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                    comando.Parameters.AddWithValue("@Texto", texto);
+                    comando.Parameters.AddWithValue("@Estado", estado);
+                    comando.Parameters.AddWithValue("@FiltroFecha", filtroFecha);
+                    comando.Parameters.AddWithValue("@IdInicial", idInicial);
+                    comando.Parameters.AddWithValue("@Hoy", DateTime.Today);
+                    comando.Parameters.AddWithValue("@Hasta7", DateTime.Today.AddDays(7));
+                    comando.Parameters.AddWithValue("@Hasta30", DateTime.Today.AddDays(30));
+                    comando.Parameters.AddWithValue("@Inicio", Math.Max(0, pagina) * 20);
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(proyectos);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+            return proyectos;
+        }
+
+        public DataTable ObtenerProyectosUsuarioResumenPagina(int idUsuario, int pagina, int tamanoPagina, out int total)
+        {
+            string consulta = @"
+                SELECT p.IdProyecto, p.Nombre AS Proyecto,
+                    u.NombreCompleto AS Responsable, ep.Nombre AS Estado,
+                    p.FechaCierreEstimada, COUNT(*) OVER() AS TotalRegistros
+                FROM tbProyecto p
+                INNER JOIN tbUsuario u ON u.IdUsuario = p.IdResponsable
+                INNER JOIN tbEstadoProyecto ep ON ep.IdEstadoProyecto = p.IdEstadoProyecto
+                WHERE ep.Nombre <> N'Cerrado' AND
+                    (EXISTS (SELECT 1 FROM tbEquipoProyecto e
+                        WHERE e.IdProyecto = p.IdProyecto AND e.IdUsuario = @IdUsuario AND e.Activo = 1)
+                    OR EXISTS (SELECT 1 FROM tbTarea t
+                        WHERE t.IdProyecto = p.IdProyecto AND t.IdResponsable = @IdUsuario))
+                ORDER BY p.FechaCierreEstimada, p.IdProyecto
+                OFFSET @Inicio ROWS FETCH NEXT @Tamano ROWS ONLY";
+            SqlParameter[] parametros = { new SqlParameter("@IdUsuario", idUsuario) };
+            return new Conexion().EjecutarPaginaTamano(consulta, parametros, pagina, tamanoPagina, out total);
+        }
+
+        public DataTable ObtenerAvancesProyectosResumenPagina(int pagina, int tamanoPagina, out int total)
+        {
+            string consulta = @"
+                SELECT IdProyecto, Proyecto, Avance AS AvanceReal,
+                    COUNT(*) OVER() AS TotalRegistros
+                FROM vwReporteProyectos
+                WHERE Estado <> N'Cerrado'
+                ORDER BY Proyecto, IdProyecto
+                OFFSET @Inicio ROWS FETCH NEXT @Tamano ROWS ONLY";
+            return new Conexion().EjecutarPaginaTamano(consulta, new SqlParameter[0], pagina, tamanoPagina, out total);
+        }
+
     }
 }

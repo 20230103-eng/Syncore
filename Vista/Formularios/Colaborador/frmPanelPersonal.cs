@@ -46,6 +46,11 @@ namespace Vista
             tableroTarea = new TableroTarea();
             notificacionModelo = new Notificacion();
             agendaModelo = new Agenda();
+            ucPaginadorTareas.PaginaCambiada += ucPaginadorTareas_PaginaCambiada;
+            ucPaginadorProyectos.PaginaCambiada += ucPaginadorProyectos_PaginaCambiada;
+            ucPaginadorNotificaciones.PaginaCambiada += ucPaginadorNotificaciones_PaginaCambiada;
+            ucPaginadorAgenda.PaginaCambiada += ucPaginadorAgenda_PaginaCambiada;
+            ucPaginadorAvance.PaginaCambiada += ucPaginadorAvance_PaginaCambiada;
             this.Load += frmPanelPersonal_Load;
         }
 
@@ -64,11 +69,54 @@ namespace Vista
 
             int idUsuario = Sesion.UsuarioActual.IdUsuario;
             CargarTarjetas(idUsuario);
+            ucPaginadorTareas.Configurar(0, true);
             CargarTareasProximas(idUsuario);
             CargarProyectos(idUsuario);
+            ucPaginadorNotificaciones.Configurar(0, true);
             CargarNotificaciones(idUsuario);
+            ucPaginadorAgenda.Configurar(0, true);
             CargarAgenda(idUsuario);
             CargarAvancePorProyecto(idUsuario);
+        }
+
+        private void ucPaginadorTareas_PaginaCambiada(object sender, EventArgs e)
+        {
+            if (Sesion.UsuarioActual != null)
+            {
+                CargarTareasProximas(Sesion.UsuarioActual.IdUsuario);
+            }
+        }
+
+        private void ucPaginadorNotificaciones_PaginaCambiada(object sender, EventArgs e)
+        {
+            if (Sesion.UsuarioActual != null)
+            {
+                CargarNotificaciones(Sesion.UsuarioActual.IdUsuario);
+            }
+        }
+
+        private void ucPaginadorAgenda_PaginaCambiada(object sender, EventArgs e)
+        {
+            if (Sesion.UsuarioActual != null)
+            {
+                CargarAgenda(Sesion.UsuarioActual.IdUsuario);
+            }
+        }
+
+        private void ucPaginadorProyectos_PaginaCambiada(object sender, EventArgs e)
+        {
+            if (Sesion.UsuarioActual != null)
+            {
+                CargarProyectos(Sesion.UsuarioActual.IdUsuario);
+            }
+        }
+
+        private void ucPaginadorAvance_PaginaCambiada(object sender, EventArgs e)
+        {
+            if (Sesion.UsuarioActual != null)
+            {
+                CargarAvancePorProyecto(Sesion.UsuarioActual.IdUsuario);
+            }
         }
 
         private void CargarTarjetas(int idUsuario)
@@ -90,7 +138,16 @@ namespace Vista
 
         private void CargarTareasProximas(int idUsuario)
         {
-            DataTable tareas = tableroTarea.ObtenerTareasProximasUsuario(idUsuario, 4);
+            int total;
+            int pagina = ucPaginadorTareas.Inicio / ucPaginadorTareas.TamanoPagina;
+            DataTable tareas = tableroTarea.ObtenerTareasProximasUsuarioPagina(idUsuario, pagina,
+                ucPaginadorTareas.TamanoPagina, out total);
+            ucPaginadorTareas.Configurar(total, false);
+            if (pagina != ucPaginadorTareas.Inicio / ucPaginadorTareas.TamanoPagina)
+            {
+                CargarTareasProximas(idUsuario);
+                return;
+            }
             UCFilaTareaProxima[] controles = new UCFilaTareaProxima[] { tareaProxima1, tareaProxima2, tareaProxima3, tareaProxima4 };
 
             foreach (UCFilaTareaProxima control in controles)
@@ -185,7 +242,16 @@ namespace Vista
 
         private void CargarProyectos(int idUsuario)
         {
-            DataTable proyectos = proyectoModelo.ObtenerProyectosUsuario(idUsuario);
+            int total;
+            int pagina = ucPaginadorProyectos.Inicio / ucPaginadorProyectos.TamanoPagina;
+            DataTable proyectos = proyectoModelo.ObtenerProyectosUsuarioResumenPagina(idUsuario, pagina,
+                ucPaginadorProyectos.TamanoPagina, out total);
+            ucPaginadorProyectos.Configurar(total, false);
+            if (pagina != ucPaginadorProyectos.Inicio / ucPaginadorProyectos.TamanoPagina)
+            {
+                CargarProyectos(idUsuario);
+                return;
+            }
             UCFilaProyectoAsignado[] controles = new UCFilaProyectoAsignado[] { proyecto1, proyecto2, proyecto3 };
 
             foreach (UCFilaProyectoAsignado control in controles)
@@ -254,7 +320,16 @@ namespace Vista
 
         private void CargarNotificaciones(int idUsuario)
         {
-            DataTable notificaciones = notificacionModelo.ObtenerNotificacionesRecientes(idUsuario, 3);
+            int total;
+            int pagina = ucPaginadorNotificaciones.Inicio / ucPaginadorNotificaciones.TamanoPagina;
+            DataTable notificaciones = notificacionModelo.ObtenerNotificacionesRecientesPagina(idUsuario, pagina,
+                ucPaginadorNotificaciones.TamanoPagina, out total);
+            ucPaginadorNotificaciones.Configurar(total, false);
+            if (pagina != ucPaginadorNotificaciones.Inicio / ucPaginadorNotificaciones.TamanoPagina)
+            {
+                CargarNotificaciones(idUsuario);
+                return;
+            }
             UCAlertaGestion[] controles = new UCAlertaGestion[] { alerta1, alerta2, alerta3 };
 
             foreach (UCAlertaGestion control in controles)
@@ -361,7 +436,16 @@ namespace Vista
 
         private void CargarAgenda(int idUsuario)
         {
-            DataTable agenda = agendaModelo.ObtenerAgendaSemanalUsuario(idUsuario, 5);
+            int total;
+            int pagina = ucPaginadorAgenda.Inicio / ucPaginadorAgenda.TamanoPagina;
+            DataTable agenda = agendaModelo.ObtenerAgendaSemanalUsuarioPagina(idUsuario, pagina,
+                ucPaginadorAgenda.TamanoPagina, out total);
+            ucPaginadorAgenda.Configurar(total, false);
+            if (pagina != ucPaginadorAgenda.Inicio / ucPaginadorAgenda.TamanoPagina)
+            {
+                CargarAgenda(idUsuario);
+                return;
+            }
             UCFilaAgendaSemanal[] controles = new UCFilaAgendaSemanal[] { agenda1, agenda2, agenda3, agenda4, agenda5 };
 
             foreach (UCFilaAgendaSemanal control in controles)
@@ -395,7 +479,16 @@ namespace Vista
 
         private void CargarAvancePorProyecto(int idUsuario)
         {
-            DataTable proyectos = proyectoModelo.ObtenerProyectosUsuario(idUsuario);
+            int total;
+            int pagina = ucPaginadorAvance.Inicio / ucPaginadorAvance.TamanoPagina;
+            DataTable proyectos = proyectoModelo.ObtenerProyectosUsuarioResumenPagina(idUsuario, pagina,
+                ucPaginadorAvance.TamanoPagina, out total);
+            ucPaginadorAvance.Configurar(total, false);
+            if (pagina != ucPaginadorAvance.Inicio / ucPaginadorAvance.TamanoPagina)
+            {
+                CargarAvancePorProyecto(idUsuario);
+                return;
+            }
             UCProductividadProyecto[] controles = new UCProductividadProyecto[] { avanceProyecto1, avanceProyecto2, avanceProyecto3 };
 
             foreach (UCProductividadProyecto control in controles)

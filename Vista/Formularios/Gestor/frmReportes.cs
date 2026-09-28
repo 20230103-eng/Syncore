@@ -34,12 +34,13 @@ namespace Vista
         {
             if (Sesion.UsuarioActual == null || Sesion.UsuarioActual.TipoUsuario != "Gestor")
             {
-                MessageBox.Show("Solo un gestor puede generar reportes.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "Solo un gestor puede generar reportes.");
                 Close();
                 return;
             }
 
             ucPaginador.Tabla = dgvReporte;
+            ucPaginador.PaginaCambiada += ucPaginador_PaginaCambiada;
             cboReporte.Items.Add("Portafolio de proyectos");
             cboReporte.Items.Add("Productividad por colaborador");
             cboReporte.Items.Add("Hitos y entregables");
@@ -53,6 +54,7 @@ namespace Vista
         private void cboReporte_SelectedIndexChanged(object sender, EventArgs e)
         {
             cboPeriodo.Enabled = cboReporte.SelectedIndex == 1;
+            ucPaginador.ReiniciarRemoto();
             CargarReporte();
         }
 
@@ -60,13 +62,22 @@ namespace Vista
         {
             if (cboReporte.SelectedIndex == 1)
             {
+                ucPaginador.ReiniciarRemoto();
                 CargarReporte();
             }
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
+            ucPaginador.ReiniciarRemoto();
             CargarReporte();
+        }
+
+        private int DiasSeleccionados()
+        {
+            if (cboPeriodo.SelectedIndex == 1) return 60;
+            if (cboPeriodo.SelectedIndex == 2) return 90;
+            return 30;
         }
 
         private void CargarReporte()
@@ -75,40 +86,47 @@ namespace Vista
             {
                 return;
             }
-
+            int total = 0;
             if (cboReporte.SelectedIndex == 0)
             {
-                reporteActual = PrepararProyectos(proyectoModelo.ObtenerListadoProyectos());
+                reporteActual = PrepararProyectos(proyectoModelo.ObtenerReporteProyectosPagina(
+                    ucPaginador.PaginaActual, out total));
                 lblDescripcion.Text = "Estado, prioridad, responsable y avance real de todos los proyectos.";
             }
             else if (cboReporte.SelectedIndex == 1)
             {
-                int dias = 30;
-                if (cboPeriodo.SelectedIndex == 1)
-                {
-                    dias = 60;
-                }
-                else if (cboPeriodo.SelectedIndex == 2)
-                {
-                    dias = 90;
-                }
-
-                reporteActual = PrepararProductividad(productividadModelo.ObtenerProductividadColaboradores(dias));
+                int dias = DiasSeleccionados();
+                reporteActual = PrepararProductividad(productividadModelo.ObtenerProductividadColaboradoresPagina(
+                    dias, ucPaginador.PaginaActual, out total));
                 lblDescripcion.Text = "Tareas asignadas (total), porcentaje a tiempo y tendencia de los últimos " + dias + " días.";
             }
             else if (cboReporte.SelectedIndex == 2)
             {
-                reporteActual = PrepararHitos(hitoModelo.ObtenerHitosGestor(Sesion.UsuarioActual.IdUsuario));
+                reporteActual = PrepararHitos(hitoModelo.ObtenerHitosGestorPagina(
+                    Sesion.UsuarioActual.IdUsuario, "", 0, 0, ucPaginador.PaginaActual, out total));
                 lblDescripcion.Text = "Hitos de los proyectos bajo responsabilidad del gestor que inició sesión.";
             }
             else
             {
                 return;
             }
+            ucPaginador.MostrarRemoto(reporteActual, total);
+            lblTotal.Text = total.ToString() + " registro(s) en el reporte";
+            btnExportar.Enabled = total > 0;
+        }
 
-            ucPaginador.Mostrar(reporteActual);
-            lblTotal.Text = reporteActual.Rows.Count.ToString() + " registro(s) en el reporte";
-            btnExportar.Enabled = reporteActual.Rows.Count > 0;
+        private void ucPaginador_PaginaCambiada(object sender, EventArgs e)
+        {
+            CargarReporte();
+        }
+
+        private DataTable ObtenerReporteCompleto()
+        {
+            if (cboReporte.SelectedIndex == 0)
+                return PrepararProyectos(proyectoModelo.ObtenerListadoProyectos());
+            if (cboReporte.SelectedIndex == 1)
+                return PrepararProductividad(productividadModelo.ObtenerProductividadColaboradores(DiasSeleccionados()));
+            return PrepararHitos(hitoModelo.ObtenerHitosGestor(Sesion.UsuarioActual.IdUsuario));
         }
 
         private DataTable PrepararProyectos(DataTable origen)
@@ -155,13 +173,15 @@ namespace Vista
             resultado.Columns.Add("Descripción");
             resultado.Columns.Add("Responsable");
             resultado.Columns.Add("Estado");
+            resultado.Columns.Add("Tareas vencidas", typeof(int));
             resultado.Columns.Add("Fecha objetivo", typeof(DateTime));
             resultado.Columns.Add("Fecha cumplimiento", typeof(DateTime));
 
             foreach (DataRow fila in origen.Rows)
             {
                 resultado.Rows.Add(fila["Proyecto"], fila["Hito"], fila["Descripcion"],
-                    fila["Responsable"], fila["Estado"], fila["FechaObjetivo"], fila["FechaCumplimiento"]);
+                    fila["Responsable"], fila["Estado"], fila["TareasVencidas"],
+                    fila["FechaObjetivo"], fila["FechaCumplimiento"]);
             }
             return resultado;
         }
@@ -170,7 +190,7 @@ namespace Vista
         {
             if (reporteActual == null || reporteActual.Rows.Count == 0)
             {
-                MessageBox.Show("No hay información para exportar.");
+                CatalogoErrores.Mostrar("ERR-NEG-004", "Reportes");
                 return;
             }
 
@@ -183,9 +203,18 @@ namespace Vista
 
                 if (guardar.ShowDialog() == DialogResult.OK)
                 {
-                    ExportadorExcel.Guardar(reporteActual, cboReporte.Text, lblDescripcion.Text, guardar.FileName);
-                    MessageBox.Show("Reporte guardado: " + guardar.FileName, "Reportes", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                    DataTable reporteCompleto = ObtenerReporteCompleto();
+                    if (reporteCompleto.Rows.Count == 0)
+                    {
+                        CatalogoErrores.Mostrar("ERR-NEG-004", "Reportes");
+                        return;
+                    }
+                    if (ArchivosSeguros.GuardarExcel(reporteCompleto, cboReporte.Text,
+                        lblDescripcion.Text, guardar.FileName))
+                    {
+                        MessageBox.Show("Reporte guardado: " + guardar.FileName, "Reportes", MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                    }
                 }
             }
         }

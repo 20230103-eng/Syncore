@@ -9,6 +9,7 @@ namespace Vista
 {
     public partial class frmHitosEntregables : Form
     {
+        private bool validacionEnTiempoRealHabilitada;
         private System.Windows.Forms.ToolTip toolTipAyuda;
         private System.Windows.Forms.ErrorProvider errorProviderValidacion;
 
@@ -53,6 +54,14 @@ namespace Vista
             idHitoSeleccionado = 0;
             fechaCumplimientoSeleccionada = null;
             cargando = false;
+        
+            txtNombre.TextChanged += CamposEnTiempoReal;
+            txtNombre.Leave += CamposEnTiempoReal;
+            cboProyecto.SelectedIndexChanged += CamposEnTiempoReal;
+            cboProyecto.Leave += CamposEnTiempoReal;
+            cboEstado.SelectedIndexChanged += CamposEnTiempoReal;
+            cboEstado.Leave += CamposEnTiempoReal;
+            dtpFechaObjetivo.ValueChanged += CamposEnTiempoReal;
         }
 
         private void frmHitosEntregables_Load(object sender, EventArgs e)
@@ -61,19 +70,21 @@ namespace Vista
 
             if (Sesion.UsuarioActual == null)
             {
-                MessageBox.Show("No hay una sesión activa.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "No hay una sesión activa.");
                 return;
             }
 
             if (Sesion.UsuarioActual.TipoUsuario != "Gestor")
             {
-                MessageBox.Show("Solo un gestor puede administrar hitos.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "Solo un gestor puede administrar hitos.");
                 return;
             }
 
             CargarCatalogos();
             CargarHitos();
             PrepararNuevo();
+        
+            validacionEnTiempoRealHabilitada = true;
         }
 
         private void CargarCatalogos()
@@ -156,88 +167,41 @@ namespace Vista
 
         private void CargarHitos()
         {
-            hitosOriginales = hitoModelo.ObtenerHitosGestor(Sesion.UsuarioActual.IdUsuario);
+            ucPaginador.ReiniciarRemoto();
             AplicarFiltros();
         }
 
         private void AplicarFiltros()
         {
-            DataTable resultado;
-            string texto;
-            int idProyectoFiltro;
-            int idEstadoFiltro;
-
-            resultado = hitosOriginales.Clone();
-            texto = txtBuscar.Text.Trim().ToLower();
-            idProyectoFiltro = 0;
-            idEstadoFiltro = 0;
-
+            int idProyectoFiltro = 0;
+            int idEstadoFiltro = 0;
+            int total;
+            if (Sesion.UsuarioActual == null || cargando)
+            {
+                return;
+            }
             if (cboProyectoFiltro.SelectedValue != null)
             {
                 int.TryParse(cboProyectoFiltro.SelectedValue.ToString(), out idProyectoFiltro);
             }
-
             if (cboEstadoFiltro.SelectedValue != null)
             {
                 int.TryParse(cboEstadoFiltro.SelectedValue.ToString(), out idEstadoFiltro);
             }
-
-            foreach (DataRow fila in hitosOriginales.Rows)
-            {
-                bool mostrar;
-                int idProyecto;
-                int idEstado;
-
-                mostrar = true;
-                idProyecto = Convert.ToInt32(fila["IdProyecto"]);
-                idEstado = Convert.ToInt32(fila["IdEstadoHito"]);
-
-                if (idProyectoFiltro > 0 && idProyecto != idProyectoFiltro)
-                {
-                    mostrar = false;
-                }
-
-                if (idEstadoFiltro > 0 && idEstado != idEstadoFiltro)
-                {
-                    mostrar = false;
-                }
-
-                if (string.IsNullOrEmpty(texto) == false)
-                {
-                    bool coincide;
-
-                    coincide = false;
-
-                    if (fila["Hito"].ToString().ToLower().Contains(texto) == true)
-                    {
-                        coincide = true;
-                    }
-                    else if (fila["Proyecto"].ToString().ToLower().Contains(texto) == true)
-                    {
-                        coincide = true;
-                    }
-                    else if (fila["Responsable"].ToString().ToLower().Contains(texto) == true)
-                    {
-                        coincide = true;
-                    }
-
-                    if (coincide == false)
-                    {
-                        mostrar = false;
-                    }
-                }
-
-                if (mostrar == true)
-                {
-                    resultado.ImportRow(fila);
-                }
-            }
-
+            int paginaAnterior = ucPaginador.PaginaActual;
+            hitosOriginales = hitoModelo.ObtenerHitosGestorPagina(Sesion.UsuarioActual.IdUsuario,
+                txtBuscar.Text.Trim(), idProyectoFiltro, idEstadoFiltro,
+                paginaAnterior, out total);
             cargando = true;
-            ucPaginador.Mostrar(resultado);
-            ConfigurarTabla();
-            lblCantidad.Text = resultado.Rows.Count.ToString() + " hito(s)";
+            ucPaginador.MostrarRemoto(hitosOriginales, total);
             cargando = false;
+            if (paginaAnterior != ucPaginador.PaginaActual)
+            {
+                AplicarFiltros();
+                return;
+            }
+            ConfigurarTabla();
+            lblCantidad.Text = total.ToString() + " hito(s)";
         }
 
         private void ConfigurarTabla()
@@ -270,6 +234,11 @@ namespace Vista
             if (dgvHitos.Columns.Contains("FechaCumplimiento") == true)
             {
                 dgvHitos.Columns["FechaCumplimiento"].Visible = false;
+            }
+
+            if (dgvHitos.Columns.Contains("TareasVencidas") == true)
+            {
+                dgvHitos.Columns["TareasVencidas"].Visible = false;
             }
 
             if (dgvHitos.Columns.Contains("Proyecto") == true)
@@ -323,6 +292,7 @@ namespace Vista
             {
                 cboProyecto.SelectedIndex = 0;
             }
+            errorProviderValidacion.Clear();
         }
 
         private void SeleccionarEstado(string nombre)
@@ -353,24 +323,24 @@ namespace Vista
 
             if (cboProyecto.SelectedValue == null)
             {
-                errorProviderValidacion.SetError(cboProyecto, "Seleccione el proyecto.");
-                MessageBox.Show("Seleccione el proyecto.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cboProyecto, "ERR-VAL-007", "Seleccione el proyecto.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione el proyecto.");
                 cboProyecto.Focus();
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtNombre.Text.Trim()) == true)
             {
-                errorProviderValidacion.SetError(txtNombre, "Ingrese el nombre del hito o entregable.");
-                MessageBox.Show("Ingrese el nombre del hito o entregable.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtNombre, "ERR-VAL-001", "Ingrese el nombre del hito o entregable.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-001", "Syncore", "Ingrese el nombre del hito o entregable.");
                 txtNombre.Focus();
                 return false;
             }
 
             if (cboEstado.SelectedValue == null)
             {
-                errorProviderValidacion.SetError(cboEstado, "Seleccione el estado.");
-                MessageBox.Show("Seleccione el estado.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cboEstado, "ERR-VAL-007", "Seleccione el estado.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione el estado.");
                 cboEstado.Focus();
                 return false;
             }
@@ -380,7 +350,7 @@ namespace Vista
 
             if (proyecto.Rows.Count == 0)
             {
-                MessageBox.Show("No se encontró el proyecto seleccionado.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-004", "Syncore", "No se encontró el proyecto seleccionado.");
                 return false;
             }
 
@@ -389,8 +359,8 @@ namespace Vista
 
             if (dtpFechaObjetivo.Value.Date < fechaInicio.Date || dtpFechaObjetivo.Value.Date > fechaCierre.Date)
             {
-                errorProviderValidacion.SetError(dtpFechaObjetivo, "La fecha objetivo debe estar dentro de las fechas del proyecto.");
-                MessageBox.Show("La fecha objetivo debe estar dentro de las fechas del proyecto.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, dtpFechaObjetivo, "ERR-VAL-004", "La fecha objetivo debe estar dentro de las fechas del proyecto.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-004", "Syncore", "La fecha objetivo debe estar dentro de las fechas del proyecto.");
                 dtpFechaObjetivo.Focus();
                 return false;
             }
@@ -478,7 +448,7 @@ namespace Vista
 
             if (idHitoSeleccionado <= 0)
             {
-                MessageBox.Show("Seleccione un hito para actualizar.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione un hito para actualizar.");
                 return;
             }
 
@@ -596,6 +566,7 @@ namespace Vista
 
         private void filtros_Cambio(object sender, EventArgs e)
         {
+            ucPaginador.ReiniciarRemoto();
             if (cargando == false)
             {
                 AplicarFiltros();
@@ -604,11 +575,96 @@ namespace Vista
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
+            ucPaginador.ReiniciarRemoto();
             AplicarFiltros();
         }
         private void ucPaginador_PaginaCambiada(object sender, EventArgs e)
         {
+            AplicarFiltros();
             PrepararNuevo();
+        }
+
+        private void CamposEnTiempoReal(object sender, EventArgs e)
+        {
+            if (validacionEnTiempoRealHabilitada == false)
+            {
+                return;
+            }
+
+            if (sender == txtNombre)
+            {
+                if (string.IsNullOrEmpty(txtNombre.Text.Trim()) == true)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtNombre, "ERR-VAL-001", "Ingrese el nombre del hito o entregable.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtNombre, "");
+                }
+            }
+            if (sender == cboProyecto)
+            {
+                if (cboProyecto.SelectedIndex < 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cboProyecto, "ERR-VAL-007", "Seleccione el proyecto.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cboProyecto, "");
+                }
+            }
+            if (sender == cboEstado)
+            {
+                if (cboEstado.SelectedIndex < 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cboEstado, "ERR-VAL-007", "Seleccione el estado.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cboEstado, "");
+                }
+            }
+            if (sender == cboProyecto || sender == dtpFechaObjetivo)
+            {
+                ValidarFechaObjetivoEnTiempoReal();
+            }
+        }
+
+        private void ValidarFechaObjetivoEnTiempoReal()
+        {
+            int idProyecto;
+            DataTable datos;
+            DateTime inicio;
+            DateTime cierre;
+            if (validacionEnTiempoRealHabilitada == false || proyectoModelo == null)
+            {
+                return;
+            }
+            if (cboProyecto.SelectedValue == null)
+            {
+                errorProviderValidacion.SetError(dtpFechaObjetivo, "");
+                return;
+            }
+            if (int.TryParse(cboProyecto.SelectedValue.ToString(), out idProyecto) == false)
+            {
+                return;
+            }
+            datos = proyectoModelo.ObtenerProyectoPorId(idProyecto);
+            if (datos.Rows.Count == 0)
+            {
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, dtpFechaObjetivo, "ERR-NEG-004", "No se encontró el proyecto seleccionado.");
+                return;
+            }
+            inicio = Convert.ToDateTime(datos.Rows[0]["FechaInicio"]);
+            cierre = Convert.ToDateTime(datos.Rows[0]["FechaCierreEstimada"]);
+            if (dtpFechaObjetivo.Value.Date < inicio.Date || dtpFechaObjetivo.Value.Date > cierre.Date)
+            {
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, dtpFechaObjetivo, "ERR-VAL-004", "La fecha debe estar dentro del período del proyecto.");
+            }
+            else
+            {
+                errorProviderValidacion.SetError(dtpFechaObjetivo, "");
+            }
         }
 
     }

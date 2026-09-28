@@ -70,6 +70,7 @@
             this.pnlHistorial = new System.Windows.Forms.Panel();
             this.pnlHeaderHistorial = new System.Windows.Forms.Panel();
             this.lblHistorial = new System.Windows.Forms.Label();
+            this.ucPaginadorHistorial = new Vista.UCPaginadorTarjetas();
             this.flpHistorial = new System.Windows.Forms.Panel();
             this.historial1 = new Vista.UCHistorialAvance();
             this.historial2 = new Vista.UCHistorialAvance();
@@ -643,6 +644,7 @@
             this.pnlHistorial.BackColor = System.Drawing.Color.White;
             this.pnlHistorial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlHistorial.Controls.Add(this.flpHistorial);
+            this.pnlHistorial.Controls.Add(this.ucPaginadorHistorial);
             this.pnlHistorial.Controls.Add(this.pnlHeaderHistorial);
             this.pnlHistorial.Location = new System.Drawing.Point(1155, 0);
             this.pnlHistorial.Margin = new System.Windows.Forms.Padding(0);
@@ -672,6 +674,15 @@
             this.lblHistorial.TabIndex = 0;
             this.lblHistorial.Text = "Historial de mis avances";
             this.lblHistorial.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ucPaginadorHistorial
+            // 
+            this.ucPaginadorHistorial.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorHistorial.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorHistorial.Name = "ucPaginadorHistorial";
+            this.ucPaginadorHistorial.Size = new System.Drawing.Size(490, 42);
+            this.ucPaginadorHistorial.TabIndex = 8;
+            this.ucPaginadorHistorial.TamanoPagina = 5;
             // 
             // flpHistorial
             // 
@@ -812,5 +823,6 @@
         private Vista.UCHistorialAvance historial1;
         private Vista.UCHistorialAvance historial2;
         private Vista.UCHistorialAvance historial3;
+        private Vista.UCPaginadorTarjetas ucPaginadorHistorial;
     }
 }

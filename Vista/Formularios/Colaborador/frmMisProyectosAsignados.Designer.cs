@@ -50,6 +50,7 @@
             this.lblHFecha = new System.Windows.Forms.Label();
             this.lblHAccion = new System.Windows.Forms.Label();
             this.flpProyectos = new System.Windows.Forms.Panel();
+            this.paginadorTarjetas = new Vista.UCPaginadorTarjetas();
             this.proyecto1 = new Vista.UCFilaProyectoAsignado();
             this.proyecto2 = new Vista.UCFilaProyectoAsignado();
             this.proyecto3 = new Vista.UCFilaProyectoAsignado();
@@ -202,6 +203,7 @@
             this.pnlTabla.BackColor = System.Drawing.Color.White;
             this.pnlTabla.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTabla.Controls.Add(this.flpProyectos);
+            this.pnlTabla.Controls.Add(this.paginadorTarjetas);
             this.pnlTabla.Controls.Add(this.tlpEncabezado);
             this.pnlTabla.Location = new System.Drawing.Point(24, 165);
             this.pnlTabla.Name = "pnlTabla";
@@ -313,15 +315,23 @@
             // 
             // flpProyectos
             // 
-            this.flpProyectos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.flpProyectos.AutoScroll = true;
             this.flpProyectos.Controls.Add(this.proyecto3);
             this.flpProyectos.Controls.Add(this.proyecto2);
             this.flpProyectos.Controls.Add(this.proyecto1);
-            this.flpProyectos.Location = new System.Drawing.Point(12, 48);
+            this.flpProyectos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpProyectos.Location = new System.Drawing.Point(0, 42);
             this.flpProyectos.Name = "flpProyectos";
-            this.flpProyectos.Size = new System.Drawing.Size(1568, 438);
+            this.flpProyectos.Padding = new System.Windows.Forms.Padding(12, 6, 12, 6);
+            this.flpProyectos.Size = new System.Drawing.Size(1594, 674);
             this.flpProyectos.TabIndex = 1;
+            // 
+            // paginadorTarjetas
+            // 
+            this.paginadorTarjetas.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.paginadorTarjetas.Name = "paginadorTarjetas";
+            this.paginadorTarjetas.Size = new System.Drawing.Size(1594, 42);
+            this.paginadorTarjetas.TabIndex = 2;
             // 
             // proyecto1
             // 
@@ -416,6 +426,7 @@
         private System.Windows.Forms.Label lblHFecha;
         private System.Windows.Forms.Label lblHAccion;
         private System.Windows.Forms.Panel flpProyectos;
+        private Vista.UCPaginadorTarjetas paginadorTarjetas;
         private Vista.UCFilaProyectoAsignado proyecto1;
         private Vista.UCFilaProyectoAsignado proyecto2;
         private Vista.UCFilaProyectoAsignado proyecto3;

@@ -2,8 +2,15 @@
 {
     partial class UCAvanceReciente
     {
+        /// <summary>
+        /// Variable del diseñador necesaria.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -15,6 +22,10 @@
 
         #region Código generado por el Diseñador de Windows Forms
 
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private void InitializeComponent()
         {
             this.tlpPrincipal = new System.Windows.Forms.TableLayoutPanel();
@@ -41,6 +52,7 @@
             this.tlpPrincipal.Location = new System.Drawing.Point(0, 0);
             this.tlpPrincipal.Margin = new System.Windows.Forms.Padding(0);
             this.tlpPrincipal.Name = "tlpPrincipal";
+            this.tlpPrincipal.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tlpPrincipal.RowCount = 1;
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPrincipal.Size = new System.Drawing.Size(322, 68);
@@ -53,6 +65,7 @@
             this.picAvatar.Image = global::Vista.Properties.Recursos.AvatarUsuario;
             this.picAvatar.Location = new System.Drawing.Point(6, 15);
             this.picAvatar.Name = "picAvatar";
+            this.picAvatar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picAvatar.Size = new System.Drawing.Size(38, 38);
             this.picAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picAvatar.TabIndex = 0;
@@ -66,6 +79,7 @@
             this.pnlTexto.Location = new System.Drawing.Point(50, 0);
             this.pnlTexto.Margin = new System.Windows.Forms.Padding(0);
             this.pnlTexto.Name = "pnlTexto";
+            this.pnlTexto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pnlTexto.Size = new System.Drawing.Size(214, 68);
             this.pnlTexto.TabIndex = 1;
             // 
@@ -77,6 +91,7 @@
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(20, 27, 36);
             this.lblNombre.Location = new System.Drawing.Point(0, 0);
             this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblNombre.Padding = new System.Windows.Forms.Padding(4, 8, 0, 0);
             this.lblNombre.Size = new System.Drawing.Size(214, 31);
             this.lblNombre.TabIndex = 0;
@@ -90,6 +105,7 @@
             this.lblTarea.ForeColor = System.Drawing.Color.FromArgb(105, 118, 135);
             this.lblTarea.Location = new System.Drawing.Point(0, 31);
             this.lblTarea.Name = "lblTarea";
+            this.lblTarea.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblTarea.Padding = new System.Windows.Forms.Padding(4, 1, 0, 0);
             this.lblTarea.Size = new System.Drawing.Size(214, 37);
             this.lblTarea.TabIndex = 1;
@@ -103,6 +119,7 @@
             this.lblPorcentaje.Location = new System.Drawing.Point(264, 0);
             this.lblPorcentaje.Margin = new System.Windows.Forms.Padding(0);
             this.lblPorcentaje.Name = "lblPorcentaje";
+            this.lblPorcentaje.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblPorcentaje.Size = new System.Drawing.Size(58, 68);
             this.lblPorcentaje.TabIndex = 2;
             this.lblPorcentaje.Text = "33%";
@@ -119,6 +136,7 @@
             this.MaximumSize = new System.Drawing.Size(0, 68);
             this.MinimumSize = new System.Drawing.Size(260, 68);
             this.Name = "UCAvanceReciente";
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Size = new System.Drawing.Size(322, 68);
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).EndInit();
             this.tlpPrincipal.ResumeLayout(false);

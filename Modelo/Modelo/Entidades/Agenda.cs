@@ -63,6 +63,41 @@ namespace Modelo.Modelo.Entidades
             return resultado;
         }
 
+        public DataTable ObtenerAgendaSemanalUsuarioPagina(int idUsuario, int pagina, int tamanoPagina, out int total)
+        {
+            string consulta = @"
+                SELECT Fecha, Actividad, Tipo, Proyecto, Estado, IdTarea, IdProyecto,
+                    COUNT(*) OVER() AS TotalRegistros
+                FROM
+                (
+                    SELECT tbTarea.FechaLimite AS Fecha, tbTarea.Nombre AS Actividad,
+                        N'Tarea' AS Tipo, tbProyecto.Nombre AS Proyecto,
+                        tbEstadoTarea.Nombre AS Estado, tbTarea.IdTarea, tbTarea.IdProyecto
+                    FROM tbTarea
+                    INNER JOIN tbProyecto ON tbTarea.IdProyecto = tbProyecto.IdProyecto
+                    INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
+                    WHERE tbTarea.IdResponsable = @IdUsuario
+                    AND tbTarea.FechaLimite >= CONVERT(DATE, GETDATE())
+                    AND tbTarea.FechaLimite <= DATEADD(DAY, 7, CONVERT(DATE, GETDATE()))
+
+                    UNION ALL
+
+                    SELECT tbHito.FechaObjetivo AS Fecha, tbHito.Nombre AS Actividad,
+                        N'Hito' AS Tipo, tbProyecto.Nombre AS Proyecto,
+                        tbEstadoHito.Nombre AS Estado, 0 AS IdTarea, tbHito.IdProyecto
+                    FROM tbHito
+                    INNER JOIN tbProyecto ON tbHito.IdProyecto = tbProyecto.IdProyecto
+                    INNER JOIN tbEstadoHito ON tbHito.IdEstadoHito = tbEstadoHito.IdEstadoHito
+                    WHERE tbHito.IdResponsable = @IdUsuario
+                    AND tbHito.FechaObjetivo >= CONVERT(DATE, GETDATE())
+                    AND tbHito.FechaObjetivo <= DATEADD(DAY, 7, CONVERT(DATE, GETDATE()))
+                ) agenda
+                ORDER BY Fecha, Tipo, Actividad
+                OFFSET @Inicio ROWS FETCH NEXT @Tamano ROWS ONLY";
+            SqlParameter[] parametros = { new SqlParameter("@IdUsuario", idUsuario) };
+            return new Conexion().EjecutarPaginaTamano(consulta, parametros, pagina, tamanoPagina, out total);
+        }
+
         public DataTable ObtenerCalendarioUsuario(int idUsuario, int idProyecto, DateTime fechaInicio, DateTime fechaFin, string tipo)
         {
             DataTable agenda;

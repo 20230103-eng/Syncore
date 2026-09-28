@@ -2,8 +2,15 @@
 {
     partial class frmDetalleProyecto
     {
+        /// <summary>
+        /// Variable del diseñador necesaria.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -16,6 +23,10 @@
 
         #region Código generado por el Diseñador de Windows Forms
 
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -41,6 +52,7 @@
             this.pnlEncabezado = new System.Windows.Forms.Panel();
             this.flpAcciones = new System.Windows.Forms.FlowLayoutPanel();
             this.btnCerrarProyecto = new System.Windows.Forms.Button();
+            this.btnExportarPdf = new System.Windows.Forms.Button();
             this.btnEquipoTrabajo = new System.Windows.Forms.Button();
             this.btnEditarProyecto = new System.Windows.Forms.Button();
             this.btnVolverListado = new System.Windows.Forms.Button();
@@ -94,8 +106,10 @@
             this.lblSaludTitulo = new System.Windows.Forms.Label();
             this.pnlHitos = new System.Windows.Forms.Panel();
             this.dgvHitos = new System.Windows.Forms.DataGridView();
+            this.ucPaginadorHitos = new Vista.UCPaginadorTarjetas();
             this.lblHitosTitulo = new System.Windows.Forms.Label();
             this.pnlAlertas = new System.Windows.Forms.Panel();
+            this.ucPaginadorAlertas = new Vista.UCPaginadorTarjetas();
             this.flpAlertas = new System.Windows.Forms.FlowLayoutPanel();
             this.lblAlertasTitulo = new System.Windows.Forms.Label();
             this.pnlTop.SuspendLayout();
@@ -220,11 +234,12 @@
             // 
             this.flpAcciones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.flpAcciones.Controls.Add(this.btnCerrarProyecto);
+            this.flpAcciones.Controls.Add(this.btnExportarPdf);
             this.flpAcciones.Controls.Add(this.btnEquipoTrabajo);
             this.flpAcciones.Controls.Add(this.btnEditarProyecto);
             this.flpAcciones.Controls.Add(this.btnVolverListado);
             this.flpAcciones.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flpAcciones.Location = new System.Drawing.Point(770, 12);
+            this.flpAcciones.Location = new System.Drawing.Point(770, 62);
             this.flpAcciones.Name = "flpAcciones";
             this.flpAcciones.Size = new System.Drawing.Size(848, 42);
             this.flpAcciones.TabIndex = 2;
@@ -246,6 +261,22 @@
             this.btnCerrarProyecto.Text = "Cerrar proyecto";
             this.btnCerrarProyecto.UseVisualStyleBackColor = false;
             // 
+            // btnExportarPdf
+            // 
+            this.btnExportarPdf.BackColor = System.Drawing.Color.White;
+            this.btnExportarPdf.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExportarPdf.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnExportarPdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportarPdf.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnExportarPdf.ForeColor = System.Drawing.Color.FromArgb(0, 105, 240);
+            this.btnExportarPdf.Location = new System.Drawing.Point(558, 3);
+            this.btnExportarPdf.Name = "btnExportarPdf";
+            this.btnExportarPdf.Size = new System.Drawing.Size(128, 34);
+            this.btnExportarPdf.TabIndex = 4;
+            this.btnExportarPdf.Text = "Exportar PDF";
+            this.btnExportarPdf.UseVisualStyleBackColor = false;
+            this.btnExportarPdf.Click += new System.EventHandler(this.btnExportarPdf_Click);
+            // 
             // btnEquipoTrabajo
             // 
             this.btnEquipoTrabajo.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
@@ -255,7 +286,7 @@
             this.btnEquipoTrabajo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEquipoTrabajo.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnEquipoTrabajo.ForeColor = System.Drawing.Color.White;
-            this.btnEquipoTrabajo.Location = new System.Drawing.Point(515, 3);
+            this.btnEquipoTrabajo.Location = new System.Drawing.Point(381, 3);
             this.btnEquipoTrabajo.Name = "btnEquipoTrabajo";
             this.btnEquipoTrabajo.Size = new System.Drawing.Size(171, 34);
             this.btnEquipoTrabajo.TabIndex = 2;
@@ -271,7 +302,7 @@
             this.btnEditarProyecto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditarProyecto.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnEditarProyecto.ForeColor = System.Drawing.Color.FromArgb(0, 105, 240);
-            this.btnEditarProyecto.Location = new System.Drawing.Point(362, 3);
+            this.btnEditarProyecto.Location = new System.Drawing.Point(228, 3);
             this.btnEditarProyecto.Name = "btnEditarProyecto";
             this.btnEditarProyecto.Size = new System.Drawing.Size(147, 34);
             this.btnEditarProyecto.TabIndex = 1;
@@ -287,7 +318,7 @@
             this.btnVolverListado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVolverListado.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnVolverListado.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
-            this.btnVolverListado.Location = new System.Drawing.Point(195, 3);
+            this.btnVolverListado.Location = new System.Drawing.Point(61, 3);
             this.btnVolverListado.Name = "btnVolverListado";
             this.btnVolverListado.Size = new System.Drawing.Size(161, 34);
             this.btnVolverListado.TabIndex = 0;
@@ -299,9 +330,9 @@
             this.lblSubtitulo.AutoEllipsis = true;
             this.lblSubtitulo.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.lblSubtitulo.ForeColor = System.Drawing.Color.FromArgb(89, 105, 123);
-            this.lblSubtitulo.Location = new System.Drawing.Point(3, 57);
+            this.lblSubtitulo.Location = new System.Drawing.Point(3, 42);
             this.lblSubtitulo.Name = "lblSubtitulo";
-            this.lblSubtitulo.Size = new System.Drawing.Size(750, 27);
+            this.lblSubtitulo.Size = new System.Drawing.Size(750, 20);
             this.lblSubtitulo.TabIndex = 1;
             this.lblSubtitulo.Text = "Proyecto: — | Responsable: —";
             // 
@@ -310,9 +341,9 @@
             this.lblTitulo.AutoEllipsis = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
-            this.lblTitulo.Location = new System.Drawing.Point(0, 8);
+            this.lblTitulo.Location = new System.Drawing.Point(0, 2);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(750, 42);
+            this.lblTitulo.Size = new System.Drawing.Size(750, 39);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "\"Nombre de proyecto\"";
             // 
@@ -899,6 +930,7 @@
             this.pnlHitos.BackColor = System.Drawing.Color.White;
             this.pnlHitos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlHitos.Controls.Add(this.dgvHitos);
+            this.pnlHitos.Controls.Add(this.ucPaginadorHitos);
             this.pnlHitos.Controls.Add(this.lblHitosTitulo);
             this.pnlHitos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlHitos.Location = new System.Drawing.Point(3, 373);
@@ -906,6 +938,15 @@
             this.pnlHitos.Size = new System.Drawing.Size(1223, 214);
             this.pnlHitos.TabIndex = 2;
             // 
+            // ucPaginadorHitos
+            //
+            this.ucPaginadorHitos.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorHitos.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorHitos.Name = "ucPaginadorHitos";
+            this.ucPaginadorHitos.Size = new System.Drawing.Size(490, 42);
+            this.ucPaginadorHitos.TabIndex = 8;
+            this.ucPaginadorHitos.TamanoPagina = 3;
+            //
             // dgvHitos
             // 
             this.dgvHitos.AllowUserToAddRows = false;
@@ -951,6 +992,7 @@
             this.pnlAlertas.BackColor = System.Drawing.Color.White;
             this.pnlAlertas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlAlertas.Controls.Add(this.flpAlertas);
+            this.pnlAlertas.Controls.Add(this.ucPaginadorAlertas);
             this.pnlAlertas.Controls.Add(this.lblAlertasTitulo);
             this.pnlAlertas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlAlertas.Location = new System.Drawing.Point(1235, 3);
@@ -958,6 +1000,15 @@
             this.pnlAlertas.Name = "pnlAlertas";
             this.pnlAlertas.Size = new System.Drawing.Size(380, 364);
             this.pnlAlertas.TabIndex = 3;
+            // 
+            // ucPaginadorAlertas
+            // 
+            this.ucPaginadorAlertas.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorAlertas.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorAlertas.Name = "ucPaginadorAlertas";
+            this.ucPaginadorAlertas.Size = new System.Drawing.Size(378, 42);
+            this.ucPaginadorAlertas.TabIndex = 2;
+            this.ucPaginadorAlertas.TamanoPagina = 4;
             // 
             // flpAlertas
             // 
@@ -1050,6 +1101,7 @@
         private System.Windows.Forms.Button btnEditarProyecto;
         private System.Windows.Forms.Button btnEquipoTrabajo;
         private System.Windows.Forms.Button btnCerrarProyecto;
+        private System.Windows.Forms.Button btnExportarPdf;
         private System.Windows.Forms.TableLayoutPanel tlpIndicadores;
         private System.Windows.Forms.Panel pnlKpiAvance;
         private System.Windows.Forms.Label lblKpiAvanceTitulo;
@@ -1099,7 +1151,9 @@
         private System.Windows.Forms.Panel pnlHitos;
         private System.Windows.Forms.Label lblHitosTitulo;
         private System.Windows.Forms.DataGridView dgvHitos;
+        private Vista.UCPaginadorTarjetas ucPaginadorHitos;
         private System.Windows.Forms.Panel pnlAlertas;
+        private Vista.UCPaginadorTarjetas ucPaginadorAlertas;
         private System.Windows.Forms.Label lblAlertasTitulo;
         private System.Windows.Forms.FlowLayoutPanel flpAlertas;
     }

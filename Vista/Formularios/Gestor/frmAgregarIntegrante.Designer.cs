@@ -36,6 +36,7 @@ namespace Vista
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblResultados = new System.Windows.Forms.Label();
             this.flpUsuarios = new System.Windows.Forms.FlowLayoutPanel();
+            this.ucPaginador = new Vista.UCPaginadorTarjetas();
             this.usuario1 = new Vista.UCTarjetaSeleccionUsuario();
             this.usuario2 = new Vista.UCTarjetaSeleccionUsuario();
             this.usuario3 = new Vista.UCTarjetaSeleccionUsuario();
@@ -130,9 +131,17 @@ namespace Vista
             this.flpUsuarios.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpUsuarios.Location = new System.Drawing.Point(24, 184);
             this.flpUsuarios.Name = "flpUsuarios";
-            this.flpUsuarios.Size = new System.Drawing.Size(694, 330);
+            this.flpUsuarios.Size = new System.Drawing.Size(694, 294);
             this.flpUsuarios.TabIndex = 2;
             this.flpUsuarios.WrapContents = false;
+            // 
+            // ucPaginador
+            // 
+            this.ucPaginador.Location = new System.Drawing.Point(24, 482);
+            this.ucPaginador.Name = "ucPaginador";
+            this.ucPaginador.Size = new System.Drawing.Size(694, 42);
+            this.ucPaginador.TabIndex = 3;
+            this.ucPaginador.Visible = true;
             // 
             // usuario1
             // 
@@ -234,6 +243,7 @@ namespace Vista
             this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.CancelButton = this.btnCancelar;
             this.Controls.Add(this.pnlBotones);
+            this.Controls.Add(this.ucPaginador);
             this.Controls.Add(this.flpUsuarios);
             this.Controls.Add(this.lblResultados);
             this.Controls.Add(this.btnBuscar);
@@ -265,6 +275,7 @@ namespace Vista
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label lblResultados;
         private System.Windows.Forms.FlowLayoutPanel flpUsuarios;
+        private Vista.UCPaginadorTarjetas ucPaginador;
         private Vista.UCTarjetaSeleccionUsuario usuario1;
         private Vista.UCTarjetaSeleccionUsuario usuario2;
         private Vista.UCTarjetaSeleccionUsuario usuario3;

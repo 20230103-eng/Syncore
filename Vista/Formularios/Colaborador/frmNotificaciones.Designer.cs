@@ -2,8 +2,15 @@
 {
     partial class frmNotificaciones
     {
+        /// <summary>
+        /// Variable del diseñador necesaria.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -15,6 +22,10 @@
 
         #region Código generado por el Diseñador de Windows Forms
 
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -24,6 +35,7 @@
             this.lblBreadcrumbBase = new System.Windows.Forms.Label();
             this.pnlViewport = new System.Windows.Forms.Panel();
             this.tlpPrincipal = new System.Windows.Forms.TableLayoutPanel();
+            this.paginadorTarjetas = new Vista.UCPaginadorTarjetas();
             this.tlpCabecera = new System.Windows.Forms.TableLayoutPanel();
             this.pnlTitulos = new System.Windows.Forms.Panel();
             this.lblSinLeer = new System.Windows.Forms.Label();
@@ -110,15 +122,24 @@
             this.tlpPrincipal.Controls.Add(this.tlpCabecera, 0, 0);
             this.tlpPrincipal.Controls.Add(this.tlpFiltros, 0, 1);
             this.tlpPrincipal.Controls.Add(this.tlpNotificaciones, 0, 2);
+            this.tlpPrincipal.Controls.Add(this.paginadorTarjetas, 0, 3);
             this.tlpPrincipal.Dock = System.Windows.Forms.DockStyle.Top;
             this.tlpPrincipal.Location = new System.Drawing.Point(24, 24);
             this.tlpPrincipal.Name = "tlpPrincipal";
-            this.tlpPrincipal.RowCount = 3;
+            this.tlpPrincipal.RowCount = 4;
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 76F));
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpPrincipal.Size = new System.Drawing.Size(1622, 196);
+            this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.tlpPrincipal.Size = new System.Drawing.Size(1622, 238);
             this.tlpPrincipal.TabIndex = 0;
+            // 
+            // paginadorTarjetas
+            // 
+            this.paginadorTarjetas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.paginadorTarjetas.Name = "paginadorTarjetas";
+            this.paginadorTarjetas.Size = new System.Drawing.Size(1622, 42);
+            this.paginadorTarjetas.TabIndex = 3;
             // 
             // tlpCabecera
             // 
@@ -303,6 +324,7 @@
         private System.Windows.Forms.Label lblBreadcrumbBase;
         private System.Windows.Forms.Panel pnlViewport;
         private System.Windows.Forms.TableLayoutPanel tlpPrincipal;
+        private Vista.UCPaginadorTarjetas paginadorTarjetas;
         private System.Windows.Forms.TableLayoutPanel tlpCabecera;
         private System.Windows.Forms.Panel pnlTitulos;
         private System.Windows.Forms.Label lblTitulo;

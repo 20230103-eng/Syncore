@@ -48,6 +48,7 @@
             this.tlpFilaSuperior = new System.Windows.Forms.TableLayoutPanel();
             this.pnlProyectosCriticos = new System.Windows.Forms.Panel();
             this.flpProyectosCriticos = new System.Windows.Forms.Panel();
+            this.ucPaginadorCriticos = new Vista.UCPaginadorTarjetas();
             this.proyecto4 = new Vista.UCProyectoCritico();
             this.proyecto3 = new Vista.UCProyectoCritico();
             this.proyecto2 = new Vista.UCProyectoCritico();
@@ -62,6 +63,7 @@
             this.pnlSeparadorProyectos = new System.Windows.Forms.Panel();
             this.lblProyectosCriticos = new System.Windows.Forms.Label();
             this.pnlAlertas = new System.Windows.Forms.Panel();
+            this.ucPaginadorAlertas = new Vista.UCPaginadorTarjetas();
             this.flpAlertas = new System.Windows.Forms.Panel();
             this.alerta3 = new Vista.UCAlertaGestion();
             this.alerta2 = new Vista.UCAlertaGestion();
@@ -71,6 +73,7 @@
             this.tlpFilaInferior = new System.Windows.Forms.TableLayoutPanel();
             this.pnlAvanceProyecto = new System.Windows.Forms.Panel();
             this.flpBarrasProyecto = new System.Windows.Forms.FlowLayoutPanel();
+            this.ucPaginadorAvance = new Vista.UCPaginadorTarjetas();
             this.barraProyecto1 = new Vista.UCBarraProyecto();
             this.barraProyecto2 = new Vista.UCBarraProyecto();
             this.barraProyecto3 = new Vista.UCBarraProyecto();
@@ -78,6 +81,7 @@
             this.pnlSeparadorAvance = new System.Windows.Forms.Panel();
             this.lblAvanceProyecto = new System.Windows.Forms.Label();
             this.pnlAvancesRecientes = new System.Windows.Forms.Panel();
+            this.ucPaginadorRecientes = new Vista.UCPaginadorTarjetas();
             this.flpAvancesRecientes = new System.Windows.Forms.Panel();
             this.avanceReciente3 = new Vista.UCAvanceReciente();
             this.avanceReciente2 = new Vista.UCAvanceReciente();
@@ -356,6 +360,7 @@
             this.pnlProyectosCriticos.BackColor = System.Drawing.Color.White;
             this.pnlProyectosCriticos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlProyectosCriticos.Controls.Add(this.flpProyectosCriticos);
+            this.pnlProyectosCriticos.Controls.Add(this.ucPaginadorCriticos);
             this.pnlProyectosCriticos.Controls.Add(this.pnlEncabezadoProyectos);
             this.pnlProyectosCriticos.Controls.Add(this.pnlSeparadorProyectos);
             this.pnlProyectosCriticos.Controls.Add(this.lblProyectosCriticos);
@@ -364,6 +369,15 @@
             this.pnlProyectosCriticos.Name = "pnlProyectosCriticos";
             this.pnlProyectosCriticos.Size = new System.Drawing.Size(1157, 338);
             this.pnlProyectosCriticos.TabIndex = 7;
+            // 
+            // ucPaginadorCriticos
+            //
+            this.ucPaginadorCriticos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ucPaginadorCriticos.Location = new System.Drawing.Point(10, 281);
+            this.ucPaginadorCriticos.Name = "ucPaginadorCriticos";
+            this.ucPaginadorCriticos.Size = new System.Drawing.Size(1135, 42);
+            this.ucPaginadorCriticos.Visible = true;
             // 
             // flpProyectosCriticos
             // 
@@ -377,7 +391,7 @@
             this.flpProyectosCriticos.Controls.Add(this.proyecto1);
             this.flpProyectosCriticos.Location = new System.Drawing.Point(10, 88);
             this.flpProyectosCriticos.Name = "flpProyectosCriticos";
-            this.flpProyectosCriticos.Size = new System.Drawing.Size(1135, 238);
+            this.flpProyectosCriticos.Size = new System.Drawing.Size(1135, 188);
             this.flpProyectosCriticos.TabIndex = 3;
             // 
             // proyecto4
@@ -592,6 +606,7 @@
             this.pnlAlertas.BackColor = System.Drawing.Color.White;
             this.pnlAlertas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlAlertas.Controls.Add(this.flpAlertas);
+            this.pnlAlertas.Controls.Add(this.ucPaginadorAlertas);
             this.pnlAlertas.Controls.Add(this.pnlSeparadorAlertas);
             this.pnlAlertas.Controls.Add(this.lblAlertas);
             this.pnlAlertas.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -600,10 +615,18 @@
             this.pnlAlertas.Size = new System.Drawing.Size(447, 338);
             this.pnlAlertas.TabIndex = 8;
             // 
+            // ucPaginadorAlertas
+            // 
+            this.ucPaginadorAlertas.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorAlertas.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorAlertas.Name = "ucPaginadorAlertas";
+            this.ucPaginadorAlertas.Size = new System.Drawing.Size(490, 42);
+            this.ucPaginadorAlertas.TabIndex = 8;
+            this.ucPaginadorAlertas.TamanoPagina = 5;
+            // 
             // flpAlertas
             // 
-            this.flpAlertas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.flpAlertas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flpAlertas.AutoScroll = true;
             this.flpAlertas.Controls.Add(this.alerta3);
@@ -611,7 +634,7 @@
             this.flpAlertas.Controls.Add(this.alerta1);
             this.flpAlertas.Location = new System.Drawing.Point(10, 55);
             this.flpAlertas.Name = "flpAlertas";
-            this.flpAlertas.Size = new System.Drawing.Size(425, 268);
+            this.flpAlertas.Size = new System.Drawing.Size(425, 226);
             this.flpAlertas.TabIndex = 2;
             // 
             // alerta3
@@ -709,6 +732,7 @@
             this.pnlAvanceProyecto.BackColor = System.Drawing.Color.White;
             this.pnlAvanceProyecto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlAvanceProyecto.Controls.Add(this.flpBarrasProyecto);
+            this.pnlAvanceProyecto.Controls.Add(this.ucPaginadorAvance);
             this.pnlAvanceProyecto.Controls.Add(this.pnlSeparadorAvance);
             this.pnlAvanceProyecto.Controls.Add(this.lblAvanceProyecto);
             this.pnlAvanceProyecto.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -716,6 +740,15 @@
             this.pnlAvanceProyecto.Name = "pnlAvanceProyecto";
             this.pnlAvanceProyecto.Size = new System.Drawing.Size(1157, 288);
             this.pnlAvanceProyecto.TabIndex = 9;
+            // 
+            // ucPaginadorAvance
+            //
+            this.ucPaginadorAvance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ucPaginadorAvance.Location = new System.Drawing.Point(10, 236);
+            this.ucPaginadorAvance.Name = "ucPaginadorAvance";
+            this.ucPaginadorAvance.Size = new System.Drawing.Size(1135, 42);
+            this.ucPaginadorAvance.Visible = true;
             // 
             // flpBarrasProyecto
             // 
@@ -729,7 +762,7 @@
             this.flpBarrasProyecto.Controls.Add(this.barraProyecto4);
             this.flpBarrasProyecto.Location = new System.Drawing.Point(10, 52);
             this.flpBarrasProyecto.Name = "flpBarrasProyecto";
-            this.flpBarrasProyecto.Size = new System.Drawing.Size(1135, 223);
+            this.flpBarrasProyecto.Size = new System.Drawing.Size(1135, 179);
             this.flpBarrasProyecto.TabIndex = 2;
             this.flpBarrasProyecto.WrapContents = false;
             // 
@@ -807,6 +840,7 @@
             this.pnlAvancesRecientes.BackColor = System.Drawing.Color.White;
             this.pnlAvancesRecientes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlAvancesRecientes.Controls.Add(this.flpAvancesRecientes);
+            this.pnlAvancesRecientes.Controls.Add(this.ucPaginadorRecientes);
             this.pnlAvancesRecientes.Controls.Add(this.pnlSeparadorAvances);
             this.pnlAvancesRecientes.Controls.Add(this.lblAvancesRecientes);
             this.pnlAvancesRecientes.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -815,10 +849,18 @@
             this.pnlAvancesRecientes.Size = new System.Drawing.Size(447, 288);
             this.pnlAvancesRecientes.TabIndex = 10;
             // 
+            // ucPaginadorRecientes
+            // 
+            this.ucPaginadorRecientes.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorRecientes.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorRecientes.Name = "ucPaginadorRecientes";
+            this.ucPaginadorRecientes.Size = new System.Drawing.Size(490, 42);
+            this.ucPaginadorRecientes.TabIndex = 8;
+            this.ucPaginadorRecientes.TamanoPagina = 3;
+            // 
             // flpAvancesRecientes
             // 
-            this.flpAvancesRecientes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.flpAvancesRecientes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flpAvancesRecientes.AutoScroll = true;
             this.flpAvancesRecientes.Controls.Add(this.avanceReciente3);
@@ -826,7 +868,7 @@
             this.flpAvancesRecientes.Controls.Add(this.avanceReciente1);
             this.flpAvancesRecientes.Location = new System.Drawing.Point(10, 50);
             this.flpAvancesRecientes.Name = "flpAvancesRecientes";
-            this.flpAvancesRecientes.Size = new System.Drawing.Size(425, 225);
+            this.flpAvancesRecientes.Size = new System.Drawing.Size(425, 181);
             this.flpAvancesRecientes.TabIndex = 3;
             // 
             // avanceReciente3
@@ -916,7 +958,6 @@
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmPanelGestion";
-            this.Shown += new System.EventHandler(this.frmPanelGestion_Shown);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Panel de gestión";
             this.pnlTop.ResumeLayout(false);
@@ -973,6 +1014,7 @@
         private System.Windows.Forms.Label lblHEstado;
         private System.Windows.Forms.Label lblHAccion;
         private System.Windows.Forms.Panel flpProyectosCriticos;
+        private Vista.UCPaginadorTarjetas ucPaginadorCriticos;
         private System.Windows.Forms.Panel pnlAlertas;
         private System.Windows.Forms.Label lblAlertas;
         private System.Windows.Forms.Panel pnlSeparadorAlertas;
@@ -981,6 +1023,7 @@
         private System.Windows.Forms.Label lblAvanceProyecto;
         private System.Windows.Forms.Panel pnlSeparadorAvance;
         private System.Windows.Forms.FlowLayoutPanel flpBarrasProyecto;
+        private Vista.UCPaginadorTarjetas ucPaginadorAvance;
         private System.Windows.Forms.Panel pnlAvancesRecientes;
         private System.Windows.Forms.Label lblAvancesRecientes;
         private System.Windows.Forms.Panel pnlSeparadorAvances;
@@ -1003,5 +1046,7 @@
         private Vista.UCAvanceReciente avanceReciente1;
         private Vista.UCAvanceReciente avanceReciente2;
         private Vista.UCAvanceReciente avanceReciente3;
+        private Vista.UCPaginadorTarjetas ucPaginadorAlertas;
+        private Vista.UCPaginadorTarjetas ucPaginadorRecientes;
     }
 }

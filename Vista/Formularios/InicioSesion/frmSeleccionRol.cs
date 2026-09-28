@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Modelo.Modelo.Entidades;
+using Modelo.Modelo.Infraestructura;
 
 namespace Vista
 {
@@ -42,14 +43,8 @@ namespace Vista
                 lblBienvenido.Text = "Bienvenido a " + configuracion.NombreEmpresa;
                 if (configuracion.LogoImagen != null && configuracion.LogoImagen.Length > 0)
                 {
-                    using (MemoryStream flujo = new MemoryStream(configuracion.LogoImagen))
-                    {
-                        using (Image original = Image.FromStream(flujo))
-                        {
-                            picLogoEmpresa.Image = new Bitmap(original);
-                        }
-                    }
-                    picLogoEmpresa.Visible = true;
+                    picLogoEmpresa.Image = ArchivosSeguros.CrearImagen(configuracion.LogoImagen);
+                    picLogoEmpresa.Visible = picLogoEmpresa.Image != null;
                 }
             }
         }

@@ -10,6 +10,7 @@ namespace Vista
 {
     public partial class frmRegistrarAvance : Form
     {
+        private bool validacionEnTiempoRealHabilitada;
         private System.Windows.Forms.ToolTip toolTipAyuda;
         private System.Windows.Forms.ErrorProvider errorProviderValidacion;
 
@@ -41,6 +42,17 @@ namespace Vista
             toolTipAyuda.SetToolTip(btnGuardar, "Guardar la información ingresada.");
             toolTipAyuda.SetToolTip(btnCancelar, "Cancelar la operación actual.");
             this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
+            ucPaginadorHistorial.PaginaCambiada += ucPaginadorHistorial_PaginaCambiada;
+
+            txtPorcentaje.TextChanged += CamposEnTiempoReal;
+            txtPorcentaje.Leave += CamposEnTiempoReal;
+            txtDescripcion.TextChanged += CamposEnTiempoReal;
+            txtDescripcion.Leave += CamposEnTiempoReal;
+            cboProyecto.SelectedIndexChanged += CamposEnTiempoReal;
+            cboProyecto.Leave += CamposEnTiempoReal;
+            cboTarea.SelectedIndexChanged += CamposEnTiempoReal;
+            cboTarea.Leave += CamposEnTiempoReal;
+            dtpFecha.ValueChanged += CamposEnTiempoReal;
         }
 
         private void frmRegistrarAvance_Load(object sender, EventArgs e)
@@ -54,7 +66,7 @@ namespace Vista
 
             if (Sesion.UsuarioActual == null)
             {
-                MessageBox.Show("No hay una sesión activa.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "No hay una sesión activa.");
                 pnlFormulario.Enabled = false;
                 return;
             }
@@ -64,6 +76,8 @@ namespace Vista
             SeleccionarTareaInicial();
             CargarHistorial();
             ActualizarAvance();
+        
+            validacionEnTiempoRealHabilitada = true;
         }
 
         private void CargarProyectos()
@@ -231,61 +245,72 @@ namespace Vista
 
             if (Sesion.UsuarioActual == null)
             {
-                MessageBox.Show("No hay una sesión activa.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "No hay una sesión activa.");
                 return false;
             }
 
             if (cboProyecto.SelectedValue == null)
             {
-                errorProviderValidacion.SetError(cboProyecto, "Seleccione el proyecto.");
-                MessageBox.Show("Seleccione el proyecto.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cboProyecto, "ERR-VAL-007", "Seleccione el proyecto.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione el proyecto.");
                 cboProyecto.Focus();
                 return false;
             }
 
             if (cboTarea.SelectedValue == null)
             {
-                errorProviderValidacion.SetError(cboTarea, "Seleccione la tarea.");
-                MessageBox.Show("Seleccione la tarea.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cboTarea, "ERR-VAL-007", "Seleccione la tarea.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione la tarea.");
                 cboTarea.Focus();
                 return false;
             }
 
+            foreach (char caracter in txtPorcentaje.Text)
+            {
+                if (char.IsDigit(caracter) == false)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtPorcentaje, "ERR-VAL-002", "El porcentaje solo admite números enteros.");
+                    CatalogoErrores.MostrarDetalle("ERR-VAL-002", "Syncore", "El porcentaje solo admite números enteros.");
+                    txtPorcentaje.Focus();
+                    return false;
+                }
+            }
             if (int.TryParse(txtPorcentaje.Text, out porcentaje) == false)
             {
-                errorProviderValidacion.SetError(txtPorcentaje, "Ingrese un porcentaje válido.");
-                MessageBox.Show("Ingrese un porcentaje válido.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtPorcentaje, "ERR-VAL-002", "Ingrese un porcentaje válido.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-002", "Syncore", "Ingrese un porcentaje válido.");
                 txtPorcentaje.Focus();
                 return false;
             }
 
             if (porcentaje < 0 || porcentaje > 100)
             {
-                errorProviderValidacion.SetError(txtPorcentaje, "El porcentaje debe estar entre 0 y 100.");
-                MessageBox.Show("El porcentaje debe estar entre 0 y 100.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtPorcentaje, "ERR-VAL-003", "El porcentaje debe estar entre 0 y 100.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-003", "Syncore", "El porcentaje debe estar entre 0 y 100.");
                 txtPorcentaje.Focus();
                 return false;
             }
 
             if (porcentaje < avanceActualTarea)
             {
-                MessageBox.Show("El nuevo porcentaje no puede ser menor que el avance actual de " + avanceActualTarea + "%.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtPorcentaje, "ERR-VAL-004", "El porcentaje no puede ser inferior al avance actual de " + avanceActualTarea + "%. ");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-004", "Registrar avance", "El nuevo porcentaje no puede ser menor que el avance actual de " + avanceActualTarea + "%.");
                 txtPorcentaje.Focus();
                 return false;
             }
 
             if (dtpFecha.Value.Date > DateTime.Today)
             {
-                errorProviderValidacion.SetError(dtpFecha, "La fecha no puede ser futura.");
-                MessageBox.Show("La fecha de registro no puede ser futura.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, dtpFecha, "ERR-VAL-004", "La fecha no puede ser futura.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-004", "Syncore", "La fecha de registro no puede ser futura.");
                 dtpFecha.Focus();
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtDescripcion.Text.Trim()) == true)
             {
-                errorProviderValidacion.SetError(txtDescripcion, "Ingrese la descripción del avance.");
-                MessageBox.Show("Ingrese la descripción del avance.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtDescripcion, "ERR-VAL-001", "Ingrese la descripción del avance.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-001", "Syncore", "Ingrese la descripción del avance.");
                 txtDescripcion.Focus();
                 return false;
             }
@@ -335,7 +360,7 @@ namespace Vista
             }
             else
             {
-                MessageBox.Show("El avance fue registrado, pero no se pudo guardar la evidencia.");
+                CatalogoErrores.MostrarDetalle("ERR-APP-002", "Evidencia", "El avance fue registrado, pero no se pudo guardar la evidencia.");
             }
 
             LimpiarCampos();
@@ -366,7 +391,16 @@ namespace Vista
 
             flpHistorial.Controls.Clear();
             idUsuario = Sesion.UsuarioActual.IdUsuario;
-            avances = avanceModelo.ObtenerAvancesUsuario(idUsuario, 30, 10);
+            int total;
+            int pagina = ucPaginadorHistorial.Inicio / ucPaginadorHistorial.TamanoPagina;
+            avances = avanceModelo.ObtenerAvancesUsuarioPagina(idUsuario, 30, pagina,
+                ucPaginadorHistorial.TamanoPagina, out total);
+            ucPaginadorHistorial.Configurar(total, false);
+            if (pagina != ucPaginadorHistorial.Inicio / ucPaginadorHistorial.TamanoPagina)
+            {
+                CargarHistorial();
+                return;
+            }
 
             if (avances.Rows.Count == 0)
             {
@@ -391,6 +425,11 @@ namespace Vista
                 flpHistorial.Controls.Add(control);
                 control.BringToFront();
             }
+        }
+
+        private void ucPaginadorHistorial_PaginaCambiada(object sender, EventArgs e)
+        {
+            CargarHistorial();
         }
 
         private void MostrarHistorialVacio()
@@ -438,5 +477,87 @@ namespace Vista
                 e.Handled = true;
             }
         }
+        private void CamposEnTiempoReal(object sender, EventArgs e)
+        {
+            if (validacionEnTiempoRealHabilitada == false)
+            {
+                return;
+            }
+
+            if (sender == txtPorcentaje)
+            {
+                int porcentaje;
+                bool soloDigitos;
+                soloDigitos = txtPorcentaje.Text.Length > 0;
+                foreach (char caracter in txtPorcentaje.Text)
+                {
+                    if (char.IsDigit(caracter) == false)
+                    {
+                        soloDigitos = false;
+                    }
+                }
+                if (soloDigitos == false || int.TryParse(txtPorcentaje.Text, out porcentaje) == false)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtPorcentaje, "ERR-VAL-002", "Ingrese un porcentaje válido.");
+                }
+                else if (porcentaje < 0 || porcentaje > 100)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtPorcentaje, "ERR-VAL-003", "El porcentaje debe estar entre 0 y 100.");
+                }
+                else if (porcentaje < avanceActualTarea)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtPorcentaje, "ERR-VAL-004", "El porcentaje no puede ser inferior al avance actual de " + avanceActualTarea + "%.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtPorcentaje, "");
+                }
+            }
+            if (sender == txtDescripcion)
+            {
+                if (string.IsNullOrEmpty(txtDescripcion.Text.Trim()) == true)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtDescripcion, "ERR-VAL-001", "Ingrese la descripción del avance.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtDescripcion, "");
+                }
+            }
+            if (sender == cboProyecto)
+            {
+                if (cboProyecto.SelectedIndex < 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cboProyecto, "ERR-VAL-007", "Seleccione el proyecto.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cboProyecto, "");
+                }
+            }
+            if (sender == cboTarea)
+            {
+                if (cboTarea.SelectedIndex < 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cboTarea, "ERR-VAL-007", "Seleccione la tarea.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cboTarea, "");
+                }
+            }
+            if (sender == dtpFecha)
+            {
+                if (dtpFecha.Value.Date > DateTime.Today)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, dtpFecha, "ERR-VAL-004", "La fecha de registro no puede ser futura.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(dtpFecha, "");
+                }
+            }
+        }
+
     }
 }

@@ -12,6 +12,7 @@ namespace Vista
         private Proyecto proyectoModelo;
         private DataTable proyectosOriginales;
         private bool cargandoFiltros;
+        private DataTable proyectosFiltrados;
 
         public event EventHandler DetalleProyectoSolicitado;
         public event EventHandler EditarProyectoSolicitado;
@@ -32,13 +33,14 @@ namespace Vista
             toolTipAyuda.SetToolTip(cmbTipo, "Seleccione tipo.");
             this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             btnNuevoProyecto.Click += btnNuevoProyecto_Click;
+            paginadorTarjetas.PaginaCambiada += paginadorTarjetas_PaginaCambiada;
         }
 
         private void frmListadoProyectos_Load(object sender, EventArgs e)
         {
             proyectoModelo = new Proyecto();
             lblFecha.Text = DateTime.Today.ToString("dd/MM/yyyy");
-            proyectosOriginales = proyectoModelo.ObtenerListadoProyectos();
+            proyectosOriginales = proyectoModelo.ObtenerFiltrosListadoProyectos();
             CargarFiltros();
             AplicarFiltros();
         }
@@ -108,95 +110,35 @@ namespace Vista
 
         private void AplicarFiltros()
         {
-            DataTable proyectosFiltrados;
-            string texto;
-
-            if (cargandoFiltros == true)
+            if (cargandoFiltros || proyectosOriginales == null)
             {
                 return;
             }
-
-            if (proyectosOriginales == null)
+            int pagina = paginadorTarjetas.Inicio / UCPaginadorTarjetas.RegistrosPorPagina;
+            string estado = "Todos los visibles";
+            string area = "";
+            string responsable = "";
+            string prioridad = "";
+            string tipo = "";
+            if (cmbEstado.SelectedIndex > 0) estado = cmbEstado.Text;
+            if (cmbArea.SelectedIndex > 0) area = cmbArea.Text;
+            if (cmbResponsable.SelectedIndex > 0) responsable = cmbResponsable.Text;
+            if (cmbPrioridad.SelectedIndex > 0) prioridad = cmbPrioridad.Text;
+            if (cmbTipo.SelectedIndex > 0) tipo = cmbTipo.Text;
+            proyectosFiltrados = proyectoModelo.ObtenerListadoProyectosPagina(
+                txtBuscar.Text.Trim(), estado, area, responsable, prioridad, tipo, pagina);
+            int total = 0;
+            if (proyectosFiltrados.Rows.Count > 0)
             {
+                total = Convert.ToInt32(proyectosFiltrados.Rows[0]["TotalRegistros"]);
+            }
+            if (pagina > 0 && proyectosFiltrados.Rows.Count == 0)
+            {
+                paginadorTarjetas.Configurar(0, true);
+                AplicarFiltros();
                 return;
             }
-
-            proyectosFiltrados = proyectosOriginales.Clone();
-            texto = txtBuscar.Text.Trim().ToLower();
-
-            foreach (DataRow fila in proyectosOriginales.Rows)
-            {
-                bool coincide;
-
-                coincide = true;
-
-                if (string.IsNullOrEmpty(texto) == false)
-                {
-                    string codigo;
-                    string proyecto;
-
-                    codigo = fila["Codigo"].ToString().ToLower();
-                    proyecto = fila["Proyecto"].ToString().ToLower();
-
-                    if (codigo.Contains(texto) == false && proyecto.Contains(texto) == false)
-                    {
-                        coincide = false;
-                    }
-                }
-
-                if (coincide == true && cmbEstado.SelectedIndex == 0)
-                {
-                    if (fila["Estado"].ToString() == "Cerrado")
-                    {
-                        coincide = false;
-                    }
-                }
-                else if (coincide == true && cmbEstado.SelectedIndex > 0)
-                {
-                    if (fila["Estado"].ToString() != cmbEstado.Text)
-                    {
-                        coincide = false;
-                    }
-                }
-
-                if (coincide == true && cmbArea.SelectedIndex > 0)
-                {
-                    if (fila["Area"].ToString() != cmbArea.Text)
-                    {
-                        coincide = false;
-                    }
-                }
-
-                if (coincide == true && cmbResponsable.SelectedIndex > 0)
-                {
-                    if (fila["Responsable"].ToString() != cmbResponsable.Text)
-                    {
-                        coincide = false;
-                    }
-                }
-
-                if (coincide == true && cmbPrioridad.SelectedIndex > 0)
-                {
-                    if (fila["Prioridad"].ToString() != cmbPrioridad.Text)
-                    {
-                        coincide = false;
-                    }
-                }
-
-                if (coincide == true && cmbTipo.SelectedIndex > 0)
-                {
-                    if (fila["Tipo"].ToString() != cmbTipo.Text)
-                    {
-                        coincide = false;
-                    }
-                }
-
-                if (coincide == true)
-                {
-                    proyectosFiltrados.ImportRow(fila);
-                }
-            }
-
+            paginadorTarjetas.Configurar(total, false);
             MostrarProyectos(proyectosFiltrados);
         }
 
@@ -242,6 +184,11 @@ namespace Vista
         }
 
 
+        private void paginadorTarjetas_PaginaCambiada(object sender, EventArgs e)
+        {
+            AplicarFiltros();
+        }
+
         private void btnNuevoProyecto_Click(object sender, EventArgs e)
         {
             if (NuevoProyectoSolicitado != null)
@@ -252,11 +199,13 @@ namespace Vista
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
+            paginadorTarjetas.Configurar(0, true);
             AplicarFiltros();
         }
 
         private void filtro_SelectedIndexChanged(object sender, EventArgs e)
         {
+            paginadorTarjetas.Configurar(0, true);
             AplicarFiltros();
         }
 

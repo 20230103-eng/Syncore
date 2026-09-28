@@ -29,6 +29,7 @@ namespace Vista
             this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
 
             ucPaginador.Tabla = dgvCronograma;
+            ucPaginador.PaginaCambiada += ucPaginador_PaginaCambiada;
             proyectoModelo = new Proyecto();
             cronogramaModelo = new Cronograma();
             cronogramaOriginal = new DataTable();
@@ -41,19 +42,20 @@ namespace Vista
 
             if (Sesion.UsuarioActual == null)
             {
-                MessageBox.Show("No hay una sesión activa.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "No hay una sesión activa.");
                 return;
             }
 
             if (Sesion.UsuarioActual.TipoUsuario != "Gestor")
             {
-                MessageBox.Show("Solo un gestor puede consultar el cronograma general.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "Solo un gestor puede consultar el cronograma general.");
                 return;
             }
 
             dtpDesde.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             dtpHasta.Value = dtpDesde.Value.AddMonths(1).AddDays(-1);
             CargarProyectos();
+            ucPaginador.ReiniciarRemoto();
             CargarCronograma();
         }
 
@@ -88,7 +90,7 @@ namespace Vista
 
             if (dtpHasta.Value.Date < dtpDesde.Value.Date)
             {
-                MessageBox.Show("La fecha hasta no puede ser anterior a la fecha desde.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-004", "Syncore", "La fecha hasta no puede ser anterior a la fecha desde.");
                 return;
             }
 
@@ -99,47 +101,38 @@ namespace Vista
                 int.TryParse(cboProyecto.SelectedValue.ToString(), out idProyecto);
             }
 
-            cronogramaOriginal = cronogramaModelo.ObtenerCronogramaGestor(Sesion.UsuarioActual.IdUsuario, idProyecto, dtpDesde.Value.Date, dtpHasta.Value.Date);
             AplicarFiltroTipo();
         }
 
         private void AplicarFiltroTipo()
         {
-            DataTable resultado;
-            string tipo;
-
-            resultado = cronogramaOriginal.Clone();
-            tipo = "Todos";
-
+            if (Sesion.UsuarioActual == null || cargando)
+            {
+                return;
+            }
+            int idProyecto = 0;
+            int total;
+            if (cboProyecto.SelectedValue != null)
+            {
+                int.TryParse(cboProyecto.SelectedValue.ToString(), out idProyecto);
+            }
+            string tipo = "Todos";
             if (cboTipo.SelectedItem != null)
             {
-                tipo = cboTipo.SelectedItem.ToString();
+                if (cboTipo.SelectedItem.ToString() == "Solo tareas") tipo = "Tarea";
+                if (cboTipo.SelectedItem.ToString() == "Solo hitos") tipo = "Hito";
             }
-
-            foreach (DataRow fila in cronogramaOriginal.Rows)
-            {
-                bool mostrar;
-
-                mostrar = true;
-
-                if (tipo == "Solo tareas" && fila["Tipo"].ToString() != "Tarea")
-                {
-                    mostrar = false;
-                }
-                else if (tipo == "Solo hitos" && fila["Tipo"].ToString() != "Hito")
-                {
-                    mostrar = false;
-                }
-
-                if (mostrar == true)
-                {
-                    resultado.ImportRow(fila);
-                }
-            }
-
-            ucPaginador.Mostrar(resultado);
+            cronogramaOriginal = cronogramaModelo.ObtenerCronogramaGestorPagina(
+                Sesion.UsuarioActual.IdUsuario, idProyecto, dtpDesde.Value.Date,
+                dtpHasta.Value.Date, tipo, ucPaginador.PaginaActual, out total);
+            ucPaginador.MostrarRemoto(cronogramaOriginal, total);
             ConfigurarTabla();
-            lblCantidad.Text = resultado.Rows.Count.ToString() + " elemento(s)";
+            lblCantidad.Text = total.ToString() + " elemento(s)";
+        }
+
+        private void ucPaginador_PaginaCambiada(object sender, EventArgs e)
+        {
+            AplicarFiltroTipo();
         }
 
         private void ConfigurarTabla()
@@ -238,6 +231,7 @@ namespace Vista
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
+            ucPaginador.ReiniciarRemoto();
             CargarCronograma();
         }
 
@@ -245,6 +239,7 @@ namespace Vista
         {
             if (cargando == false)
             {
+                ucPaginador.ReiniciarRemoto();
                 CargarCronograma();
             }
         }
@@ -253,6 +248,7 @@ namespace Vista
         {
             if (cargando == false)
             {
+                ucPaginador.ReiniciarRemoto();
                 AplicarFiltroTipo();
             }
         }

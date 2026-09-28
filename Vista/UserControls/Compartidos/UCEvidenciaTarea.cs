@@ -1,7 +1,7 @@
 ﻿﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using Modelo.Modelo.Infraestructura;
 
 namespace Vista
 {
@@ -49,17 +49,17 @@ namespace Vista
         {
             if (string.IsNullOrEmpty(RutaArchivo) == true)
             {
-                MessageBox.Show("La evidencia no tiene una ruta registrada.");
+                CatalogoErrores.MostrarDetalle("ERR-APP-001", "Evidencia", "La evidencia no tiene una ruta registrada.");
                 return;
             }
 
             if (File.Exists(RutaArchivo) == false)
             {
-                MessageBox.Show("No se encontró el archivo de evidencia en la ruta registrada.");
+                CatalogoErrores.MostrarDetalle("ERR-APP-001", "Evidencia", "No se encontró el archivo de evidencia en la ruta registrada.");
                 return;
             }
 
-            Process.Start(RutaArchivo);
+            ArchivosSeguros.AbrirArchivo(RutaArchivo);
         }
     }
 }

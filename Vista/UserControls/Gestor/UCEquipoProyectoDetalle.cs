@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows.Forms;
 using Modelo.Modelo.Entidades;
+using Modelo.Modelo.Infraestructura;
 
 namespace Vista
 {
@@ -19,11 +20,13 @@ namespace Vista
             toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
             toolTipAyuda.SetToolTip(btnAgregar, "Agregar el elemento seleccionado.");
             equipoModelo = new EquipoProyecto();
+            ucPaginador.PaginaCambiada += ucPaginador_PaginaCambiada;
         }
 
         public void CargarProyecto(int idProyecto)
         {
             IdProyecto = idProyecto;
+            ucPaginador.Configurar(0, true);
             CargarEquipo();
         }
 
@@ -39,8 +42,17 @@ namespace Vista
                 return;
             }
 
-            equipo = equipoModelo.ObtenerEquipoProyecto(IdProyecto);
-            lblCantidad.Text = equipo.Rows.Count.ToString() + " integrante(s)";
+            int total;
+            equipo = equipoModelo.ObtenerEquipoProyectoPagina(IdProyecto,
+                ucPaginador.Inicio / UCPaginadorTarjetas.RegistrosPorPagina, out total);
+            int paginaSolicitada = ucPaginador.Inicio / UCPaginadorTarjetas.RegistrosPorPagina;
+            ucPaginador.Configurar(total, false);
+            if (paginaSolicitada != ucPaginador.Inicio / UCPaginadorTarjetas.RegistrosPorPagina)
+            {
+                CargarEquipo();
+                return;
+            }
+            lblCantidad.Text = total.ToString() + " integrante(s)";
 
             for (int indice = equipo.Rows.Count - 1; indice >= 0; indice = indice - 1)
             {
@@ -63,6 +75,11 @@ namespace Vista
                 control.Dock = DockStyle.Top;
                 pnlFilas.Controls.Add(control);
             }
+        }
+
+        private void ucPaginador_PaginaCambiada(object sender, EventArgs e)
+        {
+            CargarEquipo();
         }
 
         private void control_EditarSolicitado(object sender, EventArgs e)
@@ -112,7 +129,7 @@ namespace Vista
 
             if (integrante.TieneTareasActivasAsignadas() == true)
             {
-                MessageBox.Show("No puede retirar al integrante porque todavía tiene tareas activas asignadas en este proyecto.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-003", "Equipo de proyecto", "No puede retirar al integrante porque todavía tiene tareas activas asignadas en este proyecto.");
                 return;
             }
 
@@ -139,7 +156,7 @@ namespace Vista
 
             if (IdProyecto <= 0)
             {
-                MessageBox.Show("No se recibió un proyecto válido.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Equipo de proyecto", "No se recibió un proyecto válido.");
                 return;
             }
 

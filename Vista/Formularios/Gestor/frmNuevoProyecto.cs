@@ -8,6 +8,7 @@ namespace Vista
 {
     public partial class frmNuevoProyecto : Form
     {
+        private bool validacionEnTiempoRealHabilitada;
         private System.Windows.Forms.ToolTip toolTipAyuda;
         private System.Windows.Forms.ErrorProvider errorProviderValidacion;
 
@@ -41,6 +42,26 @@ namespace Vista
             toolTipAyuda.SetToolTip(btnCrearProyecto, "Crear el proyecto con la información ingresada.");
             toolTipAyuda.SetToolTip(btnCancelar, "Cancelar la operación actual.");
             this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
+
+            txtNombre.TextChanged += CamposEnTiempoReal;
+            txtNombre.Leave += CamposEnTiempoReal;
+            txtCodigo.TextChanged += CamposEnTiempoReal;
+            txtCodigo.Leave += CamposEnTiempoReal;
+            txtObjetivo.TextChanged += CamposEnTiempoReal;
+            txtObjetivo.Leave += CamposEnTiempoReal;
+            txtResultado.TextChanged += CamposEnTiempoReal;
+            txtResultado.Leave += CamposEnTiempoReal;
+            cboTipo.SelectedIndexChanged += CamposEnTiempoReal;
+            cboTipo.Leave += CamposEnTiempoReal;
+            cboArea.SelectedIndexChanged += CamposEnTiempoReal;
+            cboArea.Leave += CamposEnTiempoReal;
+            cboResponsable.SelectedIndexChanged += CamposEnTiempoReal;
+            cboResponsable.Leave += CamposEnTiempoReal;
+            cboPrioridad.SelectedIndexChanged += CamposEnTiempoReal;
+            cboPrioridad.Leave += CamposEnTiempoReal;
+            dtpCierre.ValueChanged += CamposEnTiempoReal;
+            dtpInicio.ValueChanged += CamposEnTiempoReal;
+            txtCodigo.Leave += Codigo_Leave;
         }
 
         private void frmNuevoProyecto_Load(object sender, EventArgs e)
@@ -54,6 +75,8 @@ namespace Vista
             CargarCombos();
             PrepararFormulario();
             CargarResponsableSesion();
+        
+            validacionEnTiempoRealHabilitada = true;
         }
 
         private void AjustarBreadcrumb()
@@ -105,6 +128,7 @@ namespace Vista
             cboPrioridad.SelectedIndex = -1;
             dtpInicio.Value = DateTime.Today;
             dtpCierre.Value = DateTime.Today.AddDays(30);
+            errorProviderValidacion.Clear();
         }
 
         private bool ValidarDatos()
@@ -114,86 +138,97 @@ namespace Vista
 
             if (Sesion.UsuarioActual == null)
             {
-                MessageBox.Show("No hay una sesión activa.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "No hay una sesión activa.");
                 return false;
             }
 
             if (Sesion.UsuarioActual.TipoUsuario != "Gestor")
             {
-                MessageBox.Show("Solo un gestor puede crear proyectos.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "Solo un gestor puede crear proyectos.");
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtNombre.Text.Trim()) == true)
             {
-                errorProviderValidacion.SetError(txtNombre, "Ingrese el nombre del proyecto.");
-                MessageBox.Show("Ingrese el nombre del proyecto.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtNombre, "ERR-VAL-001", "Ingrese el nombre del proyecto.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-001", "Syncore", "Ingrese el nombre del proyecto.");
                 txtNombre.Focus();
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtCodigo.Text.Trim()) == true)
             {
-                errorProviderValidacion.SetError(txtCodigo, "Ingrese el código del proyecto.");
-                MessageBox.Show("Ingrese el código del proyecto.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtCodigo, "ERR-VAL-001", "Ingrese el código del proyecto.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-001", "Syncore", "Ingrese el código del proyecto.");
                 txtCodigo.Focus();
                 return false;
+            }
+
+            foreach (char caracter in txtCodigo.Text)
+            {
+                if (char.IsLetterOrDigit(caracter) == false && caracter != '-')
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtCodigo, "ERR-VAL-002", "El código solo admite letras, números y guiones.");
+                    CatalogoErrores.MostrarDetalle("ERR-VAL-002", "Syncore", "El código solo admite letras, números y guiones.");
+                    txtCodigo.Focus();
+                    return false;
+                }
             }
 
             codigoExiste = proyectoModelo.ExisteCodigoProyecto(txtCodigo.Text.Trim());
 
             if (codigoExiste == true)
             {
-                errorProviderValidacion.SetError(txtCodigo, "El código del proyecto ya existe.");
-                MessageBox.Show("El código del proyecto ya existe.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtCodigo, "ERR-VAL-005", "El código del proyecto ya existe.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-005", "Syncore", "El código del proyecto ya existe.");
                 txtCodigo.Focus();
                 return false;
             }
 
             if (cboTipo.SelectedValue == null)
             {
-                errorProviderValidacion.SetError(cboTipo, "Seleccione el tipo de proyecto.");
-                MessageBox.Show("Seleccione el tipo de proyecto.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cboTipo, "ERR-VAL-007", "Seleccione el tipo de proyecto.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione el tipo de proyecto.");
                 cboTipo.Focus();
                 return false;
             }
 
             if (cboArea.SelectedValue == null)
             {
-                errorProviderValidacion.SetError(cboArea, "Seleccione el área solicitante.");
-                MessageBox.Show("Seleccione el área solicitante.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cboArea, "ERR-VAL-007", "Seleccione el área solicitante.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione el área solicitante.");
                 cboArea.Focus();
                 return false;
             }
 
             if (cboPrioridad.SelectedIndex < 0)
             {
-                errorProviderValidacion.SetError(cboPrioridad, "Seleccione la prioridad.");
-                MessageBox.Show("Seleccione la prioridad del proyecto.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cboPrioridad, "ERR-VAL-007", "Seleccione la prioridad.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione la prioridad del proyecto.");
                 cboPrioridad.Focus();
                 return false;
             }
 
             if (dtpCierre.Value.Date < dtpInicio.Value.Date)
             {
-                errorProviderValidacion.SetError(dtpCierre, "Revise la fecha de cierre.");
-                MessageBox.Show("La fecha de cierre no puede ser anterior a la fecha de inicio.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, dtpCierre, "ERR-VAL-004", "Revise la fecha de cierre.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-004", "Syncore", "La fecha de cierre no puede ser anterior a la fecha de inicio.");
                 dtpCierre.Focus();
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtObjetivo.Text.Trim()) == true)
             {
-                errorProviderValidacion.SetError(txtObjetivo, "Ingrese el objetivo.");
-                MessageBox.Show("Ingrese el objetivo del proyecto.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtObjetivo, "ERR-VAL-001", "Ingrese el objetivo.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-001", "Syncore", "Ingrese el objetivo del proyecto.");
                 txtObjetivo.Focus();
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtResultado.Text.Trim()) == true)
             {
-                errorProviderValidacion.SetError(txtResultado, "Ingrese el resultado esperado.");
-                MessageBox.Show("Ingrese el resultado esperado.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtResultado, "ERR-VAL-001", "Ingrese el resultado esperado.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-001", "Syncore", "Ingrese el resultado esperado.");
                 txtResultado.Focus();
                 return false;
             }
@@ -285,5 +320,146 @@ namespace Vista
                 e.Handled = true;
             }
         }
+        private void CamposEnTiempoReal(object sender, EventArgs e)
+        {
+            if (validacionEnTiempoRealHabilitada == false)
+            {
+                return;
+            }
+
+            if (sender == txtNombre)
+            {
+                if (string.IsNullOrEmpty(txtNombre.Text.Trim()) == true)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtNombre, "ERR-VAL-001", "Ingrese el nombre del proyecto.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtNombre, "");
+                }
+            }
+            if (sender == txtCodigo)
+            {
+                bool formatoCorrecto;
+                formatoCorrecto = true;
+                foreach (char caracter in txtCodigo.Text)
+                {
+                    if (char.IsLetterOrDigit(caracter) == false && caracter != '-')
+                    {
+                        formatoCorrecto = false;
+                    }
+                }
+                if (string.IsNullOrEmpty(txtCodigo.Text.Trim()) == true)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtCodigo, "ERR-VAL-001", "Ingrese el código del proyecto.");
+                }
+                else if (formatoCorrecto == false)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtCodigo, "ERR-VAL-002", "El código solo admite letras, números y guiones.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtCodigo, "");
+                }
+            }
+            if (sender == txtObjetivo)
+            {
+                if (string.IsNullOrEmpty(txtObjetivo.Text.Trim()) == true)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtObjetivo, "ERR-VAL-001", "Ingrese el objetivo del proyecto.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtObjetivo, "");
+                }
+            }
+            if (sender == txtResultado)
+            {
+                if (string.IsNullOrEmpty(txtResultado.Text.Trim()) == true)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtResultado, "ERR-VAL-001", "Ingrese el resultado esperado.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtResultado, "");
+                }
+            }
+            if (sender == cboTipo)
+            {
+                if (cboTipo.SelectedIndex < 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cboTipo, "ERR-VAL-007", "Seleccione el tipo de proyecto.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cboTipo, "");
+                }
+            }
+            if (sender == cboArea)
+            {
+                if (cboArea.SelectedIndex < 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cboArea, "ERR-VAL-007", "Seleccione el área solicitante.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cboArea, "");
+                }
+            }
+            if (sender == cboResponsable)
+            {
+                if (cboResponsable.SelectedIndex < 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cboResponsable, "ERR-VAL-007", "Seleccione el responsable.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cboResponsable, "");
+                }
+            }
+            if (sender == cboPrioridad)
+            {
+                if (cboPrioridad.SelectedIndex < 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cboPrioridad, "ERR-VAL-007", "Seleccione la prioridad.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cboPrioridad, "");
+                }
+            }
+            if (sender == dtpCierre || sender == dtpInicio)
+            {
+                if (dtpCierre.Value.Date < dtpInicio.Value.Date)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, dtpCierre, "ERR-VAL-004", "La fecha de cierre no puede ser anterior al inicio.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(dtpCierre, "");
+                }
+            }
+        }
+
+        private void Codigo_Leave(object sender, EventArgs e)
+        {
+            if (validacionEnTiempoRealHabilitada == false || proyectoModelo == null)
+            {
+                return;
+            }
+            if (string.IsNullOrEmpty(txtCodigo.Text.Trim()) == true)
+            {
+                return;
+            }
+            if (errorProviderValidacion.GetError(txtCodigo) != "")
+            {
+                return;
+            }
+            if (proyectoModelo.ExisteCodigoProyecto(txtCodigo.Text.Trim()) == true)
+            {
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtCodigo, "ERR-VAL-005", "El código del proyecto ya existe.");
+            }
+        }
+
     }
 }

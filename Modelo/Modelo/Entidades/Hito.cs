@@ -137,31 +137,10 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerHitosGestor(int idGestor)
         {
-            string query;
             DataTable hitos;
             SqlConnection conexionSql;
             SqlCommand comando;
             SqlDataAdapter adaptador;
-
-            query = @"
-            SELECT
-            tbHito.IdHito,
-            tbHito.IdProyecto,
-            tbProyecto.Nombre AS Proyecto,
-            tbHito.Nombre AS Hito,
-            tbHito.Descripcion,
-            tbHito.FechaObjetivo,
-            tbHito.IdResponsable,
-            ISNULL(tbUsuario.NombreCompleto, N'Sin responsable') AS Responsable,
-            tbHito.IdEstadoHito,
-            tbEstadoHito.Nombre AS Estado,
-            tbHito.FechaCumplimiento
-            FROM tbHito
-            INNER JOIN tbProyecto ON tbHito.IdProyecto = tbProyecto.IdProyecto
-            INNER JOIN tbEstadoHito ON tbHito.IdEstadoHito = tbEstadoHito.IdEstadoHito
-            LEFT JOIN tbUsuario ON tbHito.IdResponsable = tbUsuario.IdUsuario
-            WHERE tbProyecto.IdResponsable = @IdGestor
-            ORDER BY tbHito.FechaObjetivo, tbHito.Nombre";
 
             hitos = new DataTable();
             conexionSql = Conexion.conectar();
@@ -173,7 +152,8 @@ namespace Modelo.Modelo.Entidades
 
             try
             {
-                comando = new SqlCommand(query, conexionSql);
+                comando = new SqlCommand("spReporteHitosGestor", conexionSql);
+                comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.AddWithValue("@IdGestor", idGestor);
                 adaptador = new SqlDataAdapter(comando);
                 adaptador.Fill(hitos);
@@ -191,6 +171,42 @@ namespace Modelo.Modelo.Entidades
             }
 
             return hitos;
+        }
+
+        public DataTable ObtenerHitosGestorPagina(int idGestor, string texto,
+            int idProyectoFiltro, int idEstadoFiltro, int pagina, out int total)
+        {
+            string consulta = @"
+                SELECT h.IdHito, h.IdProyecto, h.Proyecto, h.Hito, h.Descripcion,
+                    h.FechaObjetivo, h.IdResponsable, h.Responsable,
+                    h.IdEstadoHito, h.Estado, h.FechaCumplimiento,
+                    ISNULL(conteo.TareasVencidas, 0) AS TareasVencidas,
+                    COUNT(*) OVER() AS TotalRegistros
+                FROM vwReporteHitos h
+                OUTER APPLY
+                (
+                    SELECT COUNT(*) AS TareasVencidas
+                    FROM tbTarea t
+                    INNER JOIN tbEstadoTarea e ON e.IdEstadoTarea = t.IdEstadoTarea
+                    WHERE t.IdHito = h.IdHito AND t.FechaLimite < CONVERT(DATE, GETDATE())
+                    AND e.Nombre IN (N'Pendiente', N'En progreso', N'Devuelta', N'Vencida')
+                ) conteo
+                WHERE h.IdGestor = @IdGestor
+                    AND (@IdProyecto = 0 OR h.IdProyecto = @IdProyecto)
+                    AND (@IdEstado = 0 OR h.IdEstadoHito = @IdEstado)
+                    AND (@Texto = N'' OR h.Hito LIKE N'%' + @Texto + N'%'
+                        OR h.Proyecto LIKE N'%' + @Texto + N'%'
+                        OR h.Responsable LIKE N'%' + @Texto + N'%')
+                ORDER BY h.FechaObjetivo, h.Hito, h.IdHito
+                OFFSET @Inicio ROWS FETCH NEXT 20 ROWS ONLY";
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@IdGestor", idGestor),
+                new SqlParameter("@IdProyecto", idProyectoFiltro),
+                new SqlParameter("@IdEstado", idEstadoFiltro),
+                new SqlParameter("@Texto", texto)
+            };
+            return conexion.EjecutarPagina(consulta, parametros, pagina, out total);
         }
 
         public DataTable ObtenerEstadosHito()
@@ -394,5 +410,62 @@ namespace Modelo.Modelo.Entidades
 
             return eliminado;
         }
+        public DataTable ObtenerHitosProyectoReporte(int idProyecto)
+        {
+            string consulta = @"
+                SELECT h.Nombre AS Hito, h.FechaObjetivo,
+                    ISNULL(u.NombreCompleto, N'Sin asignar') AS Responsable,
+                    eh.Nombre AS Estado
+                FROM tbHito h
+                LEFT JOIN tbUsuario u ON u.IdUsuario = h.IdResponsable
+                INNER JOIN tbEstadoHito eh ON eh.IdEstadoHito = h.IdEstadoHito
+                WHERE h.IdProyecto = @IdProyecto
+                ORDER BY h.FechaObjetivo, h.IdHito";
+            DataTable hitos = new DataTable();
+            SqlConnection conexionSql = Conexion.conectar();
+            if (conexionSql == null)
+            {
+                return hitos;
+            }
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(consulta, conexionSql))
+                {
+                    comando.Parameters.AddWithValue("@IdProyecto", idProyecto);
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(hitos);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+            return hitos;
+        }
+
+        public DataTable ObtenerHitosProximosProyectoPagina(int idProyecto, int pagina,
+            int tamanoPagina, out int total)
+        {
+            string consulta = @"
+                SELECT h.IdHito, h.Nombre AS Hito, h.FechaObjetivo,
+                    ISNULL(u.NombreCompleto, N'Sin asignar') AS Responsable,
+                    estado.Nombre AS Estado, COUNT(*) OVER() AS TotalRegistros
+                FROM tbHito h
+                LEFT JOIN tbUsuario u ON u.IdUsuario = h.IdResponsable
+                INNER JOIN tbEstadoHito estado ON estado.IdEstadoHito = h.IdEstadoHito
+                WHERE h.IdProyecto = @IdProyecto AND estado.Nombre <> N'Cumplido'
+                ORDER BY h.FechaObjetivo, h.IdHito
+                OFFSET @Inicio ROWS FETCH NEXT @Tamano ROWS ONLY";
+            SqlParameter[] parametros = { new SqlParameter("@IdProyecto", idProyecto) };
+            return new Conexion().EjecutarPaginaTamano(consulta, parametros, pagina, tamanoPagina, out total);
+        }
+
     }
 }

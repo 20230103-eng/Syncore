@@ -48,6 +48,7 @@
             this.tarjeta4 = new Vista.UCTarjetaIndicador();
             this.tlpSecciones = new System.Windows.Forms.TableLayoutPanel();
             this.pnlAvanceProyectos = new System.Windows.Forms.Panel();
+            this.ucPaginadorAvance = new Vista.UCPaginadorTarjetas();
             this.flpAvanceProyectos = new System.Windows.Forms.Panel();
             this.avanceProyecto1 = new Vista.UCProductividadProyecto();
             this.avanceProyecto2 = new Vista.UCProductividadProyecto();
@@ -55,6 +56,7 @@
             this.pnlHeaderAvance = new System.Windows.Forms.Panel();
             this.lblAvanceProyectos = new System.Windows.Forms.Label();
             this.pnlTareasCompletadas = new System.Windows.Forms.Panel();
+            this.ucPaginadorCompletadas = new Vista.UCPaginadorTarjetas();
             this.flpTareasCompletadas = new System.Windows.Forms.Panel();
             this.tareaCompletada1 = new Vista.UCFilaTareaCompletada();
             this.tareaCompletada2 = new Vista.UCFilaTareaCompletada();
@@ -80,6 +82,7 @@
             this.lblEstadoTareas = new System.Windows.Forms.Label();
             this.pnlHistorial = new System.Windows.Forms.Panel();
             this.pnlCuerpoHistorial = new System.Windows.Forms.Panel();
+            this.ucPaginadorHistorial = new Vista.UCPaginadorTarjetas();
             this.flpHistorial = new System.Windows.Forms.Panel();
             this.avance1 = new Vista.UCFilaAvanceRegistrado();
             this.avance2 = new Vista.UCFilaAvanceRegistrado();
@@ -382,6 +385,7 @@
             this.pnlAvanceProyectos.BackColor = System.Drawing.Color.White;
             this.pnlAvanceProyectos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlAvanceProyectos.Controls.Add(this.flpAvanceProyectos);
+            this.pnlAvanceProyectos.Controls.Add(this.ucPaginadorAvance);
             this.pnlAvanceProyectos.Controls.Add(this.pnlHeaderAvance);
             this.pnlAvanceProyectos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlAvanceProyectos.Location = new System.Drawing.Point(0, 0);
@@ -389,6 +393,15 @@
             this.pnlAvanceProyectos.Name = "pnlAvanceProyectos";
             this.pnlAvanceProyectos.Size = new System.Drawing.Size(1092, 240);
             this.pnlAvanceProyectos.TabIndex = 0;
+            // 
+            // ucPaginadorAvance
+            // 
+            this.ucPaginadorAvance.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorAvance.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorAvance.Name = "ucPaginadorAvance";
+            this.ucPaginadorAvance.Size = new System.Drawing.Size(490, 42);
+            this.ucPaginadorAvance.TabIndex = 8;
+            this.ucPaginadorAvance.TamanoPagina = 3;
             // 
             // flpAvanceProyectos
             // 
@@ -476,6 +489,7 @@
             this.pnlTareasCompletadas.BackColor = System.Drawing.Color.White;
             this.pnlTareasCompletadas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTareasCompletadas.Controls.Add(this.flpTareasCompletadas);
+            this.pnlTareasCompletadas.Controls.Add(this.ucPaginadorCompletadas);
             this.pnlTareasCompletadas.Controls.Add(this.pnlHeaderTareas);
             this.pnlTareasCompletadas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlTareasCompletadas.Location = new System.Drawing.Point(1102, 0);
@@ -483,6 +497,15 @@
             this.pnlTareasCompletadas.Name = "pnlTareasCompletadas";
             this.pnlTareasCompletadas.Size = new System.Drawing.Size(520, 240);
             this.pnlTareasCompletadas.TabIndex = 1;
+            // 
+            // ucPaginadorCompletadas
+            // 
+            this.ucPaginadorCompletadas.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorCompletadas.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorCompletadas.Name = "ucPaginadorCompletadas";
+            this.ucPaginadorCompletadas.Size = new System.Drawing.Size(518, 42);
+            this.ucPaginadorCompletadas.TabIndex = 2;
+            this.ucPaginadorCompletadas.TamanoPagina = 4;
             // 
             // flpTareasCompletadas
             // 
@@ -794,6 +817,7 @@
             // 
             this.pnlCuerpoHistorial.BackColor = System.Drawing.Color.White;
             this.pnlCuerpoHistorial.Controls.Add(this.flpHistorial);
+            this.pnlCuerpoHistorial.Controls.Add(this.ucPaginadorHistorial);
             this.pnlCuerpoHistorial.Controls.Add(this.tlpEncabezadoHistorial);
             this.pnlCuerpoHistorial.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCuerpoHistorial.Location = new System.Drawing.Point(0, 48);
@@ -802,6 +826,15 @@
             this.pnlCuerpoHistorial.Size = new System.Drawing.Size(518, 250);
             this.pnlCuerpoHistorial.TabIndex = 1;
             // 
+            // ucPaginadorHistorial
+            //
+            this.ucPaginadorHistorial.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorHistorial.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorHistorial.Name = "ucPaginadorHistorial";
+            this.ucPaginadorHistorial.Size = new System.Drawing.Size(490, 42);
+            this.ucPaginadorHistorial.TabIndex = 8;
+            this.ucPaginadorHistorial.TamanoPagina = 3;
+            //
             // flpHistorial
             // 
             this.flpHistorial.AutoScroll = true;
@@ -1020,6 +1053,7 @@
         private Vista.UCProductividadProyecto avanceProyecto2;
         private Vista.UCProductividadProyecto avanceProyecto3;
         private System.Windows.Forms.Panel pnlTareasCompletadas;
+        private Vista.UCPaginadorTarjetas ucPaginadorCompletadas;
         private System.Windows.Forms.Panel pnlHeaderTareas;
         private System.Windows.Forms.Label lblTareasCompletadas;
         private System.Windows.Forms.Panel flpTareasCompletadas;
@@ -1047,6 +1081,7 @@
         private System.Windows.Forms.Panel pnlHeaderHistorial;
         private System.Windows.Forms.Label lblHistorial;
         private System.Windows.Forms.Panel pnlCuerpoHistorial;
+        private Vista.UCPaginadorTarjetas ucPaginadorHistorial;
         private System.Windows.Forms.TableLayoutPanel tlpEncabezadoHistorial;
         private System.Windows.Forms.Label lblHFecha;
         private System.Windows.Forms.Label lblHTarea;
@@ -1056,5 +1091,6 @@
         private Vista.UCFilaAvanceRegistrado avance1;
         private Vista.UCFilaAvanceRegistrado avance2;
         private Vista.UCFilaAvanceRegistrado avance3;
+        private Vista.UCPaginadorTarjetas ucPaginadorAvance;
     }
 }

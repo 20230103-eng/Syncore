@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using Modelo.Modelo.Entidades;
+using Modelo.Modelo.Infraestructura;
 
 namespace Vista
 {
@@ -17,6 +18,8 @@ namespace Vista
         private Evidencia evidenciaModelo;
         private ComentarioTarea comentarioModelo;
         private UCComentarioTarea comentarioActual;
+        private int paginaComentario;
+        private int totalComentarios;
 
         public event EventHandler VolverSolicitado;
         public event EventHandler RegistrarAvanceSolicitado;
@@ -39,12 +42,16 @@ namespace Vista
             InitializeComponent();
             toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
             toolTipAyuda.SetToolTip(btnVolver, "Volver a la pantalla anterior.");
+            toolTipAyuda.SetToolTip(btnAnteriorComentario, "Ver el comentario anterior.");
+            toolTipAyuda.SetToolTip(btnSiguienteComentario, "Ver el siguiente comentario.");
             this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             lblFecha.Text = System.DateTime.Today.ToString("dd/MM/yyyy");
             this.idTarea = idTarea;
             tareaModelo = new Tarea();
             avanceModelo = new Avance();
             evidenciaModelo = new Evidencia();
+            ucPaginadorHistorial.PaginaCambiada += ucPaginadorHistorial_PaginaCambiada;
+            ucPaginadorEvidencias.PaginaCambiada += ucPaginadorEvidencias_PaginaCambiada;
             comentarioModelo = new ComentarioTarea();
             btnVolver.Click += btnVolver_Click;
             ucEstado.AccionSolicitada += ucEstado_AccionSolicitada;
@@ -61,7 +68,7 @@ namespace Vista
 
             if (datos.Rows.Count == 0)
             {
-                MessageBox.Show("No se encontró la tarea.", "Detalle de tarea", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CatalogoErrores.MostrarDetalle("ERR-NEG-004", "Detalle de tarea", "No se encontró la tarea.");
                 return;
             }
 
@@ -141,80 +148,80 @@ namespace Vista
         private void CargarHistorial()
         {
             pnlFilasHistorial.Controls.Clear();
-            DataTable historial = avanceModelo.ObtenerHistorialTarea(idTarea);
-
+            int total;
+            int pagina = ucPaginadorHistorial.Inicio / ucPaginadorHistorial.TamanoPagina;
+            DataTable historial = avanceModelo.ObtenerHistorialTareaPagina(idTarea, pagina,
+                ucPaginadorHistorial.TamanoPagina, out total);
+            ucPaginadorHistorial.Configurar(total, false);
+            if (pagina != ucPaginadorHistorial.Inicio / ucPaginadorHistorial.TamanoPagina)
+            {
+                CargarHistorial();
+                return;
+            }
             if (historial.Rows.Count == 0)
             {
                 AgregarMensaje(pnlFilasHistorial, "Todavía no hay avances registrados.");
                 return;
             }
-
-            int inicio = historial.Rows.Count - 3;
-
-            if (inicio < 0)
+            for (int indice = historial.Rows.Count - 1; indice >= 0; indice = indice - 1)
             {
-                inicio = 0;
-            }
-
-            int contador = 0;
-
-            foreach (DataRow fila in historial.Rows)
-            {
-                if (contador >= inicio)
-                {
-                    int idAvance = Convert.ToInt32(fila["IdAvance"]);
-                    int cantidadEvidencias = evidenciaModelo.ContarEvidenciasAvance(idAvance);
-                    UCFilaHistorialTarea control = new UCFilaHistorialTarea();
-                    control.Cabecera = Convert.ToDecimal(fila["Porcentaje"]).ToString("0") + "%  -  " + Convert.ToDateTime(fila["FechaRegistro"]).ToString("dd/MM/yyyy");
-                    control.Detalle = fila["Descripcion"].ToString();
-                    control.Evidencia = "Evidencia: " + cantidadEvidencias + " archivo(s)";
-                    control.ColorIndicador = Color.FromArgb(0, 105, 240);
-                    control.Dock = DockStyle.Top;
-                    pnlFilasHistorial.Controls.Add(control);
-                    control.BringToFront();
-                }
-
-                contador = contador + 1;
+                DataRow fila = historial.Rows[indice];
+                UCFilaHistorialTarea control = new UCFilaHistorialTarea();
+                control.Cabecera = Convert.ToDecimal(fila["Porcentaje"]).ToString("0") +
+                    "%  -  " + Convert.ToDateTime(fila["FechaRegistro"]).ToString("dd/MM/yyyy");
+                control.Detalle = fila["Descripcion"].ToString();
+                control.Evidencia = "Evidencia: " + fila["CantidadEvidencias"] + " archivo(s)";
+                control.ColorIndicador = Color.FromArgb(0, 105, 240);
+                control.Dock = DockStyle.Top;
+                pnlFilasHistorial.Controls.Add(control);
+                control.BringToFront();
             }
         }
+
+        private void ucPaginadorHistorial_PaginaCambiada(object sender, EventArgs e)
+        {
+            CargarHistorial();
+        }
+
 
         private void CargarEvidencias()
         {
             pnlFilasEvidencia.Controls.Clear();
-            DataTable evidencias = evidenciaModelo.ObtenerEvidenciasTarea(idTarea);
-
+            int total;
+            int pagina = ucPaginadorEvidencias.Inicio / ucPaginadorEvidencias.TamanoPagina;
+            DataTable evidencias = evidenciaModelo.ObtenerEvidenciasTareaPagina(idTarea, pagina,
+                ucPaginadorEvidencias.TamanoPagina, out total);
+            ucPaginadorEvidencias.Configurar(total, false);
+            if (pagina != ucPaginadorEvidencias.Inicio / ucPaginadorEvidencias.TamanoPagina)
+            {
+                CargarEvidencias();
+                return;
+            }
             if (evidencias.Rows.Count == 0)
             {
                 AgregarMensaje(pnlFilasEvidencia, "No hay evidencias adjuntas.");
                 return;
             }
-
-            int inicio = evidencias.Rows.Count - 2;
-
-            if (inicio < 0)
+            for (int indice = evidencias.Rows.Count - 1; indice >= 0; indice = indice - 1)
             {
-                inicio = 0;
-            }
-
-            int contador = 0;
-
-            foreach (DataRow fila in evidencias.Rows)
-            {
-                if (contador >= inicio)
-                {
-                    UCEvidenciaTarea control = new UCEvidenciaTarea();
-                    control.IdEvidencia = Convert.ToInt32(fila["IdEvidencia"]);
-                    control.NombreArchivo = fila["NombreArchivo"].ToString();
-                    control.RutaArchivo = fila["RutaArchivo"].ToString();
-                    control.DetalleArchivo = Convert.ToDateTime(fila["FechaSubida"]).ToString("dd/MM/yyyy") + "  ·  " + ObtenerTipoArchivo(fila["TipoArchivo"]);
-                    control.Dock = DockStyle.Top;
-                    pnlFilasEvidencia.Controls.Add(control);
-                    control.BringToFront();
-                }
-
-                contador = contador + 1;
+                DataRow fila = evidencias.Rows[indice];
+                UCEvidenciaTarea control = new UCEvidenciaTarea();
+                control.IdEvidencia = Convert.ToInt32(fila["IdEvidencia"]);
+                control.NombreArchivo = fila["NombreArchivo"].ToString();
+                control.RutaArchivo = fila["RutaArchivo"].ToString();
+                control.DetalleArchivo = Convert.ToDateTime(fila["FechaSubida"]).ToString("dd/MM/yyyy") +
+                    "  ·  " + ObtenerTipoArchivo(fila["TipoArchivo"]);
+                control.Dock = DockStyle.Top;
+                pnlFilasEvidencia.Controls.Add(control);
+                control.BringToFront();
             }
         }
+
+        private void ucPaginadorEvidencias_PaginaCambiada(object sender, EventArgs e)
+        {
+            CargarEvidencias();
+        }
+
 
         private string ObtenerTipoArchivo(object valor)
         {
@@ -242,7 +249,26 @@ namespace Vista
                 comentarioActual = null;
             }
 
-            DataTable comentarios = comentarioModelo.ObtenerComentariosTarea(idTarea);
+            int total;
+            DataTable comentarios = comentarioModelo.ObtenerComentariosTareaPagina(idTarea, paginaComentario, out total);
+            if (comentarios.Rows.Count == 0 && paginaComentario > 0)
+            {
+                paginaComentario = 0;
+                CargarComentario();
+                return;
+            }
+            totalComentarios = total;
+            pnlNavegacionComentario.Visible = true;
+            btnAnteriorComentario.Enabled = paginaComentario > 0;
+            btnSiguienteComentario.Enabled = paginaComentario + 1 < totalComentarios;
+            if (totalComentarios == 0)
+            {
+                lblPaginaComentario.Text = "0 de 0";
+            }
+            else
+            {
+                lblPaginaComentario.Text = (paginaComentario + 1) + " de " + totalComentarios;
+            }
 
             if (comentarios.Rows.Count == 0)
             {
@@ -267,6 +293,24 @@ namespace Vista
             comentarioActual.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlComentarios.Controls.Add(comentarioActual);
             pnlTituloComentarios.BringToFront();
+        }
+
+        private void btnAnteriorComentario_Click(object sender, EventArgs e)
+        {
+            if (paginaComentario > 0)
+            {
+                paginaComentario = paginaComentario - 1;
+                CargarComentario();
+            }
+        }
+
+        private void btnSiguienteComentario_Click(object sender, EventArgs e)
+        {
+            if (paginaComentario + 1 < totalComentarios)
+            {
+                paginaComentario = paginaComentario + 1;
+                CargarComentario();
+            }
         }
 
         private void AgregarMensaje(Panel panel, string texto)

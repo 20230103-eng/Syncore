@@ -58,6 +58,7 @@
             this.lblHATiempo = new System.Windows.Forms.Label();
             this.lblHCumplimiento = new System.Windows.Forms.Label();
             this.lblHTendencia = new System.Windows.Forms.Label();
+            this.ucPaginadorColaboradores = new Vista.UCPaginadorTarjetas();
             this.flpColaboradores = new System.Windows.Forms.Panel();
             this.colaborador1 = new Vista.UCProductividadColaborador();
             this.colaborador2 = new Vista.UCProductividadColaborador();
@@ -68,6 +69,7 @@
             this.pnlProductividadProyecto = new System.Windows.Forms.Panel();
             this.lblProductividadProyecto = new System.Windows.Forms.Label();
             this.pnlSeparadorProyecto = new System.Windows.Forms.Panel();
+            this.ucPaginadorProyectos = new Vista.UCPaginadorTarjetas();
             this.flpProductividadProyecto = new System.Windows.Forms.Panel();
             this.productividadProyecto1 = new Vista.UCProductividadProyecto();
             this.productividadProyecto2 = new Vista.UCProductividadProyecto();
@@ -367,6 +369,7 @@
             this.pnlProductividadColaborador.BackColor = System.Drawing.Color.White;
             this.pnlProductividadColaborador.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlProductividadColaborador.Controls.Add(this.flpColaboradores);
+            this.pnlProductividadColaborador.Controls.Add(this.ucPaginadorColaboradores);
             this.pnlProductividadColaborador.Controls.Add(this.tlpEncabezadoColaborador);
             this.pnlProductividadColaborador.Controls.Add(this.pnlSeparadorColaborador);
             this.pnlProductividadColaborador.Controls.Add(this.lblProductividadColaborador);
@@ -480,9 +483,18 @@
             this.lblHTendencia.Text = "TENDENCIA";
             this.lblHTendencia.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // ucPaginadorColaboradores
+            // 
+            this.ucPaginadorColaboradores.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorColaboradores.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorColaboradores.Name = "ucPaginadorColaboradores";
+            this.ucPaginadorColaboradores.Size = new System.Drawing.Size(490, 42);
+            this.ucPaginadorColaboradores.TabIndex = 8;
+            this.ucPaginadorColaboradores.TamanoPagina = 6;
+            // 
             // flpColaboradores
             // 
-            this.flpColaboradores.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.flpColaboradores.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.flpColaboradores.AutoScroll = true;
             this.flpColaboradores.Controls.Add(this.colaborador6);
             this.flpColaboradores.Controls.Add(this.colaborador5);
@@ -492,7 +504,7 @@
             this.flpColaboradores.Controls.Add(this.colaborador1);
             this.flpColaboradores.Location = new System.Drawing.Point(8, 86);
             this.flpColaboradores.Name = "flpColaboradores";
-            this.flpColaboradores.Size = new System.Drawing.Size(778, 226);
+            this.flpColaboradores.Size = new System.Drawing.Size(778, 184);
             this.flpColaboradores.TabIndex = 2;
             // 
             // colaborador1
@@ -584,6 +596,7 @@
             this.pnlProductividadProyecto.BackColor = System.Drawing.Color.White;
             this.pnlProductividadProyecto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlProductividadProyecto.Controls.Add(this.flpProductividadProyecto);
+            this.pnlProductividadProyecto.Controls.Add(this.ucPaginadorProyectos);
             this.pnlProductividadProyecto.Controls.Add(this.pnlSeparadorProyecto);
             this.pnlProductividadProyecto.Controls.Add(this.lblProductividadProyecto);
             this.pnlProductividadProyecto.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -613,16 +626,25 @@
             this.pnlSeparadorProyecto.Size = new System.Drawing.Size(775, 1);
             this.pnlSeparadorProyecto.TabIndex = 1;
             // 
+            // ucPaginadorProyectos
+            // 
+            this.ucPaginadorProyectos.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorProyectos.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorProyectos.Name = "ucPaginadorProyectos";
+            this.ucPaginadorProyectos.Size = new System.Drawing.Size(490, 42);
+            this.ucPaginadorProyectos.TabIndex = 8;
+            this.ucPaginadorProyectos.TamanoPagina = 3;
+            // 
             // flpProductividadProyecto
             // 
-            this.flpProductividadProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.flpProductividadProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.flpProductividadProyecto.AutoScroll = true;
             this.flpProductividadProyecto.Controls.Add(this.productividadProyecto3);
             this.flpProductividadProyecto.Controls.Add(this.productividadProyecto2);
             this.flpProductividadProyecto.Controls.Add(this.productividadProyecto1);
             this.flpProductividadProyecto.Location = new System.Drawing.Point(8, 48);
             this.flpProductividadProyecto.Name = "flpProductividadProyecto";
-            this.flpProductividadProyecto.Size = new System.Drawing.Size(779, 264);
+            this.flpProductividadProyecto.Size = new System.Drawing.Size(779, 222);
             this.flpProductividadProyecto.TabIndex = 1;
             // 
             // productividadProyecto1
@@ -841,5 +863,7 @@
         private Vista.UCBarraSemana barraSemana2;
         private Vista.UCBarraSemana barraSemana3;
         private Vista.UCBarraSemana barraSemana4;
+        private Vista.UCPaginadorTarjetas ucPaginadorColaboradores;
+        private Vista.UCPaginadorTarjetas ucPaginadorProyectos;
     }
 }

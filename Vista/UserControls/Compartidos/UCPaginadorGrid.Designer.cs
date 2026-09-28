@@ -2,15 +2,15 @@ namespace Vista
 {
     partial class UCPaginadorGrid
     {
+        /// <summary>
+        /// Variable del diseñador necesaria.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.Label lblRegistros;
-        private System.Windows.Forms.FlowLayoutPanel flpNavegacion;
-        private System.Windows.Forms.Button btnAnterior;
-        private System.Windows.Forms.Label lblPagina;
-        private System.Windows.Forms.ComboBox cboPagina;
-        private System.Windows.Forms.Button btnSiguiente;
-        private System.Windows.Forms.ToolTip toolTipAyuda;
 
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && components != null)
@@ -22,6 +22,10 @@ namespace Vista
 
         #region Código generado por el Diseñador de Windows Forms
 
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -34,6 +38,9 @@ namespace Vista
             this.toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
             this.flpNavegacion.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // lblRegistros
+            // 
             this.lblRegistros.AutoEllipsis = true;
             this.lblRegistros.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblRegistros.ForeColor = System.Drawing.Color.FromArgb(71, 87, 107);
@@ -47,6 +54,9 @@ namespace Vista
             this.flpNavegacion.Controls.Add(this.lblPagina);
             this.flpNavegacion.Controls.Add(this.cboPagina);
             this.flpNavegacion.Controls.Add(this.btnSiguiente);
+            // 
+            // flpNavegacion
+            // 
             this.flpNavegacion.Dock = System.Windows.Forms.DockStyle.Right;
             this.flpNavegacion.FlowDirection = System.Windows.Forms.FlowDirection.LeftToRight;
             this.flpNavegacion.Location = new System.Drawing.Point(490, 4);
@@ -55,6 +65,9 @@ namespace Vista
             this.flpNavegacion.Size = new System.Drawing.Size(302, 34);
             this.flpNavegacion.TabIndex = 1;
             this.flpNavegacion.WrapContents = false;
+            // 
+            // btnAnterior
+            // 
             this.btnAnterior.Location = new System.Drawing.Point(0, 3);
             this.btnAnterior.Margin = new System.Windows.Forms.Padding(0, 3, 3, 0);
             this.btnAnterior.Name = "btnAnterior";
@@ -64,6 +77,9 @@ namespace Vista
             this.btnAnterior.UseVisualStyleBackColor = true;
             this.toolTipAyuda.SetToolTip(this.btnAnterior, "Mostrar la página anterior.");
             this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
+            // 
+            // lblPagina
+            // 
             this.lblPagina.AutoSize = true;
             this.lblPagina.Location = new System.Drawing.Point(86, 10);
             this.lblPagina.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
@@ -71,6 +87,9 @@ namespace Vista
             this.lblPagina.Size = new System.Drawing.Size(39, 15);
             this.lblPagina.TabIndex = 1;
             this.lblPagina.Text = "Página";
+            // 
+            // cboPagina
+            // 
             this.cboPagina.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboPagina.FormattingEnabled = true;
             this.cboPagina.Location = new System.Drawing.Point(131, 3);
@@ -80,6 +99,9 @@ namespace Vista
             this.cboPagina.TabIndex = 2;
             this.toolTipAyuda.SetToolTip(this.cboPagina, "Ir a una página de resultados.");
             this.cboPagina.SelectedIndexChanged += new System.EventHandler(this.cboPagina_SelectedIndexChanged);
+            // 
+            // btnSiguiente
+            // 
             this.btnSiguiente.Location = new System.Drawing.Point(192, 3);
             this.btnSiguiente.Margin = new System.Windows.Forms.Padding(3, 3, 0, 0);
             this.btnSiguiente.Name = "btnSiguiente";
@@ -89,6 +111,9 @@ namespace Vista
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.toolTipAyuda.SetToolTip(this.btnSiguiente, "Mostrar la página siguiente.");
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            // 
+            // UCPaginadorGrid
+            // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.lblRegistros);
@@ -104,5 +129,13 @@ namespace Vista
         }
 
         #endregion
+
+        private System.Windows.Forms.Label lblRegistros;
+        private System.Windows.Forms.FlowLayoutPanel flpNavegacion;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Label lblPagina;
+        private System.Windows.Forms.ComboBox cboPagina;
+        private System.Windows.Forms.Button btnSiguiente;
+        private System.Windows.Forms.ToolTip toolTipAyuda;
     }
 }

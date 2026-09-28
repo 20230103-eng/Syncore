@@ -7,6 +7,7 @@ namespace Vista
     public partial class UCTarjetaSeleccionUsuario : UserControl
     {
         private System.Windows.Forms.ToolTip toolTipAyuda;
+        public event System.EventHandler SeleccionCambiada;
 
         public UCTarjetaSeleccionUsuario()
         {
@@ -14,6 +15,8 @@ namespace Vista
             toolTipAyuda = new System.Windows.Forms.ToolTip(this.components);
             toolTipAyuda.SetToolTip(cboRol, "Seleccione rol.");
             toolTipAyuda.SetToolTip(chkSeleccionar, "Seleccione este usuario.");
+            chkSeleccionar.CheckedChanged += Control_SeleccionCambiada;
+            cboRol.SelectedIndexChanged += Control_SeleccionCambiada;
         }
 
         public int IdUsuario { get; set; }
@@ -33,6 +36,11 @@ namespace Vista
 
                 return idRol;
             }
+        }
+
+        public void SeleccionarRol(int idRol)
+        {
+            cboRol.SelectedValue = idRol;
         }
 
         public string Usuario
@@ -75,5 +83,13 @@ namespace Vista
             cboRol.DataSource = copiaRoles;
             cboRol.SelectedIndex = -1;
         }
+        private void Control_SeleccionCambiada(object sender, System.EventArgs e)
+        {
+            if (SeleccionCambiada != null)
+            {
+                SeleccionCambiada(this, System.EventArgs.Empty);
+            }
+        }
+
     }
 }

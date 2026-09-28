@@ -10,10 +10,72 @@ namespace Vista
         private DataTable datosOriginales;
         private int paginaActual;
         private bool actualizandoSelector;
+        private bool paginacionRemota;
+        private int cantidadRemota;
 
         public event EventHandler PaginaCambiada;
 
         public DataGridView Tabla { get; set; }
+
+        public int PaginaActual
+        {
+            get { return paginaActual; }
+        }
+
+        public void ReiniciarRemoto()
+        {
+            paginaActual = 0;
+            paginacionRemota = true;
+        }
+
+        public void MostrarRemoto(DataTable pagina, int total)
+        {
+            paginacionRemota = true;
+            cantidadRemota = Math.Max(0, total);
+            int paginas = Math.Max(1, (cantidadRemota + RegistrosPorPagina - 1) / RegistrosPorPagina);
+            if (paginaActual >= paginas)
+            {
+                paginaActual = 0;
+                if (PaginaCambiada != null)
+                {
+                    PaginaCambiada(this, EventArgs.Empty);
+                }
+                return;
+            }
+            if (pagina == null)
+            {
+                pagina = new DataTable();
+            }
+            Tabla.DataSource = pagina;
+            Tabla.ClearSelection();
+            ActualizarSelector(cantidadRemota);
+        }
+
+        private void ActualizarSelector(int cantidad)
+        {
+            int paginas = Math.Max(1, (cantidad + RegistrosPorPagina - 1) / RegistrosPorPagina);
+            int inicio = paginaActual * RegistrosPorPagina;
+            int final = Math.Min(inicio + RegistrosPorPagina, cantidad);
+            actualizandoSelector = true;
+            cboPagina.Items.Clear();
+            for (int numero = 1; numero <= paginas; numero = numero + 1)
+            {
+                cboPagina.Items.Add(numero.ToString());
+            }
+            cboPagina.SelectedIndex = paginaActual;
+            actualizandoSelector = false;
+            btnAnterior.Enabled = paginaActual > 0;
+            btnSiguiente.Enabled = paginaActual + 1 < paginas;
+            Visible = true;
+            if (cantidad == 0)
+            {
+                lblRegistros.Text = "Sin registros";
+            }
+            else
+            {
+                lblRegistros.Text = "Registros " + (inicio + 1) + " a " + final + " de " + cantidad;
+            }
+        }
 
         public UCPaginadorGrid()
         {
@@ -24,6 +86,7 @@ namespace Vista
 
         public void Mostrar(DataTable datos)
         {
+            paginacionRemota = false;
             if (datos == null)
             {
                 datosOriginales = new DataTable();
@@ -69,7 +132,7 @@ namespace Vista
 
             btnAnterior.Enabled = paginaActual > 0;
             btnSiguiente.Enabled = paginaActual + 1 < paginas;
-            Visible = cantidad > RegistrosPorPagina;
+            Visible = true;
 
             if (cantidad == 0)
             {
@@ -91,17 +154,32 @@ namespace Vista
             if (paginaActual > 0)
             {
                 paginaActual = paginaActual - 1;
-                ActualizarPagina(true);
+                if (paginacionRemota)
+                {
+                    if (PaginaCambiada != null) PaginaCambiada(this, EventArgs.Empty);
+                }
+                else
+                {
+                    ActualizarPagina(true);
+                }
             }
         }
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
-            int paginas = Math.Max(1, (datosOriginales.Rows.Count + RegistrosPorPagina - 1) / RegistrosPorPagina);
+            int total = paginacionRemota ? cantidadRemota : datosOriginales.Rows.Count;
+            int paginas = Math.Max(1, (total + RegistrosPorPagina - 1) / RegistrosPorPagina);
             if (paginaActual + 1 < paginas)
             {
                 paginaActual = paginaActual + 1;
-                ActualizarPagina(true);
+                if (paginacionRemota)
+                {
+                    if (PaginaCambiada != null) PaginaCambiada(this, EventArgs.Empty);
+                }
+                else
+                {
+                    ActualizarPagina(true);
+                }
             }
         }
 
@@ -110,7 +188,14 @@ namespace Vista
             if (actualizandoSelector == false && cboPagina.SelectedIndex >= 0)
             {
                 paginaActual = cboPagina.SelectedIndex;
-                ActualizarPagina(true);
+                if (paginacionRemota)
+                {
+                    if (PaginaCambiada != null) PaginaCambiada(this, EventArgs.Empty);
+                }
+                else
+                {
+                    ActualizarPagina(true);
+                }
             }
         }
     }

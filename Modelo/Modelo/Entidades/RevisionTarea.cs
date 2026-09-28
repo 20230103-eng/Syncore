@@ -373,6 +373,67 @@ namespace Modelo.Modelo.Entidades
             return revisiones;
         }
 
+        public DataTable ObtenerRevisionesPendientesPagina(int idRevisor, string texto, int pagina, out int total)
+        {
+            string consulta = @"
+            SELECT
+            ISNULL(tbRevisionTarea.IdRevision, 0) AS IdRevision,
+            tbTarea.IdTarea,
+            tbTarea.Nombre AS Tarea,
+            tbProyecto.Nombre AS Proyecto,
+            tbUsuario.NombreCompleto AS Responsable,
+            ISNULL(tbRevisionTarea.FechaEnvio, tbTarea.FechaCreacion) AS FechaEnvio,
+            tbTarea.FechaLimite,
+            tbPrioridad.Nombre AS Prioridad,
+            tbTarea.AvanceActual,
+            tbTarea.Descripcion,
+            tbTarea.Observacion AS Observaciones,
+            ISNULL
+            (
+                (
+                    SELECT TOP 1 tbAvance.Descripcion
+                    FROM tbAvance
+                    WHERE tbAvance.IdTarea = tbTarea.IdTarea
+                    ORDER BY tbAvance.IdAvance DESC
+                ),
+                N'Sin avances registrados'
+            ) AS UltimoAvance,
+            (
+                SELECT COUNT(*)
+                FROM tbEvidencia
+                INNER JOIN tbAvance ON tbEvidencia.IdAvance = tbAvance.IdAvance
+                WHERE tbAvance.IdTarea = tbTarea.IdTarea
+            ) AS Evidencias,
+            COUNT(*) OVER() AS TotalRegistros
+            FROM tbTarea
+            INNER JOIN tbProyecto ON tbTarea.IdProyecto = tbProyecto.IdProyecto
+            INNER JOIN tbUsuario ON tbTarea.IdResponsable = tbUsuario.IdUsuario
+            INNER JOIN tbPrioridad ON tbTarea.IdPrioridad = tbPrioridad.IdPrioridad
+            LEFT JOIN tbRevisionTarea
+            ON tbRevisionTarea.IdRevision =
+            (
+                SELECT TOP 1 revisionPendiente.IdRevision
+                FROM tbRevisionTarea revisionPendiente
+                WHERE revisionPendiente.IdTarea = tbTarea.IdTarea
+                AND revisionPendiente.IdResultadoRevision = (SELECT TOP 1 IdResultadoRevision FROM tbEstadoRevision WHERE Nombre = N'Pendiente')
+                ORDER BY revisionPendiente.IdRevision DESC
+            )
+            WHERE tbProyecto.IdResponsable = @IdRevisor
+            AND tbTarea.IdEstadoTarea = (SELECT TOP 1 IdEstadoTarea FROM tbEstadoTarea WHERE Nombre = N'En revisión')
+            AND (@Texto = N'' OR tbTarea.Nombre LIKE N'%' + @Texto + N'%'
+                OR tbProyecto.Nombre LIKE N'%' + @Texto + N'%'
+                OR tbUsuario.NombreCompleto LIKE N'%' + @Texto + N'%')
+            ORDER BY FechaEnvio, tbTarea.IdTarea
+            OFFSET @Inicio ROWS FETCH NEXT 20 ROWS ONLY";
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@IdRevisor", idRevisor),
+                new SqlParameter("@Texto", texto)
+            };
+            return conexion.EjecutarPagina(consulta, parametros, pagina, out total);
+        }
+
+
         public int AsegurarRevisionPendiente(int idTarea, int idRevisor)
         {
             string query;
@@ -481,12 +542,13 @@ namespace Modelo.Modelo.Entidades
                 return false;
             }
 
-            transaccion = conexionSql.BeginTransaction();
+            transaccion = null;
             filasRevision = 0;
             filasTarea = 0;
 
             try
             {
+                transaccion = conexionSql.BeginTransaction();
                 query = @"
                 UPDATE tbRevisionTarea
                 SET FechaRevision = GETDATE(),
@@ -561,13 +623,25 @@ namespace Modelo.Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                transaccion.Rollback();
+                if (transaccion != null && transaccion.Connection != null)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch (SqlException)
+                    {
+                    }
+                }
                 Conexion.MostrarErrorSql(ex);
                 return false;
             }
             finally
             {
-                transaccion.Dispose();
+                if (transaccion != null)
+                {
+                    transaccion.Dispose();
+                }
                 conexionSql.Close();
                 conexionSql.Dispose();
             }
@@ -596,12 +670,13 @@ namespace Modelo.Modelo.Entidades
                 return false;
             }
 
-            transaccion = conexionSql.BeginTransaction();
+            transaccion = null;
             filasRevision = 0;
             filasTarea = 0;
 
             try
             {
+                transaccion = conexionSql.BeginTransaction();
                 query = @"
                 UPDATE tbRevisionTarea
                 SET FechaRevision = GETDATE(),
@@ -697,13 +772,25 @@ namespace Modelo.Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                transaccion.Rollback();
+                if (transaccion != null && transaccion.Connection != null)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch (SqlException)
+                    {
+                    }
+                }
                 Conexion.MostrarErrorSql(ex);
                 return false;
             }
             finally
             {
-                transaccion.Dispose();
+                if (transaccion != null)
+                {
+                    transaccion.Dispose();
+                }
                 conexionSql.Close();
                 conexionSql.Dispose();
             }

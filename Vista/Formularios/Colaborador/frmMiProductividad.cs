@@ -34,6 +34,9 @@ namespace Vista
             productividadModelo = new Productividad();
             this.Load += frmMiProductividad_Load;
             cboPeriodo.SelectedIndexChanged += cboPeriodo_SelectedIndexChanged;
+            ucPaginadorAvance.PaginaCambiada += ucPaginadorAvance_PaginaCambiada;
+            ucPaginadorCompletadas.PaginaCambiada += ucPaginadorCompletadas_PaginaCambiada;
+            ucPaginadorHistorial.PaginaCambiada += ucPaginadorHistorial_PaginaCambiada;
         }
 
         private void frmMiProductividad_Load(object sender, EventArgs e)
@@ -74,8 +77,10 @@ namespace Vista
             int dias = ObtenerDiasPeriodo();
             CargarTarjetas(idUsuario, dias);
             CargarAvanceProyectos(idUsuario);
+            ucPaginadorCompletadas.Configurar(0, true);
             CargarTareasCompletadas(idUsuario, dias);
             CargarEstadoTareas(idUsuario);
+            ucPaginadorHistorial.Configurar(0, true);
             CargarHistorial(idUsuario, dias);
         }
 
@@ -95,9 +100,26 @@ namespace Vista
             tarjeta4.Detalle = "Completadas del total asignado";
         }
 
+        private void ucPaginadorAvance_PaginaCambiada(object sender, EventArgs e)
+        {
+            if (Sesion.UsuarioActual != null)
+            {
+                CargarAvanceProyectos(Sesion.UsuarioActual.IdUsuario);
+            }
+        }
+
         private void CargarAvanceProyectos(int idUsuario)
         {
-            DataTable proyectos = proyectoModelo.ObtenerProyectosUsuario(idUsuario);
+            int total;
+            int pagina = ucPaginadorAvance.Inicio / ucPaginadorAvance.TamanoPagina;
+            DataTable proyectos = proyectoModelo.ObtenerProyectosUsuarioResumenPagina(idUsuario, pagina,
+                ucPaginadorAvance.TamanoPagina, out total);
+            ucPaginadorAvance.Configurar(total, false);
+            if (pagina != ucPaginadorAvance.Inicio / ucPaginadorAvance.TamanoPagina)
+            {
+                CargarAvanceProyectos(idUsuario);
+                return;
+            }
             UCProductividadProyecto[] controles = new UCProductividadProyecto[] { avanceProyecto1, avanceProyecto2, avanceProyecto3 };
 
             foreach (UCProductividadProyecto control in controles)
@@ -138,9 +160,26 @@ namespace Vista
             }
         }
 
+        private void ucPaginadorCompletadas_PaginaCambiada(object sender, EventArgs e)
+        {
+            if (Sesion.UsuarioActual != null)
+            {
+                CargarTareasCompletadas(Sesion.UsuarioActual.IdUsuario, ObtenerDiasPeriodo());
+            }
+        }
+
         private void CargarTareasCompletadas(int idUsuario, int dias)
         {
-            DataTable tareas = tableroTarea.ObtenerTareasCompletadasUsuario(idUsuario, dias, 4);
+            int total;
+            int pagina = ucPaginadorCompletadas.Inicio / ucPaginadorCompletadas.TamanoPagina;
+            DataTable tareas = tableroTarea.ObtenerTareasCompletadasUsuarioPagina(idUsuario, dias, pagina,
+                ucPaginadorCompletadas.TamanoPagina, out total);
+            ucPaginadorCompletadas.Configurar(total, false);
+            if (pagina != ucPaginadorCompletadas.Inicio / ucPaginadorCompletadas.TamanoPagina)
+            {
+                CargarTareasCompletadas(idUsuario, dias);
+                return;
+            }
             UCFilaTareaCompletada[] controles = new UCFilaTareaCompletada[] { tareaCompletada1, tareaCompletada2, tareaCompletada3, tareaCompletada4 };
 
             foreach (UCFilaTareaCompletada control in controles)
@@ -210,9 +249,26 @@ namespace Vista
             }
         }
 
+        private void ucPaginadorHistorial_PaginaCambiada(object sender, EventArgs e)
+        {
+            if (Sesion.UsuarioActual != null)
+            {
+                CargarHistorial(Sesion.UsuarioActual.IdUsuario, ObtenerDiasPeriodo());
+            }
+        }
+
         private void CargarHistorial(int idUsuario, int dias)
         {
-            DataTable avances = avanceModelo.ObtenerAvancesUsuario(idUsuario, dias, 3);
+            int total;
+            int pagina = ucPaginadorHistorial.Inicio / ucPaginadorHistorial.TamanoPagina;
+            DataTable avances = avanceModelo.ObtenerAvancesUsuarioPagina(idUsuario, dias, pagina,
+                ucPaginadorHistorial.TamanoPagina, out total);
+            ucPaginadorHistorial.Configurar(total, false);
+            if (pagina != ucPaginadorHistorial.Inicio / ucPaginadorHistorial.TamanoPagina)
+            {
+                CargarHistorial(idUsuario, dias);
+                return;
+            }
             UCFilaAvanceRegistrado[] controles = new UCFilaAvanceRegistrado[] { avance1, avance2, avance3 };
 
             foreach (UCFilaAvanceRegistrado control in controles)

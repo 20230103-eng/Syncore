@@ -62,14 +62,8 @@ namespace Vista
             picLogoEmpresa.Visible = false;
             if (empresa.LogoImagen != null && empresa.LogoImagen.Length > 0)
             {
-                using (MemoryStream flujo = new MemoryStream(empresa.LogoImagen))
-                {
-                    using (Image original = Image.FromStream(flujo))
-                    {
-                        picLogoEmpresa.Image = new Bitmap(original);
-                    }
-                }
-                picLogoEmpresa.Visible = true;
+                picLogoEmpresa.Image = ArchivosSeguros.CrearImagen(empresa.LogoImagen);
+                picLogoEmpresa.Visible = picLogoEmpresa.Image != null;
                 toolTipAyuda.SetToolTip(picLogoEmpresa, empresa.InformacionGeneral);
             }
             if (anterior != null)

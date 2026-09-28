@@ -400,46 +400,59 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerProductividadColaboradores(int dias)
         {
-            string query = @"
-            SELECT tbUsuario.IdUsuario, tbUsuario.NombreCompleto
-            FROM tbUsuario
-            INNER JOIN tbTipoUsuario ON tbUsuario.IdTipoUsuario = tbTipoUsuario.IdTipoUsuario
-            WHERE tbTipoUsuario.Nombre = N'Colaborador'
-            AND tbUsuario.Activo = 1
-            ORDER BY tbUsuario.NombreCompleto";
+            DataTable colaboradores;
+            SqlConnection conexionSql;
+            SqlCommand comando;
+            SqlDataAdapter adaptador;
 
-            DataTable colaboradores = conexion.EjecutarConsulta(query);
-            colaboradores.Columns.Add("Tareas", typeof(int));
-            colaboradores.Columns.Add("PorcentajeATiempo", typeof(int));
-            colaboradores.Columns.Add("Cumplimiento", typeof(int));
-            colaboradores.Columns.Add("Tendencia", typeof(string));
+            colaboradores = new DataTable();
+            conexionSql = Conexion.conectar();
 
-            foreach (DataRow fila in colaboradores.Rows)
+            if (conexionSql == null)
             {
-                int idUsuario = Convert.ToInt32(fila["IdUsuario"]);
-                int tareas = indicadorUsuario.ContarTareasUsuario(idUsuario);
-                int porcentajeATiempo = CalcularPorcentajeATiempoUsuario(idUsuario, dias);
-                int cumplimiento = porcentajeATiempo;
-                int completadasActuales = ContarTareasCompletadasUsuario(idUsuario, dias);
-                int completadasAnteriores = ContarTareasCompletadasUsuarioAnterior(idUsuario, dias);
-                string tendencia = "Estable";
+                return colaboradores;
+            }
 
-                if (completadasActuales > completadasAnteriores)
-                {
-                    tendencia = "Alta";
-                }
-                else if (completadasActuales < completadasAnteriores)
-                {
-                    tendencia = "Baja";
-                }
-
-                fila["Tareas"] = tareas;
-                fila["PorcentajeATiempo"] = porcentajeATiempo;
-                fila["Cumplimiento"] = cumplimiento;
-                fila["Tendencia"] = tendencia;
+            try
+            {
+                comando = new SqlCommand("spReporteProductividad", conexionSql);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@Dias", dias);
+                adaptador = new SqlDataAdapter(comando);
+                adaptador.Fill(colaboradores);
+                adaptador.Dispose();
+                comando.Dispose();
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
             }
 
             return colaboradores;
+        }
+
+        public DataTable ObtenerProductividadColaboradoresPagina(int dias, int pagina, out int total)
+        {
+            string consulta = @"
+                DECLARE @Resultados TABLE
+                (
+                    IdUsuario INT, NombreCompleto NVARCHAR(200), Tareas INT,
+                    PorcentajeATiempo INT, Cumplimiento INT, Tendencia NVARCHAR(30)
+                );
+                INSERT INTO @Resultados
+                EXEC spReporteProductividad @Dias = @Dias;
+                SELECT IdUsuario, NombreCompleto, Tareas, PorcentajeATiempo,
+                    Cumplimiento, Tendencia, COUNT(*) OVER() AS TotalRegistros
+                FROM @Resultados
+                ORDER BY NombreCompleto, IdUsuario
+                OFFSET @Inicio ROWS FETCH NEXT 20 ROWS ONLY";
+            SqlParameter[] parametros = { new SqlParameter("@Dias", dias) };
+            return new Conexion().EjecutarPagina(consulta, parametros, pagina, out total);
         }
 
         private int ContarTareasCompletadasUsuarioAnterior(int idUsuario, int dias)
@@ -578,5 +591,24 @@ namespace Modelo.Modelo.Entidades
 
             return semanas;
         }
+        public DataTable ObtenerProductividadColaboradoresResumenPagina(int dias, int pagina, int tamanoPagina, out int total)
+        {
+            string consulta = @"
+                DECLARE @Resultados TABLE
+                (
+                    IdUsuario INT, NombreCompleto NVARCHAR(200), Tareas INT,
+                    PorcentajeATiempo INT, Cumplimiento INT, Tendencia NVARCHAR(30)
+                );
+                INSERT INTO @Resultados
+                EXEC spReporteProductividad @Dias = @Dias;
+                SELECT IdUsuario, NombreCompleto, Tareas, PorcentajeATiempo,
+                    Cumplimiento, Tendencia, COUNT(*) OVER() AS TotalRegistros
+                FROM @Resultados
+                ORDER BY NombreCompleto, IdUsuario
+                OFFSET @Inicio ROWS FETCH NEXT @Tamano ROWS ONLY";
+            SqlParameter[] parametros = { new SqlParameter("@Dias", dias) };
+            return new Conexion().EjecutarPaginaTamano(consulta, parametros, pagina, tamanoPagina, out total);
+        }
+
     }
 }

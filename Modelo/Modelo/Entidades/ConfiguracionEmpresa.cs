@@ -136,6 +136,145 @@ namespace Modelo.Modelo.Entidades
             return configuracion;
         }
 
+
+        public bool GuardarPrimerUso(Usuario administrador)
+        {
+            SqlConnection conexionSql;
+            SqlTransaction transaccion;
+            SqlCommand comando;
+            object imagen;
+            object area;
+            string hash;
+            int gestores;
+            int tipoGestorValido;
+
+            if (administrador == null || administrador.IdTipoUsuario <= 0 ||
+                string.IsNullOrEmpty(administrador.NombreUsuario) == true ||
+                string.IsNullOrEmpty(administrador.Contrasena) == true ||
+                string.IsNullOrEmpty(this.NombreEmpresa) == true ||
+                this.LogoImagen == null || this.LogoImagen.Length == 0)
+            {
+                return false;
+            }
+
+            hash = BCrypt.Net.BCrypt.HashPassword(administrador.Contrasena);
+            imagen = this.LogoImagen;
+            area = DBNull.Value;
+
+            if (administrador.IdArea.HasValue == true)
+            {
+                area = administrador.IdArea.Value;
+            }
+
+            conexionSql = Conexion.conectar();
+
+            if (conexionSql == null)
+            {
+                return false;
+            }
+
+            transaccion = null;
+
+            try
+            {
+                transaccion = conexionSql.BeginTransaction(IsolationLevel.Serializable);
+
+                comando = new SqlCommand(@"
+                    SELECT COUNT(*)
+                    FROM tbTipoUsuario
+                    WHERE IdTipoUsuario = @IdTipoUsuario AND Nombre = N'Gestor'", conexionSql, transaccion);
+                comando.Parameters.AddWithValue("@IdTipoUsuario", administrador.IdTipoUsuario);
+                tipoGestorValido = Convert.ToInt32(comando.ExecuteScalar());
+                comando.Dispose();
+
+                if (tipoGestorValido == 0)
+                {
+                    transaccion.Rollback();
+                    return false;
+                }
+
+                comando = new SqlCommand(@"
+                    SELECT COUNT(*)
+                    FROM tbUsuario WITH (UPDLOCK, HOLDLOCK)
+                    WHERE IdTipoUsuario = @IdTipoUsuario AND Activo = 1", conexionSql, transaccion);
+                comando.Parameters.AddWithValue("@IdTipoUsuario", administrador.IdTipoUsuario);
+                gestores = Convert.ToInt32(comando.ExecuteScalar());
+                comando.Dispose();
+
+                if (gestores > 0)
+                {
+                    transaccion.Rollback();
+                    return false;
+                }
+
+                comando = new SqlCommand(@"
+                    IF EXISTS (SELECT 1 FROM TbConfiguracionEmpresa)
+                    BEGIN
+                        UPDATE TbConfiguracionEmpresa
+                        SET NombreEmpresa = @NombreEmpresa,
+                            RutaLogo = @RutaLogo,
+                            LogoImagen = @LogoImagen,
+                            InformacionGeneral = @InformacionGeneral,
+                            FechaConfiguracion = GETDATE()
+                    END
+                    ELSE
+                    BEGIN
+                        INSERT INTO TbConfiguracionEmpresa
+                        (NombreEmpresa, RutaLogo, LogoImagen, InformacionGeneral, FechaConfiguracion)
+                        VALUES
+                        (@NombreEmpresa, @RutaLogo, @LogoImagen, @InformacionGeneral, GETDATE())
+                    END", conexionSql, transaccion);
+                comando.Parameters.AddWithValue("@NombreEmpresa", this.NombreEmpresa);
+                comando.Parameters.AddWithValue("@RutaLogo", this.RutaLogo);
+                comando.Parameters.AddWithValue("@LogoImagen", imagen);
+                comando.Parameters.AddWithValue("@InformacionGeneral", this.InformacionGeneral);
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+
+                comando = new SqlCommand(@"
+                    INSERT INTO tbUsuario
+                    (NombreUsuario, Contrasena, NombreCompleto, IdTipoUsuario, IdArea, Activo, FechaCreacion)
+                    VALUES
+                    (@NombreUsuario, @Contrasena, @NombreCompleto, @IdTipoUsuario, @IdArea, 1, GETDATE())", conexionSql, transaccion);
+                comando.Parameters.AddWithValue("@NombreUsuario", administrador.NombreUsuario);
+                comando.Parameters.AddWithValue("@Contrasena", hash);
+                comando.Parameters.AddWithValue("@NombreCompleto", administrador.NombreCompleto);
+                comando.Parameters.AddWithValue("@IdTipoUsuario", administrador.IdTipoUsuario);
+                comando.Parameters.AddWithValue("@IdArea", area);
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+
+                transaccion.Commit();
+                return true;
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null && transaccion.Connection != null)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch (SqlException)
+                    {
+                    }
+                }
+
+                Conexion.MostrarErrorSql(ex);
+                return false;
+            }
+            finally
+            {
+                if (transaccion != null)
+                {
+                    transaccion.Dispose();
+                }
+
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+        }
+
         public bool GuardarConfiguracion()
         {
             string query;

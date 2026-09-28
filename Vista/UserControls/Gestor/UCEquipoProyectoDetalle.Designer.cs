@@ -2,8 +2,15 @@
 {
     partial class UCEquipoProyectoDetalle
     {
+        /// <summary>
+        /// Variable del diseñador necesaria.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -14,6 +21,12 @@
             base.Dispose(disposing);
         }
 
+        #region Código generado por el Diseñador de Windows Forms
+
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -24,6 +37,7 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pnlTabla = new System.Windows.Forms.Panel();
             this.pnlFilas = new System.Windows.Forms.Panel();
+            this.ucPaginador = new Vista.UCPaginadorTarjetas();
             this.tlpEncabezado = new System.Windows.Forms.TableLayoutPanel();
             this.lblH0 = new System.Windows.Forms.Label();
             this.lblH1 = new System.Windows.Forms.Label();
@@ -106,6 +120,7 @@
             this.pnlTabla.BackColor = System.Drawing.Color.White;
             this.pnlTabla.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTabla.Controls.Add(this.pnlFilas);
+            this.pnlTabla.Controls.Add(this.ucPaginador);
             this.pnlTabla.Controls.Add(this.tlpEncabezado);
             this.pnlTabla.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlTabla.Location = new System.Drawing.Point(0, 90);
@@ -113,6 +128,13 @@
             this.pnlTabla.Padding = new System.Windows.Forms.Padding(12);
             this.pnlTabla.Size = new System.Drawing.Size(1500, 500);
             this.pnlTabla.TabIndex = 1;
+            // 
+            // ucPaginador
+            // 
+            this.ucPaginador.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginador.Name = "ucPaginador";
+            this.ucPaginador.Size = new System.Drawing.Size(1474, 42);
+            this.ucPaginador.Visible = true;
             // 
             // pnlFilas
             // 
@@ -269,6 +291,8 @@
             this.ResumeLayout(false);
         }
 
+
+        #endregion
         private System.Windows.Forms.Panel pnlCabecera;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Label lblCantidad;
@@ -276,6 +300,7 @@
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Panel pnlTabla;
         private System.Windows.Forms.Panel pnlFilas;
+        private Vista.UCPaginadorTarjetas ucPaginador;
         private System.Windows.Forms.TableLayoutPanel tlpEncabezado;
         private System.Windows.Forms.Label lblH0;
         private System.Windows.Forms.Label lblH1;

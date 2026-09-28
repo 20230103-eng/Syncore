@@ -94,10 +94,64 @@ namespace Modelo.Modelo.Entidades
 
         public DataTable ObtenerNotificacionesRecientes(int idUsuario, int cantidad)
         {
-            DataTable notificaciones;
+            if (cantidad < 1)
+            {
+                cantidad = 3;
+            }
+            string consulta = @"
+                SELECT TOP (@Cantidad) n.IdNotificacion, tipo.Nombre AS Tipo,
+                    n.Titulo, n.Mensaje, prioridad.Nombre AS Prioridad,
+                    n.IdTarea, n.IdProyecto, n.Leida, n.FechaCreacion
+                FROM tbNotificacion n
+                INNER JOIN tbTipoNotificacion tipo ON tipo.IdTipoNotificacion = n.IdTipoNotificacion
+                INNER JOIN tbPrioridad prioridad ON prioridad.IdPrioridad = n.IdPrioridad
+                WHERE n.IdUsuario = @IdUsuario
+                ORDER BY n.Leida, n.IdNotificacion DESC";
+            DataTable notificaciones = new DataTable();
+            SqlConnection conexionSql = Conexion.conectar();
+            if (conexionSql == null)
+            {
+                return notificaciones;
+            }
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(consulta, conexionSql))
+                {
+                    comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                    comando.Parameters.AddWithValue("@Cantidad", cantidad);
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(notificaciones);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+            return notificaciones;
+        }
 
-            notificaciones = ObtenerNotificacionesUsuario(idUsuario);
-            return LimitarNotificaciones(notificaciones, cantidad, false);
+        public DataTable ObtenerNotificacionesRecientesPagina(int idUsuario, int pagina, int tamanoPagina, out int total)
+        {
+            string consulta = @"
+                SELECT n.IdNotificacion, tipo.Nombre AS Tipo,
+                    n.Titulo, n.Mensaje, prioridad.Nombre AS Prioridad,
+                    n.IdTarea, n.IdProyecto, n.Leida, n.FechaCreacion,
+                    COUNT(*) OVER() AS TotalRegistros
+                FROM tbNotificacion n
+                INNER JOIN tbTipoNotificacion tipo ON tipo.IdTipoNotificacion = n.IdTipoNotificacion
+                INNER JOIN tbPrioridad prioridad ON prioridad.IdPrioridad = n.IdPrioridad
+                WHERE n.IdUsuario = @IdUsuario
+                ORDER BY n.Leida, n.IdNotificacion DESC
+                OFFSET @Inicio ROWS FETCH NEXT @Tamano ROWS ONLY";
+            SqlParameter[] parametros = { new SqlParameter("@IdUsuario", idUsuario) };
+            return new Conexion().EjecutarPaginaTamano(consulta, parametros, pagina, tamanoPagina, out total);
         }
 
         public DataTable ObtenerNotificacionesUsuario(int idUsuario)
@@ -413,6 +467,25 @@ namespace Modelo.Modelo.Entidades
             return alertas;
         }
 
+        public DataTable ObtenerAlertasProyectoPagina(int idProyecto, int pagina, int tamanoPagina, out int total)
+        {
+            string consulta = @"
+                SELECT tbNotificacion.IdNotificacion,
+                    tbTipoNotificacion.Nombre AS Tipo,
+                    tbNotificacion.Titulo, tbNotificacion.Mensaje,
+                    tbPrioridad.Nombre AS Prioridad, tbNotificacion.FechaCreacion,
+                    COUNT(*) OVER() AS TotalRegistros
+                FROM tbNotificacion
+                INNER JOIN tbTipoNotificacion ON tbNotificacion.IdTipoNotificacion = tbTipoNotificacion.IdTipoNotificacion
+                INNER JOIN tbPrioridad ON tbNotificacion.IdPrioridad = tbPrioridad.IdPrioridad
+                WHERE tbNotificacion.IdProyecto = @IdProyecto
+                AND Leida = 0
+                ORDER BY tbNotificacion.IdNotificacion DESC
+                OFFSET @Inicio ROWS FETCH NEXT @Tamano ROWS ONLY";
+            SqlParameter[] parametros = { new SqlParameter("@IdProyecto", idProyecto) };
+            return new Conexion().EjecutarPaginaTamano(consulta, parametros, pagina, tamanoPagina, out total);
+        }
+
         private DataTable LimitarNotificaciones(DataTable origen, int cantidad, bool soloNoLeidas)
         {
             DataTable resultado;
@@ -448,5 +521,102 @@ namespace Modelo.Modelo.Entidades
 
             return resultado;
         }
+        public DataTable ObtenerCatalogoNotificacionesUsuario(int idUsuario)
+        {
+            DataTable catalogo = new DataTable();
+            SqlConnection conexionSql = Conexion.conectar();
+            if (conexionSql == null)
+            {
+                return catalogo;
+            }
+            string query = @"
+                SELECT DISTINCT tn.Nombre AS Tipo, pr.Nombre AS Prioridad
+                FROM tbNotificacion n
+                INNER JOIN tbTipoNotificacion tn ON tn.IdTipoNotificacion = n.IdTipoNotificacion
+                INNER JOIN tbPrioridad pr ON pr.IdPrioridad = n.IdPrioridad
+                WHERE n.IdUsuario = @IdUsuario
+                    AND (n.Leida = 0 OR n.IdNotificacion IN
+                        (SELECT TOP 30 IdNotificacion FROM tbNotificacion
+                         WHERE IdUsuario = @IdUsuario AND Leida = 1
+                         ORDER BY IdNotificacion DESC))";
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(query, conexionSql))
+                {
+                    comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(catalogo);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+            return catalogo;
+        }
+
+        public DataTable ObtenerNotificacionesUsuarioPagina(int idUsuario, string tipo,
+            string prioridad, int pagina)
+        {
+            DataTable notificaciones = new DataTable();
+            SqlConnection conexionSql = Conexion.conectar();
+            if (conexionSql == null)
+            {
+                return notificaciones;
+            }
+            string query = @"
+                WITH Recortadas AS
+                (
+                    SELECT n.IdNotificacion, tn.Nombre AS Tipo, n.Titulo, n.Mensaje,
+                        pr.Nombre AS Prioridad, n.IdTarea, n.IdProyecto,
+                        n.Leida, n.FechaCreacion
+                    FROM tbNotificacion n
+                    INNER JOIN tbTipoNotificacion tn ON tn.IdTipoNotificacion = n.IdTipoNotificacion
+                    INNER JOIN tbPrioridad pr ON pr.IdPrioridad = n.IdPrioridad
+                    WHERE n.IdUsuario = @IdUsuario
+                        AND (n.Leida = 0 OR n.IdNotificacion IN
+                            (SELECT TOP 30 IdNotificacion FROM tbNotificacion
+                             WHERE IdUsuario = @IdUsuario AND Leida = 1
+                             ORDER BY IdNotificacion DESC))
+                )
+                SELECT *, COUNT(*) OVER() AS TotalRegistros
+                FROM Recortadas
+                WHERE (@Tipo = N'' OR Tipo = @Tipo)
+                    AND (@Prioridad = N'' OR Prioridad = @Prioridad)
+                ORDER BY Leida ASC, IdNotificacion DESC
+                OFFSET @Inicio ROWS FETCH NEXT 20 ROWS ONLY";
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(query, conexionSql))
+                {
+                    comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                    comando.Parameters.AddWithValue("@Tipo", tipo);
+                    comando.Parameters.AddWithValue("@Prioridad", prioridad);
+                    comando.Parameters.AddWithValue("@Inicio", Math.Max(0, pagina) * 20);
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(notificaciones);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Conexion.MostrarErrorSql(ex);
+            }
+            finally
+            {
+                conexionSql.Close();
+                conexionSql.Dispose();
+            }
+            return notificaciones;
+        }
+
     }
 }

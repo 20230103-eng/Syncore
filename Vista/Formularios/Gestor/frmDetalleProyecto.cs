@@ -1,4 +1,5 @@
 ﻿using System;
+using Modelo.Modelo.Infraestructura;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -36,7 +37,10 @@ namespace Vista
             toolTipAyuda.SetToolTip(btnEditarProyecto, "Editar la información del proyecto.");
             toolTipAyuda.SetToolTip(btnEquipoTrabajo, "Abrir el equipo de trabajo del proyecto.");
             toolTipAyuda.SetToolTip(btnCerrarProyecto, "Cerrar el proyecto.");
+            toolTipAyuda.SetToolTip(btnExportarPdf, "Exportar el detalle completo del proyecto a PDF.");
             toolTipAyuda.SetToolTip(dgvHitos, "Muestra los hitos disponibles.");
+            ucPaginadorHitos.PaginaCambiada += ucPaginadorHitos_PaginaCambiada;
+            ucPaginadorAlertas.PaginaCambiada += ucPaginadorAlertas_PaginaCambiada;
             this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
         }
 
@@ -164,6 +168,7 @@ namespace Vista
             AplicarEstiloEstado();
             PrepararBotonCerrar();
             CargarHitos();
+            ucPaginadorAlertas.Configurar(0, true);
             CargarAlertas();
             ActualizarBarrasSalud();
             ucEquipoProyecto.CargarProyecto(IdProyecto);
@@ -176,6 +181,7 @@ namespace Vista
             btnEquipoTrabajo.Enabled = false;
             btnEditarProyecto.Enabled = false;
             btnCerrarProyecto.Enabled = false;
+            btnExportarPdf.Enabled = false;
         }
 
         private void AplicarEstiloPrioridad()
@@ -238,7 +244,16 @@ namespace Vista
         {
             DataTable hitos;
 
-            hitos = hitoModelo.ObtenerHitosProximosProyecto(IdProyecto, 4);
+            int total;
+            int pagina = ucPaginadorHitos.Inicio / ucPaginadorHitos.TamanoPagina;
+            hitos = hitoModelo.ObtenerHitosProximosProyectoPagina(IdProyecto, pagina,
+                ucPaginadorHitos.TamanoPagina, out total);
+            ucPaginadorHitos.Configurar(total, false);
+            if (pagina != ucPaginadorHitos.Inicio / ucPaginadorHitos.TamanoPagina)
+            {
+                CargarHitos();
+                return;
+            }
             dgvHitos.DataSource = hitos;
 
             if (dgvHitos.Columns.Contains("IdHito") == true)
@@ -271,23 +286,45 @@ namespace Vista
                 dgvHitos.Columns["Estado"].FillWeight = 17;
             }
 
-            if (hitos.Rows.Count > 0)
+            if (pagina == 0)
             {
-                lblKpiHitoValor.Text = Convert.ToDateTime(hitos.Rows[0]["FechaObjetivo"]).ToString("dd MMM");
-            }
-            else
-            {
-                lblKpiHitoValor.Text = "Sin hitos";
+                if (hitos.Rows.Count > 0)
+                {
+                    lblKpiHitoValor.Text = Convert.ToDateTime(hitos.Rows[0]["FechaObjetivo"]).ToString("dd MMM");
+                }
+                else
+                {
+                    lblKpiHitoValor.Text = "Sin hitos";
+                }
             }
 
             dgvHitos.ClearSelection();
+        }
+
+        private void ucPaginadorHitos_PaginaCambiada(object sender, EventArgs e)
+        {
+            CargarHitos();
+        }
+
+        private void ucPaginadorAlertas_PaginaCambiada(object sender, EventArgs e)
+        {
+            CargarAlertas();
         }
 
         private void CargarAlertas()
         {
             DataTable alertas;
 
-            alertas = notificacionModelo.ObtenerAlertasProyecto(IdProyecto, 4);
+            int total;
+            int pagina = ucPaginadorAlertas.Inicio / ucPaginadorAlertas.TamanoPagina;
+            alertas = notificacionModelo.ObtenerAlertasProyectoPagina(IdProyecto, pagina,
+                ucPaginadorAlertas.TamanoPagina, out total);
+            ucPaginadorAlertas.Configurar(total, false);
+            if (pagina != ucPaginadorAlertas.Inicio / ucPaginadorAlertas.TamanoPagina)
+            {
+                CargarAlertas();
+                return;
+            }
             flpAlertas.Controls.Clear();
 
             if (alertas.Rows.Count == 0)
@@ -418,6 +455,43 @@ namespace Vista
             ActualizarBarrasSalud();
         }
 
+        private void btnExportarPdf_Click(object sender, EventArgs e)
+        {
+            if (IdProyecto <= 0)
+            {
+                return;
+            }
+            DataTable datos = proyectoModelo.ObtenerDetalleProyecto(IdProyecto);
+            if (datos.Rows.Count == 0)
+            {
+                CatalogoErrores.MostrarDetalle("ERR-NEG-004", "Detalle de proyecto", "No se encontró el proyecto.");
+                return;
+            }
+            DataTable equipo = new EquipoProyecto().ObtenerEquipoProyecto(IdProyecto);
+            DataTable hitos = hitoModelo.ObtenerHitosProyectoReporte(IdProyecto);
+            using (SaveFileDialog dialogo = new SaveFileDialog())
+            {
+                dialogo.Filter = "Archivo PDF (*.pdf)|*.pdf";
+                dialogo.DefaultExt = "pdf";
+                dialogo.AddExtension = true;
+                dialogo.FileName = "Detalle_Proyecto_" + IdProyecto + ".pdf";
+                if (dialogo.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+                bool guardado = ArchivosSeguros.GuardarDetalleProyectoPdf(datos.Rows[0], equipo, hitos,
+                    avanceReal, avancePlanificado,
+                    indicadorTareaModelo.ContarTareasProyecto(IdProyecto),
+                    indicadorTareaModelo.ContarTareasProyectoPorEstado(IdProyecto, "Completada"),
+                    indicadorTareaModelo.ContarTareasVencidasProyecto(IdProyecto), dialogo.FileName);
+                if (guardado)
+                {
+                    MessageBox.Show("El detalle del proyecto se exportó a PDF correctamente.",
+                        "Syncore", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
         private void btnVolverListado_Click(object sender, EventArgs e)
         {
             if (VolverSolicitado != null)
@@ -448,7 +522,7 @@ namespace Vista
 
             if (estadoProyecto == "Cerrado")
             {
-                MessageBox.Show("El proyecto ya se encuentra cerrado.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-003", "Syncore", "El proyecto ya se encuentra cerrado.");
                 return;
             }
 

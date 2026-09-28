@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Modelo.Modelo;
 using Modelo.Modelo.Entidades;
 
 namespace Vista
@@ -15,6 +16,11 @@ namespace Vista
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            if (Conexion.ProbarConexion() == false)
+            {
+                return;
+            }
 
             configuracion = new ConfiguracionEmpresa();
             usuario = new Usuario();

@@ -48,6 +48,7 @@ namespace Vista
             this.cmbPrioridad = new System.Windows.Forms.ComboBox();
             this.cmbTipo = new System.Windows.Forms.ComboBox();
             this.pnlTabla = new System.Windows.Forms.Panel();
+            this.paginadorTarjetas = new Vista.UCPaginadorTarjetas();
             this.tlpEncabezado = new System.Windows.Forms.TableLayoutPanel();
             this.pnlFilas = new System.Windows.Forms.Panel();
             this.lblH0 = new System.Windows.Forms.Label();
@@ -282,9 +283,17 @@ namespace Vista
             this.pnlTabla.BackColor = System.Drawing.Color.White;
             this.pnlTabla.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTabla.Controls.Add(this.pnlFilas);
+            this.pnlTabla.Controls.Add(this.paginadorTarjetas);
             this.pnlTabla.Controls.Add(this.tlpEncabezado);
             this.pnlTabla.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlTabla.Name = "pnlTabla";
+            // 
+            // paginadorTarjetas
+            // 
+            this.paginadorTarjetas.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.paginadorTarjetas.Name = "paginadorTarjetas";
+            this.paginadorTarjetas.Size = new System.Drawing.Size(1616, 42);
+            this.paginadorTarjetas.TabIndex = 2;
             // 
             // tlpEncabezado
             // 
@@ -544,6 +553,7 @@ namespace Vista
         private System.Windows.Forms.ComboBox cmbPrioridad;
         private System.Windows.Forms.ComboBox cmbTipo;
         private System.Windows.Forms.Panel pnlTabla;
+        private Vista.UCPaginadorTarjetas paginadorTarjetas;
         private System.Windows.Forms.TableLayoutPanel tlpEncabezado;
         private System.Windows.Forms.Panel pnlFilas;
         private System.Windows.Forms.Label lblH0;

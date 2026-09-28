@@ -154,6 +154,12 @@
     <Compile Include="Formularios\Gestor\frmPanelGestion.Designer.cs">
       <DependentUpon>frmPanelGestion.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Compartidos\UCPaginadorTarjetas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Compartidos\UCPaginadorTarjetas.Designer.cs">
+      <DependentUpon>UCPaginadorTarjetas.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Compartidos\UCPaginadorGrid.cs">
       <SubType>UserControl</SubType>
     </Compile>

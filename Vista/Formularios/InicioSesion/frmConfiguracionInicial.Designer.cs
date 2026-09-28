@@ -2,8 +2,15 @@
 {
     partial class frmConfiguracionInicial
     {
+        /// <summary>
+        /// Variable del diseñador necesaria.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -13,6 +20,12 @@
             base.Dispose(disposing);
         }
 
+        #region Código generado por el Diseñador de Windows Forms
+
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -42,6 +55,9 @@
             this.grpEmpresa.SuspendLayout();
             this.pnlAdministrador.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // lblTitulo
+            // 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI Semibold", 20F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -49,6 +65,9 @@
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(337, 37);
             this.lblTitulo.Text = "Configuración inicial de Syncore";
+            // 
+            // lblSubtitulo
+            // 
             this.lblSubtitulo.AutoSize = true;
             this.lblSubtitulo.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblSubtitulo.ForeColor = System.Drawing.Color.FromArgb(91, 108, 128);
@@ -63,50 +82,77 @@
             this.grpEmpresa.Controls.Add(this.lblLogo);
             this.grpEmpresa.Controls.Add(this.txtNombreEmpresa);
             this.grpEmpresa.Controls.Add(this.lblNombreEmpresa);
+            // 
+            // grpEmpresa
+            // 
             this.grpEmpresa.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.grpEmpresa.Location = new System.Drawing.Point(41, 105);
             this.grpEmpresa.Name = "grpEmpresa";
             this.grpEmpresa.Size = new System.Drawing.Size(728, 245);
             this.grpEmpresa.TabStop = false;
             this.grpEmpresa.Text = "Datos de la empresa";
+            // 
+            // lblNombreEmpresa
+            // 
             this.lblNombreEmpresa.AutoSize = true;
             this.lblNombreEmpresa.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblNombreEmpresa.Location = new System.Drawing.Point(22, 34);
             this.lblNombreEmpresa.Name = "lblNombreEmpresa";
             this.lblNombreEmpresa.Text = "Nombre de la empresa";
+            // 
+            // txtNombreEmpresa
+            // 
             this.txtNombreEmpresa.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtNombreEmpresa.Location = new System.Drawing.Point(25, 54);
             this.txtNombreEmpresa.MaxLength = 150;
             this.txtNombreEmpresa.Name = "txtNombreEmpresa";
             this.txtNombreEmpresa.Size = new System.Drawing.Size(674, 25);
+            // 
+            // lblLogo
+            // 
             this.lblLogo.AutoSize = true;
             this.lblLogo.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblLogo.Location = new System.Drawing.Point(22, 91);
             this.lblLogo.Name = "lblLogo";
             this.lblLogo.Text = "Logotipo";
+            // 
+            // txtRutaLogo
+            // 
             this.txtRutaLogo.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtRutaLogo.Location = new System.Drawing.Point(25, 111);
             this.txtRutaLogo.MaxLength = 500;
             this.txtRutaLogo.Name = "txtRutaLogo";
             this.txtRutaLogo.ReadOnly = true;
             this.txtRutaLogo.Size = new System.Drawing.Size(555, 23);
+            // 
+            // btnExaminar
+            // 
             this.btnExaminar.Location = new System.Drawing.Point(592, 109);
             this.btnExaminar.Name = "btnExaminar";
             this.btnExaminar.Size = new System.Drawing.Size(107, 28);
             this.btnExaminar.Text = "Examinar...";
             this.btnExaminar.UseVisualStyleBackColor = true;
             this.btnExaminar.Click += new System.EventHandler(this.btnExaminar_Click);
+            // 
+            // lblInformacion
+            // 
             this.lblInformacion.AutoSize = true;
             this.lblInformacion.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblInformacion.Location = new System.Drawing.Point(22, 148);
             this.lblInformacion.Name = "lblInformacion";
             this.lblInformacion.Text = "Información general";
+            // 
+            // txtInformacionGeneral
+            // 
             this.txtInformacionGeneral.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtInformacionGeneral.Location = new System.Drawing.Point(25, 168);
             this.txtInformacionGeneral.MaxLength = 500;
             this.txtInformacionGeneral.Multiline = true;
             this.txtInformacionGeneral.Name = "txtInformacionGeneral";
             this.txtInformacionGeneral.Size = new System.Drawing.Size(674, 54);
+            // 
+            // pnlAdministrador
+            // 
             this.pnlAdministrador.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlAdministrador.Controls.Add(this.txtConfirmarContrasena);
             this.pnlAdministrador.Controls.Add(this.lblConfirmarContrasena);
@@ -121,53 +167,86 @@
             this.pnlAdministrador.Location = new System.Drawing.Point(41, 370);
             this.pnlAdministrador.Name = "pnlAdministrador";
             this.pnlAdministrador.Size = new System.Drawing.Size(728, 237);
+            // 
+            // lblAdministrador
+            // 
             this.lblAdministrador.AutoSize = true;
             this.lblAdministrador.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
             this.lblAdministrador.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
             this.lblAdministrador.Location = new System.Drawing.Point(22, 16);
             this.lblAdministrador.Name = "lblAdministrador";
             this.lblAdministrador.Text = "Primer administrador";
+            // 
+            // lblEstadoAdministrador
+            // 
             this.lblEstadoAdministrador.AutoSize = true;
             this.lblEstadoAdministrador.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblEstadoAdministrador.ForeColor = System.Drawing.Color.FromArgb(91, 108, 128);
             this.lblEstadoAdministrador.Location = new System.Drawing.Point(22, 43);
             this.lblEstadoAdministrador.Name = "lblEstadoAdministrador";
             this.lblEstadoAdministrador.Text = "Estado del administrador";
+            // 
+            // lblNombreAdministrador
+            // 
             this.lblNombreAdministrador.AutoSize = true;
             this.lblNombreAdministrador.Location = new System.Drawing.Point(22, 76);
             this.lblNombreAdministrador.Name = "lblNombreAdministrador";
             this.lblNombreAdministrador.Text = "Nombre completo";
+            // 
+            // txtNombreAdministrador
+            // 
             this.txtNombreAdministrador.Location = new System.Drawing.Point(25, 96);
             this.txtNombreAdministrador.MaxLength = 150;
             this.txtNombreAdministrador.Name = "txtNombreAdministrador";
             this.txtNombreAdministrador.Size = new System.Drawing.Size(320, 20);
+            // 
+            // lblUsuarioAdministrador
+            // 
             this.lblUsuarioAdministrador.AutoSize = true;
             this.lblUsuarioAdministrador.Location = new System.Drawing.Point(371, 76);
             this.lblUsuarioAdministrador.Name = "lblUsuarioAdministrador";
             this.lblUsuarioAdministrador.Text = "Usuario";
+            // 
+            // txtUsuarioAdministrador
+            // 
             this.txtUsuarioAdministrador.Location = new System.Drawing.Point(374, 96);
             this.txtUsuarioAdministrador.MaxLength = 50;
             this.txtUsuarioAdministrador.Name = "txtUsuarioAdministrador";
             this.txtUsuarioAdministrador.Size = new System.Drawing.Size(325, 20);
             this.txtUsuarioAdministrador.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsuarioAdministrador_KeyPress);
+            // 
+            // lblContrasena
+            // 
             this.lblContrasena.AutoSize = true;
             this.lblContrasena.Location = new System.Drawing.Point(22, 139);
             this.lblContrasena.Name = "lblContrasena";
             this.lblContrasena.Text = "Contraseña";
+            // 
+            // txtContrasena
+            // 
             this.txtContrasena.Location = new System.Drawing.Point(25, 159);
             this.txtContrasena.MaxLength = 100;
             this.txtContrasena.Name = "txtContrasena";
             this.txtContrasena.PasswordChar = '●';
             this.txtContrasena.Size = new System.Drawing.Size(320, 20);
+            // 
+            // lblConfirmarContrasena
+            // 
             this.lblConfirmarContrasena.AutoSize = true;
             this.lblConfirmarContrasena.Location = new System.Drawing.Point(371, 139);
             this.lblConfirmarContrasena.Name = "lblConfirmarContrasena";
             this.lblConfirmarContrasena.Text = "Confirmar contraseña";
+            // 
+            // txtConfirmarContrasena
+            // 
             this.txtConfirmarContrasena.Location = new System.Drawing.Point(374, 159);
             this.txtConfirmarContrasena.MaxLength = 100;
             this.txtConfirmarContrasena.Name = "txtConfirmarContrasena";
             this.txtConfirmarContrasena.PasswordChar = '●';
             this.txtConfirmarContrasena.Size = new System.Drawing.Size(325, 20);
+            // 
+            // btnGuardar
+            // 
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
@@ -177,12 +256,18 @@
             this.btnGuardar.Text = "Guardar configuración";
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // btnSalir
+            // 
             this.btnSalir.Location = new System.Drawing.Point(685, 630);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(84, 42);
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            // 
+            // frmConfiguracionInicial
+            // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(810, 700);
@@ -207,6 +292,8 @@
             this.PerformLayout();
         }
 
+
+        #endregion
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblSubtitulo;
         private System.Windows.Forms.GroupBox grpEmpresa;

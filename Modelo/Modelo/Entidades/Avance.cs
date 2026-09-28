@@ -118,7 +118,7 @@ namespace Modelo.Modelo.Entidades
             conexion = new Conexion();
         }
 
-        public DataTable ObtenerAvancesRecientes(int cantidad)
+        public DataTable ObtenerAvancesRecientes(int cantidad, int idGestor)
         {
             string query;
             DataTable avances;
@@ -134,6 +134,7 @@ namespace Modelo.Modelo.Entidades
             query = @"
             SELECT TOP (@Cantidad)
             tbAvance.IdAvance,
+            tbAvance.IdTarea,
             tbTarea.Nombre AS Tarea,
             tbProyecto.Nombre AS Proyecto,
             tbUsuario.NombreCompleto AS Usuario,
@@ -144,6 +145,7 @@ namespace Modelo.Modelo.Entidades
             INNER JOIN tbTarea ON tbAvance.IdTarea = tbTarea.IdTarea
             INNER JOIN tbProyecto ON tbTarea.IdProyecto = tbProyecto.IdProyecto
             INNER JOIN tbUsuario ON tbAvance.IdUsuario = tbUsuario.IdUsuario
+            WHERE tbProyecto.IdResponsable = @IdGestor
             ORDER BY tbAvance.IdAvance DESC";
 
             avances = new DataTable();
@@ -158,6 +160,7 @@ namespace Modelo.Modelo.Entidades
             {
                 comando = new SqlCommand(query, conexionSql);
                 comando.Parameters.AddWithValue("@Cantidad", cantidad);
+                comando.Parameters.AddWithValue("@IdGestor", idGestor);
                 adaptador = new SqlDataAdapter(comando);
                 adaptador.Fill(avances);
                 adaptador.Dispose();
@@ -269,7 +272,7 @@ namespace Modelo.Modelo.Entidades
                 return 0;
             }
 
-            transaccion = conexionSql.BeginTransaction();
+            transaccion = null;
             idAvance = 0;
             estadoActual = "";
             nombreTarea = "";
@@ -279,11 +282,26 @@ namespace Modelo.Modelo.Entidades
 
             try
             {
+                transaccion = conexionSql.BeginTransaction();
                 query = @"
                 INSERT INTO tbAvance
                 (IdTarea, IdUsuario, Porcentaje, FechaRegistro, Descripcion, Dificultad, ProximoPaso)
-                VALUES
-                (@IdTarea, @IdUsuario, @Porcentaje, @FechaRegistro, @Descripcion, @Dificultad, @ProximoPaso);
+                SELECT @IdTarea, @IdUsuario, @Porcentaje, @FechaRegistro, @Descripcion, @Dificultad, @ProximoPaso
+                FROM tbTarea WITH (UPDLOCK, HOLDLOCK)
+                INNER JOIN tbEstadoTarea ON tbTarea.IdEstadoTarea = tbEstadoTarea.IdEstadoTarea
+                INNER JOIN tbProyecto ON tbTarea.IdProyecto = tbProyecto.IdProyecto
+                INNER JOIN tbEstadoProyecto ON tbProyecto.IdEstadoProyecto = tbEstadoProyecto.IdEstadoProyecto
+                INNER JOIN tbUsuario ON tbTarea.IdResponsable = tbUsuario.IdUsuario
+                INNER JOIN tbTipoUsuario ON tbUsuario.IdTipoUsuario = tbTipoUsuario.IdTipoUsuario
+                INNER JOIN tbEquipoProyecto ON tbTarea.IdProyecto = tbEquipoProyecto.IdProyecto
+                    AND tbEquipoProyecto.IdUsuario = tbUsuario.IdUsuario
+                WHERE tbTarea.IdTarea = @IdTarea
+                AND tbTarea.IdResponsable = @IdUsuario
+                AND tbEstadoTarea.Nombre IN (N'Pendiente', N'En progreso', N'Devuelta', N'Vencida')
+                AND tbEstadoProyecto.Nombre <> N'Cerrado'
+                AND tbUsuario.Activo = 1
+                AND tbTipoUsuario.Nombre = N'Colaborador'
+                AND tbEquipoProyecto.Activo = 1;
                 SELECT SCOPE_IDENTITY();";
 
                 comando = new SqlCommand(query, conexionSql, transaccion);
@@ -471,13 +489,25 @@ namespace Modelo.Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                transaccion.Rollback();
+                if (transaccion != null && transaccion.Connection != null)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch (SqlException)
+                    {
+                    }
+                }
                 Conexion.MostrarErrorSql(ex);
                 return 0;
             }
             finally
             {
-                transaccion.Dispose();
+                if (transaccion != null)
+                {
+                    transaccion.Dispose();
+                }
                 conexionSql.Close();
                 conexionSql.Dispose();
             }
@@ -528,5 +558,56 @@ namespace Modelo.Modelo.Entidades
 
             return historial;
         }
+        public DataTable ObtenerHistorialTareaPagina(int idTarea, int pagina, int tamanoPagina, out int total)
+        {
+            string consulta = @"
+                SELECT a.IdAvance, a.Porcentaje, a.FechaRegistro, a.Descripcion,
+                    (SELECT COUNT(*) FROM tbEvidencia e WHERE e.IdAvance = a.IdAvance) AS CantidadEvidencias,
+                    COUNT(*) OVER() AS TotalRegistros
+                FROM tbAvance a
+                WHERE a.IdTarea = @IdTarea
+                ORDER BY a.IdAvance DESC
+                OFFSET @Inicio ROWS FETCH NEXT @Tamano ROWS ONLY";
+            SqlParameter[] parametros = { new SqlParameter("@IdTarea", idTarea) };
+            return new Conexion().EjecutarPaginaTamano(consulta, parametros, pagina, tamanoPagina, out total);
+        }
+
+        public DataTable ObtenerAvancesRecientesPagina(int idGestor, int pagina, int tamanoPagina, out int total)
+        {
+            string consulta = @"
+                SELECT a.IdAvance, a.IdTarea, t.Nombre AS Tarea,
+                    p.Nombre AS Proyecto, u.NombreCompleto AS Usuario,
+                    a.Porcentaje, a.FechaRegistro, a.Descripcion,
+                    COUNT(*) OVER() AS TotalRegistros
+                FROM tbAvance a
+                INNER JOIN tbTarea t ON t.IdTarea = a.IdTarea
+                INNER JOIN tbProyecto p ON p.IdProyecto = t.IdProyecto
+                INNER JOIN tbUsuario u ON u.IdUsuario = a.IdUsuario
+                WHERE p.IdResponsable = @IdGestor
+                ORDER BY a.IdAvance DESC
+                OFFSET @Inicio ROWS FETCH NEXT @Tamano ROWS ONLY";
+            SqlParameter[] parametros = { new SqlParameter("@IdGestor", idGestor) };
+            return new Conexion().EjecutarPaginaTamano(consulta, parametros, pagina, tamanoPagina, out total);
+        }
+
+        public DataTable ObtenerAvancesUsuarioPagina(int idUsuario, int dias,
+            int pagina, int tamanoPagina, out int total)
+        {
+            string consulta = @"
+                SELECT a.FechaRegistro, t.Nombre AS Tarea, p.Nombre AS Proyecto,
+                    a.Porcentaje, a.Descripcion, COUNT(*) OVER() AS TotalRegistros
+                FROM tbAvance a
+                INNER JOIN tbTarea t ON t.IdTarea = a.IdTarea
+                INNER JOIN tbProyecto p ON p.IdProyecto = t.IdProyecto
+                WHERE a.IdUsuario = @IdUsuario
+                    AND a.FechaRegistro >= DATEADD(DAY, -@Dias, CAST(GETDATE() AS DATE))
+                ORDER BY a.IdAvance DESC
+                OFFSET @Inicio ROWS FETCH NEXT @Tamano ROWS ONLY";
+            SqlParameter[] parametros = {
+                new SqlParameter("@IdUsuario", idUsuario), new SqlParameter("@Dias", dias)
+            };
+            return new Conexion().EjecutarPaginaTamano(consulta, parametros, pagina, tamanoPagina, out total);
+        }
+
     }
 }

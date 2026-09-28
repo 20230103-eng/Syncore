@@ -49,6 +49,7 @@
             this.tlpContenido = new System.Windows.Forms.TableLayoutPanel();
             this.tlpIzquierda = new System.Windows.Forms.TableLayoutPanel();
             this.pnlTareas = new System.Windows.Forms.Panel();
+            this.ucPaginadorTareas = new Vista.UCPaginadorTarjetas();
             this.pnlListaTareas = new System.Windows.Forms.Panel();
             this.tareaProxima4 = new Vista.UCFilaTareaProxima();
             this.tareaProxima3 = new Vista.UCFilaTareaProxima();
@@ -67,6 +68,7 @@
             this.btnVerTareas = new System.Windows.Forms.Button();
             this.lblTareas = new System.Windows.Forms.Label();
             this.pnlProyectos = new System.Windows.Forms.Panel();
+            this.ucPaginadorProyectos = new Vista.UCPaginadorTarjetas();
             this.pnlListaProyectos = new System.Windows.Forms.Panel();
             this.proyecto3 = new Vista.UCFilaProyectoAsignado();
             this.proyecto2 = new Vista.UCFilaProyectoAsignado();
@@ -85,6 +87,7 @@
             this.lblProyectos = new System.Windows.Forms.Label();
             this.tlpDerecha = new System.Windows.Forms.TableLayoutPanel();
             this.pnlNotificaciones = new System.Windows.Forms.Panel();
+            this.ucPaginadorNotificaciones = new Vista.UCPaginadorTarjetas();
             this.pnlListaNotificaciones = new System.Windows.Forms.Panel();
             this.alerta3 = new Vista.UCAlertaGestion();
             this.alerta2 = new Vista.UCAlertaGestion();
@@ -94,6 +97,7 @@
             this.btnVerNotificaciones = new System.Windows.Forms.Button();
             this.lblNotificaciones = new System.Windows.Forms.Label();
             this.pnlSemana = new System.Windows.Forms.Panel();
+            this.ucPaginadorAgenda = new Vista.UCPaginadorTarjetas();
             this.pnlListaSemana = new System.Windows.Forms.Panel();
             this.agenda5 = new Vista.UCFilaAgendaSemanal();
             this.agenda4 = new Vista.UCFilaAgendaSemanal();
@@ -104,6 +108,7 @@
             this.pnlLineaSemana = new System.Windows.Forms.Panel();
             this.lblSemana = new System.Windows.Forms.Label();
             this.pnlAvancePersonal = new System.Windows.Forms.Panel();
+            this.ucPaginadorAvance = new Vista.UCPaginadorTarjetas();
             this.pnlListaAvance = new System.Windows.Forms.Panel();
             this.avanceProyecto3 = new Vista.UCProductividadProyecto();
             this.avanceProyecto2 = new Vista.UCProductividadProyecto();
@@ -407,6 +412,7 @@
             this.pnlTareas.BackColor = System.Drawing.Color.White;
             this.pnlTareas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTareas.Controls.Add(this.pnlListaTareas);
+            this.pnlTareas.Controls.Add(this.ucPaginadorTareas);
             this.pnlTareas.Controls.Add(this.tlpEncabezadoTareas);
             this.pnlTareas.Controls.Add(this.pnlHeaderTareas);
             this.pnlTareas.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -415,6 +421,15 @@
             this.pnlTareas.Name = "pnlTareas";
             this.pnlTareas.Size = new System.Drawing.Size(1159, 389);
             this.pnlTareas.TabIndex = 0;
+            // 
+            // ucPaginadorTareas
+            // 
+            this.ucPaginadorTareas.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorTareas.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorTareas.Name = "ucPaginadorTareas";
+            this.ucPaginadorTareas.Size = new System.Drawing.Size(1157, 42);
+            this.ucPaginadorTareas.TabIndex = 3;
+            this.ucPaginadorTareas.TamanoPagina = 4;
             // 
             // pnlListaTareas
             // 
@@ -668,6 +683,7 @@
             this.pnlProyectos.BackColor = System.Drawing.Color.White;
             this.pnlProyectos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlProyectos.Controls.Add(this.pnlListaProyectos);
+            this.pnlProyectos.Controls.Add(this.ucPaginadorProyectos);
             this.pnlProyectos.Controls.Add(this.tlpEncabezadoProyectos);
             this.pnlProyectos.Controls.Add(this.pnlHeaderProyectos);
             this.pnlProyectos.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -676,6 +692,15 @@
             this.pnlProyectos.Name = "pnlProyectos";
             this.pnlProyectos.Size = new System.Drawing.Size(1159, 305);
             this.pnlProyectos.TabIndex = 1;
+            // 
+            // ucPaginadorProyectos
+            // 
+            this.ucPaginadorProyectos.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorProyectos.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorProyectos.Name = "ucPaginadorProyectos";
+            this.ucPaginadorProyectos.Size = new System.Drawing.Size(490, 42);
+            this.ucPaginadorProyectos.TabIndex = 8;
+            this.ucPaginadorProyectos.TamanoPagina = 3;
             // 
             // pnlListaProyectos
             // 
@@ -929,6 +954,7 @@
             this.pnlNotificaciones.BackColor = System.Drawing.Color.White;
             this.pnlNotificaciones.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlNotificaciones.Controls.Add(this.pnlListaNotificaciones);
+            this.pnlNotificaciones.Controls.Add(this.ucPaginadorNotificaciones);
             this.pnlNotificaciones.Controls.Add(this.pnlHeaderNotificaciones);
             this.pnlNotificaciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlNotificaciones.Location = new System.Drawing.Point(0, 0);
@@ -936,6 +962,15 @@
             this.pnlNotificaciones.Name = "pnlNotificaciones";
             this.pnlNotificaciones.Size = new System.Drawing.Size(455, 268);
             this.pnlNotificaciones.TabIndex = 0;
+            // 
+            // ucPaginadorNotificaciones
+            // 
+            this.ucPaginadorNotificaciones.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorNotificaciones.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorNotificaciones.Name = "ucPaginadorNotificaciones";
+            this.ucPaginadorNotificaciones.Size = new System.Drawing.Size(453, 42);
+            this.ucPaginadorNotificaciones.TabIndex = 2;
+            this.ucPaginadorNotificaciones.TamanoPagina = 3;
             // 
             // pnlListaNotificaciones
             // 
@@ -1044,6 +1079,7 @@
             this.pnlSemana.BackColor = System.Drawing.Color.White;
             this.pnlSemana.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlSemana.Controls.Add(this.pnlListaSemana);
+            this.pnlSemana.Controls.Add(this.ucPaginadorAgenda);
             this.pnlSemana.Controls.Add(this.pnlHeaderSemana);
             this.pnlSemana.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlSemana.Location = new System.Drawing.Point(0, 284);
@@ -1051,6 +1087,15 @@
             this.pnlSemana.Name = "pnlSemana";
             this.pnlSemana.Size = new System.Drawing.Size(455, 204);
             this.pnlSemana.TabIndex = 1;
+            // 
+            // ucPaginadorAgenda
+            // 
+            this.ucPaginadorAgenda.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorAgenda.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorAgenda.Name = "ucPaginadorAgenda";
+            this.ucPaginadorAgenda.Size = new System.Drawing.Size(453, 42);
+            this.ucPaginadorAgenda.TabIndex = 2;
+            this.ucPaginadorAgenda.TamanoPagina = 5;
             // 
             // pnlListaSemana
             // 
@@ -1166,6 +1211,7 @@
             this.pnlAvancePersonal.BackColor = System.Drawing.Color.White;
             this.pnlAvancePersonal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlAvancePersonal.Controls.Add(this.pnlListaAvance);
+            this.pnlAvancePersonal.Controls.Add(this.ucPaginadorAvance);
             this.pnlAvancePersonal.Controls.Add(this.pnlHeaderAvance);
             this.pnlAvancePersonal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlAvancePersonal.Location = new System.Drawing.Point(0, 504);
@@ -1173,6 +1219,15 @@
             this.pnlAvancePersonal.Name = "pnlAvancePersonal";
             this.pnlAvancePersonal.Size = new System.Drawing.Size(455, 206);
             this.pnlAvancePersonal.TabIndex = 2;
+            // 
+            // ucPaginadorAvance
+            // 
+            this.ucPaginadorAvance.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorAvance.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorAvance.Name = "ucPaginadorAvance";
+            this.ucPaginadorAvance.Size = new System.Drawing.Size(490, 42);
+            this.ucPaginadorAvance.TabIndex = 8;
+            this.ucPaginadorAvance.TamanoPagina = 3;
             // 
             // pnlListaAvance
             // 
@@ -1326,6 +1381,7 @@
         private System.Windows.Forms.TableLayoutPanel tlpContenido;
         private System.Windows.Forms.TableLayoutPanel tlpIzquierda;
         private System.Windows.Forms.Panel pnlTareas;
+        private Vista.UCPaginadorTarjetas ucPaginadorTareas;
         private System.Windows.Forms.Panel pnlListaTareas;
         private Vista.UCFilaTareaProxima tareaProxima4;
         private Vista.UCFilaTareaProxima tareaProxima3;
@@ -1362,6 +1418,7 @@
         private System.Windows.Forms.Label lblProyectos;
         private System.Windows.Forms.TableLayoutPanel tlpDerecha;
         private System.Windows.Forms.Panel pnlNotificaciones;
+        private Vista.UCPaginadorTarjetas ucPaginadorNotificaciones;
         private System.Windows.Forms.Panel pnlListaNotificaciones;
         private Vista.UCAlertaGestion alerta3;
         private Vista.UCAlertaGestion alerta2;
@@ -1371,6 +1428,7 @@
         private System.Windows.Forms.Button btnVerNotificaciones;
         private System.Windows.Forms.Label lblNotificaciones;
         private System.Windows.Forms.Panel pnlSemana;
+        private Vista.UCPaginadorTarjetas ucPaginadorAgenda;
         private System.Windows.Forms.Panel pnlListaSemana;
         private Vista.UCFilaAgendaSemanal agenda5;
         private Vista.UCFilaAgendaSemanal agenda4;
@@ -1388,5 +1446,7 @@
         private System.Windows.Forms.Panel pnlHeaderAvance;
         private System.Windows.Forms.Panel pnlLineaAvance;
         private System.Windows.Forms.Label lblAvancePersonal;
+        private Vista.UCPaginadorTarjetas ucPaginadorProyectos;
+        private Vista.UCPaginadorTarjetas ucPaginadorAvance;
     }
 }

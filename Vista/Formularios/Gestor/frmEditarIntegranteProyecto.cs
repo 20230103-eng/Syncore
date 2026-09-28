@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using Modelo.Modelo.Infraestructura;
 using Modelo.Modelo.Entidades;
 
 namespace Vista
 {
     public partial class frmEditarIntegranteProyecto : Form
     {
+        private bool validacionEnTiempoRealHabilitada;
         private System.Windows.Forms.ToolTip toolTipAyuda;
         private System.Windows.Forms.ErrorProvider errorProviderValidacion;
 
@@ -27,6 +29,9 @@ namespace Vista
             toolTipAyuda.SetToolTip(btnCancelar, "Cancelar la operación actual.");
             toolTipAyuda.SetToolTip(btnGuardar, "Guardar la información ingresada.");
             this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
+
+            cboRol.SelectedIndexChanged += CamposEnTiempoReal;
+            cboRol.Leave += CamposEnTiempoReal;
         }
 
         private void frmEditarIntegranteProyecto_Load(object sender, EventArgs e)
@@ -34,6 +39,8 @@ namespace Vista
             rolProyectoModelo = new RolProyecto();
             lblNombreValor.Text = NombreIntegrante;
             CargarRoles();
+        
+            validacionEnTiempoRealHabilitada = true;
         }
 
         private void CargarRoles()
@@ -56,8 +63,8 @@ namespace Vista
 
             if (cboRol.SelectedValue == null)
             {
-                errorProviderValidacion.SetError(cboRol, "Seleccione el rol del integrante.");
-                MessageBox.Show("Seleccione el rol del integrante.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cboRol, "ERR-VAL-007", "Seleccione el rol del integrante.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione el rol del integrante.");
                 cboRol.Focus();
                 return;
             }
@@ -80,5 +87,25 @@ namespace Vista
             DialogResult = DialogResult.Cancel;
             Close();
         }
+        private void CamposEnTiempoReal(object sender, EventArgs e)
+        {
+            if (validacionEnTiempoRealHabilitada == false)
+            {
+                return;
+            }
+
+            if (sender == cboRol)
+            {
+                if (cboRol.SelectedIndex < 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cboRol, "ERR-VAL-007", "Seleccione el rol del integrante.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cboRol, "");
+                }
+            }
+        }
+
     }
 }

@@ -9,6 +9,7 @@ namespace Vista
 {
     public partial class frmRevisionTareas : Form
     {
+        private bool validacionEnTiempoRealHabilitada;
         private System.Windows.Forms.ToolTip toolTipAyuda;
         private System.Windows.Forms.ErrorProvider errorProviderValidacion;
 
@@ -47,6 +48,8 @@ namespace Vista
 
             ucPaginador.Tabla = dgvRevisiones;
             ucPaginador.PaginaCambiada += ucPaginador_PaginaCambiada;
+        
+            txtComentario.TextChanged += CamposEnTiempoReal;
         }
 
         private void frmRevisionTareas_Load(object sender, EventArgs e)
@@ -57,6 +60,8 @@ namespace Vista
             idTareaSeleccionada = 0;
             ConfigurarTabla();
             CargarRevisiones();
+        
+            validacionEnTiempoRealHabilitada = true;
         }
 
         private void ConfigurarTabla()
@@ -69,68 +74,35 @@ namespace Vista
         {
             if (Sesion.UsuarioActual == null)
             {
-                MessageBox.Show("No hay una sesión activa.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "No hay una sesión activa.");
                 DeshabilitarDetalle();
                 return;
             }
 
             if (Sesion.UsuarioActual.TipoUsuario != "Gestor")
             {
-                MessageBox.Show("Solo un gestor puede revisar tareas.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "Solo un gestor puede revisar tareas.");
                 DeshabilitarDetalle();
                 return;
             }
 
             revisionModelo.PrepararRevisionesPendientesGestor(Sesion.UsuarioActual.IdUsuario);
-            revisionesOriginales = revisionModelo.ObtenerRevisionesPendientes(Sesion.UsuarioActual.IdUsuario);
-            lblCantidad.Text = revisionesOriginales.Rows.Count.ToString() + " pendiente(s)";
+            ucPaginador.ReiniciarRemoto();
             AplicarBusqueda();
         }
 
         private void AplicarBusqueda()
         {
-            DataTable filtradas;
-            string texto;
-
-            if (revisionesOriginales == null)
+            if (Sesion.UsuarioActual == null)
             {
                 return;
             }
-
-            filtradas = revisionesOriginales.Clone();
-            texto = txtBuscar.Text.Trim().ToLower();
-
-            foreach (DataRow fila in revisionesOriginales.Rows)
-            {
-                bool coincide;
-
-                coincide = true;
-
-                if (string.IsNullOrEmpty(texto) == false)
-                {
-                    coincide = false;
-
-                    if (fila["Tarea"].ToString().ToLower().Contains(texto) == true)
-                    {
-                        coincide = true;
-                    }
-                    else if (fila["Proyecto"].ToString().ToLower().Contains(texto) == true)
-                    {
-                        coincide = true;
-                    }
-                    else if (fila["Responsable"].ToString().ToLower().Contains(texto) == true)
-                    {
-                        coincide = true;
-                    }
-                }
-
-                if (coincide == true)
-                {
-                    filtradas.ImportRow(fila);
-                }
-            }
-
-            ucPaginador.Mostrar(filtradas);
+            int total;
+            revisionesOriginales = revisionModelo.ObtenerRevisionesPendientesPagina(
+                Sesion.UsuarioActual.IdUsuario, txtBuscar.Text.Trim(),
+                ucPaginador.PaginaActual, out total);
+            lblCantidad.Text = total.ToString() + " pendiente(s)";
+            ucPaginador.MostrarRemoto(revisionesOriginales, total);
             PrepararColumnas();
 
             if (dgvRevisiones.Rows.Count > 0)
@@ -297,6 +269,7 @@ namespace Vista
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
+            ucPaginador.ReiniciarRemoto();
             AplicarBusqueda();
         }
 
@@ -372,8 +345,8 @@ namespace Vista
 
             if (string.IsNullOrEmpty(txtComentario.Text.Trim()) == true)
             {
-                errorProviderValidacion.SetError(txtComentario, "Escriba la corrección solicitada.");
-                MessageBox.Show("Escriba la corrección que debe realizar el colaborador.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtComentario, "ERR-VAL-001", "Escriba la corrección solicitada.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-001", "Syncore", "Escriba la corrección que debe realizar el colaborador.");
                 txtComentario.Focus();
                 return;
             }
@@ -425,7 +398,7 @@ namespace Vista
 
             if (idRevision <= 0)
             {
-                MessageBox.Show("No se pudo preparar la revisión de esta tarea.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-003", "Syncore", "No se pudo preparar la revisión de esta tarea.");
                 return false;
             }
 
@@ -437,13 +410,13 @@ namespace Vista
         {
             if (Sesion.UsuarioActual == null)
             {
-                MessageBox.Show("No hay una sesión activa.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "No hay una sesión activa.");
                 return false;
             }
 
             if (idRevisionSeleccionada <= 0 || idTareaSeleccionada <= 0)
             {
-                MessageBox.Show("Seleccione una tarea para revisar.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione una tarea para revisar.");
                 return false;
             }
 
@@ -451,7 +424,28 @@ namespace Vista
         }
         private void ucPaginador_PaginaCambiada(object sender, EventArgs e)
         {
+            AplicarBusqueda();
             DeshabilitarDetalle();
+        }
+
+        private void CamposEnTiempoReal(object sender, EventArgs e)
+        {
+            if (validacionEnTiempoRealHabilitada == false)
+            {
+                return;
+            }
+
+            if (sender == txtComentario)
+            {
+                if (string.IsNullOrEmpty(txtComentario.Text.Trim()) == true)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtComentario, "ERR-VAL-001", "Escriba la corrección solicitada.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtComentario, "");
+                }
+            }
         }
 
     }

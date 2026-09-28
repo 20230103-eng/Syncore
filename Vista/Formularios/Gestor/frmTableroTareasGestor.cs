@@ -15,6 +15,7 @@ namespace Vista
         private Usuario usuarioModelo;
         private TextBox txtBuscar;
         private bool cargando;
+        private DataTable tareasFiltradas;
 
         public event EventHandler DetalleTareaSolicitado;
         public event EventHandler NuevaTareaSolicitada;
@@ -38,6 +39,7 @@ namespace Vista
             cboResponsable.SelectedIndexChanged += filtro_SelectedIndexChanged;
             btnNuevaTarea.Click += btnNuevaTarea_Click;
             this.Load += frmTableroTareasGestor_Load;
+            paginadorTarjetas.PaginaCambiada += paginadorTarjetas_PaginaCambiada;
         }
 
         private void ConfigurarBusqueda()
@@ -102,104 +104,73 @@ namespace Vista
 
         private void CargarTareas()
         {
-            int idProyecto;
-            int idResponsable;
-            string texto;
-            DataTable tareas;
-            int pendientes;
-            int progreso;
-            int revision;
-            int vencidas;
-            int completadas;
-
-            idProyecto = 0;
-            idResponsable = 0;
-            texto = txtBuscar.Text.Trim().ToLower();
-
+            int idProyecto = 0;
+            int idResponsable = 0;
             if (cboProyecto.SelectedValue != null)
             {
                 int.TryParse(cboProyecto.SelectedValue.ToString(), out idProyecto);
             }
-
             if (cboResponsable.SelectedValue != null)
             {
                 int.TryParse(cboResponsable.SelectedValue.ToString(), out idResponsable);
             }
-
-            tareas = tableroTarea.ObtenerTareasTableroGestor(idProyecto);
-            LimpiarColumnas();
-            pendientes = 0;
-            progreso = 0;
-            revision = 0;
-            vencidas = 0;
-            completadas = 0;
-
-            foreach (DataRow fila in tareas.Rows)
+            int pagina = paginadorTarjetas.Inicio / UCPaginadorTarjetas.RegistrosPorPagina;
+            tareasFiltradas = tableroTarea.ObtenerTareasTableroGestorPagina(
+                idProyecto, idResponsable, txtBuscar.Text.Trim(), pagina);
+            int total = 0;
+            int pendientes = 0;
+            int progreso = 0;
+            int revision = 0;
+            int vencidas = 0;
+            int completadas = 0;
+            if (tareasFiltradas.Rows.Count > 0)
             {
-                string estado;
-                string nombreTarea;
-                string proyecto;
-                bool mostrar;
-
-                mostrar = true;
-                nombreTarea = fila["Tarea"].ToString().ToLower();
-                proyecto = fila["Proyecto"].ToString().ToLower();
-
-                if (idResponsable > 0 && Convert.ToInt32(fila["IdResponsable"]) != idResponsable)
-                {
-                    mostrar = false;
-                }
-
-                if (mostrar == true && string.IsNullOrEmpty(texto) == false)
-                {
-                    if (nombreTarea.Contains(texto) == false && proyecto.Contains(texto) == false)
-                    {
-                        mostrar = false;
-                    }
-                }
-
-                if (mostrar == false)
-                {
-                    continue;
-                }
-
-                UCTarjetaTarea tarjeta;
-
-                tarjeta = CrearTarjeta(fila);
-                estado = fila["Estado"].ToString();
-
-                if (estado == "Pendiente" || estado == "Devuelta")
-                {
-                    AgregarTarjeta(flpEstado1, tarjeta);
-                    pendientes = pendientes + 1;
-                }
-                else if (estado == "En progreso")
-                {
-                    AgregarTarjeta(flpEstado2, tarjeta);
-                    progreso = progreso + 1;
-                }
-                else if (estado == "En revisión")
-                {
-                    AgregarTarjeta(flpEstado3, tarjeta);
-                    revision = revision + 1;
-                }
-                else if (estado == "Vencida")
-                {
-                    AgregarTarjeta(flpEstado4, tarjeta);
-                    vencidas = vencidas + 1;
-                }
-                else if (estado == "Completada")
-                {
-                    AgregarTarjeta(flpEstado5, tarjeta);
-                    completadas = completadas + 1;
-                }
+                DataRow primera = tareasFiltradas.Rows[0];
+                total = Convert.ToInt32(primera["TotalRegistros"]);
+                pendientes = Convert.ToInt32(primera["Conteo1"]);
+                progreso = Convert.ToInt32(primera["Conteo2"]);
+                revision = Convert.ToInt32(primera["Conteo3"]);
+                vencidas = Convert.ToInt32(primera["Conteo4"]);
+                completadas = Convert.ToInt32(primera["Conteo5"]);
             }
-
+            if (pagina > 0 && tareasFiltradas.Rows.Count == 0)
+            {
+                paginadorTarjetas.Configurar(0, true);
+                CargarTareas();
+                return;
+            }
+            paginadorTarjetas.Configurar(total, false);
+            MostrarPagina();
             lblCantidad1.Text = pendientes.ToString();
             lblCantidad2.Text = progreso.ToString();
             lblCantidad3.Text = revision.ToString();
             lblCantidad4.Text = vencidas.ToString();
             lblCantidad5.Text = completadas.ToString();
+        }
+
+        private void MostrarPagina()
+        {
+            LimpiarColumnas();
+            if (tareasFiltradas == null)
+            {
+                return;
+            }
+            for (int indice = 0; indice < tareasFiltradas.Rows.Count; indice++)
+            {
+                DataRow fila = tareasFiltradas.Rows[indice];
+                UCTarjetaTarea tarjeta = CrearTarjeta(fila);
+                string estado = fila["Estado"].ToString();
+                if (estado == "Pendiente" || estado == "Devuelta") AgregarTarjeta(flpEstado1, tarjeta);
+                else if (estado == "En progreso") AgregarTarjeta(flpEstado2, tarjeta);
+                else if (estado == "En revisión") AgregarTarjeta(flpEstado3, tarjeta);
+                else if (estado == "Vencida") AgregarTarjeta(flpEstado4, tarjeta);
+                else if (estado == "Completada") AgregarTarjeta(flpEstado5, tarjeta);
+            }
+        }
+
+        private void paginadorTarjetas_PaginaCambiada(object sender, EventArgs e)
+        {
+            CargarTareas();
         }
 
         private UCTarjetaTarea CrearTarjeta(DataRow fila)
@@ -263,6 +234,7 @@ namespace Vista
         {
             if (cargando == false)
             {
+                paginadorTarjetas.Configurar(0, true);
                 CargarTareas();
             }
         }
@@ -271,6 +243,7 @@ namespace Vista
         {
             if (cargando == false)
             {
+                paginadorTarjetas.Configurar(0, true);
                 CargarTareas();
             }
         }

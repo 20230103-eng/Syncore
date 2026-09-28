@@ -59,6 +59,56 @@ namespace Modelo.Modelo.Entidades
             return vista.ToTable();
         }
 
+        public DataTable ObtenerCronogramaGestorPagina(int idGestor, int idProyecto,
+            DateTime fechaDesde, DateTime fechaHasta, string tipo, int pagina, out int total)
+        {
+            string consulta = @"
+                WITH Actividades AS
+                (
+                    SELECT N'Tarea' AS Tipo, t.Nombre AS Actividad,
+                        p.Nombre AS Proyecto, u.NombreCompleto AS Responsable,
+                        t.FechaInicio, t.FechaLimite AS FechaFin,
+                        et.Nombre AS Estado, CAST(t.AvanceActual AS DECIMAL(10,2)) AS Avance,
+                        t.IdTarea AS OrdenId
+                    FROM tbTarea t
+                    INNER JOIN tbProyecto p ON p.IdProyecto = t.IdProyecto
+                    INNER JOIN tbUsuario u ON u.IdUsuario = t.IdResponsable
+                    INNER JOIN tbEstadoTarea et ON et.IdEstadoTarea = t.IdEstadoTarea
+                    WHERE p.IdResponsable = @IdGestor
+                        AND (@IdProyecto = 0 OR p.IdProyecto = @IdProyecto)
+                        AND t.FechaInicio <= @FechaHasta AND t.FechaLimite >= @FechaDesde
+                        AND @Tipo <> N'Hito'
+                    UNION ALL
+                    SELECT N'Hito', h.Nombre, p.Nombre,
+                        ISNULL(u.NombreCompleto, N'Sin responsable'),
+                        h.FechaObjetivo, h.FechaObjetivo, eh.Nombre,
+                        CAST(CASE WHEN eh.Nombre = N'Cumplido' THEN 100 ELSE 0 END AS DECIMAL(10,2)),
+                        h.IdHito
+                    FROM tbHito h
+                    INNER JOIN tbProyecto p ON p.IdProyecto = h.IdProyecto
+                    INNER JOIN tbEstadoHito eh ON eh.IdEstadoHito = h.IdEstadoHito
+                    LEFT JOIN tbUsuario u ON u.IdUsuario = h.IdResponsable
+                    WHERE p.IdResponsable = @IdGestor
+                        AND (@IdProyecto = 0 OR p.IdProyecto = @IdProyecto)
+                        AND h.FechaObjetivo BETWEEN @FechaDesde AND @FechaHasta
+                        AND @Tipo <> N'Tarea'
+                )
+                SELECT Tipo, Actividad, Proyecto, Responsable, FechaInicio, FechaFin,
+                    Estado, Avance, COUNT(*) OVER() AS TotalRegistros
+                FROM Actividades
+                ORDER BY FechaInicio, Proyecto, Actividad, Tipo, OrdenId
+                OFFSET @Inicio ROWS FETCH NEXT 20 ROWS ONLY";
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@IdGestor", idGestor),
+                new SqlParameter("@IdProyecto", idProyecto),
+                new SqlParameter("@FechaDesde", fechaDesde.Date),
+                new SqlParameter("@FechaHasta", fechaHasta.Date),
+                new SqlParameter("@Tipo", tipo)
+            };
+            return new Conexion().EjecutarPagina(consulta, parametros, pagina, out total);
+        }
+
         private DataTable CrearTablaResultado()
         {
             DataTable tabla;

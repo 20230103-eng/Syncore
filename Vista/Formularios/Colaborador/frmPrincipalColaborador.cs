@@ -27,8 +27,20 @@ namespace Vista
             toolTipAyuda.SetToolTip(btnNotificaciones, "Abrir las notificaciones.");
             toolTipAyuda.SetToolTip(btnPanelPersonal, "Abrir el panel personal.");
             toolTipAyuda.SetToolTip(btnPerfil, "Abrir el perfil del usuario.");
+            toolTipAyuda.SetToolTip(btnManualUsuario, "Abrir el manual de usuario.");
             this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             CargarLogoEmpresa();
+        }
+
+        private void btnManualUsuario_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ArchivosSeguros.EnlaceManualUsuario))
+            {
+                CatalogoErrores.MostrarDetalle("ERR-APP-004", "Manual de usuario", "El enlace del manual todavía no está configurado.");
+                return;
+            }
+
+            ArchivosSeguros.AbrirEnlace(ArchivosSeguros.EnlaceManualUsuario);
         }
 
         private void CargarLogoEmpresa()
@@ -48,14 +60,8 @@ namespace Vista
             picLogoEmpresa.Visible = false;
             if (empresa.LogoImagen != null && empresa.LogoImagen.Length > 0)
             {
-                using (MemoryStream flujo = new MemoryStream(empresa.LogoImagen))
-                {
-                    using (Image original = Image.FromStream(flujo))
-                    {
-                        picLogoEmpresa.Image = new Bitmap(original);
-                    }
-                }
-                picLogoEmpresa.Visible = true;
+                picLogoEmpresa.Image = ArchivosSeguros.CrearImagen(empresa.LogoImagen);
+                picLogoEmpresa.Visible = picLogoEmpresa.Image != null;
                 toolTipAyuda.SetToolTip(picLogoEmpresa, empresa.NombreEmpresa);
             }
             if (anterior != null)

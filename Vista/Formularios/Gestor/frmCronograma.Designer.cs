@@ -2,8 +2,15 @@
 {
     partial class frmCronograma
     {
+        /// <summary>
+        /// Variable del diseñador necesaria.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -14,6 +21,12 @@
             base.Dispose(disposing);
         }
 
+        #region Código generado por el Diseñador de Windows Forms
+
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -63,6 +76,7 @@
             // 
             // pnlTop
             // 
+            this.pnlTop.Name = "pnlTop";
             this.pnlTop.BackColor = System.Drawing.Color.White;
             this.pnlTop.Controls.Add(this.lblFecha);
             this.pnlTop.Controls.Add(this.lblBreadcrumbActual);
@@ -72,6 +86,7 @@
             // 
             // lblFecha
             // 
+            this.lblFecha.Name = "lblFecha";
             this.lblFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFecha.AutoSize = true;
             this.lblFecha.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -81,6 +96,7 @@
             // 
             // lblBreadcrumbBase
             // 
+            this.lblBreadcrumbBase.Name = "lblBreadcrumbBase";
             this.lblBreadcrumbBase.AutoSize = true;
             this.lblBreadcrumbBase.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblBreadcrumbBase.ForeColor = System.Drawing.Color.FromArgb(145, 151, 160);
@@ -89,6 +105,7 @@
             // 
             // lblBreadcrumbActual
             // 
+            this.lblBreadcrumbActual.Name = "lblBreadcrumbActual";
             this.lblBreadcrumbActual.AutoSize = true;
             this.lblBreadcrumbActual.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblBreadcrumbActual.ForeColor = System.Drawing.Color.FromArgb(0, 105, 240);
@@ -97,6 +114,7 @@
             // 
             // pnlContenido
             // 
+            this.pnlContenido.Name = "pnlContenido";
             this.pnlContenido.AutoScroll = true;
             this.pnlContenido.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.pnlContenido.Controls.Add(this.tlpPrincipal);
@@ -105,6 +123,7 @@
             // 
             // tlpPrincipal
             // 
+            this.tlpPrincipal.Name = "tlpPrincipal";
             this.tlpPrincipal.ColumnCount = 1;
             this.tlpPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPrincipal.Controls.Add(this.pnlCabecera, 0, 0);
@@ -119,12 +138,14 @@
             // 
             // pnlCabecera
             // 
+            this.pnlCabecera.Name = "pnlCabecera";
             this.pnlCabecera.Controls.Add(this.lblSubtitulo);
             this.pnlCabecera.Controls.Add(this.lblTitulo);
             this.pnlCabecera.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // lblTitulo
             // 
+            this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -133,6 +154,7 @@
             // 
             // lblSubtitulo
             // 
+            this.lblSubtitulo.Name = "lblSubtitulo";
             this.lblSubtitulo.AutoSize = true;
             this.lblSubtitulo.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.lblSubtitulo.ForeColor = System.Drawing.Color.FromArgb(89, 105, 123);
@@ -141,6 +163,7 @@
             // 
             // tlpFiltros
             // 
+            this.tlpFiltros.Name = "tlpFiltros";
             this.tlpFiltros.ColumnCount = 10;
             this.tlpFiltros.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72F));
             this.tlpFiltros.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
@@ -167,12 +190,14 @@
             // 
             // lblProyecto
             // 
+            this.lblProyecto.Name = "lblProyecto";
             this.lblProyecto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblProyecto.Text = "Proyecto:";
             this.lblProyecto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cboProyecto
             // 
+            this.cboProyecto.Name = "cboProyecto";
             this.cboProyecto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cboProyecto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboProyecto.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -181,36 +206,42 @@
             // 
             // lblDesde
             // 
+            this.lblDesde.Name = "lblDesde";
             this.lblDesde.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblDesde.Text = "Desde:";
             this.lblDesde.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dtpDesde
             // 
+            this.dtpDesde.Name = "dtpDesde";
             this.dtpDesde.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDesde.TabIndex = 1;
             // 
             // lblHasta
             // 
+            this.lblHasta.Name = "lblHasta";
             this.lblHasta.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblHasta.Text = "Hasta:";
             this.lblHasta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dtpHasta
             // 
+            this.dtpHasta.Name = "dtpHasta";
             this.dtpHasta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpHasta.TabIndex = 2;
             // 
             // lblTipo
             // 
+            this.lblTipo.Name = "lblTipo";
             this.lblTipo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTipo.Text = "Tipo:";
             this.lblTipo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cboTipo
             // 
+            this.cboTipo.Name = "cboTipo";
             this.cboTipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipo.Items.AddRange(new object[] { "Todos", "Solo tareas", "Solo hitos" });
@@ -219,6 +250,7 @@
             // 
             // btnActualizar
             // 
+            this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             this.btnActualizar.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -230,6 +262,7 @@
             // 
             // lblCantidad
             // 
+            this.lblCantidad.Name = "lblCantidad";
             this.lblCantidad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCantidad.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblCantidad.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -238,6 +271,7 @@
             // 
             // pnlTabla
             // 
+            this.pnlTabla.Name = "pnlTabla";
             this.pnlTabla.BackColor = System.Drawing.Color.White;
             this.pnlTabla.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTabla.Controls.Add(this.dgvCronograma);
@@ -246,6 +280,7 @@
             // 
             // dgvCronograma
             // 
+            this.dgvCronograma.Name = "dgvCronograma";
             this.dgvCronograma.AllowUserToAddRows = false;
             this.dgvCronograma.AllowUserToDeleteRows = false;
             this.dgvCronograma.AllowUserToResizeRows = false;
@@ -271,7 +306,7 @@
             this.ucPaginador.Name = "ucPaginador";
             this.ucPaginador.Size = new System.Drawing.Size(800, 42);
             this.ucPaginador.TabIndex = 20;
-            this.ucPaginador.Visible = false;
+            this.ucPaginador.Visible = true;
             // frmCronograma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -297,6 +332,8 @@
             this.ResumeLayout(false);
         }
 
+
+        #endregion
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Label lblFecha;
         private System.Windows.Forms.Label lblBreadcrumbActual;

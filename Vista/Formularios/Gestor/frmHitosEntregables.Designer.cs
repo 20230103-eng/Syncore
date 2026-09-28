@@ -2,8 +2,15 @@
 {
     partial class frmHitosEntregables
     {
+        /// <summary>
+        /// Variable del diseñador necesaria.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -14,6 +21,12 @@
             base.Dispose(disposing);
         }
 
+        #region Código generado por el Diseñador de Windows Forms
+
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -221,6 +234,7 @@
             // 
             // lblFiltroProyecto
             // 
+            this.lblFiltroProyecto.Name = "lblFiltroProyecto";
             this.lblFiltroProyecto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblFiltroProyecto.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblFiltroProyecto.ForeColor = System.Drawing.Color.FromArgb(75, 90, 108);
@@ -229,6 +243,7 @@
             // 
             // cboProyectoFiltro
             // 
+            this.cboProyectoFiltro.Name = "cboProyectoFiltro";
             this.cboProyectoFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cboProyectoFiltro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboProyectoFiltro.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -237,6 +252,7 @@
             // 
             // lblFiltroEstado
             // 
+            this.lblFiltroEstado.Name = "lblFiltroEstado";
             this.lblFiltroEstado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblFiltroEstado.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblFiltroEstado.ForeColor = System.Drawing.Color.FromArgb(75, 90, 108);
@@ -245,6 +261,7 @@
             // 
             // cboEstadoFiltro
             // 
+            this.cboEstadoFiltro.Name = "cboEstadoFiltro";
             this.cboEstadoFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cboEstadoFiltro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboEstadoFiltro.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -253,6 +270,7 @@
             // 
             // lblBuscar
             // 
+            this.lblBuscar.Name = "lblBuscar";
             this.lblBuscar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblBuscar.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblBuscar.ForeColor = System.Drawing.Color.FromArgb(75, 90, 108);
@@ -261,6 +279,7 @@
             // 
             // txtBuscar
             // 
+            this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtBuscar.MaxLength = 150;
@@ -270,6 +289,7 @@
             // 
             // lblCantidad
             // 
+            this.lblCantidad.Name = "lblCantidad";
             this.lblCantidad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCantidad.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblCantidad.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -346,6 +366,7 @@
             // 
             // lblModo
             // 
+            this.lblModo.Name = "lblModo";
             this.lblModo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblModo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblModo.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -354,12 +375,14 @@
             // 
             // lblProyecto
             // 
+            this.lblProyecto.Name = "lblProyecto";
             this.lblProyecto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblProyecto.Text = "Proyecto";
             this.lblProyecto.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // cboProyecto
             // 
+            this.cboProyecto.Name = "cboProyecto";
             this.cboProyecto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cboProyecto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboProyecto.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -368,12 +391,14 @@
             // 
             // lblNombre
             // 
+            this.lblNombre.Name = "lblNombre";
             this.lblNombre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblNombre.Text = "Nombre del hito / entregable";
             this.lblNombre.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // txtNombre
             // 
+            this.txtNombre.Name = "txtNombre";
             this.txtNombre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtNombre.MaxLength = 150;
@@ -382,12 +407,14 @@
             // 
             // lblDescripcion
             // 
+            this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblDescripcion.Text = "Descripción";
             this.lblDescripcion.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // txtDescripcion
             // 
+            this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtDescripcion.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtDescripcion.MaxLength = 500;
@@ -398,24 +425,28 @@
             // 
             // lblFechaObjetivo
             // 
+            this.lblFechaObjetivo.Name = "lblFechaObjetivo";
             this.lblFechaObjetivo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblFechaObjetivo.Text = "Fecha objetivo";
             this.lblFechaObjetivo.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // dtpFechaObjetivo
             // 
+            this.dtpFechaObjetivo.Name = "dtpFechaObjetivo";
             this.dtpFechaObjetivo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtpFechaObjetivo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaObjetivo.TabIndex = 6;
             // 
             // lblResponsable
             // 
+            this.lblResponsable.Name = "lblResponsable";
             this.lblResponsable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblResponsable.Text = "Responsable";
             this.lblResponsable.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // cboResponsable
             // 
+            this.cboResponsable.Name = "cboResponsable";
             this.cboResponsable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cboResponsable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboResponsable.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -423,12 +454,14 @@
             // 
             // lblEstadoEditor
             // 
+            this.lblEstadoEditor.Name = "lblEstadoEditor";
             this.lblEstadoEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEstadoEditor.Text = "Estado";
             this.lblEstadoEditor.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // cboEstado
             // 
+            this.cboEstado.Name = "cboEstado";
             this.cboEstado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cboEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboEstado.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -436,6 +469,7 @@
             // 
             // tlpBotones
             // 
+            this.tlpBotones.Name = "tlpBotones";
             this.tlpBotones.ColumnCount = 5;
             this.tlpBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tlpBotones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -452,6 +486,7 @@
             // 
             // btnNuevo
             // 
+            this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             this.btnNuevo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnNuevo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -460,6 +495,7 @@
             // 
             // btnGuardar
             // 
+            this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(0, 105, 240);
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             this.btnGuardar.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -469,6 +505,7 @@
             // 
             // btnActualizar
             // 
+            this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             this.btnActualizar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -477,6 +514,7 @@
             // 
             // btnCumplir
             // 
+            this.btnCumplir.Name = "btnCumplir";
             this.btnCumplir.Click += new System.EventHandler(this.btnCumplir_Click);
             this.btnCumplir.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCumplir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -485,6 +523,7 @@
             // 
             // btnEliminar
             // 
+            this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             this.btnEliminar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -507,6 +546,7 @@
             // 
             // lblListado
             // 
+            this.lblListado.Name = "lblListado";
             this.lblListado.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblListado.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblListado.ForeColor = System.Drawing.Color.FromArgb(11, 55, 104);
@@ -517,6 +557,7 @@
             // 
             // dgvHitos
             // 
+            this.dgvHitos.Name = "dgvHitos";
             this.dgvHitos.AllowUserToAddRows = false;
             this.dgvHitos.AllowUserToDeleteRows = false;
             this.dgvHitos.AllowUserToResizeRows = false;
@@ -544,7 +585,7 @@
             this.ucPaginador.Name = "ucPaginador";
             this.ucPaginador.Size = new System.Drawing.Size(800, 42);
             this.ucPaginador.TabIndex = 20;
-            this.ucPaginador.Visible = false;
+            this.ucPaginador.Visible = true;
             // frmHitosEntregables
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -575,6 +616,8 @@
             this.ResumeLayout(false);
         }
 
+
+        #endregion
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Label lblFecha;
         private System.Windows.Forms.Label lblBreadcrumbActual;

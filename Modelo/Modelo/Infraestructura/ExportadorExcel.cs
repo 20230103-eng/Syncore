@@ -34,6 +34,7 @@ namespace Modelo.Modelo.Infraestructura
             XmlWriterSettings opciones = new XmlWriterSettings();
             opciones.Encoding = new System.Text.UTF8Encoding(false);
             opciones.Indent = false;
+            opciones.CloseOutput = true;
             return XmlWriter.Create(entrada.Open(), opciones);
         }
 

@@ -423,11 +423,12 @@ namespace Modelo.Modelo.Entidades
                 return false;
             }
 
-            transaccion = conexionSql.BeginTransaction();
+            transaccion = null;
             creada = false;
 
             try
             {
+                transaccion = conexionSql.BeginTransaction();
                 query = @"
                 INSERT INTO tbTarea
                 (IdProyecto, IdHito, Nombre, Descripcion, Observacion, IdResponsable, IdCreador, IdPrioridad, IdEstadoTarea, FechaInicio, FechaLimite, AvanceActual, FechaCreacion)
@@ -444,6 +445,13 @@ namespace Modelo.Modelo.Entidades
                     AND tbEquipoProyecto.Activo = 1
                     AND tbUsuario.Activo = 1
                     AND tbTipoUsuario.Nombre = N'Colaborador'
+                )
+                AND EXISTS
+                (
+                    SELECT 1
+                    FROM tbProyecto
+                    WHERE tbProyecto.IdProyecto = @IdProyecto
+                    AND tbProyecto.IdResponsable = @IdCreador
                 );
                 SELECT SCOPE_IDENTITY();";
 
@@ -500,12 +508,24 @@ namespace Modelo.Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                transaccion.Rollback();
+                if (transaccion != null && transaccion.Connection != null)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch (SqlException)
+                    {
+                    }
+                }
                 Conexion.MostrarErrorSql(ex);
             }
             finally
             {
-                transaccion.Dispose();
+                if (transaccion != null)
+                {
+                    transaccion.Dispose();
+                }
                 conexionSql.Close();
                 conexionSql.Dispose();
             }
@@ -669,11 +689,12 @@ namespace Modelo.Modelo.Entidades
                 return false;
             }
 
-            transaccion = conexionSql.BeginTransaction();
+            transaccion = null;
             eliminada = false;
 
             try
             {
+                transaccion = conexionSql.BeginTransaction();
                 query = @"
                 DELETE FROM tbNotificacion
                 WHERE IdTarea = @IdTarea";
@@ -711,12 +732,24 @@ namespace Modelo.Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                transaccion.Rollback();
+                if (transaccion != null && transaccion.Connection != null)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch (SqlException)
+                    {
+                    }
+                }
                 Conexion.MostrarErrorSql(ex);
             }
             finally
             {
-                transaccion.Dispose();
+                if (transaccion != null)
+                {
+                    transaccion.Dispose();
+                }
                 conexionSql.Close();
                 conexionSql.Dispose();
             }

@@ -9,6 +9,7 @@ namespace Vista
 {
     public partial class frmLoginColaborador : Form
     {
+        private bool validacionEnTiempoRealHabilitada;
         private System.Windows.Forms.ToolTip toolTipAyuda;
         private System.Windows.Forms.ErrorProvider errorProviderValidacion;
 
@@ -31,6 +32,12 @@ namespace Vista
             usuarioModelo = new Usuario();
             rutaUsuarioRecordado = Application.UserAppDataPath + "\\usuario_colaborador.txt";
             CargarUsuarioRecordado();
+        
+            txtUsuario.TextChanged += CamposEnTiempoReal;
+            txtUsuario.Leave += CamposEnTiempoReal;
+            txtContrasena.TextChanged += CamposEnTiempoReal;
+            txtContrasena.Leave += CamposEnTiempoReal;
+            validacionEnTiempoRealHabilitada = true;
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)
@@ -42,25 +49,36 @@ namespace Vista
 
             if (string.IsNullOrEmpty(nombreUsuario) == true)
             {
-                errorProviderValidacion.SetError(txtUsuario, "Ingrese el nombre de usuario.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtUsuario, "ERR-VAL-001", "Ingrese el nombre de usuario.");
             }
 
             if (string.IsNullOrEmpty(contrasena) == true)
             {
-                errorProviderValidacion.SetError(txtContrasena, "Ingrese la contraseña.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtContrasena, "ERR-VAL-001", "Ingrese la contraseña.");
             }
 
             if (string.IsNullOrEmpty(nombreUsuario) == true || string.IsNullOrEmpty(contrasena) == true)
             {
-                MessageBox.Show("Ingrese el usuario y la contraseña.", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                CatalogoErrores.MostrarDetalle("ERR-VAL-001", "Inicio de sesión", "Ingrese el usuario y la contraseña.");
                 return;
+            }
+
+            foreach (char caracter in nombreUsuario)
+            {
+                if (char.IsLetterOrDigit(caracter) == false && caracter != '.' && caracter != '_' && caracter != '-')
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtUsuario, "ERR-VAL-002", "El nombre de usuario contiene caracteres no permitidos.");
+                    CatalogoErrores.MostrarDetalle("ERR-VAL-002", "Inicio de sesión", "El nombre de usuario contiene caracteres no permitidos.");
+                    txtUsuario.Focus();
+                    return;
+                }
             }
 
             Usuario usuario = usuarioModelo.ValidarUsuario(nombreUsuario, contrasena, "Colaborador");
 
             if (usuario == null)
             {
-                MessageBox.Show("Usuario o contraseña incorrectos.", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                CatalogoErrores.Mostrar("ERR-NEG-002", "Inicio de sesión");
                 txtContrasena.Clear();
                 txtContrasena.Focus();
                 return;
@@ -88,7 +106,12 @@ namespace Vista
         {
             if (File.Exists(rutaUsuarioRecordado) == true)
             {
-                txtUsuario.Text = File.ReadAllText(rutaUsuarioRecordado);
+                string recordado = ArchivosSeguros.LeerTexto(rutaUsuarioRecordado);
+                if (recordado == null)
+                {
+                    return;
+                }
+                txtUsuario.Text = recordado;
                 chkRecordar.Checked = true;
                 txtContrasena.Focus();
             }
@@ -98,11 +121,11 @@ namespace Vista
         {
             if (chkRecordar.Checked == true)
             {
-                File.WriteAllText(rutaUsuarioRecordado, nombreUsuario);
+                ArchivosSeguros.GuardarTexto(rutaUsuarioRecordado, nombreUsuario);
             }
             else if (File.Exists(rutaUsuarioRecordado) == true)
             {
-                File.Delete(rutaUsuarioRecordado);
+                ArchivosSeguros.Eliminar(rutaUsuarioRecordado);
             }
         }
 
@@ -132,6 +155,50 @@ namespace Vista
             if (permitido == false)
             {
                 e.Handled = true;
+            }
+        }
+
+        private void CamposEnTiempoReal(object sender, EventArgs e)
+        {
+            if (validacionEnTiempoRealHabilitada == false)
+            {
+                return;
+            }
+
+            if (sender == txtUsuario)
+            {
+                bool formatoCorrecto;
+                formatoCorrecto = true;
+                foreach (char caracter in txtUsuario.Text)
+                {
+                    if (char.IsLetterOrDigit(caracter) == false && caracter != '.' && caracter != '_' && caracter != '-')
+                    {
+                        formatoCorrecto = false;
+                    }
+                }
+                if (string.IsNullOrEmpty(txtUsuario.Text.Trim()) == true)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtUsuario, "ERR-VAL-001", "Ingrese el nombre de usuario.");
+                }
+                else if (formatoCorrecto == false)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtUsuario, "ERR-VAL-002", "El usuario solo admite letras, números, punto, guion y guion bajo.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtUsuario, "");
+                }
+            }
+            if (sender == txtContrasena)
+            {
+                if (string.IsNullOrEmpty(txtContrasena.Text) == true)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtContrasena, "ERR-VAL-001", "Ingrese la contraseña.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtContrasena, "");
+                }
             }
         }
 

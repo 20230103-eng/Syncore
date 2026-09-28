@@ -8,6 +8,7 @@ namespace Vista
 {
     public partial class frmAdministracionSistema : Form
     {
+        private bool validacionEnTiempoRealHabilitada;
         private System.Windows.Forms.ToolTip toolTipAyuda;
         private System.Windows.Forms.ErrorProvider errorProviderValidacion;
 
@@ -42,6 +43,19 @@ namespace Vista
 
             ucPaginador.Tabla = dgvUsuarios;
             ucPaginador.PaginaCambiada += ucPaginador_PaginaCambiada;
+        
+            txtNombreCompleto.TextChanged += CamposEnTiempoReal;
+            txtNombreCompleto.Leave += CamposEnTiempoReal;
+            txtUsuario.TextChanged += CamposEnTiempoReal;
+            txtUsuario.Leave += CamposEnTiempoReal;
+            txtContrasena.TextChanged += CamposEnTiempoReal;
+            txtContrasena.Leave += CamposEnTiempoReal;
+            txtConfirmarContrasena.TextChanged += CamposEnTiempoReal;
+            txtConfirmarContrasena.Leave += CamposEnTiempoReal;
+            cboTipoUsuario.SelectedIndexChanged += CamposEnTiempoReal;
+            cboTipoUsuario.Leave += CamposEnTiempoReal;
+            chkActivo.CheckedChanged += UsuarioActivo_Cambiado;
+            txtUsuario.Leave += Usuario_Leave;
         }
 
         private void frmAdministracionSistema_Load(object sender, EventArgs e)
@@ -55,6 +69,8 @@ namespace Vista
             CargarCatalogos();
             CargarUsuarios();
             PrepararNuevoUsuario();
+        
+            validacionEnTiempoRealHabilitada = true;
         }
 
         private void CargarCatalogos()
@@ -78,35 +94,16 @@ namespace Vista
 
         private void CargarUsuarios()
         {
-            usuariosOriginales = usuarioModelo.ObtenerUsuarios();
+            ucPaginador.ReiniciarRemoto();
             AplicarBusqueda();
         }
 
         private void AplicarBusqueda()
         {
-            string texto;
-            DataTable filtrados;
-
-            texto = txtBuscar.Text.Trim().ToLower();
-
-            if (string.IsNullOrEmpty(texto) == true)
-            {
-                ucPaginador.Mostrar(usuariosOriginales);
-                ConfigurarColumnas();
-                return;
-            }
-
-            filtrados = usuariosOriginales.Clone();
-
-            foreach (DataRow fila in usuariosOriginales.Rows)
-            {
-                if (fila["NombreUsuario"].ToString().ToLower().Contains(texto) == true || fila["NombreCompleto"].ToString().ToLower().Contains(texto) == true || fila["TipoUsuario"].ToString().ToLower().Contains(texto) == true || fila["Area"].ToString().ToLower().Contains(texto) == true)
-                {
-                    filtrados.ImportRow(fila);
-                }
-            }
-
-            ucPaginador.Mostrar(filtrados);
+            int total;
+            usuariosOriginales = usuarioModelo.ObtenerUsuariosPagina(txtBuscar.Text.Trim(),
+                ucPaginador.PaginaActual, out total);
+            ucPaginador.MostrarRemoto(usuariosOriginales, total);
             ConfigurarColumnas();
         }
 
@@ -185,6 +182,7 @@ namespace Vista
             btnEliminar.Enabled = false;
             lblAyudaContrasena.Text = "Contraseña obligatoria para usuarios nuevos.";
             txtNombreCompleto.Focus();
+            errorProviderValidacion.Clear();
         }
 
         private bool ValidarDatos(bool esNuevo)
@@ -195,34 +193,56 @@ namespace Vista
 
             if (string.IsNullOrEmpty(txtNombreCompleto.Text.Trim()) == true)
             {
-                errorProviderValidacion.SetError(txtNombreCompleto, "Ingrese el nombre completo del usuario.");
-                MessageBox.Show("Ingrese el nombre completo del usuario.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtNombreCompleto, "ERR-VAL-001", "Ingrese el nombre completo del usuario.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-001", "Syncore", "Ingrese el nombre completo del usuario.");
                 txtNombreCompleto.Focus();
                 return false;
             }
 
+            foreach (char caracter in txtNombreCompleto.Text)
+            {
+                if (char.IsLetter(caracter) == false && char.IsWhiteSpace(caracter) == false && caracter != '-' && caracter != '\'')
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtNombreCompleto, "ERR-VAL-002", "El nombre contiene caracteres no permitidos.");
+                    CatalogoErrores.MostrarDetalle("ERR-VAL-002", "Syncore", "El nombre solo admite letras, espacios, guiones y apóstrofes.");
+                    txtNombreCompleto.Focus();
+                    return false;
+                }
+            }
+
             if (string.IsNullOrEmpty(txtUsuario.Text.Trim()) == true)
             {
-                errorProviderValidacion.SetError(txtUsuario, "Ingrese el nombre de usuario.");
-                MessageBox.Show("Ingrese el nombre de usuario.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtUsuario, "ERR-VAL-001", "Ingrese el nombre de usuario.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-001", "Syncore", "Ingrese el nombre de usuario.");
                 txtUsuario.Focus();
                 return false;
+            }
+
+            foreach (char caracter in txtUsuario.Text)
+            {
+                if (char.IsLetterOrDigit(caracter) == false && caracter != '.' && caracter != '_' && caracter != '-')
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtUsuario, "ERR-VAL-002", "El usuario contiene caracteres no permitidos.");
+                    CatalogoErrores.MostrarDetalle("ERR-VAL-002", "Syncore", "El nombre de usuario contiene caracteres no permitidos.");
+                    txtUsuario.Focus();
+                    return false;
+                }
             }
 
             existe = usuarioModelo.ExisteNombreUsuarioEnOtroUsuario(txtUsuario.Text.Trim(), idUsuarioSeleccionado);
 
             if (existe == true)
             {
-                errorProviderValidacion.SetError(txtUsuario, "El nombre de usuario ya existe.");
-                MessageBox.Show("El nombre de usuario ya existe.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtUsuario, "ERR-VAL-005", "El nombre de usuario ya existe.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-005", "Syncore", "El nombre de usuario ya existe.");
                 txtUsuario.Focus();
                 return false;
             }
 
             if (cboTipoUsuario.SelectedValue == null)
             {
-                errorProviderValidacion.SetError(cboTipoUsuario, "Seleccione el tipo de usuario.");
-                MessageBox.Show("Seleccione el tipo de usuario.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cboTipoUsuario, "ERR-VAL-007", "Seleccione el tipo de usuario.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione el tipo de usuario.");
                 cboTipoUsuario.Focus();
                 return false;
             }
@@ -231,24 +251,24 @@ namespace Vista
             {
                 if (string.IsNullOrEmpty(txtContrasena.Text) == true)
                 {
-                    errorProviderValidacion.SetError(txtContrasena, "Ingrese la contraseña.");
-                    MessageBox.Show("Ingrese la contraseña.");
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtContrasena, "ERR-VAL-001", "Ingrese la contraseña.");
+                    CatalogoErrores.MostrarDetalle("ERR-VAL-001", "Syncore", "Ingrese la contraseña.");
                     txtContrasena.Focus();
                     return false;
                 }
 
                 if (txtContrasena.Text.Length < 6)
                 {
-                    errorProviderValidacion.SetError(txtContrasena, "La contraseña debe tener al menos 6 caracteres.");
-                    MessageBox.Show("La contraseña debe tener al menos 6 caracteres.");
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtContrasena, "ERR-VAL-003", "La contraseña debe tener al menos 6 caracteres.");
+                    CatalogoErrores.MostrarDetalle("ERR-VAL-003", "Syncore", "La contraseña debe tener al menos 6 caracteres.");
                     txtContrasena.Focus();
                     return false;
                 }
 
                 if (txtContrasena.Text != txtConfirmarContrasena.Text)
                 {
-                    errorProviderValidacion.SetError(txtConfirmarContrasena, "Las contraseñas no coinciden.");
-                    MessageBox.Show("Las contraseñas no coinciden.");
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtConfirmarContrasena, "ERR-VAL-004", "Las contraseñas no coinciden.");
+                    CatalogoErrores.MostrarDetalle("ERR-VAL-004", "Syncore", "Las contraseñas no coinciden.");
                     txtConfirmarContrasena.Focus();
                     return false;
                 }
@@ -256,7 +276,7 @@ namespace Vista
 
             if (idUsuarioSeleccionado > 0 && Sesion.UsuarioActual != null && idUsuarioSeleccionado == Sesion.UsuarioActual.IdUsuario && chkActivo.Checked == false)
             {
-                MessageBox.Show("No puede desactivar el usuario de la sesión actual.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-003", "Syncore", "No puede desactivar el usuario de la sesión actual.");
                 chkActivo.Checked = true;
                 return false;
             }
@@ -322,7 +342,7 @@ namespace Vista
 
             if (idUsuarioSeleccionado <= 0)
             {
-                MessageBox.Show("Seleccione un usuario de la lista.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione un usuario de la lista.");
                 return;
             }
 
@@ -368,7 +388,7 @@ namespace Vista
 
             if (idUsuarioSeleccionado <= 0)
             {
-                MessageBox.Show("Seleccione un usuario de la lista.", "Clave temporal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Clave temporal", "Seleccione un usuario de la lista.");
                 return;
             }
 
@@ -394,13 +414,13 @@ namespace Vista
 
             if (idUsuarioSeleccionado <= 0)
             {
-                MessageBox.Show("Seleccione un usuario de la lista.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione un usuario de la lista.");
                 return;
             }
 
             if (Sesion.UsuarioActual != null && idUsuarioSeleccionado == Sesion.UsuarioActual.IdUsuario)
             {
-                MessageBox.Show("No puede eliminar el usuario de la sesión actual.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "No puede eliminar el usuario de la sesión actual.");
                 return;
             }
 
@@ -466,6 +486,7 @@ namespace Vista
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
+            ucPaginador.ReiniciarRemoto();
             AplicarBusqueda();
         }
 
@@ -520,7 +541,149 @@ namespace Vista
         }
         private void ucPaginador_PaginaCambiada(object sender, EventArgs e)
         {
+            AplicarBusqueda();
             PrepararNuevoUsuario();
+        }
+
+        private void CamposEnTiempoReal(object sender, EventArgs e)
+        {
+            if (validacionEnTiempoRealHabilitada == false)
+            {
+                return;
+            }
+
+            if (sender == txtNombreCompleto)
+            {
+                bool formatoCorrecto;
+                formatoCorrecto = true;
+                foreach (char caracter in txtNombreCompleto.Text)
+                {
+                    if (char.IsLetter(caracter) == false && char.IsWhiteSpace(caracter) == false && caracter != '-' && caracter != '\'')
+                    {
+                        formatoCorrecto = false;
+                    }
+                }
+                if (string.IsNullOrEmpty(txtNombreCompleto.Text.Trim()) == true)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtNombreCompleto, "ERR-VAL-001", "Ingrese el nombre completo del usuario.");
+                }
+                else if (formatoCorrecto == false)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtNombreCompleto, "ERR-VAL-002", "El nombre solo admite letras, espacios, guiones y apóstrofes.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtNombreCompleto, "");
+                }
+            }
+            if (sender == txtUsuario)
+            {
+                bool formatoCorrecto;
+                formatoCorrecto = true;
+                foreach (char caracter in txtUsuario.Text)
+                {
+                    if (char.IsLetterOrDigit(caracter) == false && caracter != '.' && caracter != '_' && caracter != '-')
+                    {
+                        formatoCorrecto = false;
+                    }
+                }
+                if (string.IsNullOrEmpty(txtUsuario.Text.Trim()) == true)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtUsuario, "ERR-VAL-001", "Ingrese el nombre de usuario.");
+                }
+                else if (formatoCorrecto == false)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtUsuario, "ERR-VAL-999", "Usuario: solo letras, números, punto, guion o guion bajo.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtUsuario, "");
+                }
+            }
+            if (sender == txtContrasena)
+            {
+                if (idUsuarioSeleccionado == 0 || txtContrasena.Text.Length > 0 || txtConfirmarContrasena.Text.Length > 0)
+                {
+                    if (txtContrasena.Text.Length < 6)
+                    {
+                        CatalogoErrores.MarcarCampo(errorProviderValidacion, txtContrasena, "ERR-VAL-003", "La contraseña debe tener al menos 6 caracteres.");
+                    }
+                    else
+                    {
+                        errorProviderValidacion.SetError(txtContrasena, "");
+                    }
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtContrasena, "");
+                }
+                if (txtConfirmarContrasena.Text.Length > 0 && txtConfirmarContrasena.Text != txtContrasena.Text)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtConfirmarContrasena, "ERR-VAL-004", "Las contraseñas no coinciden.");
+                }
+                else if (txtConfirmarContrasena.Text == txtContrasena.Text)
+                {
+                    errorProviderValidacion.SetError(txtConfirmarContrasena, "");
+                }
+            }
+            if (sender == txtConfirmarContrasena)
+            {
+                if (txtConfirmarContrasena.Text != txtContrasena.Text)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtConfirmarContrasena, "ERR-VAL-004", "Las contraseñas no coinciden.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtConfirmarContrasena, "");
+                }
+            }
+            if (sender == cboTipoUsuario)
+            {
+                if (cboTipoUsuario.SelectedIndex < 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cboTipoUsuario, "ERR-VAL-007", "Seleccione el tipo de usuario.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cboTipoUsuario, "");
+                }
+            }
+        }
+
+        private void Usuario_Leave(object sender, EventArgs e)
+        {
+            if (validacionEnTiempoRealHabilitada == false || usuarioModelo == null)
+            {
+                return;
+            }
+            if (string.IsNullOrEmpty(txtUsuario.Text.Trim()) == true)
+            {
+                return;
+            }
+            if (errorProviderValidacion.GetError(txtUsuario) != "")
+            {
+                return;
+            }
+            if (usuarioModelo.ExisteNombreUsuarioEnOtroUsuario(txtUsuario.Text.Trim(), idUsuarioSeleccionado) == true)
+            {
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtUsuario, "ERR-VAL-005", "El nombre de usuario ya existe.");
+            }
+        }
+
+        private void UsuarioActivo_Cambiado(object sender, EventArgs e)
+        {
+            if (validacionEnTiempoRealHabilitada == false)
+            {
+                return;
+            }
+            if (idUsuarioSeleccionado > 0 && Sesion.UsuarioActual != null && idUsuarioSeleccionado == Sesion.UsuarioActual.IdUsuario && chkActivo.Checked == false)
+            {
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, chkActivo, "ERR-NEG-003", "No puede desactivar su propio usuario.");
+            }
+            else
+            {
+                errorProviderValidacion.SetError(chkActivo, "");
+            }
         }
 
     }

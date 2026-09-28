@@ -12,6 +12,7 @@ namespace Vista
 
         private Notificacion notificacionModelo;
         private DataTable notificacionesOriginales;
+        private DataTable notificacionesFiltradas;
         private bool cargandoFiltros;
         private bool modoGestor;
 
@@ -38,6 +39,7 @@ namespace Vista
             modoGestor = false;
             IdTareaSeleccionada = 0;
             IdProyectoSeleccionado = 0;
+            paginadorTarjetas.PaginaCambiada += paginadorTarjetas_PaginaCambiada;
         }
 
         public void ConfigurarComoGestor()
@@ -52,13 +54,13 @@ namespace Vista
         {
             if (Sesion.UsuarioActual == null)
             {
-                MessageBox.Show("No hay una sesión activa.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "No hay una sesión activa.");
                 return;
             }
 
             if (modoGestor == true && Sesion.UsuarioActual.TipoUsuario != "Gestor")
             {
-                MessageBox.Show("Esta vista corresponde al gestor.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "Esta vista corresponde al gestor.");
                 return;
             }
 
@@ -71,7 +73,8 @@ namespace Vista
 
             idUsuario = Sesion.UsuarioActual.IdUsuario;
             notificacionModelo.EliminarLeidasAntiguas(idUsuario, 90);
-            notificacionesOriginales = notificacionModelo.ObtenerNotificacionesUsuario(idUsuario);
+            notificacionesOriginales = notificacionModelo.ObtenerCatalogoNotificacionesUsuario(idUsuario);
+            paginadorTarjetas.Configurar(0, true);
             CargarFiltros();
             AplicarFiltros();
             ActualizarCantidadSinLeer();
@@ -133,47 +136,43 @@ namespace Vista
 
         private void AplicarFiltros()
         {
-            string tipo;
-            string prioridad;
-            DataTable resultado;
-
-            tipo = "Todos los tipos";
-            prioridad = "Todas las prioridades";
-            resultado = notificacionesOriginales.Clone();
-
-            if (cboTipo.SelectedItem != null)
+            if (cargandoFiltros || Sesion.UsuarioActual == null)
             {
-                tipo = cboTipo.SelectedItem.ToString();
+                return;
             }
-
-            if (cboPrioridad.SelectedItem != null)
+            string tipo = "";
+            string prioridad = "";
+            if (cboTipo.SelectedIndex > 0) tipo = cboTipo.Text;
+            if (cboPrioridad.SelectedIndex > 0) prioridad = cboPrioridad.Text;
+            int pagina = paginadorTarjetas.Inicio / UCPaginadorTarjetas.RegistrosPorPagina;
+            notificacionesFiltradas = notificacionModelo.ObtenerNotificacionesUsuarioPagina(
+                Sesion.UsuarioActual.IdUsuario, tipo, prioridad, pagina);
+            int total = 0;
+            if (notificacionesFiltradas.Rows.Count > 0)
             {
-                prioridad = cboPrioridad.SelectedItem.ToString();
+                total = Convert.ToInt32(notificacionesFiltradas.Rows[0]["TotalRegistros"]);
             }
-
-            foreach (DataRow fila in notificacionesOriginales.Rows)
+            if (pagina > 0 && notificacionesFiltradas.Rows.Count == 0)
             {
-                bool mostrar;
-
-                mostrar = true;
-
-                if (tipo != "Todos los tipos" && fila["Tipo"].ToString() != tipo)
-                {
-                    mostrar = false;
-                }
-
-                if (prioridad != "Todas las prioridades" && fila["Prioridad"].ToString() != prioridad)
-                {
-                    mostrar = false;
-                }
-
-                if (mostrar == true)
-                {
-                    resultado.ImportRow(fila);
-                }
+                paginadorTarjetas.Configurar(0, true);
+                AplicarFiltros();
+                return;
             }
+            paginadorTarjetas.Configurar(total, false);
+            MostrarPagina();
+        }
 
-            MostrarNotificaciones(resultado);
+        private void MostrarPagina()
+        {
+            if (notificacionesFiltradas != null)
+            {
+                MostrarNotificaciones(notificacionesFiltradas);
+            }
+        }
+
+        private void paginadorTarjetas_PaginaCambiada(object sender, EventArgs e)
+        {
+            AplicarFiltros();
         }
 
         private void MostrarNotificaciones(DataTable datos)
@@ -189,7 +188,7 @@ namespace Vista
             tlpNotificaciones.RowCount = Math.Max(1, datos.Rows.Count);
             filaVisual = 0;
 
-            for (indice = datos.Rows.Count - 1; indice >= 0; indice = indice - 1)
+            for (indice = 0; indice < datos.Rows.Count; indice = indice + 1)
             {
                 DataRow fila;
                 UCNotificacion control;
@@ -257,12 +256,12 @@ namespace Vista
                 tlpNotificaciones.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
                 tlpNotificaciones.Controls.Add(mensaje, 0, 0);
                 tlpNotificaciones.RowCount = 1;
-                tlpPrincipal.Height = 126 + 70;
+                tlpPrincipal.Height = 126 + 70 + 42;
             }
             else
             {
                 tlpNotificaciones.RowCount = datos.Rows.Count;
-                tlpPrincipal.Height = 126 + datos.Rows.Count * altoNotificacion;
+                tlpPrincipal.Height = 126 + datos.Rows.Count * altoNotificacion + 42;
             }
 
             tlpNotificaciones.ResumeLayout(true);
@@ -304,7 +303,7 @@ namespace Vista
             }
             else
             {
-                MessageBox.Show("No se pudo marcar la notificación como leída.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-003", "Syncore", "No se pudo marcar la notificación como leída.");
             }
         }
 
@@ -359,6 +358,7 @@ namespace Vista
         {
             if (cargandoFiltros == false)
             {
+                paginadorTarjetas.Configurar(0, true);
                 AplicarFiltros();
             }
         }

@@ -2,24 +2,15 @@
 {
     partial class frmReportes
     {
+        /// <summary>
+        /// Variable del diseñador necesaria.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.Panel pnlCabecera;
-        private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.Label lblDescripcion;
-        private System.Windows.Forms.TableLayoutPanel tlpFiltros;
-        private System.Windows.Forms.Label lblTipo;
-        private System.Windows.Forms.Label lblPeriodo;
-        private System.Windows.Forms.ComboBox cboReporte;
-        private System.Windows.Forms.ComboBox cboPeriodo;
-        private System.Windows.Forms.Button btnActualizar;
-        private System.Windows.Forms.Panel pnlTabla;
-        private System.Windows.Forms.DataGridView dgvReporte;
-        private Vista.UCPaginadorGrid ucPaginador;
-        private System.Windows.Forms.Panel pnlPie;
-        private System.Windows.Forms.Label lblTotal;
-        private System.Windows.Forms.Button btnExportar;
-        private System.Windows.Forms.Button btnCerrar;
 
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && components != null)
@@ -31,6 +22,10 @@
 
         #region Código generado por el Diseñador de Windows Forms
 
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -57,17 +52,29 @@
             this.pnlPie.SuspendLayout();
             this.SuspendLayout();
 
+            // 
+            // pnlCabecera
+            // 
+            this.pnlCabecera.Name = "pnlCabecera";
             this.pnlCabecera.BackColor = System.Drawing.Color.White;
             this.pnlCabecera.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlCabecera.Height = 100;
             this.pnlCabecera.Padding = new System.Windows.Forms.Padding(20, 14, 20, 8);
             this.pnlCabecera.Controls.Add(this.lblDescripcion);
             this.pnlCabecera.Controls.Add(this.lblTitulo);
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(0, 61, 117);
             this.lblTitulo.Location = new System.Drawing.Point(20, 12);
             this.lblTitulo.Text = "Reportes de gestión";
+            // 
+            // lblDescripcion
+            // 
+            this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.AutoEllipsis = true;
             this.lblDescripcion.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblDescripcion.Height = 27;
@@ -75,6 +82,10 @@
             this.lblDescripcion.ForeColor = System.Drawing.Color.FromArgb(70, 86, 108);
             this.lblDescripcion.Text = "Seleccione un reporte para consultar sus datos.";
 
+            // 
+            // tlpFiltros
+            // 
+            this.tlpFiltros.Name = "tlpFiltros";
             this.tlpFiltros.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.tlpFiltros.ColumnCount = 3;
             this.tlpFiltros.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53F));
@@ -91,30 +102,54 @@
             this.tlpFiltros.Controls.Add(this.cboReporte, 0, 1);
             this.tlpFiltros.Controls.Add(this.cboPeriodo, 1, 1);
             this.tlpFiltros.Controls.Add(this.btnActualizar, 2, 1);
+            // 
+            // lblTipo
+            // 
+            this.lblTipo.Name = "lblTipo";
             this.lblTipo.Text = "Tipo de reporte";
             this.lblTipo.AutoSize = true;
             this.lblTipo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            // 
+            // lblPeriodo
+            // 
+            this.lblPeriodo.Name = "lblPeriodo";
             this.lblPeriodo.Text = "Periodo de productividad";
             this.lblPeriodo.AutoSize = true;
             this.lblPeriodo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            // 
+            // cboReporte
+            // 
             this.cboReporte.Name = "cboReporte";
             this.cboReporte.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboReporte.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cboReporte.SelectedIndexChanged += new System.EventHandler(this.cboReporte_SelectedIndexChanged);
+            // 
+            // cboPeriodo
+            // 
             this.cboPeriodo.Name = "cboPeriodo";
             this.cboPeriodo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboPeriodo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cboPeriodo.SelectedIndexChanged += new System.EventHandler(this.cboPeriodo_SelectedIndexChanged);
+            // 
+            // btnActualizar
+            // 
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
 
+            // 
+            // pnlTabla
+            // 
+            this.pnlTabla.Name = "pnlTabla";
             this.pnlTabla.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlTabla.Padding = new System.Windows.Forms.Padding(20, 8, 20, 8);
             this.pnlTabla.Controls.Add(this.dgvReporte);
             this.pnlTabla.Controls.Add(this.ucPaginador);
+            // 
+            // dgvReporte
+            // 
             this.dgvReporte.Name = "dgvReporte";
             this.dgvReporte.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvReporte.AllowUserToAddRows = false;
@@ -126,6 +161,10 @@
             this.dgvReporte.BackgroundColor = System.Drawing.Color.White;
             this.dgvReporte.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 
+            // 
+            // pnlPie
+            // 
+            this.pnlPie.Name = "pnlPie";
             this.pnlPie.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlPie.Height = 66;
             this.pnlPie.BackColor = System.Drawing.Color.White;
@@ -133,10 +172,17 @@
             this.pnlPie.Controls.Add(this.lblTotal);
             this.pnlPie.Controls.Add(this.btnExportar);
             this.pnlPie.Controls.Add(this.btnCerrar);
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.Name = "lblTotal";
             this.lblTotal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblTotal.Text = "0 registros";
             this.lblTotal.ForeColor = System.Drawing.Color.FromArgb(70, 86, 108);
+            // 
+            // btnExportar
+            // 
             this.btnExportar.Name = "btnExportar";
             this.btnExportar.Text = "Exportar a Excel";
             this.btnExportar.Dock = System.Windows.Forms.DockStyle.Right;
@@ -145,23 +191,33 @@
             this.btnExportar.ForeColor = System.Drawing.Color.White;
             this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
+            // btnCerrar
+            // 
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnCerrar.Width = 112;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
 
+            // 
+            // ucPaginador
+            // 
             this.ucPaginador.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.ucPaginador.Location = new System.Drawing.Point(0, 0);
             this.ucPaginador.Margin = new System.Windows.Forms.Padding(0);
             this.ucPaginador.Name = "ucPaginador";
             this.ucPaginador.Size = new System.Drawing.Size(800, 42);
             this.ucPaginador.TabIndex = 20;
-            this.ucPaginador.Visible = false;
+            this.ucPaginador.Visible = true;
+            // 
+            // frmReportes
+            // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(960, 680);
             this.MinimumSize = new System.Drawing.Size(710, 480);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Name = "frmReportes";
             this.Text = "Syncore - Reportes";
             this.BackColor = System.Drawing.Color.FromArgb(247, 249, 252);
             this.Controls.Add(this.pnlTabla);
@@ -180,5 +236,22 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel pnlCabecera;
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblDescripcion;
+        private System.Windows.Forms.TableLayoutPanel tlpFiltros;
+        private System.Windows.Forms.Label lblTipo;
+        private System.Windows.Forms.Label lblPeriodo;
+        private System.Windows.Forms.ComboBox cboReporte;
+        private System.Windows.Forms.ComboBox cboPeriodo;
+        private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.Panel pnlTabla;
+        private System.Windows.Forms.DataGridView dgvReporte;
+        private Vista.UCPaginadorGrid ucPaginador;
+        private System.Windows.Forms.Panel pnlPie;
+        private System.Windows.Forms.Label lblTotal;
+        private System.Windows.Forms.Button btnExportar;
+        private System.Windows.Forms.Button btnCerrar;
     }
 }

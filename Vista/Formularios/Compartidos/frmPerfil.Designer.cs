@@ -2,8 +2,15 @@
 {
     partial class frmPerfil
     {
+        /// <summary>
+        /// Variable del diseñador necesaria.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -15,6 +22,10 @@
 
         #region Código generado por el Diseñador de Windows Forms
 
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -41,6 +52,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.picUsuario)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoEmpresa)).BeginInit();
             this.SuspendLayout();
+            // 
+            // pnlEncabezado
+            // 
             this.pnlEncabezado.BackColor = System.Drawing.Color.White;
             this.pnlEncabezado.Controls.Add(this.picLogoEmpresa);
             this.pnlEncabezado.Controls.Add(this.lblSubtitulo);
@@ -51,6 +65,9 @@
             this.pnlEncabezado.Padding = new System.Windows.Forms.Padding(32, 18, 32, 12);
             this.pnlEncabezado.Size = new System.Drawing.Size(1670, 82);
             this.pnlEncabezado.TabIndex = 0;
+            // 
+            // picLogoEmpresa
+            // 
             this.picLogoEmpresa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picLogoEmpresa.Location = new System.Drawing.Point(1490, 10);
             this.picLogoEmpresa.Name = "picLogoEmpresa";
@@ -58,6 +75,9 @@
             this.picLogoEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLogoEmpresa.TabStop = false;
             this.picLogoEmpresa.Visible = false;
+            // 
+            // lblSubtitulo
+            // 
             this.lblSubtitulo.AutoEllipsis = true;
             this.lblSubtitulo.AutoSize = false;
             this.lblSubtitulo.Size = new System.Drawing.Size(580, 20);
@@ -68,6 +88,9 @@
             this.lblSubtitulo.Size = new System.Drawing.Size(580, 20);
             this.lblSubtitulo.TabIndex = 1;
             this.lblSubtitulo.Text = "Información del usuario que tiene la sesión activa";
+            // 
+            // lblTitulo
+            // 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI Semibold", 20F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
@@ -76,6 +99,9 @@
             this.lblTitulo.Size = new System.Drawing.Size(123, 37);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Mi perfil";
+            // 
+            // tlpPrincipal
+            // 
             this.tlpPrincipal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.tlpPrincipal.ColumnCount = 3;
             this.tlpPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17F));
@@ -91,6 +117,9 @@
             this.tlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPrincipal.Size = new System.Drawing.Size(1670, 979);
             this.tlpPrincipal.TabIndex = 1;
+            // 
+            // pnlTarjeta
+            // 
             this.pnlTarjeta.BackColor = System.Drawing.Color.White;
             this.pnlTarjeta.Controls.Add(this.btnConfigurarEmpresa);
             this.pnlTarjeta.Controls.Add(this.btnCambiarContrasena);
@@ -110,6 +139,9 @@
             this.pnlTarjeta.Padding = new System.Windows.Forms.Padding(34, 28, 34, 28);
             this.pnlTarjeta.Size = new System.Drawing.Size(1078, 324);
             this.pnlTarjeta.TabIndex = 0;
+            // 
+            // btnConfigurarEmpresa
+            // 
             this.btnConfigurarEmpresa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnConfigurarEmpresa.BackColor = System.Drawing.Color.White;
             this.btnConfigurarEmpresa.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(0, 105, 240);
@@ -124,6 +156,9 @@
             this.btnConfigurarEmpresa.Visible = false;
             this.btnConfigurarEmpresa.UseVisualStyleBackColor = false;
             this.btnConfigurarEmpresa.Click += new System.EventHandler(this.btnConfigurarEmpresa_Click);
+            // 
+            // btnCambiarContrasena
+            // 
             this.btnCambiarContrasena.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCambiarContrasena.BackColor = System.Drawing.Color.White;
             this.btnCambiarContrasena.Click += new System.EventHandler(this.btnCambiarContrasena_Click);
@@ -138,6 +173,9 @@
             this.btnCambiarContrasena.TabIndex = 9;
             this.btnCambiarContrasena.Text = "Cambiar contraseña";
             this.btnCambiarContrasena.UseVisualStyleBackColor = false;
+            // 
+            // btnCerrarSesion
+            // 
             this.btnCerrarSesion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCerrarSesion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
             this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
@@ -154,6 +192,9 @@
             this.btnCerrarSesion.TabIndex = 8;
             this.btnCerrarSesion.Text = "Cerrar Sesión";
             this.btnCerrarSesion.UseVisualStyleBackColor = false;
+            // 
+            // lblRolValor
+            // 
             this.lblRolValor.AutoSize = true;
             this.lblRolValor.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
             this.lblRolValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
@@ -162,6 +203,9 @@
             this.lblRolValor.Size = new System.Drawing.Size(48, 20);
             this.lblRolValor.TabIndex = 7;
             this.lblRolValor.Text = "Gestor";
+            // 
+            // lblRol
+            // 
             this.lblRol.AutoSize = true;
             this.lblRol.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblRol.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(108)))), ((int)(((byte)(128)))));
@@ -170,6 +214,9 @@
             this.lblRol.Size = new System.Drawing.Size(24, 15);
             this.lblRol.TabIndex = 6;
             this.lblRol.Text = "Rol";
+            // 
+            // lblUsuarioValor
+            // 
             this.lblUsuarioValor.AutoSize = true;
             this.lblUsuarioValor.Font = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
             this.lblUsuarioValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
@@ -178,6 +225,9 @@
             this.lblUsuarioValor.Size = new System.Drawing.Size(60, 20);
             this.lblUsuarioValor.TabIndex = 5;
             this.lblUsuarioValor.Text = "usuario";
+            // 
+            // lblUsuario
+            // 
             this.lblUsuario.AutoSize = true;
             this.lblUsuario.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(108)))), ((int)(((byte)(128)))));
@@ -186,6 +236,9 @@
             this.lblUsuario.Size = new System.Drawing.Size(47, 15);
             this.lblUsuario.TabIndex = 4;
             this.lblUsuario.Text = "Usuario";
+            // 
+            // lblNombreValor
+            // 
             this.lblNombreValor.AutoSize = true;
             this.lblNombreValor.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.lblNombreValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(55)))), ((int)(((byte)(104)))));
@@ -194,6 +247,9 @@
             this.lblNombreValor.Size = new System.Drawing.Size(138, 21);
             this.lblNombreValor.TabIndex = 3;
             this.lblNombreValor.Text = "Nombre completo";
+            // 
+            // lblNombre
+            // 
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(108)))), ((int)(((byte)(128)))));
@@ -202,6 +258,9 @@
             this.lblNombre.Size = new System.Drawing.Size(104, 15);
             this.lblNombre.TabIndex = 2;
             this.lblNombre.Text = "Nombre completo";
+            // 
+            // lblDatosCuenta
+            // 
             this.lblDatosCuenta.AutoSize = true;
             this.lblDatosCuenta.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold);
             this.lblDatosCuenta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(95)))), ((int)(((byte)(173)))));
@@ -210,6 +269,9 @@
             this.lblDatosCuenta.Size = new System.Drawing.Size(156, 25);
             this.lblDatosCuenta.TabIndex = 1;
             this.lblDatosCuenta.Text = "Datos de la cuenta";
+            // 
+            // picUsuario
+            // 
             this.picUsuario.Image = global::Vista.Properties.Recursos.AvatarUsuario;
             this.picUsuario.Location = new System.Drawing.Point(50, 55);
             this.picUsuario.Name = "picUsuario";
@@ -217,6 +279,9 @@
             this.picUsuario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picUsuario.TabIndex = 0;
             this.picUsuario.TabStop = false;
+            // 
+            // frmPerfil
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));

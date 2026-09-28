@@ -8,6 +8,7 @@ namespace Vista
 {
     public partial class frmNuevaTarea : Form
     {
+        private bool validacionEnTiempoRealHabilitada;
         private System.Windows.Forms.ToolTip toolTipAyuda;
         private System.Windows.Forms.ErrorProvider errorProviderValidacion;
 
@@ -41,6 +42,21 @@ namespace Vista
             toolTipAyuda.SetToolTip(btnCancelar, "Cancelar la operación actual.");
             toolTipAyuda.SetToolTip(btnCrear, "Crear la tarea con la información ingresada.");
             this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
+
+            txtNombre.TextChanged += CamposEnTiempoReal;
+            txtNombre.Leave += CamposEnTiempoReal;
+            txtDescripcion.TextChanged += CamposEnTiempoReal;
+            txtDescripcion.Leave += CamposEnTiempoReal;
+            cmbProyecto.SelectedIndexChanged += CamposEnTiempoReal;
+            cmbProyecto.Leave += CamposEnTiempoReal;
+            cmbResponsable.SelectedIndexChanged += CamposEnTiempoReal;
+            cmbResponsable.Leave += CamposEnTiempoReal;
+            cmbPrioridad.SelectedIndexChanged += CamposEnTiempoReal;
+            cmbPrioridad.Leave += CamposEnTiempoReal;
+            cmbEstado.SelectedIndexChanged += CamposEnTiempoReal;
+            cmbEstado.Leave += CamposEnTiempoReal;
+            dtpLimite.ValueChanged += CamposEnTiempoReal;
+            dtpInicio.ValueChanged += CamposEnTiempoReal;
         }
 
         private void frmNuevaTarea_Load(object sender, EventArgs e)
@@ -53,6 +69,8 @@ namespace Vista
             lblFecha.Text = DateTime.Today.ToString("dd/MM/yyyy");
             CargarCombos();
             PrepararFormulario();
+        
+            validacionEnTiempoRealHabilitada = true;
         }
 
         private void CargarCombos()
@@ -148,7 +166,7 @@ namespace Vista
 
             if (datos.Rows.Count == 0)
             {
-                MessageBox.Show("No se encontró la tarea seleccionada.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-004", "Syncore", "No se encontró la tarea seleccionada.");
                 return;
             }
 
@@ -169,7 +187,7 @@ namespace Vista
 
             if (cmbResponsable.SelectedIndex < 0)
             {
-                MessageBox.Show("El responsable actual no es un colaborador activo del equipo. Seleccione otro responsable.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-003", "Nueva tarea", "El responsable actual no es un colaborador activo del equipo. Seleccione otro responsable.");
             }
 
             cmbPrioridad.SelectedValue = Convert.ToInt32(fila["IdPrioridad"]);
@@ -196,70 +214,81 @@ namespace Vista
             errorProviderValidacion.Clear();
             if (Sesion.UsuarioActual == null)
             {
-                MessageBox.Show("No hay una sesión activa.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "No hay una sesión activa.");
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtNombre.Text.Trim()) == true)
             {
-                errorProviderValidacion.SetError(txtNombre, "Ingrese el nombre de la tarea.");
-                MessageBox.Show("Ingrese el nombre de la tarea.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtNombre, "ERR-VAL-001", "Ingrese el nombre de la tarea.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-001", "Syncore", "Ingrese el nombre de la tarea.");
                 txtNombre.Focus();
                 return false;
             }
 
+            foreach (char caracter in txtNombre.Text)
+            {
+                if (char.IsLetterOrDigit(caracter) == false && char.IsWhiteSpace(caracter) == false && caracter != '-' && caracter != '_' && caracter != '.')
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtNombre, "ERR-VAL-002", "El nombre contiene caracteres no permitidos.");
+                    CatalogoErrores.MostrarDetalle("ERR-VAL-002", "Syncore", "El nombre solo admite letras, números, espacios, guion, guion bajo y punto.");
+                    txtNombre.Focus();
+                    return false;
+                }
+            }
+
             if (cmbProyecto.SelectedValue == null)
             {
-                errorProviderValidacion.SetError(cmbProyecto, "Seleccione el proyecto.");
-                MessageBox.Show("Seleccione el proyecto.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cmbProyecto, "ERR-VAL-007", "Seleccione el proyecto.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione el proyecto.");
                 cmbProyecto.Focus();
                 return false;
             }
 
             if (cmbResponsable.Items.Count == 0)
             {
-                errorProviderValidacion.SetError(cmbResponsable, "El proyecto no tiene colaboradores activos.");
-                MessageBox.Show("El proyecto seleccionado no tiene colaboradores activos. Agregue un colaborador al equipo de trabajo antes de asignar tareas.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cmbResponsable, "ERR-NEG-004", "El proyecto no tiene colaboradores activos.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-003", "Nueva tarea", "El proyecto seleccionado no tiene colaboradores activos. Agregue un colaborador al equipo de trabajo antes de asignar tareas.");
                 cmbProyecto.Focus();
                 return false;
             }
 
             if (cmbResponsable.SelectedValue == null)
             {
-                errorProviderValidacion.SetError(cmbResponsable, "Seleccione el responsable de la tarea.");
-                MessageBox.Show("Seleccione un colaborador activo del equipo como responsable de la tarea.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cmbResponsable, "ERR-VAL-007", "Seleccione el responsable de la tarea.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione un colaborador activo del equipo como responsable de la tarea.");
                 cmbResponsable.Focus();
                 return false;
             }
 
             if (cmbPrioridad.SelectedIndex < 0)
             {
-                errorProviderValidacion.SetError(cmbPrioridad, "Seleccione la prioridad de la tarea.");
-                MessageBox.Show("Seleccione la prioridad de la tarea.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cmbPrioridad, "ERR-VAL-007", "Seleccione la prioridad de la tarea.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione la prioridad de la tarea.");
                 cmbPrioridad.Focus();
                 return false;
             }
 
             if (cmbEstado.SelectedIndex < 0)
             {
-                errorProviderValidacion.SetError(cmbEstado, "Seleccione el estado inicial de la tarea.");
-                MessageBox.Show("Seleccione el estado inicial de la tarea.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, cmbEstado, "ERR-VAL-007", "Seleccione el estado inicial de la tarea.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-007", "Syncore", "Seleccione el estado inicial de la tarea.");
                 cmbEstado.Focus();
                 return false;
             }
 
             if (dtpLimite.Value.Date < dtpInicio.Value.Date)
             {
-                errorProviderValidacion.SetError(dtpLimite, "La fecha límite no puede ser anterior a la fecha de inicio.");
-                MessageBox.Show("La fecha límite no puede ser anterior a la fecha de inicio.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, dtpLimite, "ERR-VAL-004", "La fecha límite no puede ser anterior a la fecha de inicio.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-004", "Syncore", "La fecha límite no puede ser anterior a la fecha de inicio.");
                 dtpLimite.Focus();
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtDescripcion.Text.Trim()) == true)
             {
-                errorProviderValidacion.SetError(txtDescripcion, "Ingrese la descripción de la tarea.");
-                MessageBox.Show("Ingrese la descripción de la tarea.");
+                CatalogoErrores.MarcarCampo(errorProviderValidacion, txtDescripcion, "ERR-VAL-001", "Ingrese la descripción de la tarea.");
+                CatalogoErrores.MostrarDetalle("ERR-VAL-001", "Syncore", "Ingrese la descripción de la tarea.");
                 txtDescripcion.Focus();
                 return false;
             }
@@ -327,6 +356,7 @@ namespace Vista
             txtObservaciones.Clear();
             PrepararFormulario();
             txtNombre.Focus();
+            errorProviderValidacion.Clear();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -365,5 +395,104 @@ namespace Vista
                 e.Handled = true;
             }
         }
+        private void CamposEnTiempoReal(object sender, EventArgs e)
+        {
+            if (validacionEnTiempoRealHabilitada == false)
+            {
+                return;
+            }
+
+            if (sender == txtNombre)
+            {
+                bool formatoNombreCorrecto;
+                formatoNombreCorrecto = true;
+                foreach (char caracter in txtNombre.Text)
+                {
+                    if (char.IsLetterOrDigit(caracter) == false && char.IsWhiteSpace(caracter) == false && caracter != '-' && caracter != '_' && caracter != '.')
+                    {
+                        formatoNombreCorrecto = false;
+                    }
+                }
+                if (string.IsNullOrEmpty(txtNombre.Text.Trim()) == true)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtNombre, "ERR-VAL-001", "Ingrese el nombre de la tarea.");
+                }
+                else if (formatoNombreCorrecto == false)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtNombre, "ERR-VAL-002", "El nombre solo admite letras, números, espacios, guion, guion bajo y punto.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtNombre, "");
+                }
+            }
+            if (sender == txtDescripcion)
+            {
+                if (string.IsNullOrEmpty(txtDescripcion.Text.Trim()) == true)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, txtDescripcion, "ERR-VAL-001", "Ingrese la descripción de la tarea.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(txtDescripcion, "");
+                }
+            }
+            if (sender == cmbProyecto)
+            {
+                if (cmbProyecto.SelectedIndex < 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cmbProyecto, "ERR-VAL-007", "Seleccione el proyecto.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cmbProyecto, "");
+                }
+            }
+            if (sender == cmbResponsable)
+            {
+                if (cmbResponsable.SelectedIndex < 0 || cmbResponsable.Items.Count == 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cmbResponsable, "ERR-VAL-007", "Seleccione un colaborador activo del proyecto.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cmbResponsable, "");
+                }
+            }
+            if (sender == cmbPrioridad)
+            {
+                if (cmbPrioridad.SelectedIndex < 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cmbPrioridad, "ERR-VAL-007", "Seleccione la prioridad.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cmbPrioridad, "");
+                }
+            }
+            if (sender == cmbEstado)
+            {
+                if (cmbEstado.SelectedIndex < 0)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, cmbEstado, "ERR-VAL-007", "Seleccione el estado de la tarea.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(cmbEstado, "");
+                }
+            }
+            if (sender == dtpLimite || sender == dtpInicio)
+            {
+                if (dtpLimite.Value.Date < dtpInicio.Value.Date)
+                {
+                    CatalogoErrores.MarcarCampo(errorProviderValidacion, dtpLimite, "ERR-VAL-004", "La fecha límite no puede ser anterior al inicio.");
+                }
+                else
+                {
+                    errorProviderValidacion.SetError(dtpLimite, "");
+                }
+            }
+        }
+
     }
 }

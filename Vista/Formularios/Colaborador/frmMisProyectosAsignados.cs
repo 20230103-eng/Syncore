@@ -14,6 +14,8 @@ namespace Vista
         private Proyecto proyectoModelo;
         private SeguimientoProyectoUsuario seguimientoModelo;
         private DataTable proyectosOriginales;
+        private DataTable proyectosFiltrados;
+        private bool cargandoFiltros;
 
         public event EventHandler MisTareasSolicitadas;
 
@@ -34,16 +36,18 @@ namespace Vista
             seguimientoModelo = new SeguimientoProyectoUsuario();
             proyectosOriginales = new DataTable();
             IdProyectoSeleccionado = 0;
+            paginadorTarjetas.PaginaCambiada += paginadorTarjetas_PaginaCambiada;
         }
 
         private void frmMisProyectosAsignados_Load(object sender, EventArgs e)
         {
             if (Sesion.UsuarioActual == null)
             {
-                MessageBox.Show("No hay una sesión activa.");
+                CatalogoErrores.MostrarDetalle("ERR-NEG-001", "Syncore", "No hay una sesión activa.");
                 return;
             }
 
+            cargandoFiltros = true;
             txtBuscar.Text = "";
             cboEstado.Items.Clear();
             cboEstado.Items.Add("Todos los estados");
@@ -52,100 +56,63 @@ namespace Vista
             cboEstado.Items.Add("Crítico");
             cboEstado.SelectedIndex = 0;
             cboFecha.SelectedIndex = 0;
+            cargandoFiltros = false;
             CargarProyectos();
         }
 
         private void CargarProyectos()
         {
-            proyectosOriginales = proyectoModelo.ObtenerProyectosUsuario(Sesion.UsuarioActual.IdUsuario);
-
-            if (IdProyectoInicial > 0)
-            {
-                foreach (DataRow fila in proyectosOriginales.Rows)
-                {
-                    if (Convert.ToInt32(fila["IdProyecto"]) == IdProyectoInicial)
-                    {
-                        txtBuscar.Text = fila["Proyecto"].ToString();
-                        break;
-                    }
-                }
-            }
-
             AplicarFiltros();
         }
 
         private void AplicarFiltros()
         {
-            string texto;
-            string estado;
-            int filtroFecha;
-            int idUsuario;
-
-            texto = txtBuscar.Text.Trim().ToLower();
-            estado = "Todos los estados";
-            filtroFecha = cboFecha.SelectedIndex;
-            idUsuario = Sesion.UsuarioActual.IdUsuario;
-            flpProyectos.Controls.Clear();
-
+            if (cargandoFiltros || Sesion.UsuarioActual == null)
+            {
+                return;
+            }
+            string estado = "Todos los estados";
             if (cboEstado.SelectedItem != null)
             {
                 estado = cboEstado.SelectedItem.ToString();
             }
-
-            foreach (DataRow fila in proyectosOriginales.Rows)
+            int pagina = paginadorTarjetas.Inicio / UCPaginadorTarjetas.RegistrosPorPagina;
+            int inicial = IdProyectoInicial;
+            proyectosFiltrados = proyectoModelo.ObtenerProyectosUsuarioPagina(
+                Sesion.UsuarioActual.IdUsuario, txtBuscar.Text.Trim(), estado,
+                cboFecha.SelectedIndex, pagina, inicial);
+            IdProyectoInicial = 0;
+            int total = 0;
+            if (proyectosFiltrados.Rows.Count > 0)
             {
-                bool mostrar;
-                DateTime fechaCierre;
-
-                mostrar = true;
-                fechaCierre = Convert.ToDateTime(fila["FechaCierreEstimada"]);
-
-                if (string.IsNullOrEmpty(texto) == false)
-                {
-                    bool coincide;
-
-                    coincide = false;
-
-                    if (fila["Proyecto"].ToString().ToLower().Contains(texto) == true)
-                    {
-                        coincide = true;
-                    }
-                    else if (fila["Responsable"].ToString().ToLower().Contains(texto) == true)
-                    {
-                        coincide = true;
-                    }
-
-                    if (coincide == false)
-                    {
-                        mostrar = false;
-                    }
-                }
-
-                if (estado != "Todos los estados" && fila["Estado"].ToString() != estado)
-                {
-                    mostrar = false;
-                }
-
-                if (filtroFecha == 1)
-                {
-                    if (fechaCierre.Date < DateTime.Today || fechaCierre.Date > DateTime.Today.AddDays(7))
-                    {
-                        mostrar = false;
-                    }
-                }
-                else if (filtroFecha == 2)
-                {
-                    if (fechaCierre.Date < DateTime.Today || fechaCierre.Date > DateTime.Today.AddDays(30))
-                    {
-                        mostrar = false;
-                    }
-                }
-
-                if (mostrar == true)
-                {
-                    AgregarProyecto(fila, idUsuario);
-                }
+                total = Convert.ToInt32(proyectosFiltrados.Rows[0]["TotalRegistros"]);
             }
+            if (pagina > 0 && proyectosFiltrados.Rows.Count == 0)
+            {
+                paginadorTarjetas.Configurar(0, true);
+                AplicarFiltros();
+                return;
+            }
+            paginadorTarjetas.Configurar(total, false);
+            MostrarPagina();
+        }
+
+        private void MostrarPagina()
+        {
+            flpProyectos.Controls.Clear();
+            if (proyectosFiltrados == null || Sesion.UsuarioActual == null)
+            {
+                return;
+            }
+            for (int indice = 0; indice < proyectosFiltrados.Rows.Count; indice++)
+            {
+                AgregarProyecto(proyectosFiltrados.Rows[indice], Sesion.UsuarioActual.IdUsuario);
+            }
+        }
+
+        private void paginadorTarjetas_PaginaCambiada(object sender, EventArgs e)
+        {
+            AplicarFiltros();
         }
 
         private void AgregarProyecto(DataRow fila, int idUsuario)
@@ -227,13 +194,16 @@ namespace Vista
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
+            if (cargandoFiltros) return;
+            paginadorTarjetas.Configurar(0, true);
             AplicarFiltros();
         }
 
         private void filtros_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Sesion.UsuarioActual != null)
+            if (Sesion.UsuarioActual != null && cargandoFiltros == false)
             {
+                paginadorTarjetas.Configurar(0, true);
                 AplicarFiltros();
             }
         }

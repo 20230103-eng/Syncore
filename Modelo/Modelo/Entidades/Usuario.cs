@@ -251,6 +251,26 @@ namespace Modelo.Modelo.Entidades
             return conexion.EjecutarConsulta(query);
         }
 
+        public DataTable ObtenerUsuariosPagina(string texto, int pagina, out int total)
+        {
+            string consulta = @"
+                SELECT u.IdUsuario, u.NombreUsuario, u.NombreCompleto,
+                    u.IdTipoUsuario, tipo.Nombre AS TipoUsuario, u.IdArea,
+                    ISNULL(area.Nombre, N'Sin área') AS Area, u.Activo,
+                    u.FechaCreacion, COUNT(*) OVER() AS TotalRegistros
+                FROM tbUsuario u
+                INNER JOIN tbTipoUsuario tipo ON tipo.IdTipoUsuario = u.IdTipoUsuario
+                LEFT JOIN tbArea area ON area.IdArea = u.IdArea
+                WHERE (@Texto = N'' OR u.NombreUsuario LIKE N'%' + @Texto + N'%'
+                    OR u.NombreCompleto LIKE N'%' + @Texto + N'%'
+                    OR tipo.Nombre LIKE N'%' + @Texto + N'%'
+                    OR area.Nombre LIKE N'%' + @Texto + N'%')
+                ORDER BY u.NombreCompleto, u.IdUsuario
+                OFFSET @Inicio ROWS FETCH NEXT 20 ROWS ONLY";
+            SqlParameter[] parametros = { new SqlParameter("@Texto", texto) };
+            return conexion.EjecutarPagina(consulta, parametros, pagina, out total);
+        }
+
         public DataTable ObtenerUsuariosActivos()
         {
             string query;
@@ -274,6 +294,21 @@ namespace Modelo.Modelo.Entidades
             INNER JOIN tbTipoUsuario ON tbUsuario.IdTipoUsuario = tbTipoUsuario.IdTipoUsuario
             WHERE tbUsuario.Activo = 1
             AND tbTipoUsuario.Nombre = N'Colaborador'
+            ORDER BY tbUsuario.NombreCompleto";
+
+            return conexion.EjecutarConsulta(query);
+        }
+
+        public DataTable ObtenerGestoresActivos()
+        {
+            string query;
+
+            query = @"
+            SELECT tbUsuario.IdUsuario, tbUsuario.NombreCompleto
+            FROM tbUsuario
+            INNER JOIN tbTipoUsuario ON tbUsuario.IdTipoUsuario = tbTipoUsuario.IdTipoUsuario
+            WHERE tbUsuario.Activo = 1
+            AND tbTipoUsuario.Nombre = N'Gestor'
             ORDER BY tbUsuario.NombreCompleto";
 
             return conexion.EjecutarConsulta(query);

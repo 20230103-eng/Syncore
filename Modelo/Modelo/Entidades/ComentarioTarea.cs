@@ -88,7 +88,7 @@ namespace Modelo.Modelo.Entidades
             SqlDataAdapter adaptador;
 
             query = @"
-            SELECT tbUsuario.NombreCompleto, tbComentarioTarea.FechaComentario, tbComentarioTarea.Comentario
+            SELECT TOP (1) tbUsuario.NombreCompleto, tbComentarioTarea.FechaComentario, tbComentarioTarea.Comentario
             FROM tbComentarioTarea
             INNER JOIN tbUsuario ON tbComentarioTarea.IdUsuario = tbUsuario.IdUsuario
             WHERE tbComentarioTarea.IdTarea = @IdTarea
@@ -163,5 +163,19 @@ namespace Modelo.Modelo.Entidades
                 conexionSql.Dispose();
             }
         }
+        public DataTable ObtenerComentariosTareaPagina(int idTarea, int pagina, out int total)
+        {
+            string consulta = @"
+                SELECT u.NombreCompleto, c.FechaComentario, c.Comentario,
+                    COUNT(*) OVER() AS TotalRegistros
+                FROM tbComentarioTarea c
+                INNER JOIN tbUsuario u ON u.IdUsuario = c.IdUsuario
+                WHERE c.IdTarea = @IdTarea
+                ORDER BY c.IdComentario DESC
+                OFFSET @Inicio ROWS FETCH NEXT @Tamano ROWS ONLY";
+            SqlParameter[] parametros = { new SqlParameter("@IdTarea", idTarea) };
+            return new Conexion().EjecutarPaginaTamano(consulta, parametros, pagina, 1, out total);
+        }
+
     }
 }

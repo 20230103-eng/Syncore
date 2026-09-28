@@ -2,8 +2,15 @@
 {
     partial class frmDetalleTareaColaborador
     {
+        /// <summary>
+        /// Variable del diseñador necesaria.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -15,6 +22,10 @@
 
         #region Código generado por el Diseñador de Windows Forms
 
+        /// <summary>
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -39,12 +50,17 @@
             this.pnlTituloHistorial = new System.Windows.Forms.Panel();
             this.lblHistorial = new System.Windows.Forms.Label();
             this.sepHistorial = new System.Windows.Forms.Panel();
+            this.ucPaginadorHistorial = new Vista.UCPaginadorTarjetas();
             this.pnlFilasHistorial = new System.Windows.Forms.Panel();
             this.historial1 = new Vista.UCFilaHistorialTarea();
             this.historial2 = new Vista.UCFilaHistorialTarea();
             this.historial3 = new Vista.UCFilaHistorialTarea();
             this.pnlComentarios = new System.Windows.Forms.Panel();
             this.pnlTituloComentarios = new System.Windows.Forms.Panel();
+            this.pnlNavegacionComentario = new System.Windows.Forms.Panel();
+            this.btnAnteriorComentario = new System.Windows.Forms.Button();
+            this.btnSiguienteComentario = new System.Windows.Forms.Button();
+            this.lblPaginaComentario = new System.Windows.Forms.Label();
             this.lblComentarios = new System.Windows.Forms.Label();
             this.sepComentarios = new System.Windows.Forms.Panel();
             this.comentario1 = new Vista.UCComentarioTarea();
@@ -58,6 +74,7 @@
             this.pnlTituloEvidencias = new System.Windows.Forms.Panel();
             this.lblEvidencias = new System.Windows.Forms.Label();
             this.sepEvidencias = new System.Windows.Forms.Panel();
+            this.ucPaginadorEvidencias = new Vista.UCPaginadorTarjetas();
             this.pnlFilasEvidencia = new System.Windows.Forms.Panel();
             this.evidencia1 = new Vista.UCEvidenciaTarea();
             this.pnlTop.SuspendLayout();
@@ -73,6 +90,7 @@
             this.pnlFilasHistorial.SuspendLayout();
             this.pnlComentarios.SuspendLayout();
             this.pnlTituloComentarios.SuspendLayout();
+            this.pnlNavegacionComentario.SuspendLayout();
             this.tlpDerecha.SuspendLayout();
             this.pnlEstado.SuspendLayout();
             this.pnlTituloEstado.SuspendLayout();
@@ -264,6 +282,7 @@
             this.pnlHistorial.BackColor = System.Drawing.Color.White;
             this.pnlHistorial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlHistorial.Controls.Add(this.pnlFilasHistorial);
+            this.pnlHistorial.Controls.Add(this.ucPaginadorHistorial);
             this.pnlHistorial.Controls.Add(this.pnlTituloHistorial);
             this.pnlHistorial.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlHistorial.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
@@ -292,6 +311,15 @@
             this.sepHistorial.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.sepHistorial.Name = "sepHistorial";
             this.sepHistorial.Size = new System.Drawing.Size(100, 1);
+            // 
+            // ucPaginadorHistorial
+            // 
+            this.ucPaginadorHistorial.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorHistorial.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorHistorial.Name = "ucPaginadorHistorial";
+            this.ucPaginadorHistorial.Size = new System.Drawing.Size(490, 42);
+            this.ucPaginadorHistorial.TabIndex = 8;
+            this.ucPaginadorHistorial.TamanoPagina = 3;
             // 
             // pnlFilasHistorial
             // 
@@ -350,12 +378,51 @@
             // 
             // pnlTituloComentarios
             // 
+            this.pnlTituloComentarios.Controls.Add(this.pnlNavegacionComentario);
             this.pnlTituloComentarios.Controls.Add(this.lblComentarios);
             this.pnlTituloComentarios.Controls.Add(this.sepComentarios);
             this.pnlTituloComentarios.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTituloComentarios.Name = "pnlTituloComentarios";
             this.pnlTituloComentarios.Size = new System.Drawing.Size(100, 42);
             // 
+            // pnlNavegacionComentario
+            //
+            this.pnlNavegacionComentario.Controls.Add(this.lblPaginaComentario);
+            this.pnlNavegacionComentario.Controls.Add(this.btnSiguienteComentario);
+            this.pnlNavegacionComentario.Controls.Add(this.btnAnteriorComentario);
+            this.pnlNavegacionComentario.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlNavegacionComentario.Name = "pnlNavegacionComentario";
+            this.pnlNavegacionComentario.Size = new System.Drawing.Size(123, 42);
+            this.pnlNavegacionComentario.Visible = true;
+            // btnAnteriorComentario
+            //
+            this.btnAnteriorComentario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnteriorComentario.Location = new System.Drawing.Point(0, 6);
+            this.btnAnteriorComentario.Name = "btnAnteriorComentario";
+            this.btnAnteriorComentario.Size = new System.Drawing.Size(30, 29);
+            this.btnAnteriorComentario.TabIndex = 0;
+            this.btnAnteriorComentario.Text = "‹";
+            this.btnAnteriorComentario.UseVisualStyleBackColor = true;
+            this.btnAnteriorComentario.Click += new System.EventHandler(this.btnAnteriorComentario_Click);
+            // btnSiguienteComentario
+            //
+            this.btnSiguienteComentario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguienteComentario.Location = new System.Drawing.Point(93, 6);
+            this.btnSiguienteComentario.Name = "btnSiguienteComentario";
+            this.btnSiguienteComentario.Size = new System.Drawing.Size(30, 29);
+            this.btnSiguienteComentario.TabIndex = 1;
+            this.btnSiguienteComentario.Text = "›";
+            this.btnSiguienteComentario.UseVisualStyleBackColor = true;
+            this.btnSiguienteComentario.Click += new System.EventHandler(this.btnSiguienteComentario_Click);
+            // lblPaginaComentario
+            //
+            this.lblPaginaComentario.Location = new System.Drawing.Point(32, 8);
+            this.lblPaginaComentario.Name = "lblPaginaComentario";
+            this.lblPaginaComentario.Size = new System.Drawing.Size(59, 25);
+            this.lblPaginaComentario.TabIndex = 2;
+            this.lblPaginaComentario.Text = "1 de 1";
+            this.lblPaginaComentario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            //
             // lblComentarios
             // 
             this.lblComentarios.AutoSize = true;
@@ -451,6 +518,7 @@
             this.pnlEvidencias.BackColor = System.Drawing.Color.White;
             this.pnlEvidencias.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlEvidencias.Controls.Add(this.pnlFilasEvidencia);
+            this.pnlEvidencias.Controls.Add(this.ucPaginadorEvidencias);
             this.pnlEvidencias.Controls.Add(this.pnlTituloEvidencias);
             this.pnlEvidencias.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlEvidencias.Margin = new System.Windows.Forms.Padding(0);
@@ -479,6 +547,15 @@
             this.sepEvidencias.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.sepEvidencias.Name = "sepEvidencias";
             this.sepEvidencias.Size = new System.Drawing.Size(100, 1);
+            // 
+            // ucPaginadorEvidencias
+            // 
+            this.ucPaginadorEvidencias.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucPaginadorEvidencias.Location = new System.Drawing.Point(0, 0);
+            this.ucPaginadorEvidencias.Name = "ucPaginadorEvidencias";
+            this.ucPaginadorEvidencias.Size = new System.Drawing.Size(490, 42);
+            this.ucPaginadorEvidencias.TabIndex = 8;
+            this.ucPaginadorEvidencias.TamanoPagina = 2;
             // 
             // pnlFilasEvidencia
             // 
@@ -528,6 +605,7 @@
             this.pnlFilasHistorial.ResumeLayout(false);
             this.pnlComentarios.ResumeLayout(false);
             this.pnlTituloComentarios.ResumeLayout(false);
+            this.pnlNavegacionComentario.ResumeLayout(false);
             this.pnlTituloComentarios.PerformLayout();
             this.tlpDerecha.ResumeLayout(false);
             this.pnlEstado.ResumeLayout(false);
@@ -569,6 +647,10 @@
         private Vista.UCFilaHistorialTarea historial3;
         private System.Windows.Forms.Panel pnlComentarios;
         private System.Windows.Forms.Panel pnlTituloComentarios;
+        private System.Windows.Forms.Panel pnlNavegacionComentario;
+        private System.Windows.Forms.Button btnAnteriorComentario;
+        private System.Windows.Forms.Button btnSiguienteComentario;
+        private System.Windows.Forms.Label lblPaginaComentario;
         private System.Windows.Forms.Label lblComentarios;
         private System.Windows.Forms.Panel sepComentarios;
         private Vista.UCComentarioTarea comentario1;
@@ -584,5 +666,7 @@
         private System.Windows.Forms.Panel sepEvidencias;
         private System.Windows.Forms.Panel pnlFilasEvidencia;
         private Vista.UCEvidenciaTarea evidencia1;
+        private Vista.UCPaginadorTarjetas ucPaginadorHistorial;
+        private Vista.UCPaginadorTarjetas ucPaginadorEvidencias;
     }
 }

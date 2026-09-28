@@ -30,6 +30,8 @@ namespace Vista
             productividadModelo = new Productividad();
             this.Load += frmProductividad_Load;
             cboPeriodo.SelectedIndexChanged += cboPeriodo_SelectedIndexChanged;
+            ucPaginadorColaboradores.PaginaCambiada += ucPaginadorColaboradores_PaginaCambiada;
+            ucPaginadorProyectos.PaginaCambiada += ucPaginadorProyectos_PaginaCambiada;
         }
 
         private void btnReportes_Click(object sender, EventArgs e)
@@ -72,9 +74,20 @@ namespace Vista
             int dias = ObtenerDiasPeriodo();
             lblSubtitulo.Text = "Desempeño operativo - últimos " + dias + " días";
             CargarTarjetas(dias);
+            ucPaginadorColaboradores.Configurar(0, true);
             CargarColaboradores(dias);
             CargarProyectos();
             CargarTendenciaSemanal(dias);
+        }
+
+        private void ucPaginadorColaboradores_PaginaCambiada(object sender, EventArgs e)
+        {
+            CargarColaboradores(ObtenerDiasPeriodo());
+        }
+
+        private void ucPaginadorProyectos_PaginaCambiada(object sender, EventArgs e)
+        {
+            CargarProyectos();
         }
 
         private void CargarTarjetas(int dias)
@@ -96,7 +109,16 @@ namespace Vista
 
         private void CargarColaboradores(int dias)
         {
-            DataTable colaboradores = productividadModelo.ObtenerProductividadColaboradores(dias);
+            int total;
+            int pagina = ucPaginadorColaboradores.Inicio / ucPaginadorColaboradores.TamanoPagina;
+            DataTable colaboradores = productividadModelo.ObtenerProductividadColaboradoresResumenPagina(dias,
+                pagina, ucPaginadorColaboradores.TamanoPagina, out total);
+            ucPaginadorColaboradores.Configurar(total, false);
+            if (pagina != ucPaginadorColaboradores.Inicio / ucPaginadorColaboradores.TamanoPagina)
+            {
+                CargarColaboradores(dias);
+                return;
+            }
             UCProductividadColaborador[] controles = new UCProductividadColaborador[] { colaborador1, colaborador2, colaborador3, colaborador4, colaborador5, colaborador6 };
 
             foreach (UCProductividadColaborador control in controles)
@@ -126,7 +148,16 @@ namespace Vista
 
         private void CargarProyectos()
         {
-            DataTable proyectos = proyectoModelo.ObtenerAvancesProyectos();
+            int total;
+            int pagina = ucPaginadorProyectos.Inicio / ucPaginadorProyectos.TamanoPagina;
+            DataTable proyectos = proyectoModelo.ObtenerAvancesProyectosResumenPagina(pagina,
+                ucPaginadorProyectos.TamanoPagina, out total);
+            ucPaginadorProyectos.Configurar(total, false);
+            if (pagina != ucPaginadorProyectos.Inicio / ucPaginadorProyectos.TamanoPagina)
+            {
+                CargarProyectos();
+                return;
+            }
             UCProductividadProyecto[] controles = new UCProductividadProyecto[] { productividadProyecto1, productividadProyecto2, productividadProyecto3 };
 
             foreach (UCProductividadProyecto control in controles)

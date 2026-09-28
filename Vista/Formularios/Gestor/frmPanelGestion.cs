@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using Modelo.Modelo.Infraestructura;
 
 using Modelo.Modelo.Entidades;
 
@@ -20,9 +21,7 @@ namespace Vista
 
         public int IdTareaSeleccionada { get; set; }
         private Proyecto proyectoModelo;
-        private ResumenProyecto resumenProyecto;
         private TableroTarea tableroTarea;
-        private IndicadorTarea indicadorTarea;
         private Avance avanceModelo;
         private bool primeraActivacion = true;
 
@@ -35,10 +34,12 @@ namespace Vista
             this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
             lblFecha.Text = System.DateTime.Today.ToString("dd/MM/yyyy");
             proyectoModelo = new Proyecto();
-            resumenProyecto = new ResumenProyecto();
             tableroTarea = new TableroTarea();
-            indicadorTarea = new IndicadorTarea();
             avanceModelo = new Avance();
+            ucPaginadorCriticos.PaginaCambiada += ucPaginadorCriticos_PaginaCambiada;
+            ucPaginadorAvance.PaginaCambiada += ucPaginadorAvance_PaginaCambiada;
+            ucPaginadorAlertas.PaginaCambiada += ucPaginadorAlertas_PaginaCambiada;
+            ucPaginadorRecientes.PaginaCambiada += ucPaginadorRecientes_PaginaCambiada;
         }
 
         private void btnProductividad_Click(object sender, EventArgs e)
@@ -74,28 +75,41 @@ namespace Vista
 
         private void CargarPanel()
         {
-            DataTable avancesProyectos = proyectoModelo.ObtenerAvancesProyectos();
-            DataTable resumenTareas = tableroTarea.ObtenerResumenTareasVencidas();
-            DataTable proyectosConAlerta = proyectoModelo.ObtenerProyectosConAlerta();
-            proyectosConAlerta = indicadorTarea.AgregarTareasVencidas(proyectosConAlerta);
-            DataTable tareasResponsableInactivo = tableroTarea.ObtenerTareasConResponsableInactivo();
-            DataTable avancesRecientes = avanceModelo.ObtenerAvancesRecientes(8);
+            if (Sesion.UsuarioActual == null)
+            {
+                return;
+            }
 
-            cargarTarjetas(avancesProyectos, resumenTareas);
-            cargarProyectosCriticos(proyectosConAlerta, avancesProyectos);
-            cargarAvancePorProyecto(avancesProyectos);
-            cargarAlertasGestion(proyectosConAlerta, tareasResponsableInactivo);
-            cargarAvancesRecientes(avancesRecientes);
+            DataTable resumenProyectos = proyectoModelo.ObtenerResumenDashboard();
+            DataTable resumenTareas = tableroTarea.ObtenerResumenTareasVencidas();
+
+            ucPaginadorCriticos.Configurar(0, true);
+            ucPaginadorAvance.Configurar(0, true);
+            ucPaginadorAlertas.Configurar(0, true);
+            ucPaginadorRecientes.Configurar(0, true);
+            cargarTarjetas(resumenProyectos, resumenTareas);
+            cargarProyectosCriticos();
+            cargarAvancePorProyecto();
+            cargarAlertasGestion();
+            cargarAvancesRecientes();
         }
 
-        private void cargarProyectosCriticos(DataTable proyectos, DataTable avancesProyectos)
+        private DataTable cargarProyectosCriticos()
         {
             flpProyectosCriticos.Controls.Clear();
+            int total;
+            int pagina = ucPaginadorCriticos.Inicio / UCPaginadorTarjetas.RegistrosPorPagina;
+            DataTable proyectos = proyectoModelo.ObtenerProyectosConAlertaPagina(pagina, out total);
+            ucPaginadorCriticos.Configurar(total, false);
+            if (pagina != ucPaginadorCriticos.Inicio / UCPaginadorTarjetas.RegistrosPorPagina)
+            {
+                return cargarProyectosCriticos();
+            }
 
             foreach (DataRow filaProyecto in proyectos.Rows)
             {
                 int idProyecto = Convert.ToInt32(filaProyecto["IdProyecto"]);
-                decimal avanceReal = resumenProyecto.BuscarAvanceReal(avancesProyectos, idProyecto);
+                decimal avanceReal = Convert.ToDecimal(filaProyecto["AvanceReal"]);
                 int tareasVencidas = Convert.ToInt32(filaProyecto["TareasVencidas"]);
                 UCProyectoCritico nuevoProyecto = new UCProyectoCritico();
 
@@ -108,13 +122,30 @@ namespace Vista
                 nuevoProyecto.VerSolicitado += proyectoCritico_VerSolicitado;
                 flpProyectosCriticos.Controls.Add(nuevoProyecto);
             }
+            return proyectos;
         }
 
-        private void cargarTarjetas(DataTable avancesProyectos, DataTable resumenTareas)
+        private void ucPaginadorCriticos_PaginaCambiada(object sender, EventArgs e)
         {
-            int proyectosActivos = resumenProyecto.ContarProyectosActivos(avancesProyectos);
-            int proyectosAtrasados = resumenProyecto.ContarProyectosAtrasados(avancesProyectos);
-            decimal avancePromedio = resumenProyecto.CalcularAvancePromedio(avancesProyectos);
+            cargarProyectosCriticos();
+        }
+
+        private void ucPaginadorAvance_PaginaCambiada(object sender, EventArgs e)
+        {
+            cargarAvancePorProyecto();
+        }
+
+        private void cargarTarjetas(DataTable resumenProyectos, DataTable resumenTareas)
+        {
+            int proyectosActivos = 0;
+            int proyectosAtrasados = 0;
+            decimal avancePromedio = 0;
+            if (resumenProyectos.Rows.Count > 0)
+            {
+                proyectosActivos = Convert.ToInt32(resumenProyectos.Rows[0]["ProyectosActivos"]);
+                proyectosAtrasados = Convert.ToInt32(resumenProyectos.Rows[0]["ProyectosAtrasados"]);
+                avancePromedio = Convert.ToDecimal(resumenProyectos.Rows[0]["AvancePromedio"]);
+            }
             int tareasVencidas = 0;
             int proyectosAfectados = 0;
 
@@ -134,81 +165,81 @@ namespace Vista
             tarjeta4.Detalle = "Avance promedio";
         }
 
-        private void cargarAlertasGestion(DataTable proyectos, DataTable tareas)
+        private void ucPaginadorAlertas_PaginaCambiada(object sender, EventArgs e)
+        {
+            cargarAlertasGestion();
+        }
+
+        private void cargarAlertasGestion()
         {
             flpAlertas.Controls.Clear();
-            int cantidadAlertas = 0;
-
-            foreach (DataRow filaProyecto in proyectos.Rows)
+            int total;
+            int pagina = ucPaginadorAlertas.Inicio / ucPaginadorAlertas.TamanoPagina;
+            DataTable alertas = tableroTarea.ObtenerAlertasGestionPagina(pagina,
+                ucPaginadorAlertas.TamanoPagina, out total);
+            ucPaginadorAlertas.Configurar(total, false);
+            if (pagina != ucPaginadorAlertas.Inicio / ucPaginadorAlertas.TamanoPagina)
             {
-                if (cantidadAlertas == 5)
-                {
-                    break;
-                }
-
-                string nombreProyecto = filaProyecto["Proyecto"].ToString();
-                string estadoProyecto = filaProyecto["Estado"].ToString();
-                DateTime fechaCierre = Convert.ToDateTime(filaProyecto["FechaCierreEstimada"]);
-                int tareasVencidas = Convert.ToInt32(filaProyecto["TareasVencidas"]);
-                UCAlertaGestion nuevaAlerta = new UCAlertaGestion();
-
-                if (estadoProyecto == "Crítico")
-                {
-                    nuevaAlerta.Titulo = "Proyecto crítico";
-                    nuevaAlerta.TipoAlerta = "Crítica";
-                }
-                else
-                {
-                    nuevaAlerta.Titulo = "Proyecto en observación";
-                    nuevaAlerta.TipoAlerta = "Advertencia";
-                }
-
-                if (tareasVencidas > 0)
-                {
-                    nuevaAlerta.Detalle = $"{nombreProyecto} tiene {tareasVencidas} tareas vencidas.";
-                }
-                else
-                {
-                    nuevaAlerta.Detalle = $"{nombreProyecto} superó su fecha estimada de cierre.";
-                }
-
-                nuevaAlerta.IdProyecto = Convert.ToInt32(filaProyecto["IdProyecto"]);
-                nuevaAlerta.IdTarea = 0;
-                nuevaAlerta.Fecha = "Cierre: " + fechaCierre.ToString("dd/MM/yyyy");
-                nuevaAlerta.TextoBoton = "Ver proyecto";
-                nuevaAlerta.AccionSolicitada += alertaGestion_AccionSolicitada;
-                flpAlertas.Controls.Add(nuevaAlerta);
-                cantidadAlertas = cantidadAlertas + 1;
+                cargarAlertasGestion();
+                return;
             }
-
-            foreach (DataRow filaTarea in tareas.Rows)
+            foreach (DataRow fila in alertas.Rows)
             {
-                if (cantidadAlertas == 5)
+                UCAlertaGestion alerta = new UCAlertaGestion();
+                int idProyecto = Convert.ToInt32(fila["IdProyecto"]);
+                int idTarea = Convert.ToInt32(fila["IdTarea"]);
+                alerta.IdProyecto = idProyecto;
+                alerta.IdTarea = idTarea;
+                if (idProyecto > 0)
                 {
-                    break;
+                    string estado = fila["Categoria"].ToString();
+                    if (estado == "Crítico")
+                    {
+                        alerta.Titulo = "Proyecto crítico";
+                        alerta.TipoAlerta = "Crítica";
+                    }
+                    else
+                    {
+                        alerta.Titulo = "Proyecto en observación";
+                        alerta.TipoAlerta = "Advertencia";
+                    }
+                    int vencidas = Convert.ToInt32(fila["TareasVencidas"]);
+                    if (vencidas > 0)
+                    {
+                        alerta.Detalle = fila["Nombre"] + " tiene " + vencidas + " tareas vencidas.";
+                    }
+                    else
+                    {
+                        alerta.Detalle = fila["Nombre"] + " superó su fecha estimada de cierre.";
+                    }
+                    alerta.Fecha = "Cierre: " + Convert.ToDateTime(fila["Fecha"]).ToString("dd/MM/yyyy");
+                    alerta.TextoBoton = "Ver proyecto";
                 }
-
-                string nombreTarea = filaTarea["Tarea"].ToString();
-                string responsable = filaTarea["Responsable"].ToString();
-                DateTime fechaLimite = Convert.ToDateTime(filaTarea["FechaLimite"]);
-                UCAlertaGestion nuevaAlerta = new UCAlertaGestion();
-
-                nuevaAlerta.IdProyecto = 0;
-                nuevaAlerta.IdTarea = Convert.ToInt32(filaTarea["IdTarea"]);
-                nuevaAlerta.Titulo = "Responsable inactivo";
-                nuevaAlerta.Detalle = $"La tarea {nombreTarea} está asignada a {responsable}.";
-                nuevaAlerta.Fecha = "Vence: " + fechaLimite.ToString("dd/MM/yyyy");
-                nuevaAlerta.TextoBoton = "Ver tarea";
-                nuevaAlerta.TipoAlerta = "Advertencia";
-                nuevaAlerta.AccionSolicitada += alertaGestion_AccionSolicitada;
-                flpAlertas.Controls.Add(nuevaAlerta);
-                cantidadAlertas = cantidadAlertas + 1;
+                else
+                {
+                    alerta.Titulo = "Responsable inactivo";
+                    alerta.TipoAlerta = "Advertencia";
+                    alerta.Detalle = "La tarea " + fila["Nombre"] + " está asignada a " + fila["Responsable"] + ".";
+                    alerta.Fecha = "Vence: " + Convert.ToDateTime(fila["Fecha"]).ToString("dd/MM/yyyy");
+                    alerta.TextoBoton = "Ver tarea";
+                }
+                alerta.AccionSolicitada += alertaGestion_AccionSolicitada;
+                flpAlertas.Controls.Add(alerta);
             }
         }
 
-        private void cargarAvancePorProyecto(DataTable proyectos)
+        private void cargarAvancePorProyecto()
         {
             flpBarrasProyecto.Controls.Clear();
+            int total;
+            int pagina = ucPaginadorAvance.Inicio / UCPaginadorTarjetas.RegistrosPorPagina;
+            DataTable proyectos = proyectoModelo.ObtenerAvancesProyectosPagina(pagina, out total);
+            ucPaginadorAvance.Configurar(total, false);
+            if (pagina != ucPaginadorAvance.Inicio / UCPaginadorTarjetas.RegistrosPorPagina)
+            {
+                cargarAvancePorProyecto();
+                return;
+            }
 
             foreach (DataRow filaProyecto in proyectos.Rows)
             {
@@ -237,9 +268,24 @@ namespace Vista
             }
         }
 
-        private void cargarAvancesRecientes(DataTable avances)
+        private void ucPaginadorRecientes_PaginaCambiada(object sender, EventArgs e)
+        {
+            cargarAvancesRecientes();
+        }
+
+        private void cargarAvancesRecientes()
         {
             flpAvancesRecientes.Controls.Clear();
+            int total;
+            int pagina = ucPaginadorRecientes.Inicio / ucPaginadorRecientes.TamanoPagina;
+            DataTable avances = avanceModelo.ObtenerAvancesRecientesPagina(
+                Sesion.UsuarioActual.IdUsuario, pagina, ucPaginadorRecientes.TamanoPagina, out total);
+            ucPaginadorRecientes.Configurar(total, false);
+            if (pagina != ucPaginadorRecientes.Inicio / ucPaginadorRecientes.TamanoPagina)
+            {
+                cargarAvancesRecientes();
+                return;
+            }
 
             foreach (DataRow filaAvance in avances.Rows)
             {
@@ -248,16 +294,34 @@ namespace Vista
                 int porcentaje = Convert.ToInt32(filaAvance["Porcentaje"]);
                 UCAvanceReciente nuevoAvance = new UCAvanceReciente();
 
+                nuevoAvance.IdTarea = Convert.ToInt32(filaAvance["IdTarea"]);
                 nuevoAvance.Nombre = nombreUsuario;
                 nuevoAvance.Tarea = nombreTarea;
                 nuevoAvance.Porcentaje = porcentaje;
+                nuevoAvance.ConfigurarAyuda(toolTipAyuda);
+                nuevoAvance.VerSolicitado += avanceReciente_VerSolicitado;
                 flpAvancesRecientes.Controls.Add(nuevoAvance);
+                nuevoAvance.SendToBack();
             }
         }
 
-        private void frmPanelGestion_Shown(object sender, EventArgs e)
+        private void avanceReciente_VerSolicitado(object sender, EventArgs e)
         {
-            CargarPanel();
+            UCAvanceReciente avance;
+
+            avance = sender as UCAvanceReciente;
+
+            if (avance == null || avance.IdTarea <= 0)
+            {
+                return;
+            }
+
+            IdTareaSeleccionada = avance.IdTarea;
+
+            if (DetalleTareaSolicitada != null)
+            {
+                DetalleTareaSolicitada(this, EventArgs.Empty);
+            }
         }
 
         private void proyectoCritico_VerSolicitado(object sender, EventArgs e)

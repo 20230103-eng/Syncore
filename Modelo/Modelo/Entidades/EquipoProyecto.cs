@@ -161,6 +161,61 @@ namespace Modelo.Modelo.Entidades
             return equipo;
         }
 
+        public DataTable ObtenerEquipoProyectoPagina(int idProyecto, int pagina, out int total)
+        {
+            string consulta = @"
+                SELECT ep.IdEquipo, ep.IdRolProyecto, u.IdUsuario,
+                    u.NombreCompleto, ISNULL(a.Nombre, N'Sin área') AS Area,
+                    rol.Nombre AS RolProyecto,
+                    ISNULL(tareas.Asignadas, 0) AS TareasAsignadas,
+                    ISNULL(tareas.Completadas, 0) AS TareasCompletadas,
+                    ISNULL(tareas.Vencidas, 0) AS TareasVencidas,
+                    COUNT(*) OVER() AS TotalRegistros
+                FROM tbEquipoProyecto ep
+                INNER JOIN tbUsuario u ON ep.IdUsuario = u.IdUsuario
+                INNER JOIN tbRolProyecto rol ON ep.IdRolProyecto = rol.IdRolProyecto
+                LEFT JOIN tbArea a ON u.IdArea = a.IdArea
+                OUTER APPLY
+                (
+                    SELECT COUNT(*) AS Asignadas,
+                        COUNT(CASE WHEN estado.Nombre = N'Completada' THEN 1 END) AS Completadas,
+                        COUNT(CASE WHEN estado.Nombre = N'Vencida' THEN 1 END) AS Vencidas
+                    FROM tbTarea t
+                    INNER JOIN tbEstadoTarea estado ON estado.IdEstadoTarea = t.IdEstadoTarea
+                    WHERE t.IdProyecto = ep.IdProyecto AND t.IdResponsable = ep.IdUsuario
+                ) tareas
+                WHERE ep.IdProyecto = @IdProyecto AND ep.Activo = 1 AND u.Activo = 1
+                ORDER BY u.NombreCompleto, ep.IdEquipo
+                OFFSET @Inicio ROWS FETCH NEXT 20 ROWS ONLY";
+            SqlParameter[] parametros = { new SqlParameter("@IdProyecto", idProyecto) };
+            return conexion.EjecutarPagina(consulta, parametros, pagina, out total);
+        }
+
+        public DataTable ObtenerUsuariosDisponiblesPagina(int idProyecto, string texto, int pagina, out int total)
+        {
+            string consulta = @"
+                SELECT u.IdUsuario, u.NombreUsuario, u.NombreCompleto,
+                    COUNT(*) OVER() AS TotalRegistros
+                FROM tbUsuario u
+                WHERE u.Activo = 1
+                    AND NOT EXISTS
+                    (
+                        SELECT 1 FROM tbEquipoProyecto ep
+                        WHERE ep.IdProyecto = @IdProyecto AND ep.IdUsuario = u.IdUsuario
+                        AND ep.Activo = 1
+                    )
+                    AND (@Texto = N'' OR u.NombreUsuario LIKE N'%' + @Texto + N'%'
+                        OR u.NombreCompleto LIKE N'%' + @Texto + N'%')
+                ORDER BY u.NombreCompleto, u.IdUsuario
+                OFFSET @Inicio ROWS FETCH NEXT 20 ROWS ONLY";
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@IdProyecto", idProyecto),
+                new SqlParameter("@Texto", texto)
+            };
+            return conexion.EjecutarPagina(consulta, parametros, pagina, out total);
+        }
+
         public DataTable ObtenerColaboradoresProyecto(int idProyecto)
         {
             string query;

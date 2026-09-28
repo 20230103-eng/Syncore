@@ -283,5 +283,19 @@ namespace Modelo.Modelo.Entidades
 
             return cantidad;
         }
+        public DataTable ObtenerEvidenciasTareaPagina(int idTarea, int pagina, int tamanoPagina, out int total)
+        {
+            string consulta = @"
+                SELECT e.IdEvidencia, e.NombreArchivo, e.RutaArchivo, e.TipoArchivo,
+                    e.FechaSubida, COUNT(*) OVER() AS TotalRegistros
+                FROM tbEvidencia e
+                INNER JOIN tbAvance a ON a.IdAvance = e.IdAvance
+                WHERE a.IdTarea = @IdTarea
+                ORDER BY e.IdEvidencia DESC
+                OFFSET @Inicio ROWS FETCH NEXT @Tamano ROWS ONLY";
+            SqlParameter[] parametros = { new SqlParameter("@IdTarea", idTarea) };
+            return new Conexion().EjecutarPaginaTamano(consulta, parametros, pagina, tamanoPagina, out total);
+        }
+
     }
 }
