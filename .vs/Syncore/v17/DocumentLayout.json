@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{911126E2-FF66-4F41-BBB8-D07B42359408}|Modelo\\Modelo.csproj|c:\\users\\marco\\onedrive\\escritorio\\syncore\\modelo\\modelo\\infraestructura\\archivosseguros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{911126E2-FF66-4F41-BBB8-D07B42359408}|Modelo\\Modelo.csproj|solutionrelative:modelo\\modelo\\infraestructura\\archivosseguros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55A99C7B-D26B-4E4F-A0D4-301795992F6C}|Vista\\Vista.csproj|c:\\users\\marco\\onedrive\\escritorio\\syncore\\vista\\formularios\\gestor\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55A99C7B-D26B-4E4F-A0D4-301795992F6C}|Vista\\Vista.csproj|solutionrelative:vista\\formularios\\gestor\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55A99C7B-D26B-4E4F-A0D4-301795992F6C}|Vista\\Vista.csproj|c:\\users\\marco\\onedrive\\escritorio\\syncore\\vista\\formularios\\gestor\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{55A99C7B-D26B-4E4F-A0D4-301795992F6C}|Vista\\Vista.csproj|solutionrelative:vista\\formularios\\gestor\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{911126E2-FF66-4F41-BBB8-D07B42359408}|Modelo\\Modelo.csproj|c:\\users\\marco\\onedrive\\escritorio\\syncore\\modelo\\modelo\\infraestructura\\exportadorexcel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{911126E2-FF66-4F41-BBB8-D07B42359408}|Modelo\\Modelo.csproj|solutionrelative:modelo\\modelo\\infraestructura\\exportadorexcel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -35,6 +47,44 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ArchivosSeguros.cs",
+              "DocumentMoniker": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Modelo\\Modelo\\Infraestructura\\ArchivosSeguros.cs",
+              "RelativeDocumentMoniker": "Modelo\\Modelo\\Infraestructura\\ArchivosSeguros.cs",
+              "ToolTip": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Modelo\\Modelo\\Infraestructura\\ArchivosSeguros.cs",
+              "RelativeToolTip": "Modelo\\Modelo\\Infraestructura\\ArchivosSeguros.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAACGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-28T06:16:44.796Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmPrincipal.cs",
+              "DocumentMoniker": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Vista\\Formularios\\Gestor\\frmPrincipal.cs",
+              "RelativeDocumentMoniker": "Vista\\Formularios\\Gestor\\frmPrincipal.cs",
+              "ToolTip": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Vista\\Formularios\\Gestor\\frmPrincipal.cs",
+              "RelativeToolTip": "Vista\\Formularios\\Gestor\\frmPrincipal.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-28T06:16:31.333Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "frmPrincipal.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Vista\\Formularios\\Gestor\\frmPrincipal.cs",
+              "RelativeDocumentMoniker": "Vista\\Formularios\\Gestor\\frmPrincipal.cs",
+              "ToolTip": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Vista\\Formularios\\Gestor\\frmPrincipal.cs [Dise\u00F1o]",
+              "RelativeToolTip": "Vista\\Formularios\\Gestor\\frmPrincipal.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-28T06:16:28.842Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "ExportadorExcel.cs",
               "DocumentMoniker": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Modelo\\Modelo\\Infraestructura\\ExportadorExcel.cs",
               "RelativeDocumentMoniker": "Modelo\\Modelo\\Infraestructura\\ExportadorExcel.cs",
@@ -47,7 +97,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "ReglasNegocio.cs",
               "DocumentMoniker": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Modelo\\Modelo\\ReglasNegocio.cs",
               "RelativeDocumentMoniker": "Modelo\\Modelo\\ReglasNegocio.cs",
@@ -59,7 +109,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "frmRevisionTareas.cs",
               "DocumentMoniker": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Vista\\Formularios\\Gestor\\frmRevisionTareas.cs",
               "RelativeDocumentMoniker": "Vista\\Formularios\\Gestor\\frmRevisionTareas.cs",
@@ -71,7 +121,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "frmRevisionTareas.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Vista\\Formularios\\Gestor\\frmRevisionTareas.cs",
               "RelativeDocumentMoniker": "Vista\\Formularios\\Gestor\\frmRevisionTareas.cs",
@@ -82,7 +132,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "frmDetalleTareaColaborador.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\marco\\OneDrive\\Escritorio\\Syncore\\Vista\\Formularios\\Colaborador\\frmDetalleTareaColaborador.cs",
               "RelativeDocumentMoniker": "Vista\\Formularios\\Colaborador\\frmDetalleTareaColaborador.cs",

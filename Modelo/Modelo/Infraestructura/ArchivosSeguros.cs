@@ -9,7 +9,7 @@ namespace Modelo.Modelo.Infraestructura
 {
     public static class ArchivosSeguros
     {
-        public static string EnlaceManualUsuario = "";
+        public static string EnlaceManualUsuario = "https://drive.google.com/file/d/1ixbYhtlWgLX0gxpWu3BRoicGN-3rLLp1/view?usp=sharing";
 
         public static byte[] LeerBytes(string ruta)
         {
